@@ -7,15 +7,14 @@ package proactive_travel;
 
 import java.util.*;
 
-public class Activitat {
+public class Client {
     /** @pre: --
-        @post: Es crea una activitat de nom “n” i preferències “prefs” */
-    Activitat(String n, Vector<Preferencia> prefs){
+        @post: Es crea un client amb nom “n” i preferències “prefs” */
+    Client(String n, Vector<Preferencia> prefs){
         
     }
-    
     /** @pre: --
-        @post: Retorna un iterador a les preferències de l’activitat */
+        @post: Retorna un iterador a les preferències del client */
     Iterator<Preferencia> obtenirPreferencies(){
         
     }
