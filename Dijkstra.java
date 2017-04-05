@@ -69,7 +69,7 @@ Ruta Dijkstra(Mapa mundi, PuntInteres origen, PuntInteres desti){
             pilaRuta.addFirst(origen);
             Ruta cami= new Ruta();
             for(PuntInteres punt: pilaRuta){
-                
+                //Tractar
             }
             pilaRuta.clear();
             return cami;
