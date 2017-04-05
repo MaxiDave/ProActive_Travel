@@ -12,33 +12,34 @@ Ruta Dijkstra(Mapa mundi, PuntInteres origen, PuntInteres desti){
 		//Tractar excepció Origen igual a Desti
 	}
 	else{
-		int nPunts= mundi.nPuntsInteres();
-		Vector<Double> temps= new Vector<Double>(); temps.setSize(nPunts+1);
-		Vector<PuntInteres> pred= new Vector<PuntInteres>(); pred.setSize(nPunts+1);
-		Vector<Boolean> visitat= new Vector<Boolean>(); visitat.setSize(nPunts+1);
+            int nPunts= mundi.nPuntsInteres();
+            Vector<Double> temps= new Vector<Double>(); temps.setSize(nPunts+1);
+            Vector<PuntInteres> pred= new Vector<PuntInteres>(); pred.setSize(nPunts+1);
+            Vector<Boolean> visitat= new Vector<Boolean>(); visitat.setSize(nPunts+1);
+            Vector<Desplaçament> despl= new Vector<Desplaçament>; despl.setSize(nPunts+1);
 
-		for(int i=1; i <= nV; i++){
-            temps.add(i, -1.0);
-            pred.add(i, origen);
-            visitat.add(i, false);
-        }
-        temps.set(origen.obtenirCodi(), 0.0);
+            for(int i=1; i <= nV; i++){
+                temps.add(i, -1.0);
+                pred.add(i, origen);
+                visitat.add(i, false);
+            }
+            temps.set(origen.obtenirCodi(), 0.0);
 
-        Deque<PuntInteres> cua= new ArrayDeque<PuntInteres>();
-        cua.addLast(origen);
+            Deque<PuntInteres> cua= new ArrayDeque<PuntInteres>();
+            cua.addLast(origen);
 
-        while(!cua.isEmpty() && !visitat.get(desti.obtenirCodi())){
-            PuntInteres puntMinCua= NULL; 
-            double tempsMin= 0;
+            while(!cua.isEmpty() && !visitat.get(desti.obtenirCodi())){
+                PuntInteres puntMinCua= NULL; 
+                double tempsMin= 0;
             
-            for(PuntInteres puntI : cua){
-                if(puntMinCua == NULL){
-                	puntMinCua= new PuntInteres();
+                for(PuntInteres puntI : cua){
+                    if(puntMinCua == NULL){
+                        puntMinCua= new PuntInteres();
                 	puntMinCua= puntI;
-                } 
-                else if(temps.get(puntI.obtenirCodi()) < temps.get(puntMinCua.obtenirCodi())){
-                    puntMinCua= puntI;
-                }
+                    } 
+                    else if(temps.get(puntI.obtenirCodi()) < temps.get(puntMinCua.obtenirCodi())){
+                        puntMinCua= puntI;
+                    }
             }
 
             cua.remove(puntMinCua);
@@ -53,6 +54,7 @@ Ruta Dijkstra(Mapa mundi, PuntInteres origen, PuntInteres desti){
                 if((!visitat.get(codiPunt)) && ((temps.get(codiPunt) == -1) || (temps.get(codiPunt) > temps.get(puntMinCua.obtenirCodi())+tempsDesp))){
                     temps.set(codiPunt, temps.get(puntMinCua.obtenirCodi())+tempsDesp);
                     pred.set(codiPunt, puntMinCua);
+                    despl.set(codiPunt, desp);
                     cua.addLast(dest);
                 }
             }
@@ -68,9 +70,25 @@ Ruta Dijkstra(Mapa mundi, PuntInteres origen, PuntInteres desti){
             }
             pilaRuta.addFirst(origen);
             Ruta cami= new Ruta();
-            for(PuntInteres punt: pilaRuta){
-                //Tractar
-            }
+
+	    PuntInteres a = pilaRuta.removeFirst();
+	    PuntInteres b = pilaRuta.removeFirst();
+	    if(pilaRuta != null){
+		    while(pilaRuta.peekFirst()!=null){
+			Integer codib = b.obtenirCodi();
+			Integer desplb = despl[codib];
+			Trajecte t(a,b,desplb);
+			cami.afegeixTrajecte(t);
+			a=b;
+			b=pilaRuta.removeFirst();
+		    }
+	    }
+	    else{
+		Integer codib = b.obtenirCodi();
+		Integer desplb = despl[codib];
+		Trajecte t(a,b,desplb);
+		cami.afegeixTrajecte(t);
+	    }
             pilaRuta.clear();
             return cami;
         }
