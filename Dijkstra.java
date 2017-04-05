@@ -16,7 +16,7 @@ Ruta Dijkstra(Mapa mundi, PuntInteres origen, PuntInteres desti){
             Vector<Double> temps= new Vector<Double>(); temps.setSize(nPunts+1);
             Vector<PuntInteres> pred= new Vector<PuntInteres>(); pred.setSize(nPunts+1);
             Vector<Boolean> visitat= new Vector<Boolean>(); visitat.setSize(nPunts+1);
-            Vector<Desplaçament> despl= new Vector<Desplaçament>; despl.setSize(nPunts+1);
+            Vector<Trajecte> traj= new Vector<Trajecte>; traj.setSize(nPunts+1);
 
             for(int i=1; i <= nV; i++){
                 temps.add(i, -1.0);
@@ -45,16 +45,16 @@ Ruta Dijkstra(Mapa mundi, PuntInteres origen, PuntInteres desti){
             cua.remove(puntMinCua);
             
             visitat.set(puntMinCua.obtenirCodi(), true);
-            Map<PuntInteres, Desplaçament> veinsTemps= mundi.obtenirDesplsMin(puntMinCua, "temps");
-            for(Map.Entry<PuntInteres, Desplaçament> puntTemps: veinsTemps.entrySet()){
+            Map<PuntInteres, Trajecte> veinsTemps= mundi.obtenirDesplsMin(puntMinCua, "temps");
+            for(Map.Entry<PuntInteres, Trajecte> puntTemps: veinsTemps.entrySet()){
                 PuntInteres dest= puntTemps.getKey();
-                Desplaçament desp= puntTemps.getValue();
-                Double tempsDesp= desp.obtenirDurada();
+                Trajecte desp= puntTemps.getValue();
+                Double tempsDesp= desp.getDurada();
                 Integer codiPunt= dest.obtenirCodi();
                 if((!visitat.get(codiPunt)) && ((temps.get(codiPunt) == -1) || (temps.get(codiPunt) > temps.get(puntMinCua.obtenirCodi())+tempsDesp))){
                     temps.set(codiPunt, temps.get(puntMinCua.obtenirCodi())+tempsDesp);
                     pred.set(codiPunt, puntMinCua);
-                    despl.set(codiPunt, desp);
+                    traj.set(codiPunt, desp);
                     cua.addLast(dest);
                 }
             }
@@ -71,24 +71,21 @@ Ruta Dijkstra(Mapa mundi, PuntInteres origen, PuntInteres desti){
             pilaRuta.addFirst(origen);
             Ruta cami= new Ruta();
 
-	    PuntInteres a = pilaRuta.removeFirst();
-	    PuntInteres b = pilaRuta.removeFirst();
-	    if(pilaRuta != null){
-		    while(pilaRuta.peekFirst()!=null){
-			Integer codib = b.obtenirCodi();
-			Integer desplb = despl[codib];
-			Trajecte t(a,b,desplb);
-			cami.afegeixTrajecte(t);
-			a=b;
-			b=pilaRuta.removeFirst();
-		    }
-	    }
-	    else{
-		Integer codib = b.obtenirCodi();
-		Integer desplb = despl[codib];
-		Trajecte t(a,b,desplb);
-		cami.afegeixTrajecte(t);
-	    }
+		    PuntInteres ant= pilaRuta.removeFirst();
+		    PuntInteres act= pilaRuta.removeFirst();
+		    if(pilaRuta != null){
+			    while(pilaRuta.peekFirst()!=null){
+				Integer codiAct= act.obtenirCodi();
+				Trajecte t= traj.get(codiAct);
+				cami.afegeixTrajecte(t);
+				ant=act;
+				act=pilaRuta.removeFirst();
+			}
+	    	else{
+				Integer codiAct= act.obtenirCodi();
+				Trajecte t= traj.get(codiAct);
+				cami.afegeixTrajecte(t);
+	    	}
             pilaRuta.clear();
             return cami;
         }
