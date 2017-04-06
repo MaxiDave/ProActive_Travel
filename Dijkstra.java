@@ -1,12 +1,13 @@
 //Algorisme Trobar camí mínim (en temps) entre dos punts d'interès
 //© MaxiDave, TheMasterBoss
-//Versió: 1.0
+//Versió: 1.1
 
-//FALTA: Acabar de quadrar com generarem les rutes (Problema trajectes/desplaçaments intermitjos)
-
-Ruta Dijkstra(Mapa mundi, PuntInteres origen, PuntInteres desti){
+Ruta camiMinim(Mapa mundi, PuntInteres origen, PuntInteres desti){
+	//Pre: --
+	//Post: Retorna una Ruta amb el camí més curt en temps entre origen i destí. 
+	//		Si no hi ha camí, retorna una Ruta buida
 	if(!mundi.existeixPuntInteres(origen) && !mundi.existeixPuntInteres(desti)){
-		//Tractar excepció Puunt Interès inexistent
+		//Tractar excepció Punt Interès inexistent
 	}
 	else if(origen==desti){
 		//Tractar excepció Origen igual a Desti
@@ -59,8 +60,10 @@ Ruta Dijkstra(Mapa mundi, PuntInteres origen, PuntInteres desti){
                 }
             }
         }
-
         cua.clear();
+
+        Ruta cami= new Ruta();
+
         if(visitat.get(desti.obtenirCodi())){
             PuntInteres puntAct= desti;
             Deque<PuntInteres> pilaRuta= new ArrayDeque<PuntInteres>();
@@ -69,7 +72,6 @@ Ruta Dijkstra(Mapa mundi, PuntInteres origen, PuntInteres desti){
                 puntAct= pred.get(puntAct.obtenirCodi());
             }
             pilaRuta.addFirst(origen);
-            Ruta cami= new Ruta();
 
 		    PuntInteres ant= pilaRuta.removeFirst();
 		    PuntInteres act= pilaRuta.removeFirst();
@@ -77,20 +79,17 @@ Ruta Dijkstra(Mapa mundi, PuntInteres origen, PuntInteres desti){
 			    while(pilaRuta.peekFirst()!=null){
 				Integer codiAct= act.obtenirCodi();
 				Trajecte t= traj.get(codiAct);
-				cami.afegeixTrajecte(t);
+				cami.afegeixSubtrajecte(t);
 				ant=act;
 				act=pilaRuta.removeFirst();
 			}
 	    	else{
 				Integer codiAct= act.obtenirCodi();
 				Trajecte t= traj.get(codiAct);
-				cami.afegeixTrajecte(t);
+				cami.afegeixSubtrajecte(t);
 	    	}
             pilaRuta.clear();
-            return cami;
         }
-        else{
-        	//Tractar excepció camí no trobat
-        }
+        return cami;
 	}
 }
