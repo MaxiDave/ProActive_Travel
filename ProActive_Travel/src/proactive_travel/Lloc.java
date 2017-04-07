@@ -44,21 +44,14 @@ public class Lloc {
     
     /** @pre: --
         @post: Afegeix el punt d'interès "pI" als punts d'interès del lloc */
-    Duration obtenirTempsVisita(){
-        
+    void afegirPuntInteres(PuntInteres pI){
+        punts.add(pI);
     }
     
-    /** @pre: Lloc visitable
-        @post: Retorna cert si el lloc visitable està obert en un determinat moment “act” (java.time) */
-    Boolean estaObert(Instant act){
-        
-    }
-    
-    
-    /** @pre: Lloc allotjament
-        @post: Retorna la categoria de l’allotjament (Enter que representa les estrelles, +gran +categoria) */
-    int obtenirCategoria(){
-        
+    /** @pre: --
+        @post: Retorna un iterador a les estacions associades a lloc */
+    Iterator<Estacio> obtenirEstacions(){
+        return estacions.iterator();
     }
     
     /** @pre: --
