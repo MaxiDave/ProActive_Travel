@@ -6,7 +6,6 @@
 package proactive_travel;
 
 import java.util.*;
-import java.time.*;
 
 public class Lloc {
     
@@ -52,23 +51,5 @@ public class Lloc {
         @post: Retorna un iterador a les estacions associades a lloc */
     Iterator<Estacio> obtenirEstacions(){
         return estacions.iterator();
-    }
-    
-    /** @pre: --
-        @post: Retorna el nom del lloc */
-    String obtenirNom(){
-        
-    }
-    
-    /** @pre: --
-        @post: Retorna el nom del lloc */
-    Iterator<String> obtenirNomMitjansDirectes(){
-        
-    }
-    
-    /** @pre: --
-        @post: Retorna cert si el lloc és visitable, fals altrament */
-    Boolean esVisitable(){
-        
     }
 }
