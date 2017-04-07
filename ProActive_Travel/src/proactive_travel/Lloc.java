@@ -9,34 +9,41 @@ import java.util.*;
 import java.time.*;
 
 public class Lloc {
+    
+    private final String nom;
+    private final Coordenades c;
+    private List<Estacio> estacions;
+    private List<PuntInteres> punts;
+    
     /** @pre: --
-        @post:  Es crea un lloc de nom “n”, i amb les preferències i activitats “prefs” i “acts” respectivament.
-     *          Visitable o no depenent de “vist” (Cert visitable, fals allotjament) i el preu del lloc visitable/allotjament (Per defecte 0).
-     *          En cas de ser un lloc visitable, també s’entra el temps de visita recomanat (En format Duration de java.time). */ 
-    Lloc(String n,Vector<Preferencia> prefs,Vector<Activitat> acts,boolean vist,double preu,Duration tempsV){
-        
+        @post:  Es crea un lloc de nom "n" i coordeandes "coor" */ 
+    Lloc(String n, Coordenades coor){
+        nom= n;
+        c= coor;
+        punts= new ArrayList<PuntInteres>();
+        estacions= new ArrayList<Estacio>();
     }
     
     /** @pre: --
-        @post: Retorna un iterador que apunta a les preferències del lloc */
-    Iterator<Preferencia> obtenirPreferencies(){
-        
+        @post: Retorna el nom del lloc */
+    String obtenirNom(){
+        return nom;
     }
     
     /** @pre: --
-        @post: Retorna un iterador que apunta a les activitats del lloc */
-    Iterator<Activitat> obtenirActivitats(){
-        
+        @post: Retorna les coordenades del lloc */
+    Coordenades obtenirCoordenades(){
+        return c;
     }
     
     /** @pre: --
-        @post: Retorna el preu del lloc visitable (per persona) o del allotjament (per habitació doble), depenent si és un lloc visitable o un allotjament. */
-    Double obtenirPreu(){
-        
+        @post: Afegeix l'estació "est" a la llista d'estacions del lloc*/
+    void afegirEstacio(Estacio est){
+        estacions.add(est);
     }
     
-    /** @pre: Lloc visitable
-        @post: Retorna el temps en format Duration (java.time) de visita recomanat */
+    /** @pre: --
+        @post: Afegeix el punt d'interès "pI" als punts d'interès del lloc */
     Duration obtenirTempsVisita(){
         
     }
