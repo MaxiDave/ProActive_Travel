@@ -47,4 +47,12 @@ public class PuntInteres {
     public Lloc obtenirLloc(){
         
     }
+    
+    /** @pre: --
+     *  @post: Retorna el cost. Si és gratis retorna 0
+     * @return 
+     */
+    public Double obtenirPreu(){
+        
+    }
 }

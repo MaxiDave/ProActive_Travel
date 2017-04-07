@@ -5,11 +5,12 @@
  */
 package proactive_travel;
 
+import java.util.*;
 /**
  *
  * @author roger
  */
-public class PuntVisitable {
+public class PuntVisitable extends PuntInteres {
     
     /** @pre: --
      *  @post: Es crea un punt visitable a partir de la informació del punt d’interès i el temps mitjà de visita
@@ -44,14 +45,6 @@ public class PuntVisitable {
      * @return 
      */
     public Boolean estaObert(HoraDia inst){
-        
-    }
-    
-    /** @pre: --
-     *  @post: Retorna el cost del punt visitable. Si és gratis retorna 0
-     * @return 
-     */
-    public Double obtenirPreu(){
         
     }
 }
