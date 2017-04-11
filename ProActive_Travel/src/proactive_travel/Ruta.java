@@ -50,4 +50,13 @@ public class Ruta {
     public Boolean isEmpty(){
         
     }
+    
+    /**
+     * @pre: --
+     * @post: Retorna cert si la Ruta passa per el punt d'interès "pI"
+     * @return 
+     */
+    public Boolean passaPer(PuntInteres pI){
+        
+    }
 }
