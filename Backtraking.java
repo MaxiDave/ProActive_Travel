@@ -60,3 +60,27 @@ void BacktrakingRecursiu(Mapa mundi, Ruta optima, Ruta actual, PuntInteres anter
 		}
 	}
 }
+
+Ruta BacktrakingRecursiu(Mapa mundi, PuntInteres origen, PuntInteres desti, Vector<PuntInteres> entreMitjos){
+	if(entreMitjos.isEmpty()){
+		return camiMinim(mundi, origen, desti);
+	}
+	else{
+		Ruta actual= new Ruta();
+		Ruta optima= NULL;
+		for(PuntInteres pI : entreMitjos){
+			actual= camiMinim(mundi, origen, pI);
+			if(esPotMillorar(actual, optima)){
+				actual+= BacktrakingRecursiu(mundi, pI, desti, entreMitjos);
+				if(esMillor(actual, optima)) optima= actual;
+			}
+		}
+		return optima;
+	}
+}
+
+//Falta comprovar si dins el cami minim es passa per algun entreMig
+
+//Falta actualitzar a cada crida entreMitjos
+
+
