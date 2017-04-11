@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package proactive_travel;
 
 import java.util.*;
@@ -11,7 +6,7 @@ import java.util.*;
  *
  * @author Roger
  */
-public class EntradaSortida {
+public class Entrada {
     
     /**
      * @pre: --
@@ -28,16 +23,7 @@ public class EntradaSortida {
      * @param clients
      * @return 
      */
-    public grupClients crearGrup(Collection<Client> clients){
-        
-    }
-    
-    /**
-     * @pre: --
-     * @post: Mostra la Ruta “resultat” per la sortida estàndard 
-     * @param resultat 
-     */
-    public void mostrarRuta(Ruta resultat){
+    public GrupClients crearGrup(Collection<Client> clients){
         
     }
 }

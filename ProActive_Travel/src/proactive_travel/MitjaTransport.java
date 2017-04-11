@@ -21,7 +21,7 @@ public class MitjaTransport {
      * @param durada
      * @param dist 
      */
-    public MitjaTransport(String descriptor,Object o,Object d,Double preu,Double durada,Double dist){
+    public MitjaTransport(String descriptor,Object o,Object d,Double preu,Integer durada){
         
     }
     
@@ -58,15 +58,6 @@ public class MitjaTransport {
      * @return 
      */
     public Double getDurada(){
-        
-    }
-    
-    /**
-     * @pre: --
-     * @post: Retorna la distància del transport
-     * @return 
-     */
-    public Double getDistancia(){
         
     }
     

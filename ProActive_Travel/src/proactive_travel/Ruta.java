@@ -23,10 +23,10 @@ public class Ruta {
     
     /**
      * @pre: --
-     * @post: Afegeix un subtrajecte a la Ruta
+     * @post: Afegeix un ItemRuta a la Ruta
      * @param traj 
      */
-    public void afegeixSubtrajecte(Trajecte traj){
+    public void afegeixItemRuta(ItemRuta item){
         
     }
     

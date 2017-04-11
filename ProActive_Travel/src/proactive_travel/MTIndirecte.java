@@ -21,8 +21,8 @@ public class MTIndirecte extends MitjaTransport{
      * @param durada
      * @param dist 
      */
-    public MTIndirecte(String descriptor, Object o, Object d, Double preu, Double durada, Double dist) {
-        super(descriptor, o, d, preu, durada, dist);
+    public MTIndirecte(String descriptor, Object o, Object d, Double preu, Integer durada) {
+        super(descriptor, o, d, preu, durada);
     }
     
     /**

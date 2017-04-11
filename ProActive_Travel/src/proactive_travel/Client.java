@@ -5,11 +5,11 @@ import java.util.*;
 public class Client {
     
     private String nom;
-    private Vector<String> preferencies;
+    private HashSet<String> preferencies;
     
     /** @pre: --
         @post: Es crea un client amb nom “n” i preferències “prefs” */
-    public Client(String n, Vector<String> prefs){
+    public Client(String n, HashSet<String> prefs){
         nom= n;
         preferencies= prefs;
     }
@@ -21,7 +21,7 @@ public class Client {
     }
     /** @pre: --
         @post: Retorna un iterador a les preferències del client */
-    public Iterator<String> obtenirPreferencies(){
-        return preferencies.iterator();
+    public Boolean tePreferencia(String car){
+        return preferencies.contains(car);
     }
 }

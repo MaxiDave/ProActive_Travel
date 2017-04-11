@@ -5,25 +5,47 @@
  */
 package proactive_travel;
 
-import java.time.*;
-
 
 public class Trajecte {
     /** @pre: --
-        @post: Crea un trajecte de duració “d” i cost “c” */
-    Trajecte(Duration d,double c){
+        @post: Es crea un Trajecte amb el transport i les hores de sortida i arribada */
+    Trajecte(MitjaTransport mT, Hora sortida, Hora arribada){
         
     }
     
     /** @pre: --
-        @post: Retorna la duració del trajecte */
-    Duration obtenirDuracio(){
+        @post: Retorna el Lloc/PuntInteres d'origen */
+    Object getOrigen(){
         
     }
     
     /** @pre: --
-        @post: Retorna el cost del trajecte */
-    Double obtenirCost(){
+        @post: Retorna el Lloc/PuntInteres de destí */
+    Object getDesti(){
+        
+    }
+    
+    /** @pre: --
+        @post: Retorna la durada en minuts*/
+    Double getDurada(){
+        
+    }
+    
+    /** @pre: --
+        @post: Retorna el preu del trajecte */
+    Double getPreu(){
+        
+    }
+    
+    /** @pre: --
+        @post: Retorna l'hora de sortida del Trajecte */
+    Hora getSortida(){
+        
+    }
+    
+    /** @pre: --
+        @post: Retorna l'hora d'arribada del Trajecte */
+    Hora getArribada(){
         
     }
 }

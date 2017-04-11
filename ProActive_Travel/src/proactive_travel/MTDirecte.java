@@ -21,16 +21,7 @@ public class MTDirecte extends MitjaTransport{
      * @param durada
      * @param dist 
      */
-    public MTDirecte(String descriptor, Object o, Object d, Double preu, Double durada, Double dist) {
-        super(descriptor, o, d, preu, durada, dist);
-    }
-    
-    /**
-     * @pre: --
-     * @post: Retorna cert si el MTDirecte és urbà
-     * @return 
-     */
-    public Boolean esUrba(){
-        
+    public MTDirecte(String descriptor, Object o, Object d, Double preu, Integer durada) {
+        super(descriptor, o, d, preu, durada);
     }
 }

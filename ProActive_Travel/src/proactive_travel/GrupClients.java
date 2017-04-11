@@ -10,7 +10,7 @@ import java.util.*;
  *
  * @author roger i david
  */
-public class grupClients {
+public class GrupClients {
     
     /** @pre: --
      *  @post: Es crea un conjunt de clients amb tants clients com té “clients”, categoria desitjada i punts d’interès a visitar
@@ -22,7 +22,7 @@ public class grupClients {
      * @param inici
      * @param duracioMax 
      */
-    public grupClients(Collection<Client> clients, Integer catDesit, Collection<PuntInteres> pl,Lloc origen,Lloc desti,Data inici,Double duracioMax){
+    public GrupClients(Collection<Client> clients, Integer catDesit, Collection<PuntInteres> pl,Lloc origen,Lloc desti,Data inici,Double duracioMax){
         
     }
     

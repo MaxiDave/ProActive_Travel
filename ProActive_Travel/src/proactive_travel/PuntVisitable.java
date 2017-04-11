@@ -20,7 +20,7 @@ public class PuntVisitable extends PuntInteres {
      * @param tempsVisita 
      */
     public PuntVisitable(String nom,Collection<String> acts,Double cost,Integer tempsVisita){
-        
+        super(nom, acts, cost);
     }
     
     /** @pre: --
@@ -44,7 +44,7 @@ public class PuntVisitable extends PuntInteres {
      * @param inst
      * @return 
      */
-    public Boolean estaObert(HoraDia inst){
+    public Boolean estaObert(Hora inst){
         
     }
 }

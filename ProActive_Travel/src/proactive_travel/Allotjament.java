@@ -13,7 +13,7 @@ import java.util.Collection;
  */
 public class Allotjament extends PuntInteres {
     
-    public Allotjament(String nom, Collection<String> acts, Double cost) {
+    public Allotjament(String nom, Collection<String> acts, Double cost, Integer categoria) {
         super(nom, acts, cost);
     }
     

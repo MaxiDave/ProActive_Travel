@@ -1,8 +1,7 @@
 package proactive_travel;
 
-public class HoraDia{
+public class Hora{
     
-    private final String dia;
     private final Integer hora;
     private final Integer minuts;
     
@@ -10,8 +9,7 @@ public class HoraDia{
         * 0 <= hora <= 23. 0 <= minuts <= 59 
         @post: Crea una Hora d’un dia a partir del dia de la setmana “dia” i les hores 
         * i minuts en format 24h */
-    public HoraDia(String d, Integer h, Integer m){
-        dia= d;
+    public Hora(Integer h, Integer m){
         hora= h;
         minuts= m;
     }

@@ -52,4 +52,10 @@ public class Lloc {
     Iterator<Estacio> obtenirEstacions(){
         return estacions.iterator();
     }
+    
+    /** @pre: --
+        @post: Afegeix el transport urbà al Lloc */
+    void afegirTransportUrba(TransportUrba tU){
+        
+    } 
 }
