@@ -1,27 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package proactive_travel;
 
-import java.util.Collection;
+import java.util.*;
 
-/**
- *
- * @author roger
- */
+//@MaxiDave: Implementat
+
 public class Allotjament extends PuntInteres {
+    /**
+     * DESCRIPCIÓ GENERAL
+     * Representa un allotjament, amb la seva categoria.
+     */
     
-    public Allotjament(String nom, Collection<String> acts, Double cost, Integer categoria) {
-        super(nom, acts, cost);
+    //ATRIBUTS
+    private final Integer categoria;
+    
+    /** @pre: 1<= categoria <= 5
+        @post: Es crea un allotjament a partir de les dades del punt d’interès i la categoria del allotjament
+    */
+    public Allotjament(String nom, Collection<String> acts, Double cost, Lloc associat,Integer cat) {
+        super(nom, acts, cost, associat);
+        categoria= cat;
     }
     
     /** @pre: --
      *  @post: Retorna la categoria de l’allotjament
-     * @return 
      */
     public Integer obtenirCat(){
-        
+        return categoria;
     }
 }
