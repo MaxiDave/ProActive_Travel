@@ -17,7 +17,7 @@ Dijkstra() {
 	predecessors = new HashMap<PuntInteres, PuntInteres>();
 }
 
-public Ruta camiMinim(Mapa mundi, PuntInteres origen, PuntInteres Desti){
+public Ruta camiMinim(Mapa mundi, PuntInteres origen, PuntInteres desti){
 	temps.put(origen,0);
 	nodesPerAgafar.add(origen);
 	while(nodesPerAgafar.size()>0 && !(nodesAgafats.contains(desti))){
