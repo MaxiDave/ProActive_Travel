@@ -10,7 +10,10 @@ package proactive_travel;
  *
  * @author Roger
  */
+
 public class MitjaTransport {
+    
+    private Lloc associat;
     /**
      * @pre: Origen i destí han de ser llocs o punts d’interès
      * @post: Crea un mitjà de transport amb origen, destí, preu, durada i descriptor
@@ -69,4 +72,5 @@ public class MitjaTransport {
     public String getDescriptor(){
         
     }
+  
 }

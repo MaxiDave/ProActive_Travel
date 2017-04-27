@@ -15,7 +15,7 @@ public class PuntInteres {
     private final String nom;
     private final Set<String> activitats;
     private final Double preu;
-    private final Lloc associat;
+    private Lloc associat;
     
     /** @pre: --
      *  @post: Es crea un punt d’interès de nom “name” amb les activitats que ofereix “acts”,
@@ -54,5 +54,9 @@ public class PuntInteres {
      */
     public Double obtenirPreu(){
         return preu;
+    }
+    
+    public void vincularLloc(Lloc l){
+        associat=l;
     }
 }
