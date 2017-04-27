@@ -1,0 +1,8 @@
+PI: Lloc associat ja no es troba al constructor
+Punt Visitable: S'ha afegit coordenada, I a FranjaHoraria desvia tmb Excepcions
+PI:S'ha afegit vincular lloc(lloc l)
+
+Per fer:
+Associar transport
+MTDirecte
+MTIndirecte
