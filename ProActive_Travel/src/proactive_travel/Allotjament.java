@@ -11,20 +11,24 @@ public class Allotjament extends PuntInteres {
      */
     
     //ATRIBUTS
-    private final Integer categoria;
+    private final String categoria;
+    private final Double cost;
+    private final Coordenades c;
     
     /** @pre: 1<= categoria <= 5
         @post: Es crea un allotjament a partir de les dades del punt d’interès i la categoria del allotjament
     */
-    public Allotjament(String nom, Collection<String> acts, Double cost, Lloc associat,Integer cat) {
-        super(nom, acts, cost, associat);
-        categoria= cat;
+    public Allotjament(String nom, Collection<String> acts, Double costH,String catego, Coordenades coor) {
+        super(nom, acts, costH);
+        categoria= catego;
+        cost=costH;
+        c=coor;
     }
     
     /** @pre: --
      *  @post: Retorna la categoria de l’allotjament
      */
-    public Integer obtenirCat(){
+    public String obtenirCat(){
         return categoria;
     }
 }

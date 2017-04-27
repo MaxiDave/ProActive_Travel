@@ -21,11 +21,11 @@ public class PuntInteres {
      *  @post: Es crea un punt d’interès de nom “name” amb les activitats que ofereix “acts”,
      *         el preu  “cost”, i el lloc on està associat
     */
-    public PuntInteres(String name,Collection<String> acts,Double cost, Lloc assoc){
+    public PuntInteres(String name,Collection<String> acts,Double cost){
         nom= name;
         activitats= new HashSet<String>(acts);
         preu= cost;
-        associat= assoc;
+        associat= null;
     }
     
     /** @pre: --
