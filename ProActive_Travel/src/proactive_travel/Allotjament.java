@@ -16,13 +16,13 @@ public class Allotjament extends PuntInteres {
     private final Coordenades c;
     
     /** @pre: 1<= categoria <= 5
-        @post: Es crea un allotjament a partir de les dades del punt d’interès i la categoria del allotjament
+        @post: Es crea un allotjament a partir de les dades del punt d’interès i la categoria del allotjament, i coordenades on es troba
     */
-    public Allotjament(String nom, Collection<String> acts, Double costH,String catego, Coordenades coor) {
+    public Allotjament(String nom, Collection<String> acts, Double costH, String catego, Coordenades coor) {
         super(nom, acts, costH);
         categoria= catego;
-        cost=costH;
-        c=coor;
+        cost= costH;
+        c= coor;
     }
     
     /** @pre: --

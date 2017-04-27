@@ -13,21 +13,25 @@ import java.util.*;
  */
 public class Mapa {
     
+    private Map<String, Lloc> llocs;
+    private Map<String, PuntInteres> punts;
+    
     /**
      * @pre: --
      * @post: Crea un mapa buit
      */
     public Mapa(){
-        
+        llocs= new HashMap<String, Lloc>();
+        punts= new HashMap<String, PuntInteres>();
     }
     
     /**
-     * @param pl
+     * @param pI
      * @pre: Lloc on està el punt d’interès ha d’existir
      * @post: Afegeix un punt d’interès al mapa
      */
-    public void afegeixPuntInteres(PuntInteres pl){
-        
+    public void afegeixPuntInteres(PuntInteres pI){
+        punts.put(pI.obtenirNom(), pI);
     }
     
     /**
@@ -45,7 +49,19 @@ public class Mapa {
      * @param ll 
      */
     public void afegeixLloc(Lloc ll){
-        
+        llocs.put(ll.obtenirNom(), ll);
+    }
+    
+    public void associarLloc(String IDlloc, String IDpI){
+        Lloc primari= llocs.get(IDlloc);
+        PuntInteres secundari= punts.get(IDpI);
+        if(primari != null && secundari != null){
+            secundari.vincularLloc(primari);
+            primari.afegirPuntInteres(secundari);
+        }
+        else{
+            //Excepció no existeix Lloc o PuntInteres
+        }
     }
     
     /**

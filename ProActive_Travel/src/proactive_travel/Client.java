@@ -5,11 +5,11 @@ import java.util.*;
 public class Client {
     
     private String nom;
-    private HashSet<String> preferencies;
+    private Set<String> preferencies;
     
     /** @pre: --
         @post: Es crea un client amb nom “n” i preferències “prefs” */
-    public Client(String n, HashSet<String> prefs){
+    public Client(String n, Set<String> prefs){
         nom= n;
         preferencies= prefs;
     }

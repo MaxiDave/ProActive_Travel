@@ -56,7 +56,7 @@ public class PuntInteres {
         return preu;
     }
     
-    public void vincularLloc(Lloc l){
-        associat=l;
+    public void vincularLloc(Lloc ll){
+        associat= ll;
     }
 }
