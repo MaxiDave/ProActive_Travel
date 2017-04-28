@@ -17,13 +17,7 @@ public class MitjaTransport {
     /**
      * @pre: Origen i destí han de ser llocs o punts d’interès
      * @post: Crea un mitjà de transport amb origen, destí, preu, durada i descriptor
-     * @param descriptor
-     * @param o
-     * @param d
-     * @param preu
-     * @param durada
-     * @param dist 
-     */
+    */
     public MitjaTransport(String descriptor,Object o,Object d,Double preu,Integer durada){
         
     }

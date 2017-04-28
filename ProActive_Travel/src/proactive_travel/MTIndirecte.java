@@ -14,12 +14,6 @@ public class MTIndirecte extends MitjaTransport{
     /**
      * @pre: Origen i destí han de ser llocs o punts d’interès
      * @post: Crea un mitjà de transport amb origen, destí, preu, durada i descriptor
-     * @param descriptor
-     * @param o
-     * @param d
-     * @param preu
-     * @param durada
-     * @param dist 
      */
     public MTIndirecte(String descriptor, Object o, Object d, Double preu, Integer durada) {
         super(descriptor, o, d, preu, durada);
@@ -28,7 +22,6 @@ public class MTIndirecte extends MitjaTransport{
     /**
      * @pre: --
      * @post: Retorna la estació a la que està vinculada el mitjà de transport indirecte
-     * @return 
      */
     public Estacio getEstacio(){
         
