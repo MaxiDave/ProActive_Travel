@@ -15,6 +15,7 @@ public class Mapa {
     
     private Map<String, Lloc> llocs;
     private Map<String, PuntInteres> punts;
+    private Map<String, List< Pair<String, MTDirecte>>> transDirecte;
     
     /**
      * @pre: --
@@ -23,10 +24,10 @@ public class Mapa {
     public Mapa(){
         llocs= new HashMap<String, Lloc>();
         punts= new HashMap<String, PuntInteres>();
+        transDirecte= new HashMap<String, Map<String, MTDirecte>>();
     }
     
     /**
-     * @param pI
      * @pre: Lloc on està el punt d’interès ha d’existir
      * @post: Afegeix un punt d’interès al mapa
      */
@@ -35,11 +36,12 @@ public class Mapa {
     }
     
     /**
-     * @param traj
      * @pre: --
-     * @post: Afegeix un desplaçament al mapa entre dos llocs o entre dos punts d’interès a partir d’un trajecte entre ells
+     * @post: Si l'origen i el destí del mitjà de transport fegeix el Transport Directe mT al mapa. 
      */
-    public void afegeixTrajecte(Trajecte traj){
+    public void afegirTransportDirecte(MTDirecte mT){
+        mT.obtOrigen().obtenirNom();
+        mT.obtenirDesti().obtenirNom();
         
     }
     
@@ -52,6 +54,11 @@ public class Mapa {
         llocs.put(ll.obtenirNom(), ll);
     }
     
+    /**
+     * @pre: --
+     * @post: Si existeix IDlloc a claus de llocs i IDpI a claus de punts,
+     *        associa el lloc secundari amb nom IDpI al lloc primari IDlloc
+     */
     public void associarLloc(String IDlloc, String IDpI){
         Lloc primari= llocs.get(IDlloc);
         PuntInteres secundari= punts.get(IDpI);
@@ -66,31 +73,59 @@ public class Mapa {
     
     /**
      * @pre: --
-     * @post: Retorna cert si existeix el punt d’interès
-     * @param pi
-     * @return 
+     * @post: Si existeix IDlloc a claus de llocs, associa el TransportUrba
+     *        trans a la llista de transports urbans de lloc
      */
-    public Boolean existeixPuntInteres(PuntInteres pi){
-        
+    public void associarUrba(String IDlloc, TransportUrba trans){
+         Lloc ll= llocs.get(IDlloc);
+         if(ll != null){
+             ll.afegirTransportUrba(trans);
+         }
+         else{
+             //Excepció no existeix Lloc
+         }
     }
     
     /**
-     * @return 
+     * @pre: --
+     * @post: Retorna cert si existeix el punt d’interès
+     */
+    public Boolean existeixPuntInteres(PuntInteres pI){
+        return punts.containsKey(pI.obtenirNom());
+    }
+    
+    /**
+     * @pre: --
+     * @post: Retorna el Lloc associat amb l' identificador llocID.
+     *        Si no existeix retorna null
+     */
+    public Lloc obtenirLloc(String llocID){
+        return llocs.get(llocID);
+    }
+    
+    /**
+     * @pre: --
+     * @post: Retorna el puntInteres associat amb l' identificador puntID.
+     *        Si no existeix retorna null
+     */
+    public PuntInteres obtenirPI(String puntID){
+        return punts.get(puntID);
+    }
+    
+    /**
      * @pre: --
      * @post: Retorna el nombre de punts d’interès del mapa
      */
     public Integer nPuntsInteres(){
-        
+        return punts.size();
     }
     
     /**
-     * @param pi
-     * @param tipus
-     * @return 
-     * @pre: tipus == “temps” || tipus == “dist” || tipus == “cost”   
+     * @pre: tipus == “temps” || tipus == “cost”   
      * @post: Retorna un Map amb els punts d’interès des d’on es pot anar a partir de pI i el seu Trajecte (El de mínim temps, mínima distància o mínim cost depenent de “tipus”)
      */
     public Map<PuntInteres,Trajecte> obtenirDesplsMin(PuntInteres pi,String tipus){
-        
+        Map<PuntInteres, Trajecte> noImplementat= null;
+        return noImplementat;
     }
 }

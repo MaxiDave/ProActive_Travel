@@ -13,6 +13,7 @@ public class Lloc {
     private final Coordenades c;
     private List<Estacio> estacions;
     private List<PuntInteres> punts;
+    private List<TransportUrba> transports;
     
     /** @pre: --
         @post:  Es crea un lloc de nom "n" i coordeandes "coor" */ 
@@ -21,6 +22,7 @@ public class Lloc {
         c= coor;
         punts= new ArrayList<PuntInteres>();
         estacions= new ArrayList<Estacio>();
+        transports= new ArrayList<TransportUrba>();
     }
     
     /** @pre: --
@@ -56,6 +58,6 @@ public class Lloc {
     /** @pre: --
         @post: Afegeix el transport urbà al Lloc */
     void afegirTransportUrba(TransportUrba tU){
-        
+        transports.add(tU);
     } 
 }

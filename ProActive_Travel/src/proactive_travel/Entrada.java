@@ -43,6 +43,10 @@ public abstract class Entrada {
         clients.add(new Client(nom, prefs));
     }
     
+    /**
+     * @pre: Anterior valor llegit de fitxer és "lloc"
+     * @post: Llegeix un lloc de fitxer i l'afegeix al mapa
+     */
     private static void donarAltaLloc(Scanner fitxer, Mapa mundi){
         String nomID= fitxer.nextLine();
         String coords= fitxer.nextLine();
@@ -51,6 +55,10 @@ public abstract class Entrada {
         fitxer.nextLine(); //*
     }
     
+    /**
+     * @pre: Anterior valor llegit de fitxer és "allotkament"
+     * @post: Llegeix un allotjament de fitxer i l'afegeix al mapa
+     */
     private static void donarAltaAllotjament(Scanner fitxer, Mapa mundi){
         String nomID= fitxer.nextLine();
         String coords= fitxer.nextLine();
@@ -67,6 +75,10 @@ public abstract class Entrada {
         mundi.afegeixPuntInteres(new Allotjament(nomID, prefs, preuHab, cat, new Coordenades(coords, zH)));
     }
     
+    /**
+     * @pre: Anterior valor llegit de fitxer és "lloc visitable"
+     * @post: Llegeix un puntVisitable de fitxer i l'afegeix al mapa
+     */
     private static void donarAltaPuntVisitable(Scanner fitxer, Mapa mundi){
         String nomID= fitxer.nextLine();
         String coords= fitxer.nextLine();
@@ -91,11 +103,49 @@ public abstract class Entrada {
         while(!inutil.equals("*")) inutil= fitxer.nextLine();
     }
     
+    /**
+     * @pre: Anterior valor llegit de fitxer és "associar lloc"
+     * @post: Llegeix un puntInteres i lloc de fitxer associa aquest puntInteres al lloc
+     */
     private static void associarLloc(Scanner fitxer, Mapa mundi){
         String IDpuntInteres= fitxer.nextLine();
         String IDlloc= fitxer.nextLine();
         fitxer.nextLine(); //*
         mundi.associarLloc(IDlloc, IDpuntInteres);
+    }
+    
+    /**
+     * @pre: Anterior valor llegit de fitxer és "associar transport"
+     * @post: Llegeix un lloc de fitxer i l'afegeix al mapa
+     */
+    private static void associarUrba(Scanner fitxer, Mapa mundi){
+        String llocID= fitxer.nextLine();
+        String urbaID= fitxer.nextLine();
+        String [] hhmm= fitxer.nextLine().split(":");
+        Integer durada= (Integer.parseInt(hhmm[0])*60)+Integer.parseInt(hhmm[1]);
+        Double preu= fitxer.nextDouble();
+        fitxer.nextLine(); // \n
+        fitxer.nextLine(); //*
+        TransportUrba transp= new TransportUrba(urbaID, durada, preu);
+        mundi.associarUrba(llocID, transp);
+    }
+    
+    /**
+     * @pre: Anterior valor llegit de fitxer és "transport directe"
+     * @post: Llegeix dos llocs de fitxer i crea un mitjà de transport entre aquests dos llocs
+     */
+    public static void afegirTransportDirecte(Scanner fitxer, Mapa mundi){
+        String origenID= fitxer.nextLine();
+        String destiID= fitxer.nextLine();
+        String nomTrans= fitxer.nextLine();
+        String [] hhmm= fitxer.nextLine().split(":");
+        Integer durada= (Integer.parseInt(hhmm[0])*60)+Integer.parseInt(hhmm[1]);
+        Double preu= fitxer.nextDouble();
+        fitxer.nextLine(); // \n
+        fitxer.nextLine(); //*
+        
+        MTDirecte mT= new MTDirecte(nomTrans, mundi.obtenirPI(origenID), mundi.obtenirPI(destiID), preu, durada);
+        mundi.afegirTransportDirecte(mT);
     }
     
     /**
@@ -111,6 +161,8 @@ public abstract class Entrada {
             else if(codiOperacio.equals("allotjament")) donarAltaAllotjament(fitxer, mundi);
             else if(codiOperacio.equals("lloc visitable")) donarAltaPuntVisitable(fitxer, mundi);
             else if(codiOperacio.equals("associar lloc")) associarLloc(fitxer, mundi);
+            else if(codiOperacio.equals("associar transport")) associarUrba(fitxer, mundi);
+            else if(codiOperacio.equals("transport directe")) afegirTransportDirecte(fitxer, mundi);
         }   
     }
     
