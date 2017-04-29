@@ -12,7 +12,7 @@ public class CalculExacte {
      * @param mon
      * @return 
      */
-    public static Ruta calcularRutaBack(GrupClients clients,Mapa mon){
+    public static Ruta calcularRutaBack(Viatge clients,Mapa mon){
         
     }
 }

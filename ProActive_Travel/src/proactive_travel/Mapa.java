@@ -15,7 +15,7 @@ public class Mapa {
     
     private Map<String, Lloc> llocs;
     private Map<String, PuntInteres> punts;
-    private Map<String, List< Pair<String, MTDirecte>>> transDirecte;
+    private Map<String, Map<String, List<MTDirecte>>> transDirecte;
     
     /**
      * @pre: --
@@ -24,7 +24,7 @@ public class Mapa {
     public Mapa(){
         llocs= new HashMap<String, Lloc>();
         punts= new HashMap<String, PuntInteres>();
-        transDirecte= new HashMap<String, Map<String, MTDirecte>>();
+        transDirecte= new HashMap<String, Map<String, List<MTDirecte>>>();
     }
     
     /**
@@ -40,9 +40,8 @@ public class Mapa {
      * @post: Si l'origen i el destí del mitjà de transport fegeix el Transport Directe mT al mapa. 
      */
     public void afegirTransportDirecte(MTDirecte mT){
-        mT.obtOrigen().obtenirNom();
-        mT.obtenirDesti().obtenirNom();
-        
+        mT.getOrigen().obtenirNom();
+        mT.getDesti().obtenirNom();
     }
     
     /**

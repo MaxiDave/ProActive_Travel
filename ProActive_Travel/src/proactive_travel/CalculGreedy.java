@@ -12,7 +12,7 @@ public class CalculGreedy {
      * @param mon
      * @return 
      */
-    public static Ruta calcularRutaGreedy(GrupClients clients,Mapa mon){
+    public static Ruta calcularRutaGreedy(Viatge clients,Mapa mon){
         
     }
 }

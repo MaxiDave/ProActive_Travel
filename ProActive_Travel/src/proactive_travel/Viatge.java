@@ -10,19 +10,12 @@ import java.util.*;
  *
  * @author roger i david
  */
-public class GrupClients {
+public class Viatge {
     
     /** @pre: --
      *  @post: Es crea un conjunt de clients amb tants clients com té “clients”, categoria desitjada i punts d’interès a visitar
-     * @param clients
-     * @param catDesit
-     * @param pl
-     * @param origen
-     * @param desti
-     * @param inici
-     * @param duracioMax 
      */
-    public GrupClients(Collection<Client> clients, Integer catDesit, Collection<PuntInteres> pl,Lloc origen,Lloc desti,Data inici,Double duracioMax){
+    public Viatge(Collection<Client> clients, Integer catDesit, Collection<PuntInteres> pl,Lloc origen,Lloc desti,Data inici,Double duracioMax){
         
     }
     

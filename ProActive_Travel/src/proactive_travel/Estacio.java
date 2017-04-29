@@ -1,9 +1,17 @@
 package proactive_travel;
-
+import java.util.*;
+import java.time.*;
 public class Estacio {
+    //ATRIBUTS
+    private final String nomTransport;
+    private Map<LocalDateTime, MTIndirecte> arribades;
+    private Map<LocalDateTime, MTIndirecte> sortides;
+    private Map<Lloc, Integer> tempsArribada;
+    private Map<Lloc, Integer> tempsSortida;
+    
      /** @pre: --
-         @post: Crea una estació al lloc “ciutat”, amb un temps d’origen i destí de desplaçament en minuts */
-    Estacio(Lloc ciutat, Double tOrigen, Double tDesti){
-        
+         @post: Crea una estació de nomTransport nom */
+    Estacio(String nom){
+        nomTransport= nom;
     }
 }

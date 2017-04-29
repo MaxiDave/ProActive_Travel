@@ -1,43 +1,24 @@
 package proactive_travel;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author Roger
  */
 
 public class MitjaTransport {
+    //ATRIBUTS
+    private final String nom;
+    private final Double preu;
+    private final Integer durada;
     
-    private Lloc associat;
     /**
      * @pre: Origen i destí han de ser llocs o punts d’interès
-     * @post: Crea un mitjà de transport amb origen, destí, preu, durada i descriptor
+     * @post: Crea un mitjà de transport amb preu, durada i descriptor
     */
-    public MitjaTransport(String descriptor,Object o,Object d,Double preu,Integer durada){
-        
-    }
-    
-    /**
-     * @pre: --
-     * @post: Retorna el Lloc/Punt d’interès d’origen del transport
-     * @return 
-     */
-    public Object getOrigen(){
-        
-    }
-    
-    /**
-     * @pre: -
-     * @post: Retorna el Lloc/Punt d’interès de destí del transport
-     * @return 
-     */
-    public Object getDesti(){
-        
+    public MitjaTransport(String descriptor, Double cost, Integer dur){
+        nom= descriptor;
+        preu= cost;
+        durada= dur;
     }
     
     /**
@@ -46,7 +27,7 @@ public class MitjaTransport {
      * @return 
      */
     public Double getPreu(){
-        
+        return preu;
     }
     
     /**
@@ -54,17 +35,7 @@ public class MitjaTransport {
      * @post: Retorna la durada del transport
      * @return 
      */
-    public Double getDurada(){
-        
+    public Integer getDurada(){
+        return durada;
     }
-    
-    /**
-     * @pre: --
-     * @post: Retorna el descriptor del transport
-     * @return 
-     */
-    public String getDescriptor(){
-        
-    }
-  
 }

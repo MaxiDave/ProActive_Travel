@@ -1,6 +1,7 @@
 package proactive_travel;
 
 import java.util.*;
+import java.time.*;
 
 //@MaxiDave: Implementat
 
@@ -35,7 +36,7 @@ public class PuntVisitable extends PuntInteres {
     /** @pre: --
      *  @post: Retorna cert si el punt visitable està obert en un DiaHora determinat, fals altrament
      */
-    public Boolean estaObert(Hora inst){
+    public Boolean estaObert(LocalTime inst){
         return obertura.pertanyFranja(inst);
     }
 }

@@ -3,6 +3,7 @@ package proactive_travel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.time.*;
 
 /**
  *
@@ -96,8 +97,8 @@ public abstract class Entrada {
         }
         String [] dades = fitxer.nextLine().split(":");
         String [] aux = dades[2].split("-");
-        Hora inici= new Hora(Integer.parseInt(dades[1]), Integer.parseInt(aux[0]));
-        Hora fi= new Hora(Integer.parseInt(aux[1]), Integer.parseInt(dades[3]));
+        LocalTime inici= LocalTime.of(Integer.parseInt(dades[1]), Integer.parseInt(aux[0]));
+        LocalTime fi= LocalTime.of(Integer.parseInt(aux[1]), Integer.parseInt(dades[3]));
         mundi.afegeixPuntInteres(new PuntVisitable(nomID, prefs, preu, tempsV, new FranjaHoraria(inici, fi), new Coordenades(coords, zH)));
         String inutil= fitxer.nextLine();
         while(!inutil.equals("*")) inutil= fitxer.nextLine();
@@ -149,6 +150,37 @@ public abstract class Entrada {
     }
     
     /**
+     * @pre: Anterior valor llegit de fitxer és "transport directe"
+     * @post: Llegeix dos llocs de fitxer i crea un mitjà de transport entre aquests dos llocs
+     */
+    public static void afegirTransportIndirecte(Scanner fitxer, Mapa mundi){
+        String origenID= fitxer.nextLine();
+        String destiID= fitxer.nextLine();
+        String nomTrans= fitxer.nextLine();
+        String [] hhmmOrigen= fitxer.nextLine().split(":");
+        Integer tempsOrigen= (Integer.parseInt(hhmmOrigen[0])*60)+Integer.parseInt(hhmmOrigen[1]);
+        String [] hhmmDesti= fitxer.nextLine().split(":");
+        Integer tempsDesti= (Integer.parseInt(hhmmDesti[0])*60)+Integer.parseInt(hhmmDesti[1]);
+        mundi.assignarOrigenMTI(origenID, nomTrans, tempsOrigen);
+        mundi.assignarDestiMTI(destiID, nomTrans, tempsDesti);
+        String data= fitxer.nextLine();
+        while(!data.equals("*")){
+            String [] anyMesDia= data.split("-");
+            String hora= fitxer.nextLine();
+            while(!hora.equals("*") && !esData(hora)){
+                String [] horaMinuts= hora.split(":");
+                String [] duradaHoraMinuts= fitxer.nextLine().split(":");
+                Integer durada= (Integer.parseInt(duradaHoraMinuts[0])*60)+Integer.parseInt(duradaHoraMinuts[1]);
+                Double preu= fitxer.nextDouble();
+                mundi.afegirTransportIndirecte();
+                fitxer.nextLine(); // \n
+                hora= fitxer.nextLine();
+            }
+            data= hora;
+        }
+    }
+    
+    /**
      * @pre: fitxer és obert i llest per llegir
      * @post: Crea les estructures de dades a partir de les dades del fitxer d'entrada
      */
@@ -163,14 +195,7 @@ public abstract class Entrada {
             else if(codiOperacio.equals("associar lloc")) associarLloc(fitxer, mundi);
             else if(codiOperacio.equals("associar transport")) associarUrba(fitxer, mundi);
             else if(codiOperacio.equals("transport directe")) afegirTransportDirecte(fitxer, mundi);
+            else if(codiOperacio.equals("transport indirecte")) afegirTransportIndirecte(fitxer, mundi);
         }   
-    }
-    
-    /**
-     * @pre: --
-     * @post: Demana les dades per a poder crear un GrupClients a partir dels Clients de l’agència
-     */
-    public static GrupClients crearGrup(Collection<Client> clients){
-        return null;
     }
 }

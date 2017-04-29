@@ -1,4 +1,6 @@
 package proactive_travel;
+import java.util.*;
+import java.time.*;
 
 //@MaxiDave: Implementat
 
@@ -9,21 +11,21 @@ public class FranjaHoraria {
      */
     
     //ATRIBUTS
-    private final Hora obertura;
-    private final Hora tancament;
+    private final LocalTime obertura;
+    private final LocalTime tancament;
     
     /** @pre: --
-        @post: Crea una franja horària a partir d’un HoraDia inici i final 
+        @post: Crea una franja horària a partir d’un LocalTime inici i final 
      */
-    FranjaHoraria(Hora inici, Hora fi){
+    FranjaHoraria(LocalTime inici, LocalTime fi){
         obertura= inici;
         tancament= fi;
     }
     
     /** @pre: --
-        @post: Retorna cert si l’HoraDia “instant” es troba dins de l’horari de la franja 
+        @post: Retorna cert si el LocalTime “instant” es troba dins de l’horari de la franja 
      */
-    Boolean pertanyFranja(Hora instant){
-        return (tancament.mesGran(obertura) && instant.mesGran(obertura) && tancament.mesGran(instant)) || (tancament.mesGran(instant) || instant.mesGran(obertura));
+    Boolean pertanyFranja(LocalTime instant){
+        return instant.isAfter(obertura) && instant.isBefore(tancament);
     }
 }

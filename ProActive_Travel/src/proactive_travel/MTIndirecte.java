@@ -1,29 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package proactive_travel;
+import java.time.*;
 
 /**
  *
  * @author Roger
  */
 public class MTIndirecte extends MitjaTransport{
+    //ATRIBUTS
+    private final Lloc origen;
+    private final Lloc desti;
     
     /**
-     * @pre: Origen i destí han de ser llocs o punts d’interès
+     * @pre: --
      * @post: Crea un mitjà de transport amb origen, destí, preu, durada i descriptor
      */
-    public MTIndirecte(String descriptor, Object o, Object d, Double preu, Integer durada) {
-        super(descriptor, o, d, preu, durada);
+    public MTIndirecte(String descriptor, Lloc o, Lloc d, Double preu, Integer durada) {
+        super(descriptor, preu, durada);
+        origen= o;
+        desti= d;
     }
     
     /**
      * @pre: --
-     * @post: Retorna la estació a la que està vinculada el mitjà de transport indirecte
+     * @post: Retorna el lloc d’origen del transport
      */
-    public Estacio getEstacio(){
-        
+    public Lloc getOrigen(){
+        return origen;
+    }
+    
+    /**
+     * @pre: -
+     * @post: Retorna el lloc de destí del transport
+     */
+    public Lloc getDesti(){
+        return desti;
     }
 }

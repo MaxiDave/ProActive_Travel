@@ -11,11 +11,33 @@ package proactive_travel;
  * @author Roger
  */
 public class MTDirecte extends MitjaTransport{
+    //ATRIBUTS
+    private final PuntInteres origen;
+    private final PuntInteres desti;
+    
     /**
-     * @pre: Origen i destí han de ser llocs o punts d’interès
-     * @post: Crea un mitjà de transport amb origen, destí, preu, durada i descriptor
+     * @pre: --
+     * @post: Crea un mitjà de transport amb nom, origen, destí, preu, durada i descriptor
      */
     public MTDirecte(String descriptor, PuntInteres o, PuntInteres d, Double preu, Integer durada) {
-        super(descriptor, o, d, preu, durada);
+        super(descriptor, preu, durada);
+        origen= o;
+        desti= d;
+    }
+    
+    /**
+     * @pre: --
+     * @post: Retorna el Punt d’interès d’origen del transport
+     */
+    public PuntInteres getOrigen(){
+        return origen;
+    }
+    
+    /**
+     * @pre: -
+     * @post: Retorna el Punt d’interès de destí del transport
+     */
+    public PuntInteres getDesti(){
+        return desti;
     }
 }
