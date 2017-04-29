@@ -161,8 +161,8 @@ public abstract class Entrada {
         Integer tempsOrigen= (Integer.parseInt(hhmmOrigen[0])*60)+Integer.parseInt(hhmmOrigen[1]);
         String [] hhmmDesti= fitxer.nextLine().split(":");
         Integer tempsDesti= (Integer.parseInt(hhmmDesti[0])*60)+Integer.parseInt(hhmmDesti[1]);
-        mundi.assignarOrigenMTI(origenID, nomTrans, tempsOrigen);
-        mundi.assignarDestiMTI(destiID, nomTrans, tempsDesti);
+        mundi.assignarOrigenMTI(origenID, destiID, nomTrans, tempsOrigen);
+        mundi.assignarDestiMTI(destiID, origenID, nomTrans, tempsDesti);
         String data= fitxer.nextLine();
         while(!data.equals("*")){
             String [] anyMesDia= data.split("-");

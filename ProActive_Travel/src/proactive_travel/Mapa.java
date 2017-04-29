@@ -120,6 +120,22 @@ public class Mapa {
     }
     
     /**
+     * @pre: --
+     * @post: Afegeix a l'estació nomEst (Si no existeix la crea) al lloc de nom origenID 
+     *        una connexió de sortida cap al lloc de nom destiID amb un temps d'oriden tempsOrigen
+     */
+    public void assignarOrigenMTI(String origenID, String destiID, String nomEst, Integer tempsOrigen){
+        Lloc origen= llocs.get(origenID);
+        Lloc desti= llocs.get(destiID);
+         if(origen != null && desti != null){
+             
+         }
+         else{
+             //Excepció no existeix origen i/o desti
+         }
+    }
+    
+    /**
      * @pre: tipus == “temps” || tipus == “cost”   
      * @post: Retorna un Map amb els punts d’interès des d’on es pot anar a partir de pI i el seu Trajecte (El de mínim temps, mínima distància o mínim cost depenent de “tipus”)
      */
