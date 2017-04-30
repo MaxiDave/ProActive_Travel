@@ -1,9 +1,22 @@
+//ProActive_Travel
+
+/**
+ * @file: MTIndirecte.java
+ * @author: Roger Barnés, u1939667
+ * @author: David Martínez, u1939690
+ * @version: 1
+ * @date: Curs 2016-2017
+ * @warning: --
+ * @brief: Classe MTIndirecte: Conté informació d'un Mitjà de transport indirecte
+ * @copyright: Public License
+ */
+
 package proactive_travel;
 import java.time.*;
 
 /**
- *
- * @author Roger
+ * DESCRIPCIÓ GENERAL
+ * @brief: Representa un MTIndirecte, un MitjaTransport amb un origen i un destí (Llocs)
  */
 public class MTIndirecte extends MitjaTransport{
     //ATRIBUTS
@@ -29,7 +42,7 @@ public class MTIndirecte extends MitjaTransport{
     }
     
     /**
-     * @pre: -
+     * @pre: --
      * @post: Retorna el lloc de destí del transport
      */
     public Lloc getDesti(){

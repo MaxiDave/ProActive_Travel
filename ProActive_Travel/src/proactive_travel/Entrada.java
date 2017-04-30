@@ -1,19 +1,33 @@
-package proactive_travel;
+//ProActive_Travel
 
+/**
+ * @file: Entrada.java
+ * @author: Roger Barnés, u1939667
+ * @author: David Martínez, u1939690
+ * @version: 1
+ * @date: Curs 2016-2017
+ * @warning: --
+ * @brief: Mòdul funcional que s'encarrega de dur a terme els càlculs relacionats en 
+ *         la generació de dades a partir del fitxer d'entrada inicial
+ * @copyright: Public License
+ */
+
+package proactive_travel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.time.*;
 
 /**
- *
- * @author Roger
+ * DESCRIPCIÓ GENERAL
+ * @brief: Classe abstracte que s'encarrega dels càlculs d'entrada
  */
 public abstract class Entrada {
     
     /**
      * @pre: --
-     * @post: Demana la ruta del fitxer a carregar dades i retorna un scanner a aquest preparat per la lectura
+     * @post: Demana la ruta del fitxer a carregar dades i retorna un scanner a aquest 
+     *        preparat per la lectura
      */
     public static Scanner entrarNomFitxer(){
         Scanner teclat = new Scanner(System.in);
@@ -29,11 +43,26 @@ public abstract class Entrada {
         return fitxer;
     }
     
+    /** @pre: --
+     *  @post: Retorna cert si "a" és una data, és a dir, si conté algún caràcter '-'
+     */
+    private static boolean esData(String a){
+        return a.contains("-");
+    }
+    
+    /**
+     * @pre: --
+     * @post: Ignora línees del fitxer fins que es troba amb un separador 
+     */
+    private static void ignorarFinsSeparador(Scanner fitxer){
+        while(!fitxer.nextLine().equals("*")) fitxer.nextLine();
+    }
+    
     /**
      * @pre: Anterior valor llegit de fitxer és "client"
-     * @post: Llegeix un client de fitxer i l'afegeix a llistaClients
+     * @post: Llegeix un client de fitxer i l'afegeix al Map clients amb clau el seu nom
      */
-    private static void donarAltaClient(Scanner fitxer, List<Client> clients){
+    private static void donarAltaClient(Scanner fitxer, Map<String, Client> clients){
         String nom= fitxer.nextLine();
         Set<String> prefs= new HashSet<String>();
         String pref= fitxer.nextLine();
@@ -41,7 +70,7 @@ public abstract class Entrada {
             prefs.add(pref);
             pref= fitxer.nextLine();
         }
-        clients.add(new Client(nom, prefs));
+        clients.put(nom, new Client(nom, prefs));
     }
     
     /**
@@ -97,7 +126,7 @@ public abstract class Entrada {
         }
         String [] dades = fitxer.nextLine().split(":");
         String [] aux = dades[2].split("-");
-        LocalTime inici= LocalTime.of(Integer.parseInt(dades[1]), Integer.parseInt(aux[0]));
+        LocalTime inici= LocalTime.of(Integer.parseInt(dades[1].trim()), Integer.parseInt(aux[0]));
         LocalTime fi= LocalTime.of(Integer.parseInt(aux[1]), Integer.parseInt(dades[3]));
         mundi.afegeixPuntInteres(new PuntVisitable(nomID, prefs, preu, tempsV, new FranjaHoraria(inici, fi), new Coordenades(coords, zH)));
         ignorarFinsSeparador(fitxer);
@@ -148,23 +177,8 @@ public abstract class Entrada {
         mundi.afegirTransportDirecte(mT);
     }
     
-    /** @pre: --
-     *  @post: Retorna cert si "a" és una data, és a dir, si conté algún caràcter '-'
-     */
-    private static boolean esData(String a){
-        return a.contains("-");
-    }
-    
     /**
-     * @pre: --
-     * @post: Ignora línees del fitxer fins que es troba amb un separador 
-     */
-    private static void ignorarFinsSeparador(Scanner fitxer){
-        while(!fitxer.nextLine().equals("*")) fitxer.nextLine();
-    }
-    
-    /**
-     * @pre: Anterior valor llegit de fitxer és "transport directe"
+     * @pre: Anterior valor llegit de fitxer és "transport indirecte"
      * @post: Llegeix dos llocs de fitxer i crea un mitjà de transport entre aquests dos llocs
      */
     private static void afegirTransportIndirecte(Scanner fitxer, Mapa mundi){
@@ -202,7 +216,7 @@ public abstract class Entrada {
      * @pre: fitxer és obert i llest per llegir
      * @post: Crea les estructures de dades a partir de les dades del fitxer d'entrada
      */
-    public static void inicialitzaAplicatiu(Scanner fitxer, List<Client> clients, Mapa mundi){
+    public static void inicialitzaAplicatiu(Scanner fitxer, Map<String, Client> clients, Mapa mundi){
         fitxer.nextLine(); //S'ignora la línia del autor
         while(fitxer.hasNext()){
             String codiOperacio= fitxer.nextLine();

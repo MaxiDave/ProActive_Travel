@@ -1,0 +1,42 @@
+# MaxiDave i MasterBoss
+client
+Tesla
+ciencia
+tecnologia
+animals
+numeros
+*
+lloc
+Barcelona
+41.388916,2.174606
+Europe/Madrid
+*
+allotjament
+Hotel DeLuxe
+41.388916,2.174607
+Europe/Madrid
+cinc estrelles
+500
+golf
+platja
+spa
+jacuzzi
+*
+lloc visitable
+Sagrada Familia
+41.388916,2.174608
+Europe/Madrid
+04:00
+111.00
+religio
+arquitectura
+urbanisme
+*
+April 1 - September 30: 09:00-20:00
+October 1 - October 31: 09:00-19:00
+December 25: 09:00-19:00
+*
+associar lloc
+Sagrada Familia
+Barcelona
+*

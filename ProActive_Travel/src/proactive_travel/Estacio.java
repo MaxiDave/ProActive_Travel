@@ -1,7 +1,24 @@
+//ProActive_Travel
+
+/**
+ * @file: Estacio.java
+ * @author: Roger Barnés, u1939667
+ * @author: David Martínez, u1939690
+ * @version: 1
+ * @date: Curs 2016-2017
+ * @warning: --
+ * @brief: Classe Estació: Conté informació d'una estació d'un determinat mitjà de transport
+ * @copyright: Public License
+ */
+
 package proactive_travel;
 import java.util.*;
 import java.time.*;
 
+/**
+ * DESCRIPCIÓ GENERAL
+ * @brief: Representa una Estacio, amb les connexions de sortida i arribada, i les sortides
+ */
 public class Estacio {
     //ATRIBUTS
     private final String nomTransport;
@@ -12,7 +29,7 @@ public class Estacio {
     /** @pre: --
      *  @post: Crea una estació de nomTransport nom 
      */
-    Estacio(String nom){
+    public Estacio(String nom){
         nomTransport= nom;
         sortides= new HashMap<LocalDateTime, MTIndirecte>();
         connexioArribada= new HashMap<Lloc, Integer>();

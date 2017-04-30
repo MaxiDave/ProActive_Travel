@@ -1,23 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package proactive_travel;
+//ProActive_Travel
 
+/**
+ * @file: Lloc.java
+ * @author: Roger Barnés, u1939667
+ * @author: David Martínez, u1939690
+ * @version: 1
+ * @date: Curs 2016-2017
+ * @warning: --
+ * @brief: Classe Lloc: Conté informació d'un Lloc que conté Punts d'Interès
+ * @copyright: Public License
+ */
+
+package proactive_travel;
 import java.util.*;
 import java.time.*;
 
+/**
+ * DESCRIPCIÓ GENERAL
+ * @brief: Representa un Lloc, amb unes coordenades, estacions, punts d'interès i transports
+ */
 public class Lloc {
-    
+    //ATRIBUTS
     private final String nom;
     private final Coordenades c;
     private Map<String, Estacio> estacions;
     private Set<PuntInteres> punts;
     private Set<TransportUrba> transports;
     
-    /** @pre: --
-        @post:  Es crea un lloc de nom "n" i coordeandes "coor" */ 
+    /** 
+     * @pre: --
+     * @post:  Es crea un lloc de nom "n" i coordeandes "coor" 
+     */ 
     public Lloc(String n, Coordenades coor){
         nom= n;
         c= coor;
@@ -26,20 +39,26 @@ public class Lloc {
         transports= new HashSet<TransportUrba>();
     }
     
-    /** @pre: --
-        @post: Retorna el nom del lloc */
+    /** 
+     * @pre: --
+     * @post: Retorna el nom del lloc 
+     */
     public String obtenirNom(){
         return nom;
     }
     
-    /** @pre: --
-        @post: Retorna les coordenades del lloc */
+    /** 
+     * @pre: --
+     * @post: Retorna les coordenades del lloc 
+     */
     public Coordenades obtenirCoordenades(){
         return c;
     }
     
-    /** @pre: --
-        @post: Afegeix l'estació "est" a la llista d'estacions del lloc*/
+    /** 
+     * @pre: --
+     * @post: Afegeix l'estació "est" a la llista d'estacions del lloc
+     */
     private void afegirEstacio(Estacio est){
         estacions.put(est.getNom(), est);
     }
@@ -74,14 +93,18 @@ public class Lloc {
         actual.afegirSortida(mitja, horaSortida);
     }
     
-    /** @pre: --
-        @post: Afegeix el punt d'interès "pI" als punts d'interès del lloc */
+    /** 
+     * @pre: --
+     * @post: Afegeix el punt d'interès "pI" als punts d'interès del lloc 
+     */
     public void afegirPuntInteres(PuntInteres pI){
         punts.add(pI);
     }
     
-    /** @pre: --
-        @post: Afegeix el transport urbà al Lloc */
+    /** 
+     * @pre: --
+     * @post: Afegeix el transport urbà al Lloc 
+     */
     public void afegirTransportUrba(TransportUrba tU){
         transports.add(tU);
     } 

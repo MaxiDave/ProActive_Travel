@@ -1,19 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package proactive_travel;
+//ProActive_Travel
 
+/**
+ * @file: Mapa.java
+ * @author: Roger Barnés, u1939667
+ * @author: David Martínez, u1939690
+ * @version: 1
+ * @date: Curs 2016-2017
+ * @warning: --
+ * @brief: Classe Mapa: Conté informació de tot el relacionat amb dades geogràfiques i transports
+ * @copyright: Public License
+ */
+
+package proactive_travel;
 import java.util.*;
 import java.time.*;
 
 /**
- *
- * @author Roger
+ * DESCRIPCIÓ GENERAL
+ * @brief: Representa un Mapa, amb les estructures de dades corresponents 
  */
 public class Mapa {
-    
+    //ATRIBUTS
     private Map<String, Lloc> llocs;
     private Map<String, PuntInteres> punts;
     private Map<String, Map<String, List<MTDirecte>>> transDirecte;
@@ -47,8 +54,7 @@ public class Mapa {
     
     /**
      * @pre: --
-     * @post: Afegeix un lloc al mapa, i també (si en té), els seus punts d’interès i les seves estacions. 
-     * @param ll 
+     * @post: Afegeix un lloc al mapa, i també (si en té), els seus punts d’interès i les seves estacions.  
      */
     public void afegeixLloc(Lloc ll){
         llocs.put(ll.obtenirNom(), ll);

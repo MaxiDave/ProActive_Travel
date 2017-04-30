@@ -1,10 +1,22 @@
+//ProActive_Travel
+
+/**
+ * @file: MitjaTransport.java
+ * @author: Roger Barnés, u1939667
+ * @author: David Martínez, u1939690
+ * @version: 1
+ * @date: Curs 2016-2017
+ * @warning: --
+ * @brief: Classe MitjaTransport: Conté informació d'un Mitjà de Transport
+ * @copyright: Public License
+ */
+
 package proactive_travel;
 
 /**
- *
- * @author Roger
+ * DESCRIPCIÓ GENERAL
+ * @brief: Representa un Mitjà de Transport, amb un nom, preu i durada
  */
-
 public class MitjaTransport {
     //ATRIBUTS
     private final String nom;
@@ -14,7 +26,7 @@ public class MitjaTransport {
     /**
      * @pre: Origen i destí han de ser llocs o punts d’interès
      * @post: Crea un mitjà de transport amb preu, durada i descriptor
-    */
+     */
     public MitjaTransport(String descriptor, Double cost, Integer dur){
         nom= descriptor;
         preu= cost;
