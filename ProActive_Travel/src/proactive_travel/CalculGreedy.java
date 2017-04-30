@@ -4,15 +4,13 @@ package proactive_travel;
  *
  * @author maxidave
  */
-public class CalculGreedy {
+
+public abstract class CalculGreedy {
     /**
      * @pre: --
      * @post: Calcula una Ruta mitjançant un algorisme voraç
-     * @param clients
-     * @param mon
-     * @return 
      */
     public static Ruta calcularRutaGreedy(Viatge clients,Mapa mon){
-        
+        throw new UnsupportedOperationException("Not supported yet"); 
     }
 }

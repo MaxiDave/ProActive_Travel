@@ -23,8 +23,15 @@ public class MitjaTransport {
     
     /**
      * @pre: --
+     * @post: Retorna el nom del transport
+     */
+    public String getNom(){
+        return nom;
+    }
+    
+    /**
+     * @pre: --
      * @post: Retorna el preu del transport
-     * @return 
      */
     public Double getPreu(){
         return preu;
@@ -33,7 +40,6 @@ public class MitjaTransport {
     /**
      * @pre: --
      * @post: Retorna la durada del transport
-     * @return 
      */
     public Integer getDurada(){
         return durada;

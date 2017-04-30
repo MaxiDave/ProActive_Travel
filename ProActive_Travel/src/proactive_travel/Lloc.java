@@ -6,58 +6,83 @@
 package proactive_travel;
 
 import java.util.*;
+import java.time.*;
 
 public class Lloc {
     
     private final String nom;
     private final Coordenades c;
-    private List<Estacio> estacions;
-    private List<PuntInteres> punts;
-    private List<TransportUrba> transports;
+    private Map<String, Estacio> estacions;
+    private Set<PuntInteres> punts;
+    private Set<TransportUrba> transports;
     
     /** @pre: --
         @post:  Es crea un lloc de nom "n" i coordeandes "coor" */ 
-    Lloc(String n, Coordenades coor){
+    public Lloc(String n, Coordenades coor){
         nom= n;
         c= coor;
-        punts= new ArrayList<PuntInteres>();
-        estacions= new ArrayList<Estacio>();
-        transports= new ArrayList<TransportUrba>();
+        punts= new HashSet<PuntInteres>();
+        estacions= new HashMap<String, Estacio>();
+        transports= new HashSet<TransportUrba>();
     }
     
     /** @pre: --
         @post: Retorna el nom del lloc */
-    String obtenirNom(){
+    public String obtenirNom(){
         return nom;
     }
     
     /** @pre: --
         @post: Retorna les coordenades del lloc */
-    Coordenades obtenirCoordenades(){
+    public Coordenades obtenirCoordenades(){
         return c;
     }
     
     /** @pre: --
         @post: Afegeix l'estació "est" a la llista d'estacions del lloc*/
-    void afegirEstacio(Estacio est){
-        estacions.add(est);
+    private void afegirEstacio(Estacio est){
+        estacions.put(est.getNom(), est);
+    }
+    
+    /** @pre: --
+     *  @post: Si l'estació de nom nomEst no existeix, la crea.
+     *         Afegeix una sortida a l'estació de nom nomEst cap al lloc desti
+     *         amb un temps d'origen de "temps"
+     */
+    public void afegirConnexioSortidaMTI(String nomEst, Lloc desti, Integer temps){
+        if(!estacions.containsKey(nomEst)) estacions.put(nomEst, new Estacio(nomEst));
+        Estacio actual= estacions.get(nomEst);
+        actual.afegirConnexioSortida(desti, temps);
+    }
+    
+    /** @pre: --
+     *  @post: Si l'estació de nom nomEst no existeix, la crea.
+     *         Afegeix una arribada a l'estació de nom nomEst des del lloc origen
+     *         amb un temps de destí de "temps"
+     */
+    public void afegirConnexioArribadaMTI(String nomEst, Lloc origen, Integer temps){
+        if(!estacions.containsKey(nomEst)) estacions.put(nomEst, new Estacio(nomEst));
+        Estacio actual= estacions.get(nomEst);
+        actual.afegirConnexioArribada(origen, temps);
+    }
+    
+    /** @pre: Ha d'existir una connexió de Sortida a l'estació del mitjà "mitja"
+     *  @post: S'afegeix el mitjà de transport indirecte com a sortida de l'estació corresponent
+     */
+    public void afegirSortidaMTI(MTIndirecte mitja, LocalDateTime horaSortida){
+        Estacio actual= estacions.get(mitja.getNom());
+        actual.afegirSortida(mitja, horaSortida);
     }
     
     /** @pre: --
         @post: Afegeix el punt d'interès "pI" als punts d'interès del lloc */
-    void afegirPuntInteres(PuntInteres pI){
+    public void afegirPuntInteres(PuntInteres pI){
         punts.add(pI);
     }
     
     /** @pre: --
-        @post: Retorna un iterador a les estacions associades a lloc */
-    Iterator<Estacio> obtenirEstacions(){
-        return estacions.iterator();
-    }
-    
-    /** @pre: --
         @post: Afegeix el transport urbà al Lloc */
-    void afegirTransportUrba(TransportUrba tU){
+    public void afegirTransportUrba(TransportUrba tU){
         transports.add(tU);
     } 
 }

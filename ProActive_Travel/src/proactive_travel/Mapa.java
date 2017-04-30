@@ -6,6 +6,7 @@
 package proactive_travel;
 
 import java.util.*;
+import java.time.*;
 
 /**
  *
@@ -119,20 +120,21 @@ public class Mapa {
         return punts.size();
     }
     
-    /**
-     * @pre: --
-     * @post: Afegeix a l'estació nomEst (Si no existeix la crea) al lloc de nom origenID 
-     *        una connexió de sortida cap al lloc de nom destiID amb un temps d'oriden tempsOrigen
+    /** @pre:  Lloc origen i lloc desti han d'existir
+     *  @post: Si no existeix l'estació de nom nomEst a origen i/o destí, la/les crea.
+     *         Afegeix al lloc origen una connexió de sortida cap al lloc desti amb un temps d'origen tempsOrigen
+     *         Afegeix al lloc desti una connexió d'arribada des del lloc origen amb un temps de destí tempsDesti
      */
-    public void assignarOrigenMTI(String origenID, String destiID, String nomEst, Integer tempsOrigen){
-        Lloc origen= llocs.get(origenID);
-        Lloc desti= llocs.get(destiID);
-         if(origen != null && desti != null){
-             
-         }
-         else{
-             //Excepció no existeix origen i/o desti
-         }
+    public void afegirConnexioMTI(String nomEst, Lloc origen, Lloc desti, Integer tempsOrigen, Integer tempsDesti){
+        origen.afegirConnexioSortidaMTI(nomEst, desti, tempsOrigen);
+        desti.afegirConnexioArribadaMTI(nomEst, origen, tempsDesti);
+    }
+    
+    /** @pre:  Origen i destí han de tenir estació de nom el mateix que el mitjà
+     *  @post: Afegeix el mitjà al Lloc origen (Sortida) i al Lloc desti (Arribada)
+     */
+    public void afegirMTIndirecte(MTIndirecte mitja, LocalDateTime horaSortida, Lloc origen){
+        origen.afegirSortidaMTI(mitja, horaSortida);
     }
     
     /**

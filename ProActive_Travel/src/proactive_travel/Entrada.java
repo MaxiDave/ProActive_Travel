@@ -100,8 +100,7 @@ public abstract class Entrada {
         LocalTime inici= LocalTime.of(Integer.parseInt(dades[1]), Integer.parseInt(aux[0]));
         LocalTime fi= LocalTime.of(Integer.parseInt(aux[1]), Integer.parseInt(dades[3]));
         mundi.afegeixPuntInteres(new PuntVisitable(nomID, prefs, preu, tempsV, new FranjaHoraria(inici, fi), new Coordenades(coords, zH)));
-        String inutil= fitxer.nextLine();
-        while(!inutil.equals("*")) inutil= fitxer.nextLine();
+        ignorarFinsSeparador(fitxer);
     }
     
     /**
@@ -135,7 +134,7 @@ public abstract class Entrada {
      * @pre: Anterior valor llegit de fitxer és "transport directe"
      * @post: Llegeix dos llocs de fitxer i crea un mitjà de transport entre aquests dos llocs
      */
-    public static void afegirTransportDirecte(Scanner fitxer, Mapa mundi){
+    private static void afegirTransportDirecte(Scanner fitxer, Mapa mundi){
         String origenID= fitxer.nextLine();
         String destiID= fitxer.nextLine();
         String nomTrans= fitxer.nextLine();
@@ -149,35 +148,54 @@ public abstract class Entrada {
         mundi.afegirTransportDirecte(mT);
     }
     
+    /** @pre: --
+     *  @post: Retorna cert si "a" és una data, és a dir, si conté algún caràcter '-'
+     */
+    private static boolean esData(String a){
+        return a.contains("-");
+    }
+    
+    /**
+     * @pre: --
+     * @post: Ignora línees del fitxer fins que es troba amb un separador 
+     */
+    private static void ignorarFinsSeparador(Scanner fitxer){
+        while(!fitxer.nextLine().equals("*")) fitxer.nextLine();
+    }
+    
     /**
      * @pre: Anterior valor llegit de fitxer és "transport directe"
      * @post: Llegeix dos llocs de fitxer i crea un mitjà de transport entre aquests dos llocs
      */
-    public static void afegirTransportIndirecte(Scanner fitxer, Mapa mundi){
-        String origenID= fitxer.nextLine();
-        String destiID= fitxer.nextLine();
-        String nomTrans= fitxer.nextLine();
-        String [] hhmmOrigen= fitxer.nextLine().split(":");
-        Integer tempsOrigen= (Integer.parseInt(hhmmOrigen[0])*60)+Integer.parseInt(hhmmOrigen[1]);
-        String [] hhmmDesti= fitxer.nextLine().split(":");
-        Integer tempsDesti= (Integer.parseInt(hhmmDesti[0])*60)+Integer.parseInt(hhmmDesti[1]);
-        mundi.assignarOrigenMTI(origenID, destiID, nomTrans, tempsOrigen);
-        mundi.assignarDestiMTI(destiID, origenID, nomTrans, tempsDesti);
-        String data= fitxer.nextLine();
-        while(!data.equals("*")){
-            String [] anyMesDia= data.split("-");
-            String hora= fitxer.nextLine();
-            while(!hora.equals("*") && !esData(hora)){
-                String [] horaMinuts= hora.split(":");
-                String [] duradaHoraMinuts= fitxer.nextLine().split(":");
-                Integer durada= (Integer.parseInt(duradaHoraMinuts[0])*60)+Integer.parseInt(duradaHoraMinuts[1]);
-                Double preu= fitxer.nextDouble();
-                mundi.afegirTransportIndirecte();
-                fitxer.nextLine(); // \n
-                hora= fitxer.nextLine();
+    private static void afegirTransportIndirecte(Scanner fitxer, Mapa mundi){
+        String origenID= fitxer.nextLine(); Lloc origen= mundi.obtenirLloc(origenID);
+        String destiID= fitxer.nextLine(); Lloc desti= mundi.obtenirLloc(destiID);
+        if(origen != null && desti != null){
+            String nomTrans= fitxer.nextLine();
+            String [] hhmmOrigen= fitxer.nextLine().split(":");
+            Integer tempsOrigen= (Integer.parseInt(hhmmOrigen[0])*60)+Integer.parseInt(hhmmOrigen[1]);
+            String [] hhmmDesti= fitxer.nextLine().split(":");
+            Integer tempsDesti= (Integer.parseInt(hhmmDesti[0])*60)+Integer.parseInt(hhmmDesti[1]);
+            mundi.afegirConnexioMTI(nomTrans, origen, desti, tempsOrigen, tempsDesti);
+            String data= fitxer.nextLine();
+            while(!data.equals("*")){
+                String [] anyMesDia= data.split("-");
+                String hora= fitxer.nextLine();
+                while(!hora.equals("*") && !esData(hora)){
+                    String [] horaMinuts= hora.split(":");
+                    LocalDateTime horaSortida= LocalDateTime.of(Integer.parseInt(anyMesDia[0]), Integer.parseInt(anyMesDia[1]), Integer.parseInt(anyMesDia[2]), Integer.parseInt(horaMinuts[0]), Integer.parseInt(horaMinuts[1]));
+                    String [] duradaHoraMinuts= fitxer.nextLine().split(":");
+                    Integer durada= (Integer.parseInt(duradaHoraMinuts[0])*60)+Integer.parseInt(duradaHoraMinuts[1]);
+                    Double preu= fitxer.nextDouble();
+                    MTIndirecte mitja= new MTIndirecte(nomTrans, origen, desti, preu, durada);
+                    mundi.afegirMTIndirecte(mitja, horaSortida, origen);
+                    fitxer.nextLine(); // \n
+                    hora= fitxer.nextLine();
+                }
+                data= hora;
             }
-            data= hora;
         }
+        else ignorarFinsSeparador(fitxer);
     }
     
     /**
