@@ -132,3 +132,17 @@ pesca
 *
 January 1 - December 31: 00:00-23:59
 *
+lloc visitable
+Cementiri Arenys de Mar
+41.577047,2.5464769999999817
+Europe/Madrid
+0:30
+0
+arquitectura
+zombies
+religio
+art
+poesia
+*
+January 1 - December 31: 00:00-23:59
+*
