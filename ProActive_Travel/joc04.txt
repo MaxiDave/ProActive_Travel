@@ -1,0 +1,73 @@
+allotjament
+W Barcelona
+41.3683264,2.1903244000000086
+Europe/Madrid
+cinc estrelles
+1135
+platja
+luxe
+*
+allotjament
+Hotel Condes
+41.39343,2.162407700000017
+Europe/Madrid
+quatre estrelles
+335
+ciutat
+*
+allotjament
+H2 Rubi
+41.4749161,2.030985800000053
+Europe/Madrid
+quatre estrelles
+335
+ciutat
+*
+allotjament
+Terrassa Park
+41.5515291,2.024987699999997
+Europe/Madrid
+tres estrelles
+235
+ciutat
+*
+allotjament
+Hotel Arrahona
+41.5315761,2.114359899999954
+Europe/Madrid
+tres estrelles
+215
+platja
+*
+allotjament
+URH Ciutat de Mataro
+41.5315707,2.4370016000000305
+Europe/Madrid
+tres estrelles
+66
+platja
+*
+allotjament
+Hotel Torres
+41.8159435,2.5152414000000363
+Europe/Madrid
+tres estrelles
+135
+platja
+*
+allotjament
+Vilar Rural
+41.87145399999999,2.5027049999999917
+Europe/Madrid
+quatre estrelles
+67
+natura
+*
+allotjament
+Hotel Camiral
+41.858697,2.7667240000000675
+Europe/Madrid
+tres estrelles
+212
+platja
+*
