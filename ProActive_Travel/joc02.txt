@@ -1,0 +1,111 @@
+# MaxiDave i MasterBoss
+client
+Tesla
+ciencia
+tecnologia
+animals
+numeros
+*
+client
+Hardman Derryl
+ponts
+construccio
+magia
+esports
+esquiar
+*
+client
+Phoibos Nuadha
+dards
+dibuix
+cultura
+menjar
+musica
+fotografia
+*
+client
+Isidoro Hari
+fantasmas
+paranormal
+vudu
+magia
+*
+client
+Emanuel Vili
+poker
+cartes
+casino
+billar
+apostes
+*
+client
+Kishor Yaroslav
+musica
+fotografia
+paintball
+piano
+natacio
+*
+client
+Gerold Logan
+windsurf
+surf
+rafting
+esqui
+yoga
+*
+client
+Primus Dragan
+platja
+arquitectura
+carreres
+vela
+cuina
+esgrima
+*
+client
+Sacha Sanjiv
+malabars
+poker
+cine
+magia
+musica
+*
+client
+Samuil Slamet
+nadar
+ballar
+cotxes
+teatre
+*
+client
+Loke Amador
+acampada
+ocells
+musica
+minerals
+animals
+*
+client
+Brayden Isbrand
+religio
+art
+arquitectura
+robotica
+esports
+*
+client
+Rinat Eneko
+internet
+robotica
+tecnologia
+maquinaria
+*
+client
+Supre Mairo
+bolets
+castells
+curses
+cotxes
+esports
+*
