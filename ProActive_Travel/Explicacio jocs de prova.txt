@@ -2,3 +2,4 @@ Joc01.txt - Una mica de tot
 Joc02.txt - Nomes clients
 Joc03.txt - Nomes llocs
 Joc04.txt - Nomes hotels
+Joc05.txt - Nomes llocs visitables
