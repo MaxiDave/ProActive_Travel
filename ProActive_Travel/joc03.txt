@@ -9,7 +9,7 @@ Rubi
 Europe/Madrid
 *
 lloc
-Terrasa
+Terrassa
 41.56490897652471,2.0095824915915728
 Europe/Madrid
 *
