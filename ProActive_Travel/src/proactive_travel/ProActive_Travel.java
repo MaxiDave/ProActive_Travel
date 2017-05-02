@@ -26,7 +26,7 @@ public abstract class ProActive_Travel {
      *        calcula Rutes a partir d'aquest.
      */
     public static void main(String[] args) {
-        //Demana nom de fitxer i s'obre el flux
+        //Demana nom de fitxer i s'obre el flux (S'haurà de fer amb entrada gràfica)
         Scanner fitxer= Entrada.entrarNomFitxer();
         
         //Es creen les estructures de dades principals 
