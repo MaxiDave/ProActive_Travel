@@ -20,24 +20,26 @@ import java.time.*;
  * @brief: Representa una Franja Horària, entre dues hores d'un dia
  */
 public class FranjaHoraria {
-    //ATRIBUTS
+    //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private final LocalTime obertura;
     private final LocalTime tancament;
     
+    //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
      * @post: Crea una franja horària a partir d’un LocalTime inici i final 
      */
-    FranjaHoraria(LocalTime inici, LocalTime fi){
+    public FranjaHoraria(LocalTime inici, LocalTime fi){
         obertura= inici;
         tancament= fi;
     }
     
+    //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
      * @post: Retorna cert si el LocalTime “instant” es troba dins de l’horari de la franja 
      */
-    Boolean pertanyFranja(LocalTime instant){
+    public Boolean pertanyFranja(LocalTime instant){
         return instant.isAfter(obertura) && instant.isBefore(tancament);
     }
 }

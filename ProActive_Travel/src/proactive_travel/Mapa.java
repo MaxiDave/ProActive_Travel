@@ -20,11 +20,12 @@ import java.time.*;
  * @brief: Representa un Mapa, amb les estructures de dades corresponents 
  */
 public class Mapa {
-    //ATRIBUTS
+    //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private Map<String, Lloc> llocs;
     private Map<String, PuntInteres> punts;
     private Map<String, Map<String, List<MTDirecte>>> transDirecte;
     
+    //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /**
      * @pre: --
      * @post: Crea un mapa buit
@@ -35,6 +36,7 @@ public class Mapa {
         transDirecte= new HashMap<String, Map<String, List<MTDirecte>>>();
     }
     
+    //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     /**
      * @pre: Lloc on està el punt d’interès ha d’existir
      * @post: Afegeix un punt d’interès al mapa

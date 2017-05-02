@@ -18,7 +18,7 @@ package proactive_travel;
  * @brief: Classe abstracte que s'encarrega de dur a terme els càlculs entre Rutes
  */
 public abstract class CalculRuta {
-    
+    //MÈTODES ESTÀTICS---------------------------------------------------------------------------------------------------------------------------
     /**
      * @pre: --
      * @post: Concatena les rutes a i b

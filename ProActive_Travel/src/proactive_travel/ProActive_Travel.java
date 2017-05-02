@@ -14,6 +14,10 @@
 package proactive_travel;
 import java.util.*;
 
+/**
+ * DESCRIPCIÓ GENERAL
+ * @brief: Mòdul principal que conté el MAIN
+ */
 public abstract class ProActive_Travel {
     
     /**

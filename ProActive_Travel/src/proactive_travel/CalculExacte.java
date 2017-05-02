@@ -19,7 +19,7 @@ package proactive_travel;
  * @brief: Classe abstracte que s'encarrega dels càlculs exactes
  */
 public abstract class CalculExacte {
-    
+    //MÈTODES ESTÀTICS---------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
      * @post: Calcula una Ruta mitjançant backtraking

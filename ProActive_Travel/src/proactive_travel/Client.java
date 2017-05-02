@@ -19,10 +19,11 @@ import java.util.*;
  * @brief: Representa un Client, amb unes preferències determinades
  */
 public class Client {
-    //ATRIBUTS
+    //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private String nom;
     private Set<String> preferencies;
     
+    //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
      * @post: Es crea un client amb nom “n” i preferències “prefs” 
@@ -32,6 +33,7 @@ public class Client {
         preferencies= prefs;
     }
     
+    //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
      * @post: Retorna el nom del client 

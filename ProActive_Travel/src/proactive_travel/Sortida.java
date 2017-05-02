@@ -1,16 +1,30 @@
+//ProActive_Travel
+
+/**
+ * @file: Sortida.java
+ * @author: Roger Barnés, u1939667
+ * @author: David Martínez, u1939690
+ * @version: 1
+ * @date: Curs 2016-2017
+ * @warning: --
+ * @brief: Mòdul funcional que s'encarrega de dur a terme càlculs de Sortida
+ * @copyright: Public License
+ */
+
 package proactive_travel;
 
 /**
- *
- * @author maxidave
+ * DESCRIPCIÓ GENERAL
+ * @brief: 
  */
-public class Sortida {
+
+public abstract class Sortida {
+    //MÈTODES ESTÀTICS---------------------------------------------------------------------------------------------------------------------------
     /**
      * @pre: --
      * @post: Mostra la Ruta “resultat” per la sortida estàndard 
-     * @param resultat 
      */
-    public void mostrarRuta(Ruta resultat){
-        
+    public static void mostrarRuta(Ruta resultat){
+        throw new UnsupportedOperationException("Not supported yet"); 
     }
 }

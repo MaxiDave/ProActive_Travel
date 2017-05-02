@@ -19,7 +19,7 @@ package proactive_travel;
  * @brief: Classe abstracte que s'encarrega dels càlculs aproximats
  */
 public abstract class CalculGreedy {
-    
+    //MÈTODES ESTÀTICS---------------------------------------------------------------------------------------------------------------------------
     /**
      * @pre: --
      * @post: Calcula una Ruta mitjançant un algorisme voraç

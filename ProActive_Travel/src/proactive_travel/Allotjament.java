@@ -19,11 +19,12 @@ import java.util.*;
  * @brief: Representa un allotjament, amb una categoria de luxe.
  */
 public class Allotjament extends PuntInteres {
-    //ATRIBUTS
+    //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private final String categoria;
     private final Double cost;
     private final Coordenades localitzacio;
     
+    //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
      * @post: Es crea un allotjament a partir de les dades del punt d’interès, la categoria del allotjament, i coordenades on es troba
@@ -35,6 +36,7 @@ public class Allotjament extends PuntInteres {
         localitzacio= coor;
     }
     
+    //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
      * @post: Retorna la categoria de l’allotjament

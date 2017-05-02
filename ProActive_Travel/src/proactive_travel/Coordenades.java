@@ -19,11 +19,12 @@ import java.util.TimeZone;
  * @brief: Representa unes coordenades, amb latitud, longitud i zona horària.
  */
 public class Coordenades {
-    //ATRIBUTS
+    //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private final String latitud;
     private final String longitud;
     private final TimeZone tZ;
     
+    //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: z ha de ser un format de l'API de Java TimeZone
      * @post: Es crea unes coordenades separant latitud i longitud de coor, i 
@@ -37,6 +38,7 @@ public class Coordenades {
         tZ.setID(z);
     }
     
+    //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
      * @post: Retorna la zona horària de les coordenades 

@@ -19,20 +19,23 @@ import java.time.*;
  * @brief: Representa una Estada en un Hotel, amb l'inici de la estada i el final.
  */
 public class EstadaHotel {
+    //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     
+    //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
      * @post: Es crea una EstadaHotel a partir d’un Allotjament i una hora d’inici i de fi 
      */
-    EstadaHotel(Allotjament hotel, LocalDateTime inici, LocalDateTime fi){
+    public EstadaHotel(Allotjament hotel, LocalDateTime inici, LocalDateTime fi){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
 
+    //MÈTODES CONSULTORS-------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
      * @post: Retorna l’hora d’inici de l'Estada 
      */
-    LocalDateTime getInici(){
+    public LocalDateTime getInici(){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
 
@@ -40,7 +43,7 @@ public class EstadaHotel {
      * @pre: --
      * @post: Retorna l’hora de fi de l'Estada 
      */
-    LocalDateTime getFi(){
+    public LocalDateTime getFi(){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
 }

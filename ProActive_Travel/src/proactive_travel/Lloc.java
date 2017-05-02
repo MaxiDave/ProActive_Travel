@@ -20,25 +20,27 @@ import java.time.*;
  * @brief: Representa un Lloc, amb unes coordenades, estacions, punts d'interès i transports
  */
 public class Lloc {
-    //ATRIBUTS
+    //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private final String nom;
-    private final Coordenades c;
+    private final Coordenades coords;
     private Map<String, Estacio> estacions;
     private Set<PuntInteres> punts;
     private Set<TransportUrba> transports;
     
+    //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
      * @post:  Es crea un lloc de nom "n" i coordeandes "coor" 
      */ 
     public Lloc(String n, Coordenades coor){
         nom= n;
-        c= coor;
+        coords= coor;
         punts= new HashSet<PuntInteres>();
         estacions= new HashMap<String, Estacio>();
         transports= new HashSet<TransportUrba>();
     }
     
+    //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
      * @post: Retorna el nom del lloc 
@@ -52,15 +54,7 @@ public class Lloc {
      * @post: Retorna les coordenades del lloc 
      */
     public Coordenades obtenirCoordenades(){
-        return c;
-    }
-    
-    /** 
-     * @pre: --
-     * @post: Afegeix l'estació "est" a la llista d'estacions del lloc
-     */
-    private void afegirEstacio(Estacio est){
-        estacions.put(est.getNom(), est);
+        return coords;
     }
     
     /** @pre: --

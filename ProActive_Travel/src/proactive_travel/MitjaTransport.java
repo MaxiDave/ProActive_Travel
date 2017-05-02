@@ -18,11 +18,12 @@ package proactive_travel;
  * @brief: Representa un Mitjà de Transport, amb un nom, preu i durada
  */
 public class MitjaTransport {
-    //ATRIBUTS
+    //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private final String nom;
     private final Double preu;
     private final Integer durada;
     
+    //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /**
      * @pre: Origen i destí han de ser llocs o punts d’interès
      * @post: Crea un mitjà de transport amb preu, durada i descriptor
@@ -33,6 +34,7 @@ public class MitjaTransport {
         durada= dur;
     }
     
+    //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     /**
      * @pre: --
      * @post: Retorna el nom del transport

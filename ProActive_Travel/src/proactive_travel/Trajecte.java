@@ -1,54 +1,81 @@
-package proactive_travel;
+//ProActive_Travel
 
+/**
+ * @file: Trajecte.java
+ * @author: Roger Barnés, u1939667
+ * @author: David Martínez, u1939690
+ * @version: 1
+ * @date: Curs 2016-2017
+ * @warning: --
+ * @brief: Classe Trajecte: Conté informació d'un Trajecte dut a terme per un mitjà de transport
+ * @copyright: Public License
+ */
+
+package proactive_travel;
 import java.time.*;
 
+/**
+ * DESCRIPCIÓ GENERAL
+ * @brief: Representa un Trajecte, amb el mitjà de transport i les hores d'arribada i sortida
+ */
 public class Trajecte {
-    /** @pre: --
-        @post: Es crea un Trajecte amb el transport i les hores de sortida i arribada 
-    */
-    Trajecte(MitjaTransport mT, LocalTime sortida, LocalTime arribada){
+    //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
+    
+    //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
+    /** 
+     * @pre: --
+     * @post: Es crea un Trajecte amb el transport i les hores de sortida i arribada 
+     */
+    public Trajecte(MitjaTransport mT, LocalTime sortida, LocalTime arribada){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
     
-    /** @pre: --
-        @post: Retorna el PuntInteres d'origen 
-    */
-    PuntInteres getOrigen(){
+    //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
+    /** 
+     * @pre: --
+     * @post: Retorna el PuntInteres d'origen 
+     */
+    public PuntInteres getOrigen(){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
     
-    /** @pre: --
-        @post: Retorna el PuntInteres de destí 
-    */
-    PuntInteres getDesti(){
+    /** 
+     * @pre: --
+     * @post: Retorna el PuntInteres de destí 
+     */
+    public PuntInteres getDesti(){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
     
-    /** @pre: --
-        @post: Retorna la durada en minuts
-    */
-    Double getDurada(){
+    /** 
+     * @pre: --
+     * @post: Retorna la durada en minuts
+     */
+    public Double getDurada(){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
     
-    /** @pre: --
-        @post: Retorna el preu del trajecte 
-    */
-    Double getPreu(){
+    /** 
+     * @pre: --
+     * @post: Retorna el preu del trajecte 
+     */
+    public Double getPreu(){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
     
-    /** @pre: --
-        @post: Retorna l'hora de sortida del Trajecte 
-    */
-    LocalTime getSortida(){
+    /** 
+     * @pre: --
+     * @post: Retorna l'hora de sortida del Trajecte 
+     */
+    public LocalTime getSortida(){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
     
-    /** @pre: --
-        @post: Retorna l'hora d'arribada del Trajecte 
-    */
-    LocalTime getArribada(){
+    /** 
+     * @pre: --
+     * @post: Retorna l'hora d'arribada del Trajecte 
+     */
+    public LocalTime getArribada(){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
 }

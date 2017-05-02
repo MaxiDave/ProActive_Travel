@@ -19,10 +19,11 @@ import java.time.*;
  * @brief: Representa un MTIndirecte, un MitjaTransport amb un origen i un destí (Llocs)
  */
 public class MTIndirecte extends MitjaTransport{
-    //ATRIBUTS
+    //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private final Lloc origen;
     private final Lloc desti;
     
+    //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /**
      * @pre: --
      * @post: Crea un mitjà de transport amb origen, destí, preu, durada i descriptor
@@ -33,6 +34,7 @@ public class MTIndirecte extends MitjaTransport{
         desti= d;
     }
     
+    //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     /**
      * @pre: --
      * @post: Retorna el lloc d’origen del transport

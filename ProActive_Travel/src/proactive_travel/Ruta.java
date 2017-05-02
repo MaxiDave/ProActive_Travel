@@ -1,28 +1,42 @@
-package proactive_travel;
+//ProActive_Travel
 
+/**
+ * @file: Ruta.java
+ * @author: Roger Barnés, u1939667
+ * @author: David Martínez, u1939690
+ * @version: 1
+ * @date: Curs 2016-2017
+ * @warning: --
+ * @brief: Classe Ruta: Conté informació d'una Ruta amb els seus ItemRuta
+ * @copyright: Public License
+ */
+
+package proactive_travel;
 import java.util.*;
 
 /**
- *
- * @author Roger
+ * DESCRIPCIÓ GENERAL
+ * @brief: Representa una Ruta
  */
-
 public class Ruta {
+    //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     
+    //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /**
      * @pre: --
      * @post: Crea una Ruta inicial buida
      */
     public Ruta(){
-        
+        throw new UnsupportedOperationException("Not supported yet"); 
     }
     
+    //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     /**
      * @pre: --
      * @post: Afegeix un ItemRuta a la Ruta
      */
     public void afegeixItemRuta(ItemRuta item){
-        
+        throw new UnsupportedOperationException("Not supported yet"); 
     }
     
     /**

@@ -23,26 +23,7 @@ import java.time.*;
  * @brief: Classe abstracte que s'encarrega dels càlculs d'entrada
  */
 public abstract class Entrada {
-    
-    /**
-     * @pre: --
-     * @post: Demana la ruta del fitxer a carregar dades i retorna un scanner a aquest 
-     *        preparat per la lectura
-     */
-    public static Scanner entrarNomFitxer(){
-        Scanner teclat = new Scanner(System.in);
-        System.out.println("Nom del fitxer: ");
-        Scanner fitxer= null;
-        try { //Pot ser que el fitxer no existeixi
-            fitxer = new Scanner(new File(teclat.nextLine())).useLocale(Locale.US);
-        } catch (FileNotFoundException e) {
-            //Si no es troba el fitxer informa i avorta
-            System.err.println(e);
-            System.exit(-1);
-        }
-        return fitxer;
-    }
-    
+    //MÈTODES ESTÀTICS---------------------------------------------------------------------------------------------------------------------------
     /** @pre: --
      *  @post: Retorna cert si "a" és una data, és a dir, si conté algún caràcter '-'
      */
@@ -210,6 +191,25 @@ public abstract class Entrada {
             }
         }
         else ignorarFinsSeparador(fitxer);
+    }
+    
+    /**
+     * @pre: --
+     * @post: Demana la ruta del fitxer a carregar dades i retorna un scanner a aquest 
+     *        preparat per la lectura
+     */
+    public static Scanner entrarNomFitxer(){
+        Scanner teclat = new Scanner(System.in);
+        System.out.println("Nom del fitxer: ");
+        Scanner fitxer= null;
+        try { //Pot ser que el fitxer no existeixi
+            fitxer = new Scanner(new File(teclat.nextLine())).useLocale(Locale.US);
+        } catch (FileNotFoundException e) {
+            //Si no es troba el fitxer informa i avorta
+            System.err.println(e);
+            System.exit(-1);
+        }
+        return fitxer;
     }
     
     /**

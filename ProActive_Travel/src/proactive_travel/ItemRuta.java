@@ -18,7 +18,9 @@ package proactive_travel;
  * @brief: Representa un Item d'una Ruta.
  */
 public class ItemRuta {
+    //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     
+    //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
      * @post: Crea un ItemRuta inicial buit 
@@ -27,6 +29,7 @@ public class ItemRuta {
         throw new UnsupportedOperationException("Not supported yet");
     }
     
+    //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: ItemRuta buit
      * @post: ItemRuta serà un trajecte 
@@ -39,7 +42,7 @@ public class ItemRuta {
      * @pre: ItemRuta buit
      * @post: ItemRuta serà una Estada 
      */
-    void afegirEstada(EstadaHotel estada){
+    public void afegirEstada(EstadaHotel estada){
         throw new UnsupportedOperationException("Not supported yet");
     }
     
@@ -47,7 +50,7 @@ public class ItemRuta {
      * @pre: ItemRuta buit
      * @post: ItemRuta serà una Visita 
      */
-    void afegirVisita(Visita v){
+    public void afegirVisita(Visita v){
         throw new UnsupportedOperationException("Not supported yet");
     }
 }

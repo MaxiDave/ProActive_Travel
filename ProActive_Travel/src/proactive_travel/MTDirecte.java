@@ -18,10 +18,11 @@ package proactive_travel;
  * @brief: Representa un MTDirecte, un MitjaTransport amb un origen i un destí (Punts d'interès)
  */
 public class MTDirecte extends MitjaTransport{
-    //ATRIBUTS
+    //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private final PuntInteres origen;
     private final PuntInteres desti;
     
+    //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /**
      * @pre: --
      * @post: Crea un MTDirecte amb nom, origen, destí, preu, durada i descriptor
@@ -32,6 +33,7 @@ public class MTDirecte extends MitjaTransport{
         desti= d;
     }
     
+    //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     /**
      * @pre: --
      * @post: Retorna el Punt d’interès d’origen del transport
