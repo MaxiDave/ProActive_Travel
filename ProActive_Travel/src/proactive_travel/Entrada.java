@@ -49,7 +49,12 @@ public abstract class Entrada {
      */
     private static String llegirLinia(Scanner fitxer){
         lineCounter++;
-        return fitxer.nextLine();
+        String c = null;
+        if(fitxer.hasNextLine()){
+            c= fitxer.nextLine();
+            return c;
+        }
+        else throw new NumberFormatException();
     }
     
     /**
@@ -58,8 +63,11 @@ public abstract class Entrada {
      */
     private static Double llegirDouble(Scanner fitxer){
         lineCounter++;
-        Double num= fitxer.nextDouble();
-        fitxer.nextLine();
+        Double num = null;
+        if(fitxer.hasNextDouble()){
+            num= fitxer.nextDouble();
+            if(fitxer.hasNextLine()) fitxer.nextLine();
+        }
         return num;
     }
     
@@ -67,12 +75,13 @@ public abstract class Entrada {
      * @pre: --
      * @post: Tracta l'error de format durant l'entrada de les dades
      */
-    private static void tractarErrorLectura(Scanner fitxer, Exception e){
-        Integer liniesActuals= lineCounter;
-        System.err.println(e+". Línia "+liniesActuals);
-        System.err.println("S'ignorarà fins el següent separador");
+    private static void tractarErrorLectura(Scanner fitxer, Exception e) throws InterruptedException{
+        System.err.println(e+". Línia "+lineCounter);
         ignorarFinsSeparador(fitxer);
-        System.err.println("Línies ignorades: "+(lineCounter-liniesActuals));
+        System.err.println("Mòdul ignorat");
+        System.err.println();
+        lineCounter--;
+        Thread.sleep(1);
     }
     
     /**
@@ -106,7 +115,7 @@ public abstract class Entrada {
      * @pre: Anterior valor llegit de fitxer és "allotkament"
      * @post: Llegeix un allotjament de fitxer i l'afegeix al mapa
      */
-    private static void donarAltaAllotjament(Scanner fitxer, Mapa mundi){
+    private static void donarAltaAllotjament(Scanner fitxer, Mapa mundi) throws InterruptedException{
         try{
             String nomID= llegirLinia(fitxer);
             String coords= llegirLinia(fitxer);
@@ -130,7 +139,7 @@ public abstract class Entrada {
      * @pre: Anterior valor llegit de fitxer és "lloc visitable"
      * @post: Llegeix un puntVisitable de fitxer i l'afegeix al mapa
      */
-    private static void donarAltaPuntVisitable(Scanner fitxer, Mapa mundi){
+    private static void donarAltaPuntVisitable(Scanner fitxer, Mapa mundi) throws InterruptedException{
         try{
             String nomID= llegirLinia(fitxer);
             String coords= llegirLinia(fitxer);
@@ -172,7 +181,7 @@ public abstract class Entrada {
      * @pre: Anterior valor llegit de fitxer és "associar transport"
      * @post: Llegeix un lloc de fitxer i l'afegeix al mapa
      */
-    private static void associarUrba(Scanner fitxer, Mapa mundi){
+    private static void associarUrba(Scanner fitxer, Mapa mundi) throws InterruptedException{
         try{
             String llocID= llegirLinia(fitxer);
             String urbaID= llegirLinia(fitxer);
@@ -192,7 +201,7 @@ public abstract class Entrada {
      * @pre: Anterior valor llegit de fitxer és "transport directe"
      * @post: Llegeix dos llocs de fitxer i crea un mitjà de transport entre aquests dos llocs
      */
-    private static void afegirTransportDirecte(Scanner fitxer, Mapa mundi){
+    private static void afegirTransportDirecte(Scanner fitxer, Mapa mundi) throws InterruptedException{
         try{
             String origenID= llegirLinia(fitxer);
             String destiID= llegirLinia(fitxer);
@@ -214,11 +223,11 @@ public abstract class Entrada {
      * @pre: Anterior valor llegit de fitxer és "transport indirecte"
      * @post: Llegeix dos llocs de fitxer i crea un mitjà de transport entre aquests dos llocs
      */
-    private static void afegirTransportIndirecte(Scanner fitxer, Mapa mundi){
+    private static void afegirTransportIndirecte(Scanner fitxer, Mapa mundi) throws InterruptedException{
         try{
             String origenID= llegirLinia(fitxer); Lloc origen= mundi.obtenirLloc(origenID);
             String destiID= llegirLinia(fitxer); Lloc desti= mundi.obtenirLloc(destiID);
-            if(origen != null && desti != null){
+            if(origen != null && desti != null && origen != desti){
                 String nomTrans= llegirLinia(fitxer);
                 String [] hhmmOrigen= llegirLinia(fitxer).split(":");
                 Integer tempsOrigen= (Integer.parseInt(hhmmOrigen[0])*60)+Integer.parseInt(hhmmOrigen[1]);
@@ -260,6 +269,7 @@ public abstract class Entrada {
         Scanner fitxer= null;
         try { //Pot ser que el fitxer no existeixi
             fitxer = new Scanner(new File(teclat.nextLine())).useLocale(Locale.US);
+            System.out.println();
         } catch (FileNotFoundException e) {
             //Si no es troba el fitxer informa i avorta
             System.err.println(e);
@@ -274,22 +284,31 @@ public abstract class Entrada {
      */
     public static void inicialitzaAplicatiu(Scanner fitxer, Map<String, Client> clients, Mapa mundi){
         llegirLinia(fitxer); //S'ignora la línia del autor
-        while(fitxer.hasNext()){
-            String codiOperacio= llegirLinia(fitxer);
-            if(codiOperacio.equals("client")) donarAltaClient(fitxer, clients);
-            else if(codiOperacio.equals("lloc")) donarAltaLloc(fitxer, mundi);
-            else if(codiOperacio.equals("allotjament")) donarAltaAllotjament(fitxer, mundi);
-            else if(codiOperacio.equals("lloc visitable")) donarAltaPuntVisitable(fitxer, mundi);
-            else if(codiOperacio.equals("associar lloc")) associarLloc(fitxer, mundi);
-            else if(codiOperacio.equals("associar transport")) associarUrba(fitxer, mundi);
-            else if(codiOperacio.equals("transport directe")) afegirTransportDirecte(fitxer, mundi);
-            else if(codiOperacio.equals("transport indirecte")) afegirTransportIndirecte(fitxer, mundi);
-            else{
-                Integer liniesAnteriors= lineCounter;
-                ignorarFinsSeparador(fitxer);
-                System.err.println(codiOperacio+": Codi d'operació invàlid. S'ha ignorat el mòdul ("+(lineCounter-liniesAnteriors)+" línies)");
+        try{
+            while(fitxer.hasNextLine()){
+                System.out.println(lineCounter);
+                String codiOperacio= llegirLinia(fitxer);
+                if(codiOperacio.equals("client")) donarAltaClient(fitxer, clients);
+                else if(codiOperacio.equals("lloc")) donarAltaLloc(fitxer, mundi);
+                else if(codiOperacio.equals("allotjament")) donarAltaAllotjament(fitxer, mundi);
+                else if(codiOperacio.equals("lloc visitable")) donarAltaPuntVisitable(fitxer, mundi);
+                else if(codiOperacio.equals("associar lloc")) associarLloc(fitxer, mundi);
+                else if(codiOperacio.equals("associar transport")) associarUrba(fitxer, mundi);
+                else if(codiOperacio.equals("transport directe")) afegirTransportDirecte(fitxer, mundi);
+                else if(codiOperacio.equals("transport indirecte")) afegirTransportIndirecte(fitxer, mundi);
+                else{
+                    Integer liniesAnteriors= lineCounter;
+                    ignorarFinsSeparador(fitxer);
+                    System.err.println("Línia "+liniesAnteriors+": Codi d'operació '"+codiOperacio+"' invàlid. S'ha ignorat el mòdul ("+(lineCounter-liniesAnteriors)+" línies)");
+                    System.err.println();
+                    Thread.sleep(1);
+                }
             }
+        } catch(InterruptedException iE){
+            System.err.println(iE);
+            System.err.println("Fatal Error 404: Si us plau, reinicii l'aplicatiu");
         }
+        fitxer.close();
         System.out.println("Fitxer d'entrada processat correctament ("+lineCounter+" línies)");
     }
 }

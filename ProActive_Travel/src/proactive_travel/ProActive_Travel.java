@@ -36,12 +36,12 @@ public abstract class ProActive_Travel {
         //Es duu a terme el procés d'entrada de dades a partir del Scanner al mapa i al Mapa de clients
         Entrada.inicialitzaAplicatiu(fitxer, clients, mundi);
         
-        //Debug de dades
-        //Debug clients
+        /*
         Set<String> clientsNom= new HashSet<String>();
         clientsNom = clients.keySet();
         for(String s : clientsNom){
             System.out.println(s);
         }
+        */
     }
 }
