@@ -50,11 +50,7 @@ public abstract class Entrada {
     private static String llegirLinia(Scanner fitxer){
         lineCounter++;
         String c = null;
-        if(fitxer.hasNextLine()){
-            c= fitxer.nextLine();
-            return c;
-        }
-        else throw new NumberFormatException();
+        return fitxer.nextLine();
     }
     
     /**
@@ -63,11 +59,8 @@ public abstract class Entrada {
      */
     private static Double llegirDouble(Scanner fitxer){
         lineCounter++;
-        Double num = null;
-        if(fitxer.hasNextDouble()){
-            num= fitxer.nextDouble();
-            if(fitxer.hasNextLine()) fitxer.nextLine();
-        }
+        Double num= fitxer.nextDouble();
+        fitxer.nextLine();
         return num;
     }
     

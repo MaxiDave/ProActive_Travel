@@ -1,3 +1,4 @@
+# MaxiDave i MasterBoss
 lloc
 Barcelona
 41.388916,2.174606
@@ -74,7 +75,7 @@ Vidreres
 Europe/Madrid
 *
 lloc
-Maçanet
+MaÃ§anet
 41.790154436884976,2.7749633754137903
 Europe/Madrid
 *
@@ -96,7 +97,7 @@ urbanisme
 April 1 - September 30: 09:00-20:00
 *
 lloc visitable
-Parc Güell
+Parc GÃ¼ell
 41.41449480000001,2.1526945000000524
 Europe/Madrid
 1:30
@@ -107,7 +108,7 @@ urbanisme
 January 1 - December 31: 09:00-20:00
 *
 lloc visitable
-Casa Milà - La Pedrera
+Casa MilÃ  - La Pedrera
 41.39538049999999,2.1619613999999956
 Europe/Madrid
 1:30
@@ -125,7 +126,7 @@ Europe/Madrid
 50.00
 futbol
 esports
-barça
+barÃ§a
 *
 April 1 - September 30: 09:00-20:00
 *
@@ -236,11 +237,11 @@ Sagrada Familia
 Barcelona
 *
 associar lloc
-Parc Güell
+Parc GÃ¼ell
 Barcelona
 *
 associar lloc
-Casa Milà
+Casa MilÃ 
 Barcelona
 *
 associar lloc

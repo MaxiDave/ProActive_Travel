@@ -146,11 +146,16 @@ public class Mapa {
     }
     
     /**
-     * @pre: tipus == “temps” || tipus == “cost”   
-     * @post: Retorna un Map amb els punts d’interès des d’on es pot anar a partir de pI i el seu Trajecte (El de mínim temps, mínima distància o mínim cost depenent de “tipus”)
+     * @pre: --   
+     * @post: Retorna un Map amb els punts d’interès des d’on es pot anar a partir de pI i el seu MTDirecte (El de mínim temps, mínima distància o mínim cost depenent de “tipus”)
      */
-    public Map<PuntInteres,Trajecte> obtenirDesplsMin(PuntInteres pi,String tipus){
-        Map<PuntInteres, Trajecte> noImplementat= null;
-        return noImplementat;
+    public Map<String,MitjaTransport> obtenirDesplsMins(PuntInteres pI,String tipus){
+        Map<String,MitjaTransport> minim= new HashMap<String,MitjaTransport>();
+        Map<String, List<MTDirecte>> veins= transDirecte.get(pI.obtenirNom());
+        for (Map.Entry<String, List<MTDirecte>> i: veins.entrySet()){
+            List<MTDirecte> llista= i.getValue();
+            minim.put(i.getKey(), llista.get(0));
+        }
+        return minim;
     }
 }

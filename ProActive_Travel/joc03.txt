@@ -75,7 +75,7 @@ Vidreres
 Europe/Madrid
 *
 lloc
-Maçanet
+MaÃ§anet
 41.790154436884976,2.7749633754137903
 Europe/Madrid
 *

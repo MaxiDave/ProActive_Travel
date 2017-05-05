@@ -23,7 +23,15 @@ public abstract class CalculRuta {
      * @pre: --
      * @post: Concatena les rutes a i b
      */
-    public static Ruta concatenarRutes(Ruta a,Ruta b){
+    public static Ruta concatenar(Ruta a,Ruta b){
+        throw new UnsupportedOperationException("Not supported yet"); 
+    }
+    
+    /**
+     * @pre: --
+     * @post: Retorna cert si a és millor que b, fals altrament
+     */
+    public static boolean esMillor(Ruta a, Ruta b){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
 }
