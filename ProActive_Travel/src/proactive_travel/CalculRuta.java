@@ -34,4 +34,5 @@ public abstract class CalculRuta {
     public static boolean esMillor(Ruta a, Ruta b){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
+    
 }
