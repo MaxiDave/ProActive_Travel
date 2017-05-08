@@ -61,6 +61,7 @@ public abstract class Entrada {
         lineCounter++;
         Double num= fitxer.nextDouble();
         fitxer.nextLine();
+        if(num < 0) throw new NumberFormatException();
         return num;
     }
     
@@ -69,12 +70,63 @@ public abstract class Entrada {
      * @post: Tracta l'error de format durant l'entrada de les dades
      */
     private static void tractarErrorLectura(Scanner fitxer, Exception e) throws InterruptedException{
-        System.err.println(e+". Línia "+lineCounter);
+        System.err.println("Línia "+lineCounter+": "+e);
         ignorarFinsSeparador(fitxer);
         System.err.println("Mòdul ignorat");
         System.err.println();
-        lineCounter--;
         Thread.sleep(1);
+    }
+    
+    /**
+     * @pre: --
+     * @post: Llegeix de fitxer una expresió hh:mm i retorna el valor en minuts d'una expressió hh:mm si està correctament escrita, altrament dispara excepció
+     */
+    private static Integer processarTemps(Scanner fitxer){
+        String[] hhmm = llegirLinia(fitxer).split(":");
+        if(hhmm.length != 2) throw new NumberFormatException();
+        else{
+            Integer hh= Integer.parseInt(hhmm[0].trim());
+            Integer mm= Integer.parseInt(hhmm[1].trim());
+            if(hh < 0 || mm < 0 || hh > 23 || mm > 59) throw new NumberFormatException();
+            return (hh*60)+mm;
+        }
+    }
+    
+    /**
+     * @pre: --
+     * @post: Rep una expresió (string) en format hh:mm i retorna el LocalTime corresponent si està correctament escrita, altrament dispara excepció
+     */
+    private static LocalTime processarHora(String hora){
+        String[] hhmm = hora.split(":");
+        if(hhmm.length != 2) throw new NumberFormatException();
+        else{
+            Integer hh= Integer.parseInt(hhmm[0].trim());
+            Integer mm= Integer.parseInt(hhmm[1].trim());
+            return LocalTime.of(hh, mm);
+        }
+    }
+    
+    /**
+     * @pre: --
+     * @post: Si el format és correcte (yyyy-mm-dd) el retorna en forma de LocalDate, altrament dispara una excepció
+     */
+    private static LocalDate processarData(String data){
+        String [] anyMesDia= data.split("-");
+        return LocalDate.of(Integer.parseInt(anyMesDia[0]), Integer.parseInt(anyMesDia[1]), Integer.parseInt(anyMesDia[2]));
+    }
+    
+    /**
+     * @pre: --
+     * @post: Llegeix preferències de fitxer fins que troba un separador i les retorna en forma de Set
+     */
+    private static Set<String> llegirPreferencies(Scanner fitxer){
+        Set<String> prefs= new HashSet<String>();
+        String pref= llegirLinia(fitxer);
+        while(!pref.equals("*")){
+            prefs.add(pref);
+            pref= llegirLinia(fitxer);
+        }
+        return prefs;
     }
     
     /**
@@ -83,12 +135,7 @@ public abstract class Entrada {
      */
     private static void donarAltaClient(Scanner fitxer, Map<String, Client> clients){
         String nom= llegirLinia(fitxer);
-        Set<String> prefs= new HashSet<String>();
-        String pref= llegirLinia(fitxer);
-        while(!pref.equals("*")){
-            prefs.add(pref);
-            pref= llegirLinia(fitxer);
-        }
+        Set<String> prefs= llegirPreferencies(fitxer);
         clients.put(nom, new Client(nom, prefs));
     }
     
@@ -96,16 +143,24 @@ public abstract class Entrada {
      * @pre: Anterior valor llegit de fitxer és "lloc"
      * @post: Llegeix un lloc de fitxer i l'afegeix al mapa
      */
-    private static void donarAltaLloc(Scanner fitxer, Mapa mundi){
-        String nomID= llegirLinia(fitxer);
-        String coords= llegirLinia(fitxer);
-        String zH= llegirLinia(fitxer);
-        mundi.afegeixLloc(new Lloc(nomID, new Coordenades(coords, zH)));
-        llegirLinia(fitxer);
+    private static void donarAltaLloc(Scanner fitxer, Mapa mundi) throws InterruptedException{
+        try{
+            String nomID= llegirLinia(fitxer);
+            String coords= llegirLinia(fitxer);
+            if(coords.contains(",")){
+                String zH= llegirLinia(fitxer);
+                mundi.afegeixLloc(new Lloc(nomID, new Coordenades(coords, zH)));
+                llegirLinia(fitxer);
+            }
+            else throw new NumberFormatException();
+        } catch (NumberFormatException e){
+            System.err.println("Error de lectura: Coordenades invàlides, no es llegeix el lloc");
+            tractarErrorLectura(fitxer, e);
+        }
     }
     
     /**
-     * @pre: Anterior valor llegit de fitxer és "allotkament"
+     * @pre: Anterior valor llegit de fitxer és "allotjament"
      * @post: Llegeix un allotjament de fitxer i l'afegeix al mapa
      */
     private static void donarAltaAllotjament(Scanner fitxer, Mapa mundi) throws InterruptedException{
@@ -115,15 +170,10 @@ public abstract class Entrada {
             String zH= llegirLinia(fitxer);
             String cat= llegirLinia(fitxer);
             Double preuHab= llegirDouble(fitxer);
-            Set<String> prefs= new HashSet<String>();
-            String pref= llegirLinia(fitxer);
-            while(!pref.equals("*")){
-                prefs.add(pref);
-                pref= llegirLinia(fitxer);
-            }
+            Set<String> prefs= llegirPreferencies(fitxer);
             mundi.afegeixPuntInteres(new Allotjament(nomID, prefs, preuHab, cat, new Coordenades(coords, zH)));
-        } catch (InputMismatchException e){
-            System.err.println("Error de lectura: Allotjament, no es llegeix");
+        } catch (InputMismatchException | NumberFormatException e){
+            System.err.println("Error de lectura: Coordenades invàlides, no es llegeix l'allotjament");
             tractarErrorLectura(fitxer, e);
         }
     }
@@ -137,20 +187,13 @@ public abstract class Entrada {
             String nomID= llegirLinia(fitxer);
             String coords= llegirLinia(fitxer);
             String zH= llegirLinia(fitxer);
-
-            String[] hhmm = llegirLinia(fitxer).split(":");
-            Integer tempsV= (Integer.parseInt(hhmm[0])*60)+Integer.parseInt(hhmm[1]);
+            Integer tempsV= processarTemps(fitxer);
             Double preu= llegirDouble(fitxer);
-            Set<String> prefs= new HashSet<String>();
-            String pref= llegirLinia(fitxer);
-            while(!pref.equals("*")){
-                prefs.add(pref);
-                pref= llegirLinia(fitxer);
-            }
+            Set<String> prefs= llegirPreferencies(fitxer);
             String [] dades = llegirLinia(fitxer).split(":");
             String [] aux = dades[2].split("-");
-            LocalTime inici= LocalTime.of(Integer.parseInt(dades[1].trim()), Integer.parseInt(aux[0]));
-            LocalTime fi= LocalTime.of(Integer.parseInt(aux[1]), Integer.parseInt(dades[3]));
+            LocalTime inici= processarHora(dades[1]+aux[0]);
+            LocalTime fi= processarHora(aux[1]+dades[3]);
             mundi.afegeixPuntInteres(new PuntVisitable(nomID, prefs, preu, tempsV, new FranjaHoraria(inici, fi), new Coordenades(coords, zH)));
             ignorarFinsSeparador(fitxer);
         } catch (NumberFormatException | InputMismatchException e){
@@ -178,8 +221,7 @@ public abstract class Entrada {
         try{
             String llocID= llegirLinia(fitxer);
             String urbaID= llegirLinia(fitxer);
-            String [] hhmm= llegirLinia(fitxer).split(":");
-            Integer durada= (Integer.parseInt(hhmm[0])*60)+Integer.parseInt(hhmm[1]);
+            Integer durada= processarTemps(fitxer);
             Double preu= llegirDouble(fitxer);
             llegirLinia(fitxer);
             TransportUrba transp= new TransportUrba(urbaID, durada, preu);
@@ -199,8 +241,7 @@ public abstract class Entrada {
             String origenID= llegirLinia(fitxer);
             String destiID= llegirLinia(fitxer);
             String nomTrans= llegirLinia(fitxer);
-            String [] hhmm= llegirLinia(fitxer).split(":");
-            Integer durada= (Integer.parseInt(hhmm[0])*60)+Integer.parseInt(hhmm[1]);
+            Integer durada= processarTemps(fitxer);
             Double preu= llegirDouble(fitxer);
             llegirLinia(fitxer);
 
@@ -222,20 +263,17 @@ public abstract class Entrada {
             String destiID= llegirLinia(fitxer); Lloc desti= mundi.obtenirLloc(destiID);
             if(origen != null && desti != null && origen != desti){
                 String nomTrans= llegirLinia(fitxer);
-                String [] hhmmOrigen= llegirLinia(fitxer).split(":");
-                Integer tempsOrigen= (Integer.parseInt(hhmmOrigen[0])*60)+Integer.parseInt(hhmmOrigen[1]);
-                String [] hhmmDesti= llegirLinia(fitxer).split(":");
-                Integer tempsDesti= (Integer.parseInt(hhmmDesti[0])*60)+Integer.parseInt(hhmmDesti[1]);
+                Integer tempsOrigen= processarTemps(fitxer);
+                Integer tempsDesti= processarTemps(fitxer);
                 mundi.afegirConnexioMTI(nomTrans, origen, desti, tempsOrigen, tempsDesti);
                 String data= llegirLinia(fitxer);
                 while(!data.equals("*")){
-                    String [] anyMesDia= data.split("-");
+                    LocalDate anyMesDia= processarData(data);
                     String hora= llegirLinia(fitxer);
                     while(!hora.equals("*") && !esData(hora)){
-                        String [] horaMinuts= hora.split(":");
-                        LocalDateTime horaSortida= LocalDateTime.of(Integer.parseInt(anyMesDia[0]), Integer.parseInt(anyMesDia[1]), Integer.parseInt(anyMesDia[2]), Integer.parseInt(horaMinuts[0]), Integer.parseInt(horaMinuts[1]));
-                        String [] duradaHoraMinuts= llegirLinia(fitxer).split(":");
-                        Integer durada= (Integer.parseInt(duradaHoraMinuts[0])*60)+Integer.parseInt(duradaHoraMinuts[1]);
+                        LocalTime horaMinuts= processarHora(hora);
+                        LocalDateTime horaSortida= LocalDateTime.of(anyMesDia, horaMinuts);
+                        Integer durada= processarTemps(fitxer);
                         Double preu= llegirDouble(fitxer);
                         MTIndirecte mitja= new MTIndirecte(nomTrans, origen, desti, preu, durada);
                         mundi.afegirMTIndirecte(mitja, horaSortida, origen);
@@ -245,10 +283,18 @@ public abstract class Entrada {
                 }
             }
             else ignorarFinsSeparador(fitxer);
-        } catch (NumberFormatException | InputMismatchException e){
+        } catch (NumberFormatException | InputMismatchException | DateTimeException e){
             System.err.println("Error de lectura: Associar Transport Urbà, no es llegeix");
             tractarErrorLectura(fitxer, e);
         }
+    }
+    
+    /**
+     * @pre: Anterior valor llegit de fitxer és "viatge"
+     * @post: Llegeix un viatge de fitxer i l'afegeix a la llista de viatges
+     */
+    private static void afegirViatge(Scanner fitxer, Mapa mundi, List<Viatge> viatges){
+        throw new UnsupportedOperationException("Not supported yet"); 
     }
     
     /**
@@ -275,11 +321,10 @@ public abstract class Entrada {
      * @pre: fitxer és obert i llest per llegir
      * @post: Crea les estructures de dades a partir de les dades del fitxer d'entrada
      */
-    public static void inicialitzaAplicatiu(Scanner fitxer, Map<String, Client> clients, Mapa mundi){
+    public static void inicialitzaAplicatiu(Scanner fitxer, Map<String, Client> clients, Mapa mundi, List<Viatge> viatges){
         llegirLinia(fitxer); //S'ignora la línia del autor
         try{
             while(fitxer.hasNextLine()){
-                System.out.println(lineCounter);
                 String codiOperacio= llegirLinia(fitxer);
                 if(codiOperacio.equals("client")) donarAltaClient(fitxer, clients);
                 else if(codiOperacio.equals("lloc")) donarAltaLloc(fitxer, mundi);
@@ -289,6 +334,7 @@ public abstract class Entrada {
                 else if(codiOperacio.equals("associar transport")) associarUrba(fitxer, mundi);
                 else if(codiOperacio.equals("transport directe")) afegirTransportDirecte(fitxer, mundi);
                 else if(codiOperacio.equals("transport indirecte")) afegirTransportIndirecte(fitxer, mundi);
+                else if(codiOperacio.equals("viatge")) afegirViatge(fitxer, mundi, viatges);
                 else{
                     Integer liniesAnteriors= lineCounter;
                     ignorarFinsSeparador(fitxer);

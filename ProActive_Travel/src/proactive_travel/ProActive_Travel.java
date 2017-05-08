@@ -29,12 +29,13 @@ public abstract class ProActive_Travel {
         //Demana nom de fitxer i s'obre el flux (S'haurà de fer amb entrada gràfica)
         Scanner fitxer= Entrada.entrarNomFitxer();
         
-        //Es creen les estructures de dades principals 
+        //Es creen les estructures de dades principals
+        List<Viatge> viatges= new ArrayList<Viatge>();
         Map<String, Client> clients= new HashMap<String, Client>();
         Mapa mundi= new Mapa();
         
         //Es duu a terme el procés d'entrada de dades a partir del Scanner al mapa i al Mapa de clients
-        Entrada.inicialitzaAplicatiu(fitxer, clients, mundi);
+        Entrada.inicialitzaAplicatiu(fitxer, clients, mundi, viatges);
         
         /*
         Set<String> clientsNom= new HashSet<String>();

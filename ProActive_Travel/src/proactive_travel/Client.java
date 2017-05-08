@@ -41,11 +41,8 @@ public class Client {
     public String obtenirNom(){
         return nom;
     }
-    /** 
-     * @pre: --
-     * @post: Retorna cert si l'String "car" és una de les preferències del client
-     */
-    public Boolean tePreferencia(String car){
-        return preferencies.contains(car);
+    
+    public Iterator<String> obtPref(){
+        return preferencies.iterator();
     }
 }
