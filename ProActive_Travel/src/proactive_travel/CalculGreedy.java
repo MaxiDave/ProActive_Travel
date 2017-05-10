@@ -14,17 +14,24 @@
 
 package proactive_travel;
 
+import java.util.*;
+
 /**
  * DESCRIPCIÓ GENERAL
  * @brief: Classe abstracte que s'encarrega dels càlculs aproximats
  */
 public abstract class CalculGreedy {
+    
+    private Set<PuntInteres> pI;
+    private final PuntInteres origen;
+    private final PuntInteres desti;
+    
     //MÈTODES ESTÀTICS---------------------------------------------------------------------------------------------------------------------------
     /**
      * @pre: --
      * @post: Calcula una Ruta mitjançant un algorisme voraç
      */
     public static Ruta calcularRutaGreedy(Viatge clients,Mapa mundi){
-        throw new UnsupportedOperationException("Not supported yet"); 
+        throw new UnsupportedOperationException("Not supported yet");        
     }
 }
