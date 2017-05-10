@@ -17,6 +17,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.time.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * DESCRIPCIÓ GENERAL
@@ -145,10 +147,16 @@ public abstract class Entrada {
      * @pre: Anterior valor llegit de fitxer és "client"
      * @post: Llegeix un client de fitxer i l'afegeix al Map clients amb clau el seu nom
      */
-    private static void donarAltaClient(Scanner fitxer, Map<String, Client> clients){
-        String nom= llegirLinia(fitxer);
-        Set<String> prefs= llegirPreferencies(fitxer);
-        clients.put(nom, new Client(nom, prefs));
+    private static void donarAltaClient(Scanner fitxer, Map<String, Client> clients) throws InterruptedException{
+        try{
+            String nom= llegirLinia(fitxer);
+            if(clients.containsKey(nom)) throw new Exception("ClauRepetidaException");
+            Set<String> prefs= llegirPreferencies(fitxer);
+            clients.put(nom, new Client(nom, prefs));
+        } catch(Exception e){
+            System.err.println("Error: Client ja existent, no es llegeix");
+            tractarErrorLectura(fitxer, e);
+        }
     }
     
     /**
@@ -165,7 +173,7 @@ public abstract class Entrada {
                 llegirLinia(fitxer);
             }
             else throw new NumberFormatException();
-        } catch (NumberFormatException e){
+        } catch (Exception e){
             System.err.println("Error de lectura: Coordenades invàlides, no es llegeix el lloc");
             tractarErrorLectura(fitxer, e);
         }
@@ -184,7 +192,7 @@ public abstract class Entrada {
             Double preuHab= llegirDouble(fitxer);
             Set<String> prefs= llegirPreferencies(fitxer);
             mundi.afegeixPuntInteres(new Allotjament(nomID, prefs, preuHab, cat, new Coordenades(coords, zH)));
-        } catch (InputMismatchException | NumberFormatException e){
+        } catch (Exception e){
             System.err.println("Error de lectura: Coordenades invàlides, no es llegeix l'allotjament");
             tractarErrorLectura(fitxer, e);
         }
@@ -204,12 +212,12 @@ public abstract class Entrada {
             Set<String> prefs= llegirPreferencies(fitxer);
             String [] dades = llegirLinia(fitxer).split(":");
             String [] aux = dades[2].split("-");
-            LocalTime inici= processarHora(dades[1]+aux[0]);
-            LocalTime fi= processarHora(aux[1]+dades[3]);
+            LocalTime inici= processarHora(dades[1]+":"+aux[0]);
+            LocalTime fi= processarHora(aux[1]+":"+dades[3]);
             mundi.afegeixPuntInteres(new PuntVisitable(nomID, prefs, preu, tempsV, new FranjaHoraria(inici, fi), new Coordenades(coords, zH)));
             ignorarFinsSeparador(fitxer);
-        } catch (NumberFormatException | InputMismatchException e){
-            System.err.println("Error de lectura: Associar Transport Urbà, no es llegeix");
+        } catch (Exception e){
+            System.err.println("Error de lectura: Donar alta Lloc Visitable, no es llegeix");
             tractarErrorLectura(fitxer, e);
         }
     }
@@ -218,29 +226,34 @@ public abstract class Entrada {
      * @pre: Anterior valor llegit de fitxer és "associar lloc"
      * @post: Llegeix un puntInteres i lloc de fitxer associa aquest puntInteres al lloc
      */
-    private static void associarLloc(Scanner fitxer, Mapa mundi){
-        String IDpuntInteres= llegirLinia(fitxer);
-        String IDlloc= llegirLinia(fitxer);
-        llegirLinia(fitxer);
-        mundi.associarLloc(IDlloc, IDpuntInteres);
+    private static void associarLloc(Scanner fitxer, Mapa mundi) throws InterruptedException{
+        try {
+            PuntInteres pI= mundi.obtenirPI(llegirLinia(fitxer));
+            Lloc lloc= mundi.obtenirLloc(llegirLinia(fitxer));
+            llegirLinia(fitxer);
+            mundi.associarLloc(lloc, pI);
+        } catch (Exception e) {
+            System.err.println("Error de lectura: Assoc, no es llegeix");
+            tractarErrorLectura(fitxer, e);
+        }
     }
     
     /**
      * @pre: Anterior valor llegit de fitxer és "associar transport"
      * @post: Llegeix un lloc de fitxer i l'afegeix al mapa
      */
-    private static void associarUrba(Scanner fitxer, Mapa mundi) throws InterruptedException{
+    private static void associarUrba(Scanner fitxer, Mapa mundi){
         try{
-            String llocID= llegirLinia(fitxer);
+            Lloc ll= mundi.obtenirLloc(llegirLinia(fitxer));
             String urbaID= llegirLinia(fitxer);
             Integer durada= processarTemps(fitxer);
             Double preu= llegirDouble(fitxer);
             llegirLinia(fitxer);
             TransportUrba transp= new TransportUrba(urbaID, durada, preu);
-            mundi.associarUrba(llocID, transp);
-        } catch (NumberFormatException | InputMismatchException e){
-            System.err.println("Error de lectura: Associar Transport Urbà, no es llegeix");
-            tractarErrorLectura(fitxer, e);
+            mundi.associarUrba(ll, transp);
+        } catch (Exception e){
+            System.err.println(e);
+            System.err.println("No existeix el Lloc i/o el PuntInteres: S'ignora");
         }
     }
     
@@ -250,17 +263,17 @@ public abstract class Entrada {
      */
     private static void afegirTransportDirecte(Scanner fitxer, Mapa mundi) throws InterruptedException{
         try{
-            String origenID= llegirLinia(fitxer);
-            String destiID= llegirLinia(fitxer);
+            PuntInteres origen= mundi.obtenirPI(llegirLinia(fitxer));
+            PuntInteres desti= mundi.obtenirPI(llegirLinia(fitxer));
             String nomTrans= llegirLinia(fitxer);
             Integer durada= processarTemps(fitxer);
             Double preu= llegirDouble(fitxer);
             llegirLinia(fitxer);
 
-            MTDirecte mT= new MTDirecte(nomTrans, mundi.obtenirPI(origenID), mundi.obtenirPI(destiID), preu, durada);
+            MTDirecte mT= new MTDirecte(nomTrans, origen, desti, preu, durada);
             mundi.afegirTransportDirecte(mT);
         } catch (Exception e){
-            System.err.println("Error de lectura: Associar Transport Urbà, no es llegeix");
+            System.err.println("Error de lectura: Transport Directe, no es llegeix");
             tractarErrorLectura(fitxer, e);
         }
     }
@@ -271,8 +284,8 @@ public abstract class Entrada {
      */
     private static void afegirTransportIndirecte(Scanner fitxer, Mapa mundi) throws InterruptedException{
         try{
-            String origenID= llegirLinia(fitxer); Lloc origen= mundi.obtenirLloc(origenID);
-            String destiID= llegirLinia(fitxer); Lloc desti= mundi.obtenirLloc(destiID);
+            Lloc origen= mundi.obtenirLloc(llegirLinia(fitxer));
+            Lloc desti= mundi.obtenirLloc(llegirLinia(fitxer));
             if(origen != desti){
                 String nomTrans= llegirLinia(fitxer);
                 Integer tempsOrigen= processarTemps(fitxer);
@@ -296,7 +309,7 @@ public abstract class Entrada {
             }
             else throw new Exception("OrigenDestiIgualsException");
         } catch (Exception e){
-            System.err.println("Error de lectura: Associar Transport Urbà, no es llegeix");
+            System.err.println("Error de lectura: Transport Indirecte, no es llegeix");
             tractarErrorLectura(fitxer, e);
         }
     }

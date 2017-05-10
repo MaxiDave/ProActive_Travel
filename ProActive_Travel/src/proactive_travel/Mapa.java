@@ -23,7 +23,7 @@ public class Mapa {
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private Map<String, Lloc> llocs;
     private Map<String, PuntInteres> punts;
-    private Map<String, Map<String, List<MTDirecte>>> transDirecte;
+    private Map<PuntInteres, Map<PuntInteres, List<MTDirecte>>> transDirecte;
     
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /**
@@ -33,7 +33,7 @@ public class Mapa {
     public Mapa(){
         llocs= new HashMap<String, Lloc>();
         punts= new HashMap<String, PuntInteres>();
-        transDirecte= new HashMap<String, Map<String, List<MTDirecte>>>();
+        transDirecte= new HashMap<PuntInteres, Map<PuntInteres, List<MTDirecte>>>();
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
@@ -41,66 +41,73 @@ public class Mapa {
      * @pre: Lloc on està el punt d’interès ha d’existir
      * @post: Afegeix un punt d’interès al mapa
      */
-    public void afegeixPuntInteres(PuntInteres pI){
-        punts.put(pI.obtenirNom(), pI);
+    public void afegeixPuntInteres(PuntInteres pI) throws Exception{
+        if(!punts.containsKey(pI.obtenirNom())) punts.put(pI.obtenirNom(), pI);
+        else throw new Exception("PuntInteresRepetitException");
     }
     
     /**
      * @pre: --
-     * @post: Si l'origen i el destí del mitjà de transport fegeix el Transport Directe mT al mapa. 
+     * @post: Afegeix un lloc al mapa  
      */
-    public void afegirTransportDirecte(MTDirecte mT){
-        mT.getOrigen().obtenirNom();
-        mT.getDesti().obtenirNom();
+    public void afegeixLloc(Lloc ll) throws Exception{
+        if(!llocs.containsKey(ll.obtenirNom())) llocs.put(ll.obtenirNom(), ll);
+        else throw new Exception("LlocRepetitException");
     }
     
     /**
      * @pre: --
-     * @post: Afegeix un lloc al mapa, i també (si en té), els seus punts d’interès i les seves estacions.  
+     * @post: Si no existia, afegeix el Transport Directe mT al mapa. Altrament llença una excepció 
      */
-    public void afegeixLloc(Lloc ll){
-        llocs.put(ll.obtenirNom(), ll);
-    }
-    
-    /**
-     * @pre: --
-     * @post: Si existeix IDlloc a claus de llocs i IDpI a claus de punts,
-     *        associa el lloc secundari amb nom IDpI al lloc primari IDlloc
-     */
-    public void associarLloc(String IDlloc, String IDpI){
-        Lloc primari= llocs.get(IDlloc);
-        PuntInteres secundari= punts.get(IDpI);
-        if(primari != null && secundari != null){
-            secundari.vincularLloc(primari);
-            primari.afegirPuntInteres(secundari);
+    public void afegirTransportDirecte(MTDirecte mT) throws Exception{
+        if(!transDirecte.containsKey(mT.getOrigen())){
+            Map<PuntInteres, List<MTDirecte>> mapDesti= new HashMap<PuntInteres, List<MTDirecte>>();
+            List<MTDirecte> mitjans= new ArrayList();
+            mitjans.add(mT);
+            mapDesti.put(mT.getDesti(), mitjans);
+            transDirecte.put(mT.getOrigen(), mapDesti);
         }
-        else{
-            //Excepció no existeix Lloc o PuntInteres
-        }
+        else if(!transDirecte.get(mT.getOrigen()).get(mT.getDesti()).contains(mT)) transDirecte.get(mT.getOrigen()).get(mT.getDesti()).add(mT);
+        else throw new Exception("TransportDirecteRepetitException");
     }
     
     /**
-     * @pre: --
-     * @post: Si existeix IDlloc a claus de llocs, associa el TransportUrba
-     *        trans a la llista de transports urbans de lloc
+     * @pre: primari ha d'existir a llocs i secundari a punts
+     * @post: Associa el lloc secundari amb nom IDpI al lloc primari IDlloc
      */
-    public void associarUrba(String IDlloc, TransportUrba trans){
-         Lloc ll= llocs.get(IDlloc);
-         if(ll != null){
-             ll.afegirTransportUrba(trans);
-         }
-         else{
-             //Excepció no existeix Lloc
-         }
+    public void associarLloc(Lloc primari, PuntInteres secundari){
+        secundari.vincularLloc(primari);
+        primari.afegirPuntInteres(secundari);
+    }
+    
+    /**
+     * @pre: lloc existeix a llocs
+     * @post: Si "trans" no existeix a ll, s'associa a la llista de transports urbans del lloc.
+     *        Altrament llença una excepció
+     */
+    public void associarUrba(Lloc ll, TransportUrba trans) throws Exception{
+        ll.afegirTransportUrba(trans);
     }
     
     /**
      * @pre: --
      * @post: Retorna cert si existeix el punt d’interès
      */
-    public Boolean existeixPuntInteres(PuntInteres pI){
+    /*
+    public Boolean existeixPI(PuntInteres pI){
         return punts.containsKey(pI.obtenirNom());
     }
+    */
+    
+    /**
+     * @pre: --
+     * @post: Retorna cert si existeix el lloc
+     */
+    /*
+    public Boolean existeixLloc(Lloc ll){
+        return punts.containsKey(ll.obtenirNom());
+    }
+    */
     
     /**
      * @pre: --
@@ -153,10 +160,10 @@ public class Mapa {
      * @pre: --   
      * @post: Retorna un Map amb els punts d’interès des d’on es pot anar a partir de pI i el seu MTDirecte (El de mínim temps, mínima distància o mínim cost depenent de “tipus”)
      */
-    public Map<String,MitjaTransport> obtenirDesplsMins(PuntInteres pI,String tipus){
-        Map<String,MitjaTransport> minim= new HashMap<String,MitjaTransport>();
-        Map<String, List<MTDirecte>> veins= transDirecte.get(pI.obtenirNom());
-        for (Map.Entry<String, List<MTDirecte>> i: veins.entrySet()){
+    public Map<PuntInteres,MitjaTransport> obtenirDesplsMins(PuntInteres pI,String tipus){
+        Map<PuntInteres,MitjaTransport> minim= new HashMap<PuntInteres,MitjaTransport>();
+        Map<PuntInteres, List<MTDirecte>> veins= transDirecte.get(pI.obtenirNom());
+        for (Map.Entry<PuntInteres, List<MTDirecte>> i: veins.entrySet()){
             List<MTDirecte> llista= i.getValue();
             minim.put(i.getKey(), llista.get(0));
         }
@@ -164,9 +171,9 @@ public class Mapa {
     }
     public Integer obtenirDespl(PuntInteres origen, PuntInteres desti){
         int tempsMinim=Integer.MAX_VALUE;
-        HashMap<String, List<MTDirecte>> ori = new HashMap<String, List<MTDirecte>>(transDirecte.get(origen.obtenirNom()));
+        HashMap<PuntInteres, List<MTDirecte>> ori = new HashMap<PuntInteres, List<MTDirecte>>(transDirecte.get(origen));
         if(ori != null){
-            List<MTDirecte> des = ori.get(desti.obtenirNom());
+            List<MTDirecte> des = ori.get(desti);
             if(des != null){
                 for(MTDirecte i : des){
                     if(i.getDurada()< tempsMinim){
@@ -180,9 +187,9 @@ public class Mapa {
     
     public Double obtenirCostDespl(PuntInteres origen, PuntInteres desti){
         double costMinim=Double.MAX_VALUE;
-        HashMap<String, List<MTDirecte>> ori = new HashMap<String, List<MTDirecte>>(transDirecte.get(origen.obtenirNom()));
+        HashMap<PuntInteres, List<MTDirecte>> ori = new HashMap<PuntInteres, List<MTDirecte>>(transDirecte.get(origen));
         if(ori != null){
-            List<MTDirecte> des = ori.get(desti.obtenirNom());
+            List<MTDirecte> des = ori.get(desti);
             if(des != null){
                 for(MTDirecte i : des){
                     if(i.getPreu()< costMinim){
@@ -195,8 +202,11 @@ public class Mapa {
     }
     
     public Set<PuntInteres> obtenirVeins(PuntInteres pi){
+        throw new UnsupportedOperationException("Not supported yet"); 
+        /*
         HashMap<PuntInteres, List<MTDirecte>> veinsTransports = new HashMap<String, List<MTDirecte>>(transDirecte.get(pi.obtenirNom()));
         Set<PuntInteres> veins = veinsTransports.keySet();
         return veins;
+        */
     }
 }

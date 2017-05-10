@@ -97,9 +97,10 @@ public class Lloc {
     
     /** 
      * @pre: --
-     * @post: Afegeix el transport urbà al Lloc 
+     * @post: Si no existeix, afegeix el transport urbà al Lloc. ALtrament llença una excepció 
      */
-    public void afegirTransportUrba(TransportUrba tU){
-        transports.add(tU);
+    public void afegirTransportUrba(TransportUrba tU) throws Exception{
+        if(!transports.contains(tU)) transports.add(tU);
+        else throw new Exception("TransportUrbaRepetitException");
     } 
 }

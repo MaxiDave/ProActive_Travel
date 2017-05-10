@@ -49,6 +49,7 @@ public class Dijkstra {
         }
         else{
             //Crear ruta?
+            throw new UnsupportedOperationException("Not supported yet"); 
         }
     }
     

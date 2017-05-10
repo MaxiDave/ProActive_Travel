@@ -25,12 +25,14 @@ public abstract class CalculExacte {
      * @pre: --
      * @post: Calcula una Ruta mitjançant backtraking
      */
-    public static Ruta calcularRutaBack(Mapa mundi, PuntInteres origen, PuntInteres desti, Set<PuntInteres> aVisitar){
+    public static Ruta calcularRutaBack(Mapa mundi, PuntInteres origen, PuntInteres desti, Set<PuntInteres> aVisitar){        
         //Pre: --
 	//Post: Retorna cert si la Ruta "actual" és més òptima que "optima" (En temps)
 	// Pre: origen i desti no son dins aVisitar. aVisitar buida => origen diferent de desti
 	// Post: Retorna la ruta més curta entre origen i desti que passi per tots els punts dins aVisitar. 
 	//		 Si no existeix, retorna null
+        throw new UnsupportedOperationException("Not supported yet"); 
+        /*
 	Ruta r= new Ruta();
 	if(aVisitar.isEmpty()) r= camiMinim(mundi, origen, desti);
 	else{
@@ -50,5 +52,6 @@ public abstract class CalculExacte {
 		}			
 	}
 	return r;
+*/
     }
 }

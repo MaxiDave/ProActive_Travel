@@ -23,8 +23,8 @@ import java.util.*;
 public abstract class CalculGreedy {
     
     private Set<PuntInteres> pI;
-    private final PuntInteres origen;
-    private final PuntInteres desti;
+    private PuntInteres origen;
+    private PuntInteres desti;
     
     //MÈTODES ESTÀTICS---------------------------------------------------------------------------------------------------------------------------
     /**
