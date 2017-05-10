@@ -21,8 +21,6 @@ public class Dijkstra {
     private Map<PuntInteres,Double> cost;
     
     private String tipus;
-
-    private MTDirecte MtDir;
     
     Dijkstra() {
 	nodesAgafats = new HashSet<PuntInteres>();
@@ -40,56 +38,61 @@ public class Dijkstra {
 	temps.put(origen,0);
 	nodesPerAgafar.add(origen);
 	while(nodesPerAgafar.size()>0 && !(nodesAgafats.contains(desti))){
-		PuntInteres pi = buscarMinim(origen,nodesPerAgafar);
+		PuntInteres pi = buscarMinim(origen,nodesPerAgafar,mundi);
 		nodesAgafats.add(pi);
 		nodesPerAgafar.remove(pi);
                 if(tipus.equals("temps")) buscarDistanciesMinimes(mundi,pi);
                 else buscarCostsMinims(mundi,pi);
 	}
+        if(!nodesAgafats.contains(desti)){
+            return null;
+        }
+        else{
+            //Crear ruta?
+        }
     }
     
-    private PuntInteres buscarMinim(PuntInteres origen, Set<PuntInteres> nodesPerAgafar){
+    private PuntInteres buscarMinim(PuntInteres origen, Set<PuntInteres> nodesPerAgafar, Mapa mundi){
 	PuntInteres minim = null;
 	for(PuntInteres p : nodesPerAgafar){
-		if(minim==null){
-			minim=p;
-		}
-		else{
-                    if(tipus.equals("temps")){
-                        if(MtDir.obtenirDespl(origen, p) < MtDir.obtenirDespl(origen, minim)){ //Obtenir despl
-                            minim=p;
-                        }
+            if(minim==null){
+		minim=p;
+            }
+            else{
+                if(tipus.equals("temps")){
+                    if(mundi.obtenirDespl(origen, p) < mundi.obtenirDespl(origen, minim)){ //Obtenir despl
+                        minim=p;
                     }
-                    else{
-                        if(MtDir.obtenirCostDespl(origen, p) < MtDir.obtenirCostDespl(origen, minim)){ //Obtenir despl
-                            minim=p;
-                        }
+                }
+                else{
+                    if(mundi.obtenirCostDespl(origen, p) < mundi.obtenirCostDespl(origen, minim)){ //Obtenir despl
+                        minim=p;
                     }
-                    
-		}
-		return minim;
+                }       
+            }
         }
+        return minim;
     }
         
     private void buscarDistanciesMinimes(Mapa mundi, PuntInteres pi){
-	List<PuntInteres> nodesVeins = mundi.obtenirVeins(pi); //obtenir veins
+	Set<PuntInteres> nodesVeins = mundi.obtenirVeins(pi); //obtenir veins
 	for(PuntInteres p : nodesVeins){
-		if(obtenirTemps(p) > obtenirTemps(pi) + MtDir.obtenirDesp(pi,p)){
-			temps.put(p, obtenirTemps(pi) + MtDir.obtenirDesp(pi,p));
-			predecessors.put(p,pi);
-			nodesPerAgafar.add(p);
-		}
+            if(obtenirTemps(p) > obtenirTemps(pi) + mundi.obtenirDespl(pi,p)){
+		temps.put(p, obtenirTemps(pi) + mundi.obtenirDespl(pi,p));
+		predecessors.put(p,pi);
+		nodesPerAgafar.add(p);
+            }
 	}
     }
     
     private void buscarCostsMinims(Mapa mundi, PuntInteres pi){
-	List<PuntInteres> nodesVeins = mundi.obtenirVeins(pi); //obtenir veins
+	Set<PuntInteres> nodesVeins = mundi.obtenirVeins(pi); //obtenir veins
 	for(PuntInteres p : nodesVeins){
-		if(obtenirTemps(p) > obtenirCost(pi) + MtDir.obtenirCostDesp(pi,p)){
-			cost.put(p, obtenirCost(pi) + MtDir.obtenirCostDesp(pi,p));
-			predecessors.put(p,pi);
-			nodesPerAgafar.add(p);
-		}
+            if(obtenirTemps(p) > obtenirCost(pi) + mundi.obtenirCostDespl(pi,p)){
+		cost.put(p, obtenirCost(pi) + mundi.obtenirCostDespl(pi,p));
+		predecessors.put(p,pi);
+		nodesPerAgafar.add(p);
+            }
 	}
     }
     

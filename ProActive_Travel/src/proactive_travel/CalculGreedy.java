@@ -24,7 +24,7 @@ public abstract class CalculGreedy {
      * @pre: --
      * @post: Calcula una Ruta mitjançant un algorisme voraç
      */
-    public static Ruta calcularRutaGreedy(Viatge clients,Mapa mon){
+    public static Ruta calcularRutaGreedy(Viatge clients,Mapa mundi){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
 }

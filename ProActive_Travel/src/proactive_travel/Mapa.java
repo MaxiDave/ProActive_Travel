@@ -158,4 +158,41 @@ public class Mapa {
         }
         return minim;
     }
+    public Integer obtenirDespl(PuntInteres origen, PuntInteres desti){
+        int tempsMinim=Integer.MAX_VALUE;
+        HashMap<String, List<MTDirecte>> ori = new HashMap<String, List<MTDirecte>>(transDirecte.get(origen.obtenirNom()));
+        if(ori != null){
+            List<MTDirecte> des = ori.get(desti.obtenirNom());
+            if(des != null){
+                for(MTDirecte i : des){
+                    if(i.getDurada()< tempsMinim){
+                        tempsMinim=i.getDurada();
+                    }
+                }
+            }
+        }
+        return tempsMinim;
+    }
+    
+    public Double obtenirCostDespl(PuntInteres origen, PuntInteres desti){
+        double costMinim=Double.MAX_VALUE;
+        HashMap<String, List<MTDirecte>> ori = new HashMap<String, List<MTDirecte>>(transDirecte.get(origen.obtenirNom()));
+        if(ori != null){
+            List<MTDirecte> des = ori.get(desti.obtenirNom());
+            if(des != null){
+                for(MTDirecte i : des){
+                    if(i.getPreu()< costMinim){
+                        costMinim=i.getPreu();
+                    }
+                }
+            }
+        }
+        return costMinim;
+    }
+    
+    public Set<PuntInteres> obtenirVeins(PuntInteres pi){
+        HashMap<PuntInteres, List<MTDirecte>> veinsTransports = new HashMap<String, List<MTDirecte>>(transDirecte.get(pi.obtenirNom()));
+        Set<PuntInteres> veins = veinsTransports.keySet();
+        return veins;
+    }
 }
