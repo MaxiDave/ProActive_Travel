@@ -24,27 +24,29 @@ public class Viatge {
     private Set<Client> clients;
     private final String catDesit;
     private final LocalDateTime inici;
-    private final Double duracio;
-    private final PuntInteres origen;
-    private final PuntInteres desti;
+    private final Integer duracio;
+    private final Double preuMax;
+    private PuntInteres origen;
+    private PuntInteres desti;
     private Set<PuntInteres> pI;
     private Map<String, Integer> satisfaccio;
-    private String tipus;
+    private Boolean rutaBarata;
+    private Boolean rutaCurta;
+    private Boolean rutaSatisfactoria;
     
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
-     * @post: Es crea un Viatge amb categoria desitjada, punts d’interès a visitar, origen i desti, duració i inici.
+     * @post: Es crea un Viatge amb clients, categoria desitjada, inici i duració.
      */
-    public Viatge(String catDesit, PuntInteres origen, PuntInteres desti, LocalDateTime inici, Double duracio){
-        clients= new HashSet<Client>();
-        pI= new HashSet<PuntInteres>();
-        satisfaccio= new HashMap<String, Integer>();
+    public Viatge(String catDesit, LocalDateTime inici, Integer duracio, Double preuMax){
+        this.clients= new HashSet<Client>();
+        this.pI= new HashSet<PuntInteres>();
+        this.satisfaccio= new HashMap<String, Integer>();
         this.catDesit= catDesit;
         this.inici= inici;
         this.duracio= duracio;
-        this.origen= origen;
-        this.desti= desti;
+        this.preuMax= preuMax;
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
@@ -64,26 +66,60 @@ public class Viatge {
     
     /** 
      * @pre: --
+     * @post: Assigna un Punt d'Interes com a origen del viatge
+     */
+    public void assignarOrigen(PuntInteres punt){
+        origen= punt;
+    }
+    
+    /** 
+     * @pre: --
+     * @post: Assigna un Punt d'Interes com a destí del viatge
+     */
+    public void assignarDesti(PuntInteres punt){
+        desti= punt;
+    }
+    
+    /** 
+     * @pre: --
      * @post: Afegeix un Punt d'Interes a la llista dels punts per on es vol passar del viatge
      */
     public void afegirPI(PuntInteres punt){
         pI.add(punt);
     }
     
-     /** 
-     * @pre: tipus == "ruta barata" || tipus == "ruta curta" || tipus == "ruta satisfactoria"
-     * @post: Assigna l'String "tipus" com a tipus d'aquest viatge
+    /** 
+     * @pre: --
+     * @post: El viatge vol la Ruta més barata 
      */
-    public void assignarTipus(String tipus){
-        this.tipus= tipus;
+    public void assignarBarata(){
+        rutaBarata= true;
+    }
+    
+    /** 
+     * @pre: --
+     * @post: El viatge vol la Ruta més curta 
+     */
+    public void assignarCurta(){
+        rutaCurta= true;
+    }
+    
+    /** 
+     * @pre: --
+     * @post: El viatge vol la Ruta més satisfactoria
+     */
+    public void assignarSatisfactoria(){
+        rutaSatisfactoria= true;
     }
     
     /** 
      * @pre: --
      * @post: Retorna un enter que representa el nombre de clients del conjunt que tenen la preferència “pref” entre les seves preferències personals
      */
-    public Integer obtenirSatisfaccioPreferencia(String pref){
-        throw new UnsupportedOperationException("Not supported yet"); 
+    public Integer obtSatisfaccio(String pref){
+        Integer valor= satisfaccio.get(pref);
+        if(valor == null) return 0;
+        else return valor;
     }
     
     /** 
@@ -91,31 +127,32 @@ public class Viatge {
      * @post: Retorna cert si l’allotjament “hotel” és de la categoria que desitja el conjunt de clients
      */
     public Boolean categoriaDesitjada(Allotjament hotel){
-        throw new UnsupportedOperationException("Not supported yet"); 
+        if(hotel.obtenirCat().equals(catDesit)) return true;
+        else return false;
     }
     
     /** 
      * @pre: --
-     * @post: Retorna el lloc d’origen del viatge del grup de clients
+     * @post: Retorna el PuntInteres d’origen del viatge del grup de clients
      */
-    public Lloc obtenirOrigen(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+    public PuntInteres obtOrigen(){
+        return origen; 
     }
     
     /** 
      * @pre: --
-     * @post: Retorna el lloc de destí del viatge del grup de clients
+     * @post: Retorna el PuntInteres de destí del viatge del grup de clients
      */
-    public Lloc obtenirDesti(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+    public PuntInteres obtDesti(){
+        return desti; 
     }
     
     /** 
      * @pre: --
      * @post: Retorna la data (amb hora inclosa) de sortida del grup de clients
      */
-    public LocalDateTime obtenirInici(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+    public LocalDateTime obtDataInici(){
+        return inici;
     }
     
     /** 

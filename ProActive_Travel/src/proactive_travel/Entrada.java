@@ -67,6 +67,18 @@ public abstract class Entrada {
     
     /**
      * @pre: --
+     * @post: Retorna un Integer llegit del Scanner, canvia de línia i incrementa el comptador de línia
+     */
+    private static Integer llegirInteger(Scanner fitxer){
+        lineCounter++;
+        Integer num= fitxer.nextInt();
+        fitxer.nextLine();
+        if(num <= 0) throw new NumberFormatException();
+        return num;
+    }
+    
+    /**
+     * @pre: --
      * @post: Tracta l'error de format durant l'entrada de les dades
      */
     private static void tractarErrorLectura(Scanner fitxer, Exception e) throws InterruptedException{
@@ -247,7 +259,7 @@ public abstract class Entrada {
 
             MTDirecte mT= new MTDirecte(nomTrans, mundi.obtenirPI(origenID), mundi.obtenirPI(destiID), preu, durada);
             mundi.afegirTransportDirecte(mT);
-        } catch (NumberFormatException | InputMismatchException e){
+        } catch (Exception e){
             System.err.println("Error de lectura: Associar Transport Urbà, no es llegeix");
             tractarErrorLectura(fitxer, e);
         }
@@ -261,7 +273,7 @@ public abstract class Entrada {
         try{
             String origenID= llegirLinia(fitxer); Lloc origen= mundi.obtenirLloc(origenID);
             String destiID= llegirLinia(fitxer); Lloc desti= mundi.obtenirLloc(destiID);
-            if(origen != null && desti != null && origen != desti){
+            if(origen != desti){
                 String nomTrans= llegirLinia(fitxer);
                 Integer tempsOrigen= processarTemps(fitxer);
                 Integer tempsDesti= processarTemps(fitxer);
@@ -282,8 +294,8 @@ public abstract class Entrada {
                     data= hora;
                 }
             }
-            else ignorarFinsSeparador(fitxer);
-        } catch (NumberFormatException | InputMismatchException | DateTimeException e){
+            else throw new Exception("OrigenDestiIgualsException");
+        } catch (Exception e){
             System.err.println("Error de lectura: Associar Transport Urbà, no es llegeix");
             tractarErrorLectura(fitxer, e);
         }
@@ -293,8 +305,54 @@ public abstract class Entrada {
      * @pre: Anterior valor llegit de fitxer és "viatge"
      * @post: Llegeix un viatge de fitxer i l'afegeix a la llista de viatges
      */
-    private static void afegirViatge(Scanner fitxer, Mapa mundi, List<Viatge> viatges){
-        throw new UnsupportedOperationException("Not supported yet"); 
+    private static void afegirViatge(Scanner fitxer, Mapa mundi, List<Viatge> viatges, Map<String, Client> clients) throws InterruptedException{
+        try{
+            LocalDate anyMesDia= processarData(llegirLinia(fitxer));
+            LocalTime horaMinuts= processarHora(llegirLinia(fitxer));
+            LocalDateTime sortidaViatge= LocalDateTime.of(anyMesDia, horaMinuts);
+            Integer dies= llegirInteger(fitxer);
+            Double preuMax= llegirDouble(fitxer);
+            String catDesitjada= llegirLinia(fitxer);
+            
+            Viatge viatge= new Viatge(catDesitjada, sortidaViatge, dies, preuMax);
+            String nomClient= llegirLinia(fitxer);
+            while(!nomClient.equals("*")){
+                try{
+                    Client aux= clients.get(nomClient);
+                    if(aux == null) throw new Exception("ClientInexistentException");
+                    else viatge.afegirClient(aux);
+                } catch(Exception e){
+                    System.err.println(e);
+                    System.err.println("Client inexistent: S'ignora");
+                }
+                nomClient= llegirLinia(fitxer);
+            }
+            PuntInteres origen= mundi.obtenirPI(llegirLinia(fitxer));
+            viatge.assignarOrigen(origen);
+            PuntInteres punt= mundi.obtenirPI(llegirLinia(fitxer));
+            String puntAux= llegirLinia(fitxer);
+            while(!puntAux.equals("*")){
+                viatge.afegirPI(punt);
+                punt= mundi.obtenirPI(puntAux);
+                puntAux= llegirLinia(fitxer);
+            }
+            viatge.assignarDesti(punt);
+            String ruta= llegirLinia(fitxer);
+            while(!ruta.equals("*")){
+                try{
+                    if(ruta.equals("ruta barata")) viatge.assignarBarata();
+                    else if(ruta.equals("ruta curta")) viatge.assignarCurta();
+                    else if(ruta.equals("ruta satisfactoria")) viatge.assignarSatisfactoria();
+                    else throw new InputMismatchException();
+                } catch (InputMismatchException e){
+                    System.err.println("Error de lectura: Tipus de ruta desconegut, s'ignora");
+                }
+                ruta= llegirLinia(fitxer);
+            }
+        } catch (Exception e){
+            System.err.println("Error de lectura: Viatge, no es llegeix");
+            tractarErrorLectura(fitxer, e);
+        }
     }
     
     /**
@@ -334,7 +392,7 @@ public abstract class Entrada {
                 else if(codiOperacio.equals("associar transport")) associarUrba(fitxer, mundi);
                 else if(codiOperacio.equals("transport directe")) afegirTransportDirecte(fitxer, mundi);
                 else if(codiOperacio.equals("transport indirecte")) afegirTransportIndirecte(fitxer, mundi);
-                else if(codiOperacio.equals("viatge")) afegirViatge(fitxer, mundi, viatges);
+                else if(codiOperacio.equals("viatge")) afegirViatge(fitxer, mundi, viatges, clients);
                 else{
                     Integer liniesAnteriors= lineCounter;
                     ignorarFinsSeparador(fitxer);

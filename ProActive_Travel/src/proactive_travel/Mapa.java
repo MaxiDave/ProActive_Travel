@@ -105,19 +105,23 @@ public class Mapa {
     /**
      * @pre: --
      * @post: Retorna el Lloc associat amb l' identificador llocID.
-     *        Si no existeix retorna null
+     *        Si no existeix llença excepció
      */
-    public Lloc obtenirLloc(String llocID){
-        return llocs.get(llocID);
+    public Lloc obtenirLloc(String llocID) throws Exception{
+        Lloc aux= llocs.get(llocID);
+        if(aux == null) throw new Exception("LlocInexistentException");
+        else return aux;
     }
     
     /**
      * @pre: --
      * @post: Retorna el puntInteres associat amb l' identificador puntID.
-     *        Si no existeix retorna null
+     *        Si no existeix llença excepció
      */
-    public PuntInteres obtenirPI(String puntID){
-        return punts.get(puntID);
+    public PuntInteres obtenirPI(String puntID) throws Exception{
+        PuntInteres aux= punts.get(puntID);
+        if(aux == null) throw new Exception("PIInexistentException");
+        else return aux;
     }
     
     /**
