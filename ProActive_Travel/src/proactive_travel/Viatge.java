@@ -159,7 +159,19 @@ public class Viatge {
      * @pre: --
      * @post: Retorna un iterador als punts d’interès prefixats que s’han de visitar sí o sí
      */
-    public Iterator<PuntInteres> obtenirInteressos(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+    public Set<PuntInteres> obtenirInteressos(){
+        return pI;
+    }
+    
+    public Boolean esBarat(){
+        return rutaBarata;
+    }
+    
+    public Boolean esCurt(){
+        return rutaCurta;
+    }
+    
+    public Boolean esSatisfactoria(){
+        return rutaSatisfactoria;
     }
 }
