@@ -370,16 +370,12 @@ public abstract class Entrada {
     
     /**
      * @pre: --
-     * @post: Demana la ruta del fitxer a carregar dades i retorna un scanner a aquest 
-     *        preparat per la lectura
+     * @post: Retorna un Scanner creat al fitxer "file"
      */
-    public static Scanner entrarNomFitxer(){
-        Scanner teclat = new Scanner(System.in);
-        System.out.println("Nom del fitxer: ");
+    public static Scanner creaScanner(File file){
         Scanner fitxer= null;
         try { //Pot ser que el fitxer no existeixi
-            fitxer = new Scanner(new File(teclat.nextLine())).useLocale(Locale.US);
-            System.out.println();
+            fitxer= new Scanner(file).useLocale(Locale.US);
         } catch (FileNotFoundException e) {
             //Si no es troba el fitxer informa i avorta
             System.err.println(e);

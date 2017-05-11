@@ -13,6 +13,8 @@
 
 package proactive_travel;
 import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * DESCRIPCIÓ GENERAL
@@ -20,14 +22,17 @@ import java.util.*;
  */
 public abstract class ProActive_Travel {
     
+    public static File file;
+    
     /**
      * @pre: --
      * @post: Genera un mapa i un viatge a partir d'un fitxer d'entrada de dades i
      *        calcula Rutes a partir d'aquest.
      */
-    public static void main(String[] args) {
-        //Demana nom de fitxer i s'obre el flux (S'haurà de fer amb entrada gràfica)
-        Scanner fitxer= Entrada.entrarNomFitxer();
+    public static void main(String[] args){
+        //Inicia el GUI i crea l'scanner del fitxer seleccionat
+        FitxerGUI.inicia();
+        Scanner fitxer= Entrada.creaScanner(file);
         
         //Es creen les estructures de dades principals
         List<Viatge> viatges= new ArrayList<Viatge>();
