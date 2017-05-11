@@ -26,7 +26,8 @@ import java.util.logging.Logger;
  */
 public abstract class Entrada {
     //VARIABLES LOCALS---------------------------------------------------------------------------------------------------------------------------
-    private static int lineCounter= 0;
+    public static int lineCounter= 0;
+    public static int warnings= 0;
     
     //MÈTODES ESTÀTICS---------------------------------------------------------------------------------------------------------------------------
     /** @pre: --
@@ -88,6 +89,7 @@ public abstract class Entrada {
         ignorarFinsSeparador(fitxer);
         System.err.println("Mòdul ignorat");
         System.err.println();
+        warnings++;
         Thread.sleep(1);
     }
     
@@ -254,6 +256,7 @@ public abstract class Entrada {
         } catch (Exception e){
             System.err.println(e);
             System.err.println("No existeix el Lloc i/o el PuntInteres: S'ignora");
+            warnings++;
         }
     }
     
@@ -337,6 +340,7 @@ public abstract class Entrada {
                 } catch(Exception e){
                     System.err.println(e);
                     System.err.println("Client inexistent: S'ignora");
+                    warnings++;
                 }
                 nomClient= llegirLinia(fitxer);
             }
@@ -359,6 +363,7 @@ public abstract class Entrada {
                     else throw new InputMismatchException();
                 } catch (InputMismatchException e){
                     System.err.println("Error de lectura: Tipus de ruta desconegut, s'ignora");
+                    warnings++;
                 }
                 ruta= llegirLinia(fitxer);
             }
@@ -408,6 +413,7 @@ public abstract class Entrada {
                     System.err.println("Línia "+liniesAnteriors+": Codi d'operació '"+codiOperacio+"' invàlid. S'ha ignorat el mòdul ("+(lineCounter-liniesAnteriors)+" línies)");
                     System.err.println();
                     Thread.sleep(1);
+                    warnings++;
                 }
             }
         } catch(InterruptedException iE){

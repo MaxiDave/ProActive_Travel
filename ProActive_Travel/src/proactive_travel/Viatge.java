@@ -163,11 +163,11 @@ public class Viatge {
         return pI;
     }
     
-    public Boolean esBarat(){
+    public Boolean esBarata(){
         return rutaBarata;
     }
     
-    public Boolean esCurt(){
+    public Boolean esCurta(){
         return rutaCurta;
     }
     

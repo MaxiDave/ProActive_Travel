@@ -15,14 +15,16 @@ package proactive_travel;
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  * DESCRIPCIÓ GENERAL
  * @brief: Mòdul principal que conté el MAIN
  */
-public abstract class ProActive_Travel {
+public abstract class ProActive_Travel{
     
-    public static File file;
+    public static File file; ///< @brief: variable on es guarda el fitxer d'entrada de dades
     
     /**
      * @pre: --
@@ -41,13 +43,5 @@ public abstract class ProActive_Travel {
         
         //Es duu a terme el procés d'entrada de dades a partir del Scanner al mapa i al Mapa de clients
         Entrada.inicialitzaAplicatiu(fitxer, clients, mundi, viatges);
-        
-        /*
-        Set<String> clientsNom= new HashSet<String>();
-        clientsNom = clients.keySet();
-        for(String s : clientsNom){
-            System.out.println(s);
-        }
-        */
     }
 }

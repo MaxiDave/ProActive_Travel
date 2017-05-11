@@ -1,12 +1,8 @@
 package proactive_travel;
 
-import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -17,16 +13,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.scene.text.*;
+import javafx.scene.text.Text;
 
 public final class FitxerGUI extends Application {
- 
-    private Desktop desktop = Desktop.getDesktop();
- 
     @Override
     public void start(final Stage stage) {
+        //Platform.setImplicitExit(false);
         stage.setTitle("Selector de fitxers");
- 
         final FileChooser fileChooser = new FileChooser();
  
         final Text text= new Text("Examina fitxers: ");
