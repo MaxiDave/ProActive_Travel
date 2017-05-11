@@ -21,6 +21,7 @@ public class Dijkstra {
     private Map<PuntInteres,Double> cost;
     
     private String tipus;
+    private PuntInteres dest;
     
     Dijkstra() {
 	nodesAgafats = new HashSet<PuntInteres>();
@@ -31,7 +32,25 @@ public class Dijkstra {
         tipus = new String();
     }
     
-    public Ruta camiMinim(Mapa mundi, PuntInteres origen, PuntInteres desti, String tipusDij){
+    public HashSet<PuntInteres> retornaPuntsInteres(){
+        HashSet<PuntInteres> cami = new HashSet();
+        PuntInteres d=dest;
+        while(predecessors.containsKey(d)){
+            cami.add(predecessors.get(d));
+        }
+        return cami;
+    }
+    
+    public Integer retornaTemps(){
+        return temps.get(dest);
+    }
+    
+    public Double retornaCost(){
+        return cost.get(dest);
+    }
+    
+    public Integer camiMinim(Mapa mundi, PuntInteres origen, PuntInteres desti, String tipusDij){
+        dest=desti;
         if(tipusDij.equals("temps")) tipus="temps";
         else tipus="diners";
         
@@ -45,12 +64,9 @@ public class Dijkstra {
                 else buscarCostsMinims(mundi,pi);
 	}
         if(!nodesAgafats.contains(desti)){
-            return null;
+            return -1;
         }
-        else{
-            //Crear ruta?
-            throw new UnsupportedOperationException("Not supported yet"); 
-        }
+        return 0;
     }
     
     private PuntInteres buscarMinim(PuntInteres origen, Set<PuntInteres> nodesPerAgafar, Mapa mundi){
