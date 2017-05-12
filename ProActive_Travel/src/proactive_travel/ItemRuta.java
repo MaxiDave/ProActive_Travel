@@ -13,52 +13,46 @@
 
 package proactive_travel;
 
+import java.time.LocalDateTime;
+
 /**
  * DESCRIPCIÓ GENERAL
  * @brief: Representa un Item d'una Ruta.
  */
-public class ItemRuta {
-    //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
-    
-    //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
+public interface ItemRuta {
     /** 
      * @pre: --
-     * @post: Crea un ItemRuta inicial buit 
-     */
-    public ItemRuta(){
-        throw new UnsupportedOperationException("Not supported yet");
-    }
-    
-    //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
-    /** 
-     * @pre: ItemRuta buit
-     * @post: ItemRuta serà un trajecte 
-     */
-    public void afegirTrajecte(Trajecte traj){
-        throw new UnsupportedOperationException("Not supported yet");
-    }
-    
-    /** 
-     * @pre: ItemRuta buit
-     * @post: ItemRuta serà una Estada 
-     */
-    public void afegirEstada(EstadaHotel estada){
-        throw new UnsupportedOperationException("Not supported yet");
-    }
-    
-    /** 
-     * @pre: ItemRuta buit
-     * @post: ItemRuta serà una Visita 
-     */
-    public void afegirVisita(Visita v){
-        throw new UnsupportedOperationException("Not supported yet");
-    }
-    
-    /** 
-     * @pre: ItemRuta no buit
      * @post: Retorna el punt d'interes de sortida del Item 
      */
-    public PuntInteres obtSortida(){
-        throw new UnsupportedOperationException("Not supported yet");
-    }
+    public PuntInteres obtSortida();
+    
+    /** 
+     * @pre: --
+     * @post: Retorna l’hora d'inici de l'item
+     */
+    public LocalDateTime getInici();
+    
+    /** 
+     * @pre: --
+     * @post: Retorna l’hora de fi de l'item 
+     */
+    public LocalDateTime getFinal();
+    
+    /** 
+     * @pre: --
+     * @post: Retorna la durada de l'item
+     */
+    public Integer obtDurada();
+    
+    /** 
+     * @pre: --
+     * @post: Retorna la satisfacció produïda per l'item
+     */
+    public Integer obtSatisfaccio();
+    
+    /** 
+     * @pre: --
+     * @post: Retorna el cost per persona del item
+     */
+    public Double obtCost();
 }

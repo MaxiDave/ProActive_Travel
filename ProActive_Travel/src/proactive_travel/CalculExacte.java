@@ -53,7 +53,7 @@ public abstract class CalculExacte {
             for(ItemRuta item: items){
                 if(actual.acceptable(item) && esPotMillorar(actual, optima)){
                     actual.anotar(item);
-                    if(!actual.completa()) algRecursiu(mundi, item.obtSortida(), actual.obtTemps());
+                    if(!actual.esCompleta()) algRecursiu(mundi, item.obtSortida(), actual.obtTemps());
                     else{
                         if(esMillor(actual, optima)) optima= actual;
                     }
@@ -72,7 +72,7 @@ public abstract class CalculExacte {
         private static boolean esMillor(Solucio actual, Solucio optima){
             if(optima == null) return true;
             else if(tipusRuta.equals("curta")){
-                float cmpD= actual.obtDurada().compareTo(optima.obtDurada());
+                Integer cmpD= actual.obtDurada()-optima.obtDurada();
                 if(cmpD > 0) return false;
                 else if(cmpD < 0) return true;
                 else{
@@ -88,7 +88,7 @@ public abstract class CalculExacte {
                 else if(cmpC < 0) return true;
                 else{
                     Integer cmpS= actual.obtSatisfaccio()-optima.obtSatisfaccio();
-                    if(cmpS == 0) return actual.obtDurada().compareTo(optima.obtDurada()) < 0;
+                    if(cmpS == 0) return actual.obtDurada()<optima.obtDurada();
                     else if(cmpS < 0) return false;
                     else return true;
                 }
@@ -99,7 +99,7 @@ public abstract class CalculExacte {
                 else if(cmpS < 0) return false;
                 else{
                     Double cmpC= actual.obtCost()-optima.obtCost();
-                    if(cmpC == 0) return actual.obtDurada().compareTo(optima.obtDurada()) < 0;
+                    if(cmpC == 0) return actual.obtDurada()<optima.obtDurada();
                     else if(cmpC < 0) return false;
                     else return true;
                 }
@@ -111,13 +111,18 @@ public abstract class CalculExacte {
             private LocalDateTime tempsActual;
             private Viatge viatge;
             private final String tipus;
-            private boolean completa; 
+            private Set<PuntInteres> visitats;
+            
             
             private Solucio(Viatge v, String t, LocalDateTime temps){
                 viatge= v;
                 tipus= t;
                 tempsActual= temps;
-                completa= false;
+                visitats= new HashSet<PuntInteres>();
+            }
+            
+            private boolean acceptable(ItemRuta item){
+                throw new UnsupportedOperationException("Not supported yet");
             }
             
             private LocalDateTime obtTemps(){
@@ -128,11 +133,11 @@ public abstract class CalculExacte {
                 return ruta;
             }
             
-            private boolean completa(){
-                return completa;
+            private boolean esCompleta(){
+                throw new UnsupportedOperationException("Not supported yet");
             }
             
-            private Duration obtDurada(){
+            private Integer obtDurada(){
                 throw new UnsupportedOperationException("Not supported yet");
             }
             

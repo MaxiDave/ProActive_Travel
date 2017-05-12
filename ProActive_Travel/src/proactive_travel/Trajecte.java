@@ -18,7 +18,7 @@ import java.time.*;
  * DESCRIPCIÓ GENERAL
  * @brief: Representa un Trajecte, amb el mitjà de transport i les hores d'arribada i sortida
  */
-public class Trajecte {
+public class Trajecte implements ItemRuta{
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
@@ -31,35 +31,36 @@ public class Trajecte {
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
-    /** 
-     * @pre: --
-     * @post: Retorna el PuntInteres d'origen 
-     */
-    public PuntInteres getOrigen(){
-        throw new UnsupportedOperationException("Not supported yet"); 
-    }
     
     /** 
      * @pre: --
      * @post: Retorna el PuntInteres de destí 
      */
-    public PuntInteres getDesti(){
+    public PuntInteres obtSortida(){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
     
     /** 
      * @pre: --
-     * @post: Retorna la durada en minuts
+     * @post: Retorna la durada del trajecte en minuts
      */
-    public Double getDurada(){
+    public Integer obtDurada(){
         throw new UnsupportedOperationException("Not supported yet"); 
+    }
+    
+    /** 
+     * @pre: --
+     * @post: Retorna la satisfacció produïda per el trajecte, és a dir, 0
+     */
+    public Integer obtSatisfaccio(){
+        return 0;
     }
     
     /** 
      * @pre: --
      * @post: Retorna el preu del trajecte 
      */
-    public Double getPreu(){
+    public Double obtCost(){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
     
@@ -67,7 +68,7 @@ public class Trajecte {
      * @pre: --
      * @post: Retorna l'hora de sortida del Trajecte 
      */
-    public LocalTime getSortida(){
+    public LocalDateTime getInici(){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
     
@@ -75,7 +76,7 @@ public class Trajecte {
      * @pre: --
      * @post: Retorna l'hora d'arribada del Trajecte 
      */
-    public LocalTime getArribada(){
+    public LocalDateTime getFinal(){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
 }

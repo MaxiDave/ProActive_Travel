@@ -21,6 +21,10 @@ import java.util.*;
  */
 public class Ruta {
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
+    Deque<ItemRuta> items;
+    private Integer durada;
+    private Integer satisfaccio;
+    private Double cost;
     
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /**
@@ -28,7 +32,10 @@ public class Ruta {
      * @post: Crea una Ruta inicial buida
      */
     public Ruta(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+        items= new ArrayDeque<ItemRuta>();
+        durada= 0;
+        satisfaccio= 0;
+        cost= (double)0;
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
@@ -40,16 +47,12 @@ public class Ruta {
         throw new UnsupportedOperationException("Not supported yet"); 
     }
     
-    /**
-     * @pre: --
-     * @post: Retorna cert si el Trajecte absolut de la ruta té “origen” com origen i “desti” com destí, i també opcionalment passa per tots els “punts”. És a dir, si la Ruta està completada.
-     */
-    public Boolean esCompleta(Viatge v){
-        throw new UnsupportedOperationException("Not supported yet"); 
+    public boolean esCompleta(PuntInteres pI){
+        throw new UnsupportedOperationException("Not supported yet");
     }
     
    
-    public Duration obtDurada(){
+    public Integer obtDurada(){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
     
