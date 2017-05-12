@@ -41,8 +41,15 @@ public class PuntInteres {
      * @pre: --
      * @post: Retorna cert si el punt d’interès satisfà la preferència “pref”, fals altrament 
      */
-    public Boolean satisfaPreferencia(String pref){
-        return activitats.contains(pref);
+    public Integer satisfaPreferencia(Map<String, Integer> pref){
+        int grauSatis=0;
+        Set<String> p = pref.keySet();
+        for(String s : p){
+            if(activitats.contains(s)){
+                grauSatis = grauSatis + pref.get(s);
+            }
+        }
+        return grauSatis;
     }
     
     /** 

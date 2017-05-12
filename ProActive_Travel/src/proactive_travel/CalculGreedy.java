@@ -14,6 +14,7 @@
 
 package proactive_travel;
 
+import java.time.*;
 import java.util.*;
 
 /**
@@ -23,6 +24,8 @@ import java.util.*;
 public abstract class CalculGreedy {
     
     private static Set<PuntInteres> puntsIntermig;
+    private static LocalDateTime actual;
+    private static Integer nCli;
     
     //MÈTODES ESTÀTICS---------------------------------------------------------------------------------------------------------------------------
     /**
@@ -31,10 +34,13 @@ public abstract class CalculGreedy {
      */
     public static Ruta calcularRutaGreedy(Viatge clients,Mapa mundi){
         puntsIntermig = clients.obtenirInteressos();
-        if(clients.esBarat()){
-            Ruta barata = calcularBarat(mundi,clients.obtOrigen());
+        actual = clients.obtDataInici();
+        nCli = clients.nClients();
+        
+        if(clients.esBarata()){
+            Ruta barata = calcularBarat(mundi,clients.obtOrigen(),clients.preferenciesClients());
         }
-        if(clients.esCurt()){
+        if(clients.esCurta()){
             
         }
         if(clients.esSatisfactoria()){
@@ -42,15 +48,21 @@ public abstract class CalculGreedy {
         }
     }
     
-    private static Ruta calcularBarat(Mapa mundi, PuntInteres origen){
+    private static Ruta calcularBarat(Mapa mundi, PuntInteres origen, Map<String, Integer> preferenciesClients){
         Boolean fi=false;
         Boolean temps=true;
+        Boolean fiCami=false;
         PuntInteres puntAct = origen;
+        Ruta barata = new Ruta();
         while(!fi && temps){
             Set<PuntInteres> cami = seleccionarMesViable(mundi,"diners",puntAct);
-            analitzarLlocs(); //Mirar si valen la pena per visitar i anar mirant la hora del dia ja que s'ha de anar a hotels
-            temps = comprovarTemps();
-            fi = comprovarFi();
+            fiCami=false;
+            while(!fiCami){
+                analitzarLlocs(cami,barata,preferenciesClients); //Mirar si valen la pena per visitar i anar mirant la hora del dia ja que s'ha de anar a hotels
+                temps = comprovarTemps();
+                fi = comprovarFi();
+                fiCami = comprovarFiCami();
+            }
         }
     }
 
@@ -78,8 +90,20 @@ public abstract class CalculGreedy {
         return millorCami;
     }
 
-    private static void analitzarLlocs() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    private static void analitzarLlocs(Set<PuntInteres> cami, Ruta barata, Map<String, Integer> preferenciesClients) {
+        for(PuntInteres p : cami){
+            if(p.satisfaPreferencia(preferenciesClients) > nCli/3 && p instanceof PuntVisitable){
+                if(((PuntVisitable) p).estaObert(actual.toLocalTime())){
+                    /*ItemRuta visi= new ItemRuta();
+                    Visita v = new Visita(((PuntVisitable) p));
+                    visi.afegirVisita(v);*/
+                }
+            }
+        }
+    }
+
+    private static Boolean comprovarFiCami() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     private Ruta calcularCurt(){
