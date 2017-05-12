@@ -13,6 +13,7 @@
  */
 
 package proactive_travel;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -37,10 +38,12 @@ public abstract class CalculExacte {
     private static abstract class Solucionador{
         private static Solucio optima;
         private static Solucio actual;
+        private static String tipusRuta;
         
         private static Ruta algBack(Mapa mundi, Viatge viatge, String tipus) {
             actual= new Solucio(viatge, tipus, viatge.obtDataInici());
             optima= null;
+            tipusRuta= tipus;
             algRecursiu(mundi, viatge.obtOrigen(), actual.obtTemps());
             return optima.obtRuta();
         }
@@ -48,13 +51,57 @@ public abstract class CalculExacte {
         private static void algRecursiu(Mapa mundi, PuntInteres anterior, LocalDateTime temps) {
             Set<ItemRuta> items=  mundi.obtenirItemVeins(anterior, temps);
             for(ItemRuta item: items){
-                if(actual.acceptable(item) && esPotMillorar(optima, actual)){
+                if(actual.acceptable(item) && esPotMillorar(actual, optima)){
                     actual.anotar(item);
                     if(!actual.completa()) algRecursiu(mundi, item.obtSortida(), actual.obtTemps());
                     else{
                         if(esMillor(actual, optima)) optima= actual;
                     }
                     actual.desanotar();
+                }
+            }
+        }
+        
+        private static boolean esPotMillorar(Solucio actual, Solucio optima){
+            if(optima == null) return true;
+            else{
+                throw new UnsupportedOperationException("Not supported yet");
+            }
+        }
+        
+        private static boolean esMillor(Solucio actual, Solucio optima){
+            if(optima == null) return true;
+            else if(tipusRuta.equals("curta")){
+                float cmpD= actual.obtDurada().compareTo(optima.obtDurada());
+                if(cmpD > 0) return false;
+                else if(cmpD < 0) return true;
+                else{
+                    Integer cmpS= actual.obtSatisfaccio()-optima.obtSatisfaccio();
+                    if(cmpS == 0) return actual.obtCost() < optima.obtCost();
+                    else if(cmpS < 0) return false;
+                    else return true;
+                }
+            }
+            else if(tipusRuta.equals("barata")){
+                Double cmpC= actual.obtCost()-optima.obtCost();
+                if(cmpC > 0) return false;
+                else if(cmpC < 0) return true;
+                else{
+                    Integer cmpS= actual.obtSatisfaccio()-optima.obtSatisfaccio();
+                    if(cmpS == 0) return actual.obtDurada().compareTo(optima.obtDurada()) < 0;
+                    else if(cmpS < 0) return false;
+                    else return true;
+                }
+            }
+            else{
+                Integer cmpS= actual.obtSatisfaccio()-optima.obtSatisfaccio();
+                if(cmpS > 0) return true;
+                else if(cmpS < 0) return false;
+                else{
+                    Double cmpC= actual.obtCost()-optima.obtCost();
+                    if(cmpC == 0) return actual.obtDurada().compareTo(optima.obtDurada()) < 0;
+                    else if(cmpC < 0) return false;
+                    else return true;
                 }
             }
         }
@@ -66,19 +113,35 @@ public abstract class CalculExacte {
             private final String tipus;
             private boolean completa; 
             
-            public Solucio(Viatge v, String t, LocalDateTime temps){
+            private Solucio(Viatge v, String t, LocalDateTime temps){
                 viatge= v;
                 tipus= t;
                 tempsActual= temps;
                 completa= false;
             }
             
-            public LocalDateTime obtTemps(){
+            private LocalDateTime obtTemps(){
                 return tempsActual;
             }
             
-            public Ruta obtRuta(){
+            private Ruta obtRuta(){
                 return ruta;
+            }
+            
+            private boolean completa(){
+                return completa;
+            }
+            
+            private Duration obtDurada(){
+                throw new UnsupportedOperationException("Not supported yet");
+            }
+            
+            private Integer obtSatisfaccio(){
+                throw new UnsupportedOperationException("Not supported yet");
+            }
+            
+            private Double obtCost(){
+                throw new UnsupportedOperationException("Not supported yet");
             }
         }
     }

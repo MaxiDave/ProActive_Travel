@@ -12,6 +12,7 @@
  */
 
 package proactive_travel;
+import java.time.Duration;
 import java.util.*;
 
 /**
@@ -43,23 +44,20 @@ public class Ruta {
      * @pre: --
      * @post: Retorna cert si el Trajecte absolut de la ruta té “origen” com origen i “desti” com destí, i també opcionalment passa per tots els “punts”. És a dir, si la Ruta està completada.
      */
-    public Boolean esCompleta(PuntInteres o, PuntInteres d, Collection<PuntInteres> punts){
+    public Boolean esCompleta(Viatge v){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
     
-    /**
-     * @pre: --
-     * @post: Retorna cert si la Ruta es buida, fals altrament
-     */
-    public Boolean isEmpty(){
+   
+    public Duration obtDurada(){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
     
-    /**
-     * @pre: --
-     * @post: Retorna cert si la Ruta passa per el punt d'interès "pI"
-     */
-    public Boolean passaPer(PuntInteres pI){
+    public Integer obtSatisfaccio(){
         throw new UnsupportedOperationException("Not supported yet"); 
+    }
+    
+    public Double obtCost(){
+        throw new UnsupportedOperationException("Not supported yet");
     }
 }
