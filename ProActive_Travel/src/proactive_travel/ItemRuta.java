@@ -53,4 +53,12 @@ public class ItemRuta {
     public void afegirVisita(Visita v){
         throw new UnsupportedOperationException("Not supported yet");
     }
+    
+    /** 
+     * @pre: ItemRuta no buit
+     * @post: Retorna el punt d'interes de sortida del Item 
+     */
+    public PuntInteres obtSortida(){
+        throw new UnsupportedOperationException("Not supported yet");
+    }
 }

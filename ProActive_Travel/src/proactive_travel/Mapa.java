@@ -201,7 +201,7 @@ public class Mapa {
         return costMinim;
     }
     
-    public Set<Trajecte> obtenirVeinsTransports(PuntInteres pI, LocalDateTime temps){
+    public Set<ItemRuta> obtenirItemVeins(PuntInteres pI, LocalDateTime temps){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
     public Set<PuntInteres> obtenirVeins(PuntInteres pi){

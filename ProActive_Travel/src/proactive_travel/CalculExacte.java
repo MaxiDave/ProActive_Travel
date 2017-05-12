@@ -24,30 +24,33 @@ public abstract class CalculExacte {
     //MÈTODES ESTÀTICS---------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
-     * @post: Calcula una Ruta mitjançant backtraking
+     * @post: Calcula i retorna rutes a partir del mapa i viatge mitjançant backtraking
      */
-    public static Ruta calcularRutaBack(Mapa mundi, Viatge viatge){        
-        if(viatge.esCurta()) Solucionador.algBack(mundi, viatge, "curta");
-        if(viatge.esBarata()) Solucionador.algBack(mundi, viatge, "barata");
-        if(viatge.esSatisfactoria()) Solucionador.algBack(mundi, viatge, "sat");
-        return null;
+    public static List<Ruta> calcularRutaBack(Mapa mundi, Viatge viatge){
+        List<Ruta> rutes= new ArrayList<Ruta>();
+        if(viatge.esCurta()) rutes.add(Solucionador.algBack(mundi, viatge, "curta"));
+        if(viatge.esBarata()) rutes.add(Solucionador.algBack(mundi, viatge, "barata"));
+        if(viatge.esSatisfactoria()) rutes.add(Solucionador.algBack(mundi, viatge, "sat"));
+        return rutes;
     }
     
     private static abstract class Solucionador{
         private static Solucio optima;
         private static Solucio actual;
         
-        private static void algBack(Mapa mundi, Viatge viatge, String tipus) {
+        private static Ruta algBack(Mapa mundi, Viatge viatge, String tipus) {
             actual= new Solucio(viatge, tipus, viatge.obtDataInici());
+            optima= null;
             algRecursiu(mundi, viatge.obtOrigen(), actual.obtTemps());
+            return optima.obtRuta();
         }
         
         private static void algRecursiu(Mapa mundi, PuntInteres anterior, LocalDateTime temps) {
-            Set<Trajecte> veins=  mundi.obtenirVeinsTransports(anterior, temps);
-            for(Trajecte t : veins){
-                if(actual.acceptable(t) && calculRuta.esPotMillorar(optima, actual)){
-                    actual.anotar(t);
-                    if(!actual.completa()) algRecursiu(mundi, t.getDesti(), actual.obtTemps());
+            Set<ItemRuta> items=  mundi.obtenirItemVeins(anterior, temps);
+            for(ItemRuta item: items){
+                if(actual.acceptable(item) && esPotMillorar(optima, actual)){
+                    actual.anotar(item);
+                    if(!actual.completa()) algRecursiu(mundi, item.obtSortida(), actual.obtTemps());
                     else{
                         if(esMillor(actual, optima)) optima= actual;
                     }
@@ -57,19 +60,25 @@ public abstract class CalculExacte {
         }
         
         private static class Solucio{
-            private static LocalDateTime tempsActual;
-            private static Viatge viatge;
-            private static String tipus;
-            private static boolean completa= false; 
+            private Ruta ruta;
+            private LocalDateTime tempsActual;
+            private Viatge viatge;
+            private final String tipus;
+            private boolean completa; 
             
             public Solucio(Viatge v, String t, LocalDateTime temps){
                 viatge= v;
                 tipus= t;
                 tempsActual= temps;
+                completa= false;
             }
             
             public LocalDateTime obtTemps(){
                 return tempsActual;
+            }
+            
+            public Ruta obtRuta(){
+                return ruta;
             }
         }
     }
