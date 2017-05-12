@@ -17,7 +17,7 @@ package proactive_travel;
  * DESCRIPCIÓ GENERAL
  * @brief: Representa un transport urbà, amb nom, durada i preu.
  */
-public class TransportUrba {    
+public class TransportUrba{    
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private final String nom;
     private final Integer durada;
@@ -55,7 +55,7 @@ public class TransportUrba {
      * @pre: --
      * @post: Retorna el descriptor del transport 
      */
-    public String getDescriptor(){
+    public String getNom(){
         return nom;
     }
 }

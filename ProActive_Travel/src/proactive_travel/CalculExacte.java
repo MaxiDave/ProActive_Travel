@@ -13,6 +13,7 @@
  */
 
 package proactive_travel;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -33,28 +34,43 @@ public abstract class CalculExacte {
     }
     
     private static abstract class Solucionador{
-
-        private static void algBack(Mapa mundi, Viatge viatge, String curta) {
-            /*
-            ESQUEMA Backtracking Recursiu Solucio Optima
-                Inicialitzar Conjunt De Candidats
-                MENTRE Queden Candidats FER
-                    SI Acceptable AND Es Pot Trobar Solucio Millor LLAVORS
-                        Anotar Candidat
-                        SI NO Solucio Completa LLAVORS
-                            Backtracking Pas Seguent
-                        ALTRAMENT
-                            SI Solucio Actual Millor Que Optima LLAVORS
-                                 Optima Es Solucio Actual
-                            FSI
-                        FSI
-                    Desanotar Candidat
-                    FSI
-                Seguent Candidat
-                FMENTRE
-            FESQUEMA
-            */
+        private static Solucio optima;
+        private static Solucio actual;
+        
+        private static void algBack(Mapa mundi, Viatge viatge, String tipus) {
+            actual= new Solucio(viatge, tipus, viatge.obtDataInici());
+            algRecursiu(mundi, viatge.obtOrigen(), actual.obtTemps());
         }
         
+        private static void algRecursiu(Mapa mundi, PuntInteres anterior, LocalDateTime temps) {
+            Set<Trajecte> veins=  mundi.obtenirVeinsTransports(anterior, temps);
+            for(Trajecte t : veins){
+                if(actual.acceptable(t) && calculRuta.esPotMillorar(optima, actual)){
+                    actual.anotar(t);
+                    if(!actual.completa()) algRecursiu(mundi, t.getDesti(), actual.obtTemps());
+                    else{
+                        if(esMillor(actual, optima)) optima= actual;
+                    }
+                    actual.desanotar();
+                }
+            }
+        }
+        
+        private static class Solucio{
+            private static LocalDateTime tempsActual;
+            private static Viatge viatge;
+            private static String tipus;
+            private static boolean completa= false; 
+            
+            public Solucio(Viatge v, String t, LocalDateTime temps){
+                viatge= v;
+                tipus= t;
+                tempsActual= temps;
+            }
+            
+            public LocalDateTime obtTemps(){
+                return tempsActual;
+            }
+        }
     }
 }
