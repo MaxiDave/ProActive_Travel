@@ -174,4 +174,12 @@ public class Viatge {
     public Boolean esSatisfactoria(){
         return rutaSatisfactoria;
     }
+    
+    public Integer nClients(){
+        return clients.size();
+    }
+    
+    public Map<String, Integer> preferenciesClients(){
+        return satisfaccio;
+    }
 }
