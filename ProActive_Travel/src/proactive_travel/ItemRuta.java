@@ -40,12 +40,6 @@ public interface ItemRuta {
     
     /** 
      * @pre: --
-     * @post: Retorna la durada de l'item
-     */
-    public Integer obtDurada();
-    
-    /** 
-     * @pre: --
      * @post: Retorna la satisfacció produïda per l'item
      */
     public Integer obtSatisfaccio();

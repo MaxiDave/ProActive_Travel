@@ -12,7 +12,6 @@
  */
 
 package proactive_travel;
-import java.time.Duration;
 import java.util.*;
 
 /**
@@ -44,23 +43,32 @@ public class Ruta {
      * @post: Afegeix un ItemRuta a la Ruta
      */
     public void afegeixItemRuta(ItemRuta item){
-        throw new UnsupportedOperationException("Not supported yet"); 
+        items.addLast(item);
+        durada+= item.obtDurada();
+        satisfaccio+= item.obtSatisfaccio();
+        cost+= item.obtCost();
     }
     
-    public boolean esCompleta(PuntInteres pI){
-        throw new UnsupportedOperationException("Not supported yet");
+    public void treureUltimItem(){
+        ItemRuta item= items.pollLast();
+        durada-= item.obtDurada();
+        satisfaccio-= item.obtSatisfaccio();
+        cost-= item.obtCost();
     }
     
-   
+    public PuntInteres obtDesti(){
+        return items.getLast().obtSortida();
+    }
+    
     public Integer obtDurada(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+        return durada; 
     }
     
     public Integer obtSatisfaccio(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+        return satisfaccio; 
     }
     
     public Double obtCost(){
-        throw new UnsupportedOperationException("Not supported yet");
+        return cost;
     }
 }

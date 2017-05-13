@@ -182,4 +182,8 @@ public class Viatge {
     public Map<String, Integer> preferenciesClients(){
         return satisfaccio;
     }
+    
+    public Iterator<PuntInteres> obtIteradorPI(){
+        return pI.iterator();
+    }
 }

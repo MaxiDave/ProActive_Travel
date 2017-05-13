@@ -13,7 +13,6 @@
  */
 
 package proactive_travel;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -41,7 +40,7 @@ public abstract class CalculExacte {
         private static String tipusRuta;
         
         private static Ruta algBack(Mapa mundi, Viatge viatge, String tipus) {
-            actual= new Solucio(viatge, tipus, viatge.obtDataInici());
+            actual= new Solucio(viatge, viatge.obtDataInici());
             optima= null;
             tipusRuta= tipus;
             algRecursiu(mundi, viatge.obtOrigen(), actual.obtTemps());
@@ -57,7 +56,7 @@ public abstract class CalculExacte {
                     else{
                         if(esMillor(actual, optima)) optima= actual;
                     }
-                    actual.desanotar();
+                    actual.desanotar(item);
                 }
             }
         }
@@ -109,16 +108,25 @@ public abstract class CalculExacte {
         private static class Solucio{
             private Ruta ruta;
             private LocalDateTime tempsActual;
-            private Viatge viatge;
-            private final String tipus;
+            private final Viatge viatge;
             private Set<PuntInteres> visitats;
-            
-            
-            private Solucio(Viatge v, String t, LocalDateTime temps){
+                      
+            private Solucio(Viatge v, LocalDateTime temps){
                 viatge= v;
-                tipus= t;
                 tempsActual= temps;
                 visitats= new HashSet<PuntInteres>();
+            }
+            
+            private void anotar(ItemRuta item){
+                ruta.afegeixItemRuta(item);
+                tempsActual= tempsActual.plusMinutes(item.obtDurada());
+                visitats.add(item.obtSortida());
+            }
+            
+            private void desanotar(ItemRuta item){
+                tempsActual= tempsActual.minusMinutes(item.obtDurada());
+                ruta.treureUltimItem();
+                visitats.remove(item.obtSortida());
             }
             
             private boolean acceptable(ItemRuta item){
@@ -134,19 +142,27 @@ public abstract class CalculExacte {
             }
             
             private boolean esCompleta(){
-                throw new UnsupportedOperationException("Not supported yet");
+                if(ruta.obtDesti().equals(viatge.obtDesti())){
+                    Iterator<PuntInteres> it= viatge.obtIteradorPI();
+                    boolean completa= true;
+                    while(it.hasNext() && completa){
+                        completa= visitats.contains(it.next());
+                    }
+                    return completa;
+                }
+                else return false;
             }
             
             private Integer obtDurada(){
-                throw new UnsupportedOperationException("Not supported yet");
+                return ruta.obtDurada();
             }
             
             private Integer obtSatisfaccio(){
-                throw new UnsupportedOperationException("Not supported yet");
+                return ruta.obtDurada();
             }
             
             private Double obtCost(){
-                throw new UnsupportedOperationException("Not supported yet");
+                return ruta.obtCost();
             }
         }
     }

@@ -16,18 +16,24 @@ import java.time.*;
 
 /**
  * DESCRIPCIÓ GENERAL
- * @brief: Representa una Visita a un punt visitable, amb l'instant d'entrada i de sortida
+ * @brief: Representa una Visita a un punt visitable, amb l'instant d'entrada i de sortida. És un item de Ruta
  */
 public class Visita implements ItemRuta{
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
-    
+    private final PuntVisitable pV;
+    private final LocalDateTime entrada;
+    private final LocalDateTime sortida;
+    private final Integer satisfaccio;
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
-     * @post: Es crea una Visita a partir d’un PuntVisitable, una hora d’entrada i de sortida, i un grau de satisfacció 
+     * @post: Es crea una Visita a partir d’un PuntVisitable, una hora d’entrada, i un grau de satisfacció 
      */
-    public Visita(PuntVisitable pV, LocalDateTime entrada, LocalDateTime sortida, Integer satisfaccio){
-        throw new UnsupportedOperationException("Not supported yet"); 
+    public Visita(PuntVisitable pV, LocalDateTime entrada, Integer satisfaccio){
+        this.pV= pV;
+        this.entrada= entrada;
+        sortida= entrada.plusMinutes(pV.obtenirTempsVisita());
+        this.satisfaccio= satisfaccio;
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
@@ -36,7 +42,7 @@ public class Visita implements ItemRuta{
      * @post: Retorna l’hora d’entrada de la Visita 
      */
     public LocalDateTime getInici(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+        return entrada; 
     }
 
     /** 
@@ -44,7 +50,7 @@ public class Visita implements ItemRuta{
      * @post: Retorna l’hora de sortida de la Visita 
      */
     public LocalDateTime getFinal(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+        return sortida; 
     }
     
     /** 
@@ -52,15 +58,7 @@ public class Visita implements ItemRuta{
      * @post: Retorna el punt d'interes de sortida de la visita, en aquest cas el propi punt visitable 
      */
     public PuntInteres obtSortida(){
-        throw new UnsupportedOperationException("Not supported yet"); 
-    }
-    
-    /** 
-     * @pre: --
-     * @post: Retorna la durada de la visita
-     */
-    public Integer obtDurada(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+        return pV; 
     }
     
     /** 
@@ -68,7 +66,7 @@ public class Visita implements ItemRuta{
      * @post: Retorna la satisfacció produïda per la visita
      */
     public Integer obtSatisfaccio(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+        return satisfaccio; 
     }
     
     /** 
@@ -76,6 +74,6 @@ public class Visita implements ItemRuta{
      * @post: Retorna el cost per persona de la visita
      */
     public Double obtCost(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+        return pV.obtenirPreu(); 
     }
 }

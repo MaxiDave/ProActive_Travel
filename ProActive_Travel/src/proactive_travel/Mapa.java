@@ -91,26 +91,6 @@ public class Mapa {
     
     /**
      * @pre: --
-     * @post: Retorna cert si existeix el punt d’interès
-     */
-    /*
-    public Boolean existeixPI(PuntInteres pI){
-        return punts.containsKey(pI.obtenirNom());
-    }
-    */
-    
-    /**
-     * @pre: --
-     * @post: Retorna cert si existeix el lloc
-     */
-    /*
-    public Boolean existeixLloc(Lloc ll){
-        return punts.containsKey(ll.obtenirNom());
-    }
-    */
-    
-    /**
-     * @pre: --
      * @post: Retorna el Lloc associat amb l' identificador llocID.
      *        Si no existeix llença excepció
      */
