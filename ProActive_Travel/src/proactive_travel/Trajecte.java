@@ -26,7 +26,7 @@ public class Trajecte implements ItemRuta{
      * @pre: --
      * @post: Es crea un Trajecte amb el transport i les hores de sortida i arribada 
      */
-    public Trajecte(MitjaTransport mT, LocalTime sortida, LocalTime arribada){
+    public Trajecte(MitjaTransport mT, LocalDateTime sortida){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
     
@@ -37,14 +37,6 @@ public class Trajecte implements ItemRuta{
      * @post: Retorna el PuntInteres de destí 
      */
     public PuntInteres obtSortida(){
-        throw new UnsupportedOperationException("Not supported yet"); 
-    }
-    
-    /** 
-     * @pre: --
-     * @post: Retorna la durada del trajecte en minuts
-     */
-    public Integer obtDurada(){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
     

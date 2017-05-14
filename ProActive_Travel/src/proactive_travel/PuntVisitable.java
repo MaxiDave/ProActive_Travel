@@ -22,34 +22,26 @@ import java.time.*;
 public class PuntVisitable extends PuntInteres {
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private final Integer tempsV;
-    private final FranjaHoraria obertura;
-    private final Coordenades coords;
+    private final LocalTime obertura;
+    private final LocalTime tancament;
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
      * @post: Es crea un punt visitable a partir de la informació del punt d’interès i el temps mitjà de visita
      */
-    public PuntVisitable(String name,Collection<String> acts,Double cost,Integer tempsVisita, FranjaHoraria franja, Coordenades coor){
-        super(name, acts, cost);
+    public PuntVisitable(String name,Collection<String> acts,Double cost,Integer tempsVisita, LocalTime obertura, LocalTime tancament, Coordenades coor){
+        super(name, acts, cost, coor);
         tempsV= tempsVisita;
-        obertura= franja;
-        coords=coor;
+        this.obertura= obertura;
+        this.tancament= tancament;
     }
     
     /** 
      * @pre: --
      * @post: Retorna el temps mitjà de visita
      */
-    public Integer obtenirTempsVisita(){
+    public Integer obtTempsVisita(){
         return tempsV;
-    }
-    
-    /** 
-     * @pre: --
-     * @post: Retorna cert si el punt visitable està obert en un DiaHora determinat, fals altrament
-     */
-    public Boolean estaObert(LocalTime inst){
-        return obertura.pertanyFranja(inst);
     }
 }

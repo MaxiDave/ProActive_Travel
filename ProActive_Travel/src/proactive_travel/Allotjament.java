@@ -21,8 +21,6 @@ import java.util.*;
 public class Allotjament extends PuntInteres {
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private final String categoria;
-    private final Double cost;
-    private final Coordenades localitzacio;
     
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 
@@ -30,10 +28,8 @@ public class Allotjament extends PuntInteres {
      * @post: Es crea un allotjament a partir de les dades del punt d’interès, la categoria del allotjament, i coordenades on es troba
      */
     public Allotjament(String nom, Collection<String> acts, Double costH, String catego, Coordenades coor) {
-        super(nom, acts, costH);
+        super(nom, acts, costH, coor);
         categoria= catego;
-        cost= costH;
-        localitzacio= coor;
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------

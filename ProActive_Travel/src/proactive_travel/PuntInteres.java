@@ -20,20 +20,22 @@ import java.util.*;
  */
 public class PuntInteres {
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
-    private final String nom;
-    private final Set<String> activitats;
-    private final Double preu;
-    private Lloc associat;
+    protected final String nom;
+    protected final Set<String> activitats;
+    protected final Double preu;
+    protected Lloc associat;
+    protected final Coordenades coords;
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
      * @post: Es crea un punt d’interès de nom “name” amb les activitats que ofereix “acts” i el preu  “cost”.
      */
-    public PuntInteres(String name,Collection<String> acts,Double cost){
+    public PuntInteres(String name,Collection<String> acts,Double cost, Coordenades coor){
         nom= name;
         activitats= new HashSet<String>(acts);
         preu= cost;
+        coords= coor;
         associat= null;
     }
     

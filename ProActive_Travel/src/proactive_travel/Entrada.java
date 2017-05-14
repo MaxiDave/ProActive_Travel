@@ -17,8 +17,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.time.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * DESCRIPCIÓ GENERAL
@@ -216,7 +214,7 @@ public abstract class Entrada {
             String [] aux = dades[2].split("-");
             LocalTime inici= processarHora(dades[1]+":"+aux[0]);
             LocalTime fi= processarHora(aux[1]+":"+dades[3]);
-            mundi.afegeixPuntInteres(new PuntVisitable(nomID, prefs, preu, tempsV, new FranjaHoraria(inici, fi), new Coordenades(coords, zH)));
+            mundi.afegeixPuntInteres(new PuntVisitable(nomID, prefs, preu, tempsV, inici, fi, new Coordenades(coords, zH)));
             ignorarFinsSeparador(fitxer);
         } catch (Exception e){
             System.err.println("Error de lectura: Donar alta Lloc Visitable, no es llegeix");

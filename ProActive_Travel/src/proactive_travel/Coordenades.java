@@ -12,7 +12,7 @@
  */
 
 package proactive_travel;
-import java.util.TimeZone;
+import java.time.ZoneId;
 
 /**
  * DESCRIPCIÓ GENERAL
@@ -22,7 +22,7 @@ public class Coordenades {
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private final String latitud;
     private final String longitud;
-    private final TimeZone tZ;
+    private final ZoneId tZ;
     
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 
@@ -34,16 +34,9 @@ public class Coordenades {
         String[] latLong = coor.split(",");
         latitud= latLong[0];
         longitud= latLong[1];
-        tZ = TimeZone.getTimeZone(z);
-        tZ.setID(z);
+        tZ = ZoneId.of(z);
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
-    /** 
-     * @pre: --
-     * @post: Retorna la zona horària de les coordenades 
-     */
-    public Integer obtenirZonaHoraria(){
-        return tZ.getDSTSavings();
-    }
+    
 }

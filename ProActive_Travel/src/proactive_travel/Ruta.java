@@ -43,8 +43,22 @@ public class Ruta {
      * @post: Afegeix un ItemRuta a la Ruta
      */
     public void afegeixItemRuta(ItemRuta item){
+        
         items.addLast(item);
         durada+= item.obtDurada();
+        durada= 0;
+        satisfaccio= 0;
+        cost= (double)0;
+    }
+    
+    //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
+    /**
+     * @pre: --
+     * @post: Afegeix un ItemRuta a la Ruta
+     */
+    public void afegeixItemRuta(ItemRuta item){
+        
+        items.addLast(item);
         satisfaccio+= item.obtSatisfaccio();
         cost+= item.obtCost();
     }
