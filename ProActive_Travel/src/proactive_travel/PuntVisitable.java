@@ -44,4 +44,20 @@ public class PuntVisitable extends PuntInteres {
     public Integer obtTempsVisita(){
         return tempsV;
     }
+    
+    /** 
+     * @pre: --
+     * @post: Retorna el moment d'obertura del punt visitable
+     */
+    public LocalTime obtObertura(){
+        return obertura;
+    }
+    
+    /** 
+     * @pre: --
+     * @post: Retorna el moment de tancament del punt visitable
+     */
+    public LocalTime obtTancament(){
+        return tancament;
+    }
 }

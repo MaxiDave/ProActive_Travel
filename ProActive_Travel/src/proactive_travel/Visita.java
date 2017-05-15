@@ -21,18 +21,19 @@ import java.time.*;
 public class Visita implements ItemRuta{
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private final PuntVisitable pV;
-    private final LocalDateTime entrada;
-    private final LocalDateTime sortida;
+    private final LocalDateTime iniciVisita;
+    private final LocalDateTime finalVisita;
     private final Integer satisfaccio;
+    
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
      * @post: Es crea una Visita a partir d’un PuntVisitable, una hora d’entrada, i un grau de satisfacció 
      */
-    public Visita(PuntVisitable pV, LocalDateTime entrada, Integer satisfaccio){
+    public Visita(PuntVisitable pV, LocalDateTime iniciVisita, Integer satisfaccio){
         this.pV= pV;
-        this.entrada= entrada;
-        sortida= entrada.plusMinutes(pV.obtenirTempsVisita());
+        this.iniciVisita= iniciVisita;
+        finalVisita= iniciVisita.plusMinutes(pV.obtTempsVisita());
         this.satisfaccio= satisfaccio;
     }
     
@@ -41,23 +42,23 @@ public class Visita implements ItemRuta{
      * @pre: --
      * @post: Retorna l’hora d’entrada de la Visita 
      */
-    public LocalDateTime getInici(){
-        return entrada; 
+    public LocalDateTime obtInici(){
+        return iniciVisita; 
     }
 
     /** 
      * @pre: --
      * @post: Retorna l’hora de sortida de la Visita 
      */
-    public LocalDateTime getFinal(){
-        return sortida; 
+    public LocalDateTime obtFinal(){
+        return finalVisita; 
     }
     
     /** 
      * @pre: --
      * @post: Retorna el punt d'interes de sortida de la visita, en aquest cas el propi punt visitable 
      */
-    public PuntInteres obtSortida(){
+    public PuntInteres obtPuntSortida(){
         return pV; 
     }
     

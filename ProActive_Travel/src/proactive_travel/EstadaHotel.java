@@ -20,14 +20,24 @@ import java.time.*;
  */
 public class EstadaHotel implements ItemRuta{
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
+    private final Allotjament hotel;
+    private final LocalDateTime iniciEstada;
+    private final LocalDateTime finalEstada;
+    private final Integer satisfaccio;
     
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
      * @post: Es crea una EstadaHotel a partir d’un Allotjament, una hora d’inici i de fi i un grau de satisfacció
      */
-    public EstadaHotel(Allotjament hotel, LocalDateTime inici, LocalDateTime fi, Integer satisfaccio){
-        throw new UnsupportedOperationException("Not supported yet"); 
+    public EstadaHotel(Allotjament hotel, LocalDateTime iniciEstada, Integer satisfaccio){
+        this.hotel= hotel;
+        this.iniciEstada= iniciEstada;
+        LocalDateTime aux= iniciEstada.plusDays(1);
+        aux= aux.withHour(4);
+        aux= aux.withMinute(0);
+        this.finalEstada= aux;
+        this.satisfaccio= satisfaccio;
     }
 
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
@@ -35,32 +45,24 @@ public class EstadaHotel implements ItemRuta{
      * @pre: --
      * @post: Retorna l’hora d’inici de l'Estada 
      */
-    public LocalDateTime getInici(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+    public LocalDateTime obtInici(){
+        return iniciEstada;
     }
 
     /** 
      * @pre: --
      * @post: Retorna l’hora de fi de l'Estada 
      */
-    public LocalDateTime getFinal(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+    public LocalDateTime obtFinal(){
+        return finalEstada; 
     }
     
     /** 
      * @pre: --
      * @post: Retorna el punt d'interes de sortida del Item, en aquest cas l'hotel 
      */
-    public PuntInteres obtSortida(){
-        throw new UnsupportedOperationException("Not supported yet"); 
-    }
-    
-    /** 
-     * @pre: --
-     * @post: Retorna la durada de l'estada
-     */
-    public Integer obtDurada(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+    public PuntInteres obtPuntSortida(){
+        return hotel; 
     }
     
     /** 
@@ -68,7 +70,7 @@ public class EstadaHotel implements ItemRuta{
      * @post: Retorna la satisfacció produïda per l'estada
      */
     public Integer obtSatisfaccio(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+        return satisfaccio; 
     }
     
     /** 
@@ -76,6 +78,6 @@ public class EstadaHotel implements ItemRuta{
      * @post: Retorna el cost per persona de l'estada
      */
     public Double obtCost(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+        return hotel.obtenirPreu()/2; 
     }
 }

@@ -24,19 +24,19 @@ public interface ItemRuta {
      * @pre: --
      * @post: Retorna el punt d'interes de sortida del Item 
      */
-    public PuntInteres obtSortida();
+    public PuntInteres obtPuntSortida();
     
     /** 
      * @pre: --
      * @post: Retorna l’hora d'inici de l'item
      */
-    public LocalDateTime getInici();
+    public LocalDateTime obtInici();
     
     /** 
      * @pre: --
      * @post: Retorna l’hora de fi de l'item 
      */
-    public LocalDateTime getFinal();
+    public LocalDateTime obtFinal();
     
     /** 
      * @pre: --

@@ -20,6 +20,9 @@ import java.time.*;
  */
 public class Trajecte implements ItemRuta{
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
+    private final MitjaTransport mt
+    private final LocalDateTime iniciEstada;
+    private final LocalDateTime finalEstada;
     
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 

@@ -25,7 +25,7 @@ public class Lloc {
     private final Coordenades coords;
     private Map<String, Estacio> estacions;
     private Set<PuntInteres> punts;
-    private Set<TransportUrba> transports;
+    private Set<MitjaTransport> transports;
     
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 
@@ -37,7 +37,7 @@ public class Lloc {
         coords= coor;
         punts= new HashSet<PuntInteres>();
         estacions= new HashMap<String, Estacio>();
-        transports= new HashSet<TransportUrba>();
+        transports= new HashSet<MitjaTransport>();
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
@@ -99,8 +99,8 @@ public class Lloc {
      * @pre: --
      * @post: Si no existeix, afegeix el transport urbà al Lloc. ALtrament llença una excepció 
      */
-    public void afegirTransportUrba(TransportUrba tU) throws Exception{
-        if(!transports.contains(tU)) transports.add(tU);
+    public void afegirTransportUrba(MitjaTransport mT) throws Exception{
+        if(!transports.contains(mT)) transports.add(mT);
         else throw new Exception("TransportUrbaRepetitException");
     } 
 }

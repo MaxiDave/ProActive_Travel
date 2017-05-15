@@ -249,7 +249,7 @@ public abstract class Entrada {
             Integer durada= processarTemps(fitxer);
             Double preu= llegirDouble(fitxer);
             llegirLinia(fitxer);
-            TransportUrba transp= new TransportUrba(urbaID, durada, preu);
+            MitjaTransport transp= new MitjaTransport(urbaID, preu, durada);
             mundi.associarUrba(ll, transp);
         } catch (Exception e){
             System.err.println(e);

@@ -1,0 +1,3 @@
+PuntVisitable:
+Si es pot entrar pero no hi ha prou temps per fer visita? es deixa acabar?
+-De moment si

@@ -85,7 +85,7 @@ public class Mapa {
      * @post: Si "trans" no existeix a ll, s'associa a la llista de transports urbans del lloc.
      *        Altrament llença una excepció
      */
-    public void associarUrba(Lloc ll, TransportUrba trans) throws Exception{
+    public void associarUrba(Lloc ll, MitjaTransport trans) throws Exception{
         ll.afegirTransportUrba(trans);
     }
     
