@@ -84,4 +84,19 @@ public class PuntInteres {
     public void vincularLloc(Lloc ll){
         associat= ll;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 47 * hash + Objects.hashCode(this.nom);
+        return hash;
+    }
+    
+    public boolean equals(Object o){
+        if(o instanceof PuntInteres){
+            PuntInteres aux= (PuntInteres)o;
+            return nom.equals(aux.nom);
+        }
+        else return false;
+    }
 }

@@ -180,4 +180,12 @@ public class Viatge {
     public Iterator<PuntInteres> obtIteradorPI(){
         return pI.iterator();
     }
+    
+    public Integer obtDurada(){
+        return duracio;
+    }
+    
+    public Double obtPreuMax(){
+        return preuMax;
+    }
 }

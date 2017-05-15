@@ -17,7 +17,7 @@ package proactive_travel;
  * DESCRIPCIÓ GENERAL
  * @brief: Representa un Mitjà de Transport, amb un nom, preu i durada
  */
-public class MitjaTransport {
+public class MitjaTransport implements Comparable<MitjaTransport>{
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private final String nom;
     private final Double preu;
@@ -57,5 +57,13 @@ public class MitjaTransport {
      */
     public Integer getDurada(){
         return durada;
+    }
+
+    @Override
+    public int compareTo(MitjaTransport o) {
+        Double valor= preu-o.preu;
+        if(valor == 0) return durada-o.durada;
+        else if(valor > 0) return 1;
+        else return -1;
     }
 }

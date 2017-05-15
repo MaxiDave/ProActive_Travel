@@ -85,4 +85,8 @@ public class Estacio {
     public Integer obtTempsArribadaLloc(Lloc arribada){
         return connexioArribada.get(arribada);
     }
+    
+    public Map<LocalTime, MTIndirecte> obtSortidesDelDia(LocalDate dia){
+        return sortides.get(dia);
+    }
 }

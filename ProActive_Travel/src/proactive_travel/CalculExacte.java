@@ -13,7 +13,9 @@
  */
 
 package proactive_travel;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 /**
@@ -51,7 +53,7 @@ public abstract class CalculExacte {
         private static void algRecursiu(Mapa mundi, PuntInteres anterior, LocalDateTime temps, Viatge viatge) {
             List<ItemRuta> items=  mundi.obtenirItemsVeins(anterior, temps, viatge, tipusRuta);
             for(ItemRuta item: items){
-                if(actual.acceptable(item) && esPotMillorar(actual, optima)){
+                if(actual.acceptable(item, viatge) && esPotMillorar(actual, optima)){
                     actual.anotar(item);
                     if(!actual.esCompleta(viatge)) algRecursiu(mundi, item.obtPuntSortida(), actual.obtTemps(), viatge);
                     else{
@@ -128,8 +130,24 @@ public abstract class CalculExacte {
                 visitats.remove(item.obtPuntSortida());
             }
             
-            private boolean acceptable(ItemRuta item){
-                throw new UnsupportedOperationException("Not supported yet");
+            private boolean acceptable(ItemRuta item, Viatge viatge){
+                Integer duradaTempsLliure= (int)Duration.between(tempsActual, item.obtInici()).toMinutes();
+                if(ruta.obtDurada()+duradaTempsLliure+item.obtDurada() > viatge.obtDurada() || ruta.obtCost()+item.obtCost() > viatge.obtPreuMax()) return false;
+                else{
+                    if(item instanceof Visita){
+                        if(visitats.contains(item)) return false;
+                        else{
+                            LocalTime fi= item.obtFinal().toLocalTime();
+                            if(fi.isAfter(LocalTime.of(0, 0))) return false;
+                            else return true;
+                        }
+                    }
+                    else if(item instanceof EstadaHotel){
+                        if(tempsActual.toLocalTime().isAfter(LocalTime.of(0, 0))) return false;
+                        else return true;
+                    }
+                    else throw new UnsupportedOperationException("Not supported yet");
+                }
             }
             
             private LocalDateTime obtTemps(){

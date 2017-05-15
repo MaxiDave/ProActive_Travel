@@ -27,6 +27,7 @@ public class Lloc {
     private Set<PuntInteres> punts;
     private Set<MitjaTransport> transportsUrbans;
     
+    
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
@@ -35,9 +36,9 @@ public class Lloc {
     public Lloc(String n, Coordenades coor){
         nom= n;
         coords= coor;
-        punts= new HashSet<PuntInteres>();
-        estacions= new HashMap<String, Estacio>();
-        transportsUrbans= new HashSet<MitjaTransport>();
+        punts= new HashSet<>();
+        estacions= new HashMap<>();
+        transportsUrbans= new TreeSet<>();
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
@@ -107,5 +108,17 @@ public class Lloc {
     //pre String nomEstacio existeix a estacions
     public Estacio obtEstacio(String nomEstacio){
         return estacions.get(nomEstacio);
+    }
+    
+    public Iterator<MitjaTransport> obtTransportUrba(){
+        return transportsUrbans.iterator();
+    }
+    
+    public Iterator<PuntInteres> obtPuntsInteres(){
+        return punts.iterator();
+    }
+    
+    public Iterator<Estacio> obtEstacions(){
+        return estacions.values().iterator();
     }
 }
