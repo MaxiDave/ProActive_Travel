@@ -112,14 +112,8 @@ public class Viatge {
         rutaSatisfactoria= true;
     }
     
-    /** 
-     * @pre: --
-     * @post: Retorna un enter que representa el nombre de clients del conjunt que tenen la preferència “pref” entre les seves preferències personals
-     */
-    public Integer obtSatisfaccio(String pref){
-        Integer valor= satisfaccio.get(pref);
-        if(valor == null) return 0;
-        else return valor;
+    public Map<String, Integer> obtMapSatisfaccio(){
+        return satisfaccio;
     }
     
     /** 

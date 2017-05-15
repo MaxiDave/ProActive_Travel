@@ -77,4 +77,8 @@ public class Visita implements ItemRuta{
     public Double obtCost(){
         return pV.obtenirPreu(); 
     }
+    
+    public Integer obtDurada(){
+        return (int)Duration.between(iniciVisita, finalVisita).toMinutes();
+    }
 }

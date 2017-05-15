@@ -49,4 +49,10 @@ public interface ItemRuta {
      * @post: Retorna el cost per persona del item
      */
     public Double obtCost();
+    
+    /** 
+     * @pre: --
+     * @post: Retorna la durada del item
+     */
+    public Integer obtDurada();
 }

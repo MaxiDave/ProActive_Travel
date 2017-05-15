@@ -80,4 +80,8 @@ public class EstadaHotel implements ItemRuta{
     public Double obtCost(){
         return hotel.obtenirPreu()/2; 
     }
+    
+    public Integer obtDurada(){
+        return (int)Duration.between(iniciEstada, finalEstada).toMinutes();
+    }
 }

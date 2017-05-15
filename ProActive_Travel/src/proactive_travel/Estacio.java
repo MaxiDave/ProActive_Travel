@@ -22,7 +22,7 @@ import java.time.*;
 public class Estacio {
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private final String nomTransport;
-    private Map<LocalDateTime, MTIndirecte> sortides;
+    private Map<LocalDate, Map<LocalTime, MTIndirecte>> sortides;
     private Map<Lloc, Integer> connexioArribada;
     private Map<Lloc, Integer> connexioSortida;
     
@@ -33,7 +33,7 @@ public class Estacio {
      */
     public Estacio(String nom){
         nomTransport= nom;
-        sortides= new HashMap<LocalDateTime, MTIndirecte>();
+        sortides= new HashMap<LocalDate, Map<LocalTime, MTIndirecte>>();
         connexioArribada= new HashMap<Lloc, Integer>();
         connexioSortida= new HashMap<Lloc, Integer>();
     }
@@ -68,6 +68,21 @@ public class Estacio {
      * @post: Afegeix una sortida "mitja" (MTIndirecte)
      */
     public void afegirSortida(MTIndirecte mitja, LocalDateTime horaSortida){
-        sortides.put(horaSortida, mitja);
+        Map<LocalTime, MTIndirecte> horaris= sortides.get(horaSortida.toLocalDate());
+        if(horaris == null){
+            Map<LocalTime, MTIndirecte> nou= new HashMap<LocalTime, MTIndirecte>();
+            nou.put(horaSortida.toLocalTime(), mitja);
+        }
+        else horaris.put(horaSortida.toLocalTime(), mitja);
+    }
+    
+    // pre sortida existeix a connexioSortida
+    public Integer obtTempsSortidaLloc(Lloc sortida){
+        return connexioSortida.get(sortida);
+    }
+    
+    // pre sortida existeix a connexioArribada
+    public Integer obtTempsArribadaLloc(Lloc arribada){
+        return connexioArribada.get(arribada);
     }
 }

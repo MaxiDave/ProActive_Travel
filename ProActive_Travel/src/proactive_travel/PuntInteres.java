@@ -41,15 +41,14 @@ public class PuntInteres {
     
     /** 
      * @pre: --
-     * @post: Retorna cert si el punt d’interès satisfà la preferència “pref”, fals altrament 
+     * @post: 
      */
-    public Integer satisfaPreferencia(Map<String, Integer> pref){
+    public Integer grauSatisfaccio(Map<String, Integer> pref){
         int grauSatis=0;
-        Set<String> p = pref.keySet();
-        for(String s : p){
-            if(activitats.contains(s)){
-                grauSatis = grauSatis + pref.get(s);
-            }
+        Iterator<String> it= activitats.iterator();
+        while(it.hasNext()){
+            Integer valor= pref.get(it.next());
+            if(valor != null) grauSatis+= valor;
         }
         return grauSatis;
     }

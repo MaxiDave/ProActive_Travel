@@ -181,9 +181,42 @@ public class Mapa {
         return costMinim;
     }
     
-    public Set<ItemRuta> obtenirItemVeins(PuntInteres pI, LocalDateTime temps){
+    private List<ItemRuta> obtenirTransportsUrbans(PuntInteres pI, LocalDateTime temps, Viatge viatge, String tipusRuta){
         throw new UnsupportedOperationException("Not supported yet"); 
     }
+    
+    private List<ItemRuta> obtenirTransportsDirectes(PuntInteres pI, LocalDateTime temps, Viatge viatge, String tipusRuta){
+        throw new UnsupportedOperationException("Not supported yet"); 
+    } 
+    
+    private List<ItemRuta> obtenirTransportsIndirectes(PuntInteres pI, LocalDateTime temps, Viatge viatge, String tipusRuta){
+        throw new UnsupportedOperationException("Not supported yet"); 
+    } 
+    
+    public List<ItemRuta> obtenirItemsVeins(PuntInteres pI, LocalDateTime temps, Viatge viatge, String tipusRuta){
+        Map<String, Integer> MapSat= viatge.obtMapSatisfaccio();
+        List<ItemRuta> items= new ArrayList<>();
+        Integer sat= pI.grauSatisfaccio(MapSat);
+        LocalTime horaDia= temps.toLocalTime();
+        if(pI instanceof PuntVisitable){
+            PuntVisitable pV= (PuntVisitable)pI;
+            if(pV.obtObertura().isAfter(horaDia) || pV.obtObertura().equals(horaDia)){
+                items.add(new Visita(pV, LocalDateTime.of(temps.toLocalDate(), pV.obtObertura()), sat));
+            }
+            else if(horaDia.isBefore(pV.obtTancament())){
+                items.add(new Visita(pV, temps, sat));
+            }
+        }
+        else{
+            Allotjament a= (Allotjament)pI;
+            items.add(new EstadaHotel(a, temps, sat));
+        }
+        items.addAll(obtenirTransportsUrbans(pI, temps, viatge, tipusRuta));
+        items.addAll(obtenirTransportsDirectes(pI, temps, viatge, tipusRuta));
+        items.addAll(obtenirTransportsIndirectes(pI, temps, viatge, tipusRuta));
+        return items;
+    }
+    
     public Set<PuntInteres> obtenirVeins(PuntInteres pi){
         throw new UnsupportedOperationException("Not supported yet"); 
         /*

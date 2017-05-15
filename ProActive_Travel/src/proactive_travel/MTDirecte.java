@@ -25,12 +25,12 @@ public class MTDirecte extends MitjaTransport{
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /**
      * @pre: --
-     * @post: Crea un MTDirecte amb nom, origen, destí, preu, durada i descriptor
+     * @post: Crea un MTDirecte amb un mitjà de transport i uns PuntInteres d'origen i destí
      */
-    public MTDirecte(String descriptor, PuntInteres o, PuntInteres d, Double preu, Integer durada) {
-        super(descriptor, preu, durada);
-        origen= o;
-        desti= d;
+    public MTDirecte(String nom, PuntInteres origen, PuntInteres desti, Double preu, Integer durada) {
+        super(nom, preu, durada);
+        this.origen= origen;
+        this.desti= desti;
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------

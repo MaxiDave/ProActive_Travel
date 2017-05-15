@@ -92,7 +92,7 @@ public abstract class CalculGreedy {
 
     private static void analitzarLlocs(Set<PuntInteres> cami, Ruta barata, Map<String, Integer> preferenciesClients) {
         for(PuntInteres p : cami){
-            if(p.satisfaPreferencia(preferenciesClients) > nCli/3 && p instanceof PuntVisitable){
+            if(p.grauSatisfaccio(preferenciesClients) > nCli/3 && p instanceof PuntVisitable){
                 if(((PuntVisitable) p).estaObert(actual.toLocalTime())){
                     /*ItemRuta visi= new ItemRuta();
                     Visita v = new Visita(((PuntVisitable) p));

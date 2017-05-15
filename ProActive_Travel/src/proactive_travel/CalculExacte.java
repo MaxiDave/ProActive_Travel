@@ -27,7 +27,7 @@ public abstract class CalculExacte {
      * @post: Calcula i retorna rutes a partir del mapa i viatge mitjançant backtraking
      */
     public static List<Ruta> calcularRutaBack(Mapa mundi, Viatge viatge){
-        List<Ruta> rutes= new ArrayList<Ruta>();
+        List<Ruta> rutes= new ArrayList<>();
         if(viatge.esCurta()) rutes.add(Solucionador.algBack(mundi, viatge, "curta"));
         if(viatge.esBarata()) rutes.add(Solucionador.algBack(mundi, viatge, "barata"));
         if(viatge.esSatisfactoria()) rutes.add(Solucionador.algBack(mundi, viatge, "sat"));
@@ -40,19 +40,20 @@ public abstract class CalculExacte {
         private static String tipusRuta;
         
         private static Ruta algBack(Mapa mundi, Viatge viatge, String tipus) {
-            actual= new Solucio(viatge, viatge.obtDataInici());
+            actual= new Solucio(viatge.obtDataInici());
             optima= null;
             tipusRuta= tipus;
-            algRecursiu(mundi, viatge.obtOrigen(), actual.obtTemps());
-            return optima.obtRuta();
+            algRecursiu(mundi, viatge.obtOrigen(), viatge.obtDataInici(), viatge);
+            if(optima.esCompleta(viatge))return optima.obtRuta();
+            else return null;
         }
         
-        private static void algRecursiu(Mapa mundi, PuntInteres anterior, LocalDateTime temps) {
-            Set<ItemRuta> items=  mundi.obtenirItemVeins(anterior, temps);
+        private static void algRecursiu(Mapa mundi, PuntInteres anterior, LocalDateTime temps, Viatge viatge) {
+            List<ItemRuta> items=  mundi.obtenirItemsVeins(anterior, temps, viatge, tipusRuta);
             for(ItemRuta item: items){
                 if(actual.acceptable(item) && esPotMillorar(actual, optima)){
                     actual.anotar(item);
-                    if(!actual.esCompleta()) algRecursiu(mundi, item.obtSortida(), actual.obtTemps());
+                    if(!actual.esCompleta(viatge)) algRecursiu(mundi, item.obtPuntSortida(), actual.obtTemps(), viatge);
                     else{
                         if(esMillor(actual, optima)) optima= actual;
                     }
@@ -108,11 +109,9 @@ public abstract class CalculExacte {
         private static class Solucio{
             private Ruta ruta;
             private LocalDateTime tempsActual;
-            private final Viatge viatge;
             private Set<PuntInteres> visitats;
                       
-            private Solucio(Viatge v, LocalDateTime temps){
-                viatge= v;
+            private Solucio(LocalDateTime temps){
                 tempsActual= temps;
                 visitats= new HashSet<PuntInteres>();
             }
@@ -120,13 +119,13 @@ public abstract class CalculExacte {
             private void anotar(ItemRuta item){
                 ruta.afegeixItemRuta(item);
                 tempsActual= tempsActual.plusMinutes(item.obtDurada());
-                visitats.add(item.obtSortida());
+                visitats.add(item.obtPuntSortida());
             }
             
             private void desanotar(ItemRuta item){
                 tempsActual= tempsActual.minusMinutes(item.obtDurada());
                 ruta.treureUltimItem();
-                visitats.remove(item.obtSortida());
+                visitats.remove(item.obtPuntSortida());
             }
             
             private boolean acceptable(ItemRuta item){
@@ -141,7 +140,7 @@ public abstract class CalculExacte {
                 return ruta;
             }
             
-            private boolean esCompleta(){
+            private boolean esCompleta(Viatge viatge){
                 if(ruta.obtDesti().equals(viatge.obtDesti())){
                     Iterator<PuntInteres> it= viatge.obtIteradorPI();
                     boolean completa= true;
@@ -158,7 +157,7 @@ public abstract class CalculExacte {
             }
             
             private Integer obtSatisfaccio(){
-                return ruta.obtDurada();
+                return ruta.obtSatisfaccio();
             }
             
             private Double obtCost(){

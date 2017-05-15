@@ -18,19 +18,21 @@ import java.time.*;
  * DESCRIPCIÓ GENERAL
  * @brief: Representa un Trajecte, amb el mitjà de transport i les hores d'arribada i sortida
  */
-public class Trajecte implements ItemRuta{
+public class TrajecteDirecte implements ItemRuta{
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
-    private final MitjaTransport mt
-    private final LocalDateTime iniciEstada;
-    private final LocalDateTime finalEstada;
+    private final MTDirecte mT;
+    private final LocalDateTime iniciTrajecte;
+    private final LocalDateTime finalTrajecte;
     
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
-     * @post: Es crea un Trajecte amb el transport i les hores de sortida i arribada 
+     * @post: Es crea un Trajecte amb el transport i l'hora d'inici de trajecte
      */
-    public Trajecte(MitjaTransport mT, LocalDateTime sortida){
-        throw new UnsupportedOperationException("Not supported yet"); 
+    public TrajecteDirecte(MTDirecte mT, LocalDateTime iniciTrajecte){
+        this.mT= mT;
+        this.iniciTrajecte= iniciTrajecte;
+        this.finalTrajecte= iniciTrajecte.plusMinutes(mT.getDurada());
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
@@ -39,8 +41,8 @@ public class Trajecte implements ItemRuta{
      * @pre: --
      * @post: Retorna el PuntInteres de destí 
      */
-    public PuntInteres obtSortida(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+    public PuntInteres obtPuntSortida(){
+        return mT.getDesti();
     }
     
     /** 
@@ -56,22 +58,26 @@ public class Trajecte implements ItemRuta{
      * @post: Retorna el preu del trajecte 
      */
     public Double obtCost(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+        return mT.getPreu();
     }
     
     /** 
      * @pre: --
      * @post: Retorna l'hora de sortida del Trajecte 
      */
-    public LocalDateTime getInici(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+    public LocalDateTime obtInici(){
+        return iniciTrajecte; 
     }
     
     /** 
      * @pre: --
      * @post: Retorna l'hora d'arribada del Trajecte 
      */
-    public LocalDateTime getFinal(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+    public LocalDateTime obtFinal(){
+        return finalTrajecte; 
+    }
+    
+    public Integer obtDurada(){
+        return (int)Duration.between(iniciTrajecte, finalTrajecte).toMinutes();
     }
 }
