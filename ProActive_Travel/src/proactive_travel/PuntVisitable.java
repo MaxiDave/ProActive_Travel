@@ -60,4 +60,15 @@ public class PuntVisitable extends PuntInteres {
     public LocalTime obtTancament(){
         return tancament;
     }
+    
+    public boolean estaObert(LocalTime act){
+        boolean obert;
+        if(obertura.compareTo(act)<0 && tancament.compareTo(act)>0){
+            obert=true;
+        }
+        else{
+            obert=false;
+        }
+        return obert;
+    }
 }
