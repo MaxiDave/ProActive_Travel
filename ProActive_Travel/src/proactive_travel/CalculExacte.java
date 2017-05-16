@@ -53,7 +53,9 @@ public abstract class CalculExacte {
         private static void algRecursiu(Mapa mundi, PuntInteres anterior, LocalDateTime temps, Viatge viatge) {
             List<ItemRuta> items=  mundi.obtenirItemsVeins(anterior, temps, viatge, tipusRuta);
             for(ItemRuta item: items){
+                System.out.println(item);
                 if(actual.acceptable(item, viatge) && esPotMillorar(actual, optima)){
+                    System.out.println("És acceptable");
                     actual.anotar(item);
                     if(!actual.esCompleta(viatge)) algRecursiu(mundi, item.obtPuntSortida(), actual.obtTemps(), viatge);
                     else{
@@ -61,6 +63,7 @@ public abstract class CalculExacte {
                     }
                     actual.desanotar(item);
                 }
+                else System.out.println("No és acceptable");
             }
         }
         
@@ -121,6 +124,7 @@ public abstract class CalculExacte {
             private Solucio(LocalDateTime temps, Viatge viatge){
                 nObligatsVisitats= 0;
                 tempsActual= temps;
+                ruta= new Ruta(temps);
                 visitats= new HashSet<>();
                 puntsObligats= new HashMap<>();
                 Iterator<PuntInteres> it= viatge.obtIteradorPI();

@@ -7,3 +7,6 @@ Joc06.txt - Joc04 i Joc05 mes associacions llocs
 Joc07.txt - Joc06 mes associacions transports
 Joc08.txt - Joc07 mes associacions directes
 Joc09.txt - Joc08 mes MT Indirecte
+Joc10.txt - Joc09 amb Viatge
+Joc11.txt - Joc10 sense errors
+Joc12.txt - Part de Joc11 petita per a fer proves (Sense MTIndirecte)

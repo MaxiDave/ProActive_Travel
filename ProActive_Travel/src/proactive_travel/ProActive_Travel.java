@@ -13,10 +13,6 @@
 
 package proactive_travel;
 import java.util.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import javafx.application.Application;
-import javafx.stage.Stage;
 
 /**
  * DESCRIPCIÓ GENERAL

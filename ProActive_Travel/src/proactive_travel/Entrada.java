@@ -368,6 +368,7 @@ public abstract class Entrada {
                 }
                 ruta= llegirLinia(fitxer);
             }
+            viatges.add(viatge);
         } catch (Exception e){
             error.println("Error de lectura: Viatge, no es llegeix");
             tractarErrorLectura(error, fitxer, e);

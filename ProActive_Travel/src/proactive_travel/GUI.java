@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.*;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
@@ -24,8 +24,11 @@ import javafx.stage.Stage;
 import javafx.scene.text.Text;
 
 public final class GUI extends Application {
+    Service service = new ProcessService();
+    
     @Override
     public void start(final Stage stage) throws MalformedURLException {
+        
         stage.setTitle("PRO_ACTIVE TRAVEL AGENCY ®");
         final FileChooser fileChooser = new FileChooser();
  
@@ -39,21 +42,23 @@ public final class GUI extends Application {
         final Text textResultatLectura= new Text();
         final Button warningButton = new Button("Veure Warnings");
         final Button calculAproximat = new Button("Càlcul Aproximat");
-        final Button calculExacte = new Button("Càlcul Exacte");
+        Button calculExacte = new Button("Càlcul Exacte");
         warningButton.setVisible(false);
         calculAproximat.setVisible(false);
         calculExacte.setVisible(false);
+        ProgressBar p= new ProgressBar();
+        p.setVisible(false);
         
         openButton.setOnAction(
             new EventHandler<ActionEvent>() {
                 @Override
-                public void handle(final ActionEvent e) {
+                public void handle(final ActionEvent e){
                     configureFileChooser(fileChooser); 
                     File file = fileChooser.showOpenDialog(stage);
                     if (file != null){
                         //Es creen les estructures de dades principals
-                        ProActive_Travel.viatges= new ArrayList<Viatge>();
-                        ProActive_Travel.clients= new HashMap<String, Client>();
+                        ProActive_Travel.viatges= new ArrayList<>();
+                        ProActive_Travel.clients= new HashMap<>();
                         ProActive_Travel.mundi= new Mapa();
 
                         //Es duu a terme el procés d'entrada de dades a partir del Scanner al mapa i al Mapa de clients
@@ -106,12 +111,16 @@ public final class GUI extends Application {
             new EventHandler<ActionEvent>(){
                 @Override
                 public void handle(final ActionEvent e) {
+                    calculExacte.setVisible(false);
+                    p.setVisible(true);
                     List< List<Ruta>> rutesTotals= new ArrayList< >();
                     Iterator<Viatge> it= ProActive_Travel.viatges.iterator();
                     while(it.hasNext()){
                         rutesTotals.add(CalculExacte.calcularRutaBack(ProActive_Travel.mundi, it.next()));
+                        System.out.println("finalitzat");
                     }
                     System.out.println("He calculat");
+                    if(!service.isRunning()) service.start();
                 }
             });
         
@@ -122,6 +131,14 @@ public final class GUI extends Application {
                     //CODI AQUI
                 }
             });
+        
+        service.setOnSucceeded(e -> {
+            p.setVisible(false);
+            calculExacte.setVisible(true);
+            //reset service
+            service.reset();
+        });
+        
         final GridPane inputGridPane = new GridPane();
         GridPane.setConstraints(titol, 0, 0);
         GridPane.setConstraints(textExaminar, 0, 6);
@@ -130,10 +147,11 @@ public final class GUI extends Application {
         GridPane.setConstraints(warningButton, 0, 10);
         GridPane.setConstraints(calculAproximat, 0, 15);
         GridPane.setConstraints(calculExacte, 1, 15);
-        GridPane.setConstraints(names, 0, 30);
+        GridPane.setConstraints(p, 1, 15);
+        GridPane.setConstraints(names, 0, 25);
         inputGridPane.setHgap(6);
         inputGridPane.setVgap(6);
-        inputGridPane.getChildren().addAll(titol, textExaminar, openButton, textResultatLectura, warningButton, names, calculAproximat, calculExacte);
+        inputGridPane.getChildren().addAll(titol, textExaminar, openButton, textResultatLectura, warningButton, names, calculAproximat, calculExacte, p);
         
         
         Pane rootGroup = new VBox(12);
@@ -148,6 +166,10 @@ public final class GUI extends Application {
         stage.setScene(escenari);
         stage.show();
     }
+    
+    private static void setText(Button b, String t){
+        b.setText(t);
+    }
  
     public static void inicia() {
         Application.launch();
@@ -161,5 +183,21 @@ public final class GUI extends Application {
         fileChooser.setInitialDirectory(
             new File(System.getProperty("user.home"))
         ); 
+    }
+    
+    private class ProcessService extends Service<Void> {
+
+        @Override
+        protected Task<Void> createTask() {
+            return new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    // Computations takes 3 seconds
+                    // Calling Thread.sleep instead of random computation
+                    Thread.sleep(500);
+                    return null;
+                }
+            };
+        }
     }
 }

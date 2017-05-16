@@ -84,4 +84,9 @@ public class EstadaHotel implements ItemRuta{
     public Integer obtDurada(){
         return (int)Duration.between(iniciEstada, finalEstada).toMinutes();
     }
+    
+    @Override
+    public String toString(){
+        return "Estada: "+hotel.obtenirNom();
+    }
 }

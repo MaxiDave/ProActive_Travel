@@ -81,4 +81,9 @@ public class Visita implements ItemRuta{
     public Integer obtDurada(){
         return (int)Duration.between(iniciVisita, finalVisita).toMinutes();
     }
+    
+    @Override
+    public String toString(){
+        return "Visita: "+pV.obtenirNom();
+    }
 }

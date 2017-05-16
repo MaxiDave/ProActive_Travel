@@ -195,9 +195,11 @@ public class Mapa {
     
     private void afegirTransportsDirectes(List<ItemRuta> items, PuntInteres pI, LocalDateTime temps){
         Map<PuntInteres, Set<MTDirecte>> t= transDirecte.get(pI);
-        for (Map.Entry<PuntInteres, Set<MTDirecte>> entry : t.entrySet()) {
-            Iterator<MTDirecte> it= entry.getValue().iterator();
-            while(it.hasNext()) items.add(new TrajecteDirecte(it.next(), temps));
+        if(t != null){
+            for (Map.Entry<PuntInteres, Set<MTDirecte>> entry : t.entrySet()) {
+                Iterator<MTDirecte> it= entry.getValue().iterator();
+                while(it.hasNext()) items.add(new TrajecteDirecte(it.next(), temps));
+            }
         }
     } 
     
@@ -207,11 +209,13 @@ public class Mapa {
             LocalDate data= temps.toLocalDate();
             Estacio est= it.next();
             Map<LocalTime, MTIndirecte> sortidesDia= est.obtSortidesDelDia(data);
-            for (Map.Entry<LocalTime, MTIndirecte> entry : sortidesDia.entrySet()) {
-                LocalDateTime sortida= temps.minusMinutes(est.obtTempsSortidaLloc(pI.obtenirLloc()));
-                Lloc desti= entry.getValue().getDesti();
-                Iterator<PuntInteres> itPunts= desti.obtPuntsInteres();
-                while(itPunts.hasNext()) items.add(new TrajecteIndirecte(entry.getValue(), sortida, itPunts.next()));
+            if(sortidesDia != null){
+                for (Map.Entry<LocalTime, MTIndirecte> entry : sortidesDia.entrySet()) {
+                    LocalDateTime sortida= temps.minusMinutes(est.obtTempsSortidaLloc(pI.obtenirLloc()));
+                    Lloc desti= entry.getValue().getDesti();
+                    Iterator<PuntInteres> itPunts= desti.obtPuntsInteres();
+                    while(itPunts.hasNext()) items.add(new TrajecteIndirecte(entry.getValue(), sortida, itPunts.next()));
+                }
             }
         }
     } 

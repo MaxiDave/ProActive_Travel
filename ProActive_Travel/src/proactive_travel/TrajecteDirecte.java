@@ -80,4 +80,9 @@ public class TrajecteDirecte implements ItemRuta{
     public Integer obtDurada(){
         return (int)Duration.between(iniciTrajecte, finalTrajecte).toMinutes();
     }
+    
+    @Override
+    public String toString(){
+        return "TrajecteDirecte: "+mT.getNom();
+    }
 }

@@ -1,0 +1,271 @@
+# MaxiDave i MasterBoss
+lloc
+Barcelona
+41.388916,2.174606
+Europe/Madrid
+*
+lloc visitable
+Sagrada Familia
+41.4036299,2.1743558000000576
+Europe/Madrid
+1:30
+15.75
+arquitectura
+religio
+urbanisme
+*
+April 1 - September 30: 09:00-20:00
+*
+lloc visitable
+Parc Güell
+41.41449480000001,2.1526945000000524
+Europe/Madrid
+1:30
+0
+arquitectura
+urbanisme
+*
+January 1 - December 31: 09:00-20:00
+*
+lloc visitable
+Casa Milà
+41.39538049999999,2.1619613999999956
+Europe/Madrid
+1:30
+10.20
+arquitectura
+urbanisme
+*
+April 15 - April 20: 09:00-20:00
+*
+lloc visitable
+Camp Nou
+41.375919,2.114639000000011
+Europe/Madrid
+1:30
+50.00
+futbol
+esports
+barça
+*
+April 1 - September 30: 09:00-20:00
+*
+lloc visitable
+Catedral de Barcelona
+41.383962,2.1761990999999625
+Europe/Madrid
+1:30
+0
+religio
+arquitectura
+*
+January 1 - December 31: 00:00-23:59
+*
+lloc visitable
+Aquarium
+41.3936752,2.156687099999999
+Europe/Madrid
+1:30
+15.75
+peixos
+vida
+pesca
+aigua
+mar
+*
+March 1 - May 4: 09:00-18:00
+*
+lloc visitable
+Tibidabo
+41.4225,2.118610999999987
+Europe/Madrid
+1:30
+14.75
+aventura
+adrenalina
+accio
+atraccions
+*
+April 1 - September 30: 09:00-20:00
+*
+associar lloc
+Sagrada Familia
+Barcelona
+*
+associar lloc
+Parc Güell
+Barcelona
+*
+associar lloc
+Casa Milà
+Barcelona
+*
+associar lloc
+Camp Nou
+Barcelona
+*
+associar lloc
+Catedral de Barcelona
+Barcelona
+*
+associar lloc
+Aquarium
+Barcelona
+*
+associar lloc
+Tibidabo
+Barcelona
+*
+associar transport
+Barcelona
+metro
+00:45
+2.15
+*
+associar transport
+Barcelona
+Jet
+00:10
+100.75
+*
+transport directe
+Sagrada Familia
+Casa Milà
+bus
+00:45
+1.15
+*
+transport directe
+Camp Nou
+Parc Güell
+bus
+00:15
+5.15
+*
+client
+Tesla
+ciencia
+tecnologia
+animals
+numeros
+*
+client
+Hardman Derryl
+ponts
+construccio
+magia
+esports
+esquiar
+*
+client
+Phoibos Nuadha
+dards
+dibuix
+cultura
+menjar
+musica
+fotografia
+*
+client
+Isidoro Hari
+fantasmas
+paranormal
+vudu
+magia
+*
+client
+Emanuel Vili
+poker
+cartes
+casino
+billar
+apostes
+*
+client
+Kishor Yaroslav
+musica
+fotografia
+paintball
+piano
+natacio
+*
+client
+Gerold Logan
+windsurf
+surf
+rafting
+esqui
+yoga
+*
+client
+Primus Dragan
+platja
+arquitectura
+carreres
+vela
+cuina
+esgrima
+*
+client
+Sacha Sanjiv
+malabars
+poker
+cine
+magia
+musica
+*
+client
+Samuil Slamet
+nadar
+ballar
+cotxes
+teatre
+*
+client
+Loke Amador
+acampada
+ocells
+musica
+minerals
+animals
+*
+client
+Brayden Isbrand
+religio
+art
+arquitectura
+robotica
+esports
+*
+client
+Rinat Eneko
+internet
+robotica
+tecnologia
+maquinaria
+*
+client
+Supre Mairo
+bolets
+castells
+curses
+cotxes
+esports
+*
+viatge
+2017-04-11
+08:00
+2
+400
+luxe
+Brayden Isbrand
+Supre Mairo
+Rinat Eneko
+Primus Dragan
+*
+Camp Nou
+Aquarium
+Tibidabo
+*
+ruta barata
+*

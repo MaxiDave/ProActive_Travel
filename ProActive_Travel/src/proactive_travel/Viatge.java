@@ -47,6 +47,9 @@ public class Viatge {
         this.inici= inici;
         this.duracio= duracio;
         this.preuMax= preuMax;
+        this.rutaBarata= false;
+        this.rutaCurta= false;
+        this.rutaSatisfactoria= false;
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------

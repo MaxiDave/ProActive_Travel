@@ -90,4 +90,9 @@ public class TrajecteIndirecte implements ItemRuta{
     public Integer obtDurada(){
         return duradaTotal;
     }
+    
+    @Override
+    public String toString(){
+        return "TrajecteIndirecte: "+mT.getNom();
+    }
 }
