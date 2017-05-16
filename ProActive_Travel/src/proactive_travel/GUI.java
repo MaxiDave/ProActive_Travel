@@ -128,7 +128,11 @@ public final class GUI extends Application {
             new EventHandler<ActionEvent>(){
                 @Override
                 public void handle(final ActionEvent e) {
-                    //CODI AQUI
+                    Iterator<Viatge> it = ProActive_Travel.viatges.iterator();
+                    while (it.hasNext()) {
+                        Ruta r = CalculGreedy.calcularRutaGreedy(it.next(), ProActive_Travel.mundi);
+                    }
+                    System.out.println("I'm The Reaper and death is my shadow");
                 }
             });
         
