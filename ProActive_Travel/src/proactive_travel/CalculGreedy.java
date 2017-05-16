@@ -127,10 +127,6 @@ public abstract class CalculGreedy {
         return act;
     }
 
-    private static Boolean comprovarFiCami() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     private static void buscarHotel(Mapa mundi, Ruta barata, PuntInteres p, Map<String, Integer> preferenciesClients) {
         Set<PuntInteres> camiHotel = mundi.obtenirHotelProper(p, "diners");
         PuntInteres act = null;
