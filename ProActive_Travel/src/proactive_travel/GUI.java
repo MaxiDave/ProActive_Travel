@@ -114,6 +114,14 @@ public final class GUI extends Application {
                     System.out.println("He calculat");
                 }
             });
+        
+        calculAproximat.setOnAction(
+            new EventHandler<ActionEvent>(){
+                @Override
+                public void handle(final ActionEvent e) {
+                    //CODI AQUI
+                }
+            });
         final GridPane inputGridPane = new GridPane();
         GridPane.setConstraints(titol, 0, 0);
         GridPane.setConstraints(textExaminar, 0, 6);
