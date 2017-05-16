@@ -248,4 +248,26 @@ public class Mapa {
         return veins;
         */
     }
+    
+    public Set<PuntInteres> obtenirHotelProper(PuntInteres pi,String tipusDijk){
+        Dijkstra d = new Dijkstra();
+        Dijkstra millor = new Dijkstra();
+        Collection<PuntInteres> c = punts.values();
+        for(PuntInteres p : c){
+            if(p instanceof Allotjament){
+                d.camiMinim(this, pi, p, tipusDijk);
+                if(tipusDijk.matches("diners") && (d.retornaCost() < millor.retornaCost())){
+                    millor=d;
+                }
+                else if(tipusDijk.matches("temps") && (d.retornaTemps()< millor.retornaTemps())){
+                    millor=d;
+                }
+                else{
+                    //Satisfaccio
+                }
+            }
+        }
+        Set<PuntInteres> cami = millor.retornaPuntsInteres();
+        return cami;
+    }
 }

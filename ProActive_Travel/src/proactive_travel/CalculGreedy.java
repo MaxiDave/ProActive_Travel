@@ -26,6 +26,7 @@ public abstract class CalculGreedy {
     private static Set<PuntInteres> puntsIntermig;
     private static LocalDateTime actual;
     private static Integer nCli;
+    private static LocalDateTime finalViatge;
     
     //MÈTODES ESTÀTICS---------------------------------------------------------------------------------------------------------------------------
     /**
@@ -36,9 +37,14 @@ public abstract class CalculGreedy {
         puntsIntermig = clients.obtenirInteressos();
         actual = clients.obtDataInici();
         nCli = clients.nClients();
+        finalViatge = clients.obtDataInici();
+        finalViatge.plusDays(clients.obtDurada());
+        
+        Ruta r = new Ruta(actual);
         
         if(clients.esBarata()){
             Ruta barata = calcularBarat(mundi,clients.obtOrigen(),clients.preferenciesClients());
+            r=barata;
         }
         if(clients.esCurta()){
             
@@ -46,26 +52,24 @@ public abstract class CalculGreedy {
         if(clients.esSatisfactoria()){
             
         }
+        return r;
     }
     
     private static Ruta calcularBarat(Mapa mundi, PuntInteres origen, Map<String, Integer> preferenciesClients){
         Boolean fi=false;
         Boolean temps=true;
-        Boolean fiCami=false;
         PuntInteres puntAct = origen;
-        Ruta barata = new Ruta();
-        while(!fi && temps){
-            Set<PuntInteres> cami = seleccionarMesViable(mundi,"diners",puntAct);
-            fiCami=false;
-            while(!fiCami){
-                analitzarLlocs(cami,barata,preferenciesClients); //Mirar si valen la pena per visitar i anar mirant la hora del dia ja que s'ha de anar a hotels
-                temps = comprovarTemps();
-                fi = comprovarFi();
-                fiCami = comprovarFiCami();
-            }
+        Ruta barata = new Ruta(actual);
+        while (!fi && temps) {
+            Set<PuntInteres> cami = seleccionarMesViable(mundi, "diners", puntAct);
+            puntAct = analitzarLlocs(cami, barata, preferenciesClients, mundi); //Mirar si valen la pena per visitar i anar mirant la hora del dia ja que s'ha de anar a hotels
+            temps = comprovarTemps();
+            fi = comprovarFi();
         }
+        //Tractar desti <<------------------------------------------------------ FALTA
+        return barata;
     }
-
+    
     private static Set<PuntInteres> seleccionarMesViable(Mapa mundi, String tipus, PuntInteres puntAct) {
         Dijkstra d = new Dijkstra();
         Dijkstra definitiu = new Dijkstra();
@@ -90,20 +94,72 @@ public abstract class CalculGreedy {
         return millorCami;
     }
 
-    private static void analitzarLlocs(Set<PuntInteres> cami, Ruta barata, Map<String, Integer> preferenciesClients) {
+    private static PuntInteres analitzarLlocs(Set<PuntInteres> cami, Ruta barata, Map<String, Integer> preferenciesClients, Mapa mundi) {
+        PuntInteres act = null;
         for(PuntInteres p : cami){
             if(p.grauSatisfaccio(preferenciesClients) > nCli/3 && p instanceof PuntVisitable){
                 if(((PuntVisitable) p).estaObert(actual.toLocalTime())){
-                    /*ItemRuta visi= new ItemRuta();
-                    Visita v = new Visita(((PuntVisitable) p));
-                    visi.afegirVisita(v);*/
+                    Visita v = new Visita(((PuntVisitable) p),actual,p.grauSatisfaccio(preferenciesClients));
+                    barata.afegeixItemRuta(v);
+                    actual=v.obtFinal();
+                    if(puntsIntermig.contains(p)){
+                        puntsIntermig.remove(p);
+                    }
                 }
             }
+            else if(puntsIntermig.contains(p)){
+                while(actual.toLocalTime().compareTo(((PuntVisitable) p).obtObertura())<0){
+                    actual.plusMinutes(1);
+                }
+                if(actual.toLocalTime().compareTo(((PuntVisitable) p).obtObertura())>0){
+                    buscarHotel(mundi,barata,p,preferenciesClients);
+                }
+                else{
+                    Visita v = new Visita(((PuntVisitable) p),actual,p.grauSatisfaccio(preferenciesClients));
+                    barata.afegeixItemRuta(v);
+                    actual=v.obtFinal();
+                    puntsIntermig.remove(p);
+                }
+            }
+            comprovarTemps(); // Mirar si anar a buscar un hotel
+            act=p;
         }
+        return act;
     }
 
     private static Boolean comprovarFiCami() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private static void buscarHotel(Mapa mundi, Ruta barata, PuntInteres p, Map<String, Integer> preferenciesClients) {
+        Set<PuntInteres> camiHotel = mundi.obtenirHotelProper(p, "diners");
+        PuntInteres act = null;
+        for (PuntInteres p2 : camiHotel) {
+            //Anar afegint a ruta el trajecte <<-----------------------------------------------FALTA
+            if (p2 instanceof Allotjament) {
+                Integer satis = p2.grauSatisfaccio(preferenciesClients);
+                EstadaHotel e = new EstadaHotel(((Allotjament) p2), actual, satis);
+                barata.afegeixItemRuta(e);
+                actual = e.obtFinal();
+                act = p2;
+            }
+        }
+        Dijkstra d2 = new Dijkstra();
+        d2.camiMinim(mundi, act, p, "diners");
+
+        Set<PuntInteres> camiTornada = d2.retornaPuntsInteres();
+        for (PuntInteres pi3 : camiTornada) {
+            //Anar afegint a ruta el trajecte <<-----------------------------------------------FALTA
+            if (pi3.equals(p)) {
+                while (actual.toLocalTime().compareTo(((PuntVisitable) p).obtObertura()) < 0) {
+                    actual.plusMinutes(1);
+                }
+                Visita v = new Visita(((PuntVisitable) p), actual, p.grauSatisfaccio(preferenciesClients));
+                barata.afegeixItemRuta(v);
+                actual = v.obtFinal();
+                puntsIntermig.remove(p);
+            }
+        }
     }
     
     private Ruta calcularCurt(){
@@ -115,10 +171,17 @@ public abstract class CalculGreedy {
     }
     
     private static Boolean comprovarTemps(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+        boolean temps;
+        if(actual.compareTo(finalViatge)<0){
+            temps=true;
+        }
+        else{
+            temps=false;
+        }
+        return temps;
     }
     
     private static Boolean comprovarFi(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+        return puntsIntermig.isEmpty();
     }
 }
