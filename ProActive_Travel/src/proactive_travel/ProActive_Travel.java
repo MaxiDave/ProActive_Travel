@@ -24,7 +24,9 @@ import javafx.stage.Stage;
  */
 public abstract class ProActive_Travel{
     
-    public static File file; ///< @brief: variable on es guarda el fitxer d'entrada de dades
+    public static List<Viatge> viatges;
+    public static Map<String, Client> clients;
+    public static Mapa mundi;
     
     /**
      * @pre: --
@@ -33,15 +35,6 @@ public abstract class ProActive_Travel{
      */
     public static void main(String[] args){
         //Inicia el GUI i crea l'scanner del fitxer seleccionat
-        FitxerGUI.inicia();
-        Scanner fitxer= Entrada.creaScanner(file);
-        
-        //Es creen les estructures de dades principals
-        List<Viatge> viatges= new ArrayList<Viatge>();
-        Map<String, Client> clients= new HashMap<String, Client>();
-        Mapa mundi= new Mapa();
-        
-        //Es duu a terme el procés d'entrada de dades a partir del Scanner al mapa i al Mapa de clients
-        Entrada.inicialitzaAplicatiu(fitxer, clients, mundi, viatges);
+        GUI.inicia();
     }
 }
