@@ -64,7 +64,6 @@ public class Dijkstra {
             if(tipus.equals("temps")) buscarDistanciesMinimes(mundi,pi);
             else buscarCostsMinims(mundi,pi);
 	}
-        System.out.println("Soc lliure");
         if(!nodesAgafats.contains(desti)){
             return -1;
         }
@@ -105,15 +104,10 @@ public class Dijkstra {
     }
     
     private void buscarCostsMinims(Mapa mundi, PuntInteres pi){
-        System.out.println("Nou PI <-----------------------------------");
-        System.out.println(pi.obtenirNom());
 	if(mundi.obtenirVeins(pi)!=null){
             Set<PuntInteres> nodesVeins = mundi.obtenirVeins(pi); //obtenir veins
-            System.out.println(pi.obtenirNom());
             //Veins MTDir
-            for (PuntInteres p : nodesVeins) {
-                System.out.println("Dir");
-                System.out.println(p.obtenirNom());
+            for (PuntInteres p : nodesVeins) {;
                 if (obtenirCost(p) > obtenirCost(pi) + mundi.obtenirCostDespl(pi, p)) {
                     cost.put(p, obtenirCost(pi) + mundi.obtenirCostDespl(pi, p));
                     predecessors.put(p, pi);
@@ -124,8 +118,6 @@ public class Dijkstra {
         //Veins TUrba
         Set<PuntInteres> nodesVeinsUrba = mundi.obtenirVeinsUrba(pi);
         for(PuntInteres p : nodesVeinsUrba){
-            System.out.println("Urb");
-            System.out.println(p.obtenirNom());
             if(obtenirCost(p) > obtenirCost(pi) + mundi.obtenirCostDespl(pi,p)){
 		cost.put(p, obtenirCost(pi) + mundi.obtenirCostDespl(pi,p));
 		predecessors.put(p,pi);
