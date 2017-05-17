@@ -35,10 +35,12 @@ public class Dijkstra {
     public HashSet<PuntInteres> retornaPuntsInteres(){
         HashSet<PuntInteres> cami = new HashSet();
         PuntInteres d=dest;
+        cami.add(d);
         while(predecessors.containsKey(d)){
             cami.add(predecessors.get(d));
             d=predecessors.get(d);
         }
+        cami.add(d);
         return cami;
     }
     
@@ -116,12 +118,14 @@ public class Dijkstra {
             }
         }
         //Veins TUrba
-        Set<PuntInteres> nodesVeinsUrba = mundi.obtenirVeinsUrba(pi);
-        for(PuntInteres p : nodesVeinsUrba){
-            if(obtenirCost(p) > obtenirCost(pi) + mundi.obtenirCostDespl(pi,p)){
-		cost.put(p, obtenirCost(pi) + mundi.obtenirCostDespl(pi,p));
-		predecessors.put(p,pi);
-		nodesPerAgafar.add(p);
+        if(pi!=null){
+            Set<PuntInteres> nodesVeinsUrba = mundi.obtenirVeinsUrba(pi);
+            for (PuntInteres p : nodesVeinsUrba) {
+                if (obtenirCost(p) > obtenirCost(pi) + mundi.obtenirCostDespl(pi, p)) {
+                    cost.put(p, obtenirCost(pi) + mundi.obtenirCostDespl(pi, p));
+                    predecessors.put(p, pi);
+                    nodesPerAgafar.add(p);
+                }
             }
         }
     }

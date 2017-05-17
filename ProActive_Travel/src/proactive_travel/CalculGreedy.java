@@ -27,6 +27,9 @@ public abstract class CalculGreedy {
     private static LocalDateTime actual;
     private static Integer nCli;
     private static LocalDateTime finalViatge;
+    private static PuntInteres desti;
+    private static PuntInteres origen;
+    private static Set<PuntInteres> visitats;
     
     //MÈTODES ESTÀTICS---------------------------------------------------------------------------------------------------------------------------
     /**
@@ -41,6 +44,9 @@ public abstract class CalculGreedy {
         nCli = clients.nClients();
         finalViatge = clients.obtDataInici();
         finalViatge.plusDays(clients.obtDurada());
+        origen = clients.obtOrigen();
+        desti = clients.obtDesti();
+        visitats = new HashSet<PuntInteres>();
         
         Ruta r = new Ruta(actual);
         
@@ -62,13 +68,26 @@ public abstract class CalculGreedy {
         Boolean temps=true;
         PuntInteres puntAct = origen;
         Ruta barata = new Ruta(actual);
+        //Tractament origen
+        Set<PuntInteres> preparacio = new HashSet<PuntInteres>();
+        preparacio.add(origen);
+        analitzarLlocs(preparacio, barata, preferenciesClients, mundi);
+        
         while (!fi && temps) {
             Set<PuntInteres> cami = seleccionarMesViable(mundi, "diners", puntAct);
             puntAct = analitzarLlocs(cami, barata, preferenciesClients, mundi); //Mirar si valen la pena per visitar i anar mirant la hora del dia ja que s'ha de anar a hotels
             temps = comprovarTemps();
             fi = comprovarFi();
+            System.out.println("-----------------------------------------------------------");
+            System.out.println(puntAct.obtenirNom());
+            System.out.println("-----------------------------------------------------------");
         }
         //Tractar desti <<------------------------------------------------------ FALTA
+        System.out.println(puntAct.obtenirNom());
+        Dijkstra d = new Dijkstra();
+        d.camiMinim(mundi, puntAct, desti, "diners");
+        Set<PuntInteres> ending = d.retornaPuntsInteres();
+        analitzarLlocs(ending,barata,preferenciesClients,mundi);
         return barata;
     }
     
@@ -95,26 +114,27 @@ public abstract class CalculGreedy {
                 throw new UnsupportedOperationException("Not supported yet");
             }
         }
-        Set<PuntInteres> millorCami = definitiu.retornaPuntsInteres();
+        HashSet<PuntInteres> millorCami = definitiu.retornaPuntsInteres();
         return millorCami;
     }
 
     private static PuntInteres analitzarLlocs(Set<PuntInteres> cami, Ruta barata, Map<String, Integer> preferenciesClients, Mapa mundi) {
         PuntInteres act = null;
         for(PuntInteres p : cami){
-            if(p.grauSatisfaccio(preferenciesClients) > nCli/3 && p instanceof PuntVisitable){
+            if(p.grauSatisfaccio(preferenciesClients) > nCli/3 && p instanceof PuntVisitable && !puntsIntermig.contains(p) && desti!=p && origen!=p && !visitats.contains(p)){
                 if(((PuntVisitable) p).estaObert(actual.toLocalTime())){
                     Visita v = new Visita(((PuntVisitable) p),actual,p.grauSatisfaccio(preferenciesClients));
                     barata.afegeixItemRuta(v);
                     actual=v.obtFinal();
+                    visitats.add(p);
                     if(puntsIntermig.contains(p)){
                         puntsIntermig.remove(p);
                     }
                 }
             }
-            else if(puntsIntermig.contains(p)){
+            else if(!visitats.contains(p) && (puntsIntermig.contains(p) || desti.equals(p) || origen.equals(p))){
                 while(actual.toLocalTime().compareTo(((PuntVisitable) p).obtObertura())<0){
-                    actual.plusMinutes(1);
+                    actual=actual.plusMinutes(1);
                 }
                 if(actual.toLocalTime().compareTo(((PuntVisitable) p).obtObertura())>0){
                     buscarHotel(mundi,barata,p,preferenciesClients);
@@ -125,9 +145,10 @@ public abstract class CalculGreedy {
                     actual=v.obtFinal();
                     puntsIntermig.remove(p);
                 }
+                visitats.add(p);
+                act=p;
             }
             comprovarTemps(); // Mirar si anar a buscar un hotel
-            act=p;
         }
         return act;
     }
