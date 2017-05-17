@@ -35,6 +35,8 @@ public abstract class CalculGreedy {
      */
     public static Ruta calcularRutaGreedy(Viatge clients,Mapa mundi){
         puntsIntermig = clients.obtenirInteressos();
+        puntsIntermig.remove(clients.obtOrigen());
+        puntsIntermig.remove(clients.obtDesti());
         actual = clients.obtDataInici();
         nCli = clients.nClients();
         finalViatge = clients.obtDataInici();
@@ -79,7 +81,10 @@ public abstract class CalculGreedy {
         double cost=Double.MAX_VALUE;
         
         for(PuntInteres p : puntsIntermig){
-            d.camiMinim(mundi, puntAct, p, tipus);
+            int z=d.camiMinim(mundi, puntAct, p, tipus);
+            if(z==-1){
+                throw new UnsupportedOperationException("No hi ha ruta");
+            }
             if(tipus.equals("diners") && cost>d.retornaCost()){
                 definitiu=d;
             }
