@@ -48,7 +48,7 @@ public abstract class CalculGreedy {
         desti = clients.obtDesti();
         visitats = new HashSet<PuntInteres>();
         
-        Ruta r = new Ruta(actual);
+        Ruta r = new Ruta("barata",actual);
         
         if(clients.esBarata()){
             Ruta barata = calcularBarat(mundi,clients.obtOrigen(),clients.preferenciesClients());
@@ -67,7 +67,7 @@ public abstract class CalculGreedy {
         Boolean fi=false;
         Boolean temps=true;
         PuntInteres puntAct = origen;
-        Ruta barata = new Ruta(actual);
+        Ruta barata = new Ruta("barata",actual);
         //Tractament origen
         Set<PuntInteres> preparacio = new HashSet<PuntInteres>();
         preparacio.add(origen);
