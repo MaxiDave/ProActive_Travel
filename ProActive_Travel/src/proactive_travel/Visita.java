@@ -84,6 +84,6 @@ public class Visita implements ItemRuta{
     
     @Override
     public String toString(){
-        return "Visita: "+pV.obtenirNom();
+        return iniciVisita+"-"+finalVisita+" "+pV.obtenirNom();
     }
 }

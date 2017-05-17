@@ -25,6 +25,7 @@ public class TrajecteIndirecte implements ItemRuta{
     private final MTIndirecte mT;
     private final ZonedDateTime iniciTrajecte;
     private final ZonedDateTime finalTrajecte;
+    private final PuntInteres origen;
     private final PuntInteres desti;
     private final Integer duradaTotal;
     
@@ -33,8 +34,9 @@ public class TrajecteIndirecte implements ItemRuta{
      * @pre: --
      * @post: Es crea un Trajecte amb el mitjà indirecte, l'hora d'inici de trajecte, i el punt d'interés de destí
      */
-    public TrajecteIndirecte(MTIndirecte mT, LocalDateTime iniciTrajecte, PuntInteres desti){
+    public TrajecteIndirecte(MTIndirecte mT, LocalDateTime iniciTrajecte, PuntInteres origen, PuntInteres desti){
         this.mT= mT;
+        this.origen= origen;
         this.desti= desti;
         this.iniciTrajecte= iniciTrajecte.atZone(mT.getOrigen().obtenirCoordenades().obtZona());
         Estacio estacioSortida= mT.getOrigen().obtEstacio(mT.getNom());
@@ -93,6 +95,6 @@ public class TrajecteIndirecte implements ItemRuta{
     
     @Override
     public String toString(){
-        return "TrajecteIndirecte: "+mT.getNom();
+        return iniciTrajecte+"-"+finalTrajecte+" "+origen.obtenirNom()+" -> "+desti.obtenirNom()+" ("+mT.getNom()+")";
     }
 }

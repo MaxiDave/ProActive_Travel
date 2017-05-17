@@ -45,7 +45,7 @@ public class Viatge {
         this.satisfaccio= new HashMap<String, Integer>();
         this.catDesit= catDesit;
         this.inici= inici;
-        this.duracio= duracio;
+        this.duracio= duracio*24*60;
         this.preuMax= preuMax;
         this.rutaBarata= false;
         this.rutaCurta= false;

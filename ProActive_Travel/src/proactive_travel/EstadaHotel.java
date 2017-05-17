@@ -87,6 +87,6 @@ public class EstadaHotel implements ItemRuta{
     
     @Override
     public String toString(){
-        return "Estada: "+hotel.obtenirNom();
+        return iniciEstada+"-"+finalEstada+" "+hotel.obtenirNom();
     }
 }

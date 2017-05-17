@@ -92,6 +92,7 @@ public class PuntInteres {
         return hash;
     }
     
+    @Override
     public boolean equals(Object o){
         if(o instanceof PuntInteres){
             PuntInteres aux= (PuntInteres)o;

@@ -46,22 +46,55 @@ public class Ruta {
      * @post: Afegeix un ItemRuta a la Ruta
      */
     public void afegeixItemRuta(ItemRuta item){
+        System.out.println("Afegir");
         items.addLast(item);
         satisfaccio+= item.obtSatisfaccio();
-        cost= item.obtCost();
+        System.out.print("Cost anterior: ");
+        System.out.printf("%.2f", cost);
+        System.out.println();
+        cost+= item.obtCost();
+        System.out.println("Cost item: "+item.obtCost()+"€");
+        System.out.print("Cost nou: ");
+        System.out.printf("%.2f", cost);
+        System.out.println();
         durada+= item.obtDurada();
-        if(items.isEmpty()) durada+= (int)Duration.between(inici, item.obtInici()).toMinutes();
-        else durada+= (int)Duration.between(items.getLast().obtFinal(), item.obtInici()).toMinutes();
+        System.out.println("Durada Anterior: "+durada);
+        if(items.isEmpty()){
+            Integer tempsExtra= (int)Duration.between(inici, item.obtInici()).toMinutes();
+            System.out.println("Temps Lliure: "+tempsExtra);
+            durada+= tempsExtra;
+            System.out.println("Durada Nova: "+durada);
+        }
+        else{
+            Integer tempsExtra= (int)Duration.between(inici, item.obtInici()).toMinutes();
+            System.out.println("Temps Lliure: "+tempsExtra);
+            durada+= tempsExtra;
+            System.out.println("Durada Nova: "+durada);
+        }
     }
     
     //pre cua no buida
-    public void treureUltimItem(){
+    public Integer treureUltimItem(){
+        System.out.println("Treure");
         ItemRuta item= items.pollLast();
         durada-= item.obtDurada();
         satisfaccio-= item.obtSatisfaccio();
+        System.out.print("Cost anterior: ");
+        System.out.printf("%.2f", cost);
+        System.out.println();
+        System.out.println("Cost item: "+item.obtCost()+"€");
         cost-= item.obtCost();
-        if(items.isEmpty()) durada-= (int)Duration.between(inici, item.obtInici()).toMinutes();
-        else durada-= (int)Duration.between(items.getLast().obtFinal(), item.obtInici()).toMinutes();
+        System.out.print("Cost anterior: ");
+        System.out.printf("%.2f", cost);
+        System.out.println();
+        Integer duracioTempsLliure;
+        System.out.println("Durada Anterior: "+durada);
+        if(items.isEmpty()) duracioTempsLliure= (int)Duration.between(inici, item.obtInici()).toMinutes();
+        else duracioTempsLliure= (int)Duration.between(items.getLast().obtFinal(), item.obtInici()).toMinutes();
+        durada-= duracioTempsLliure;
+        System.out.println("Temps Lliure: "+duracioTempsLliure);
+        System.out.println("Durada Nova: "+durada);
+        return duracioTempsLliure;
     }
     
     public PuntInteres obtDesti(){
