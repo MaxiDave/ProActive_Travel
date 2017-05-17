@@ -283,5 +283,7 @@ Camp Nou
 Aquarium
 Tibidabo
 *
+ruta curta
 ruta barata
+ruta satisfactoria
 *

@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
  * DESCRIPCIÓ GENERAL
  * @brief: Representa un Item d'una Ruta.
  */
-public interface ItemRuta {
+public interface ItemRuta{
     /** 
      * @pre: --
      * @post: Retorna el punt d'interes de sortida del Item 

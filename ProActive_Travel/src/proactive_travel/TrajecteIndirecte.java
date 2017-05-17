@@ -95,6 +95,6 @@ public class TrajecteIndirecte implements ItemRuta{
     
     @Override
     public String toString(){
-        return iniciTrajecte+"-"+finalTrajecte+" "+origen.obtenirNom()+" -> "+desti.obtenirNom()+" ("+mT.getNom()+")";
+        return iniciTrajecte.toLocalTime()+"-"+finalTrajecte.toLocalTime()+" "+origen.obtenirNom()+" -> "+desti.obtenirNom()+" ("+mT.getNom()+")"+"\n";
     }
 }

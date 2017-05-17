@@ -49,8 +49,9 @@ public abstract class Sortida {
                 Iterator<Ruta> it= resultat.iterator();
                 while(it.hasNext()){
                     Ruta aux= it.next();
-                    if(aux.obtTipus().equals("ruta barata")) sortida.println("RUTA MÉS BARATA");
-                    else if(aux.obtTipus().equals("ruta curta")) sortida.println("RUTA MÉS CURTA");
+                    
+                    if(aux.obtTipus().equals("barata")) sortida.println("RUTA MÉS BARATA");
+                    else if(aux.obtTipus().equals("curta")) sortida.println("RUTA MÉS CURTA");
                     else sortida.println("RUTA MÉS SATISFACTÒRIA");
                     sortida.println(aux);
                     sortida.println();

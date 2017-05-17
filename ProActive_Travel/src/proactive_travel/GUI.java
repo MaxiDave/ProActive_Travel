@@ -126,20 +126,10 @@ public final class GUI extends Application {
                     calculExacte.setVisible(false);
                     pBack.setVisible(true);
                     calculantBack.setVisible(true);
-                    List< List<Ruta>> rutesTotals= new ArrayList< >();
-                    Iterator<Viatge> it= ProActive_Travel.viatges.iterator();
-                    while(it.hasNext()) rutesTotals.add(CalculExacte.calcularRutaBack(ProActive_Travel.mundi, it.next()));
-                    
-                    String nomFitxer= "Viatge1.txt"; int num= 1;
-                    Iterator<List<Ruta>> itList= rutesTotals.iterator();
-                    while(itList.hasNext()){
-                        Sortida.mostrarRutes(itList.next(), ProActive_Travel.viatges.get(num-1), nomFitxer);
-                        num++;
-                        nomFitxer= (nomFitxer.substring(0, 5)+(char)num+".txt");
-                    }
                     if(!service.isRunning()) service.start();
                 }
             });
+        
         
         calculAproximat.setOnAction(
             new EventHandler<ActionEvent>(){
@@ -149,7 +139,6 @@ public final class GUI extends Application {
                     calculAproximat.setVisible(false);
                     pGreedy.setVisible(true);
                     calculantGreedy.setVisible(true);
-                    
                     Iterator<Viatge> it = ProActive_Travel.viatges.iterator();
                     while (it.hasNext()) {
                         Ruta r = CalculGreedy.calcularRutaGreedy(it.next(), ProActive_Travel.mundi);
@@ -166,14 +155,13 @@ public final class GUI extends Application {
                 @Override
                 public void handle(final ActionEvent e) {
                     try {
-                        String nomFitxer= "Viatge1.txt"; int num= 1;
+                        String nom= "Viatge"; Integer num= 1; String ext=".txt";
                         while(true){
-                            File file = new File(nomFitxer);
+                            File file = new File(nom+num+ext);
                             if (Desktop.isDesktopSupported()) Desktop.getDesktop().open(file);
                             num++;
-                            nomFitxer= (nomFitxer.substring(0, 5)+(char)num+".txt");
                         }
-                    } catch (IOException ex) {
+                    } catch (IOException | IllegalArgumentException ex) {
                         //No troba més fitxers, para de mostrar
                     }
                 }
@@ -212,9 +200,9 @@ public final class GUI extends Application {
         GridPane.setConstraints(calculExacte, 1, 15);
         GridPane.setConstraints(pBack, 1, 15);
         GridPane.setConstraints(pGreedy, 0, 15);
-        GridPane.setConstraints(names, 0, 30);
-        GridPane.setConstraints(veureRutes, 0, 23);
-        GridPane.setConstraints(veureGoogle, 1, 23);
+        GridPane.setConstraints(names, 0, 27);
+        GridPane.setConstraints(veureRutes, 0, 20);
+        GridPane.setConstraints(veureGoogle, 1, 20);
         inputGridPane.setHgap(6);
         inputGridPane.setVgap(6);
         inputGridPane.getChildren().addAll(titol, textExaminar, openButton, textResultatLectura, warningButton, names, 
@@ -229,7 +217,7 @@ public final class GUI extends Application {
            "-fx-background-position: center center; " +
            "-fx-background-repeat: stretch;");
         rootGroup.getChildren().addAll(inputGridPane);
-        Scene escenari= new Scene(rootGroup, 500, 300);
+        Scene escenari= new Scene(rootGroup, 500, 350);
         stage.setScene(escenari);
         stage.show();
     }
@@ -255,9 +243,25 @@ public final class GUI extends Application {
             return new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
-                    // Computations takes 50 ms
-                    // Calling Thread.sleep instead of random computation
-                    Thread.sleep(50);
+                    Runnable runner = new Runnable()
+                    {
+                        public void run() {
+                            List< List<Ruta>> rutesTotals= new ArrayList< >();
+                            Iterator<Viatge> it= ProActive_Travel.viatges.iterator();
+                            while(it.hasNext()) rutesTotals.add(CalculExacte.calcularRutaBack(ProActive_Travel.mundi, it.next()));
+
+                            String nomFitxer= "Viatge1.txt"; int num= 1;
+                            Iterator<List<Ruta>> itList= rutesTotals.iterator();
+                            while(itList.hasNext()){
+                                Sortida.mostrarRutes(itList.next(), ProActive_Travel.viatges.get(num-1), nomFitxer);
+                                num++;
+                                nomFitxer= (nomFitxer.substring(0, 5)+(char)num+".txt");
+                            }
+                        }
+                    };
+                    Thread t = new Thread(runner, "Code Executer");
+                    t.start();
+                    t.join();
                     return null;
                 }
             };
