@@ -43,14 +43,23 @@ public final class GUI extends Application {
         final Button warningButton = new Button("Veure Warnings");
         final Button calculAproximat = new Button("Càlcul Aproximat");
         final Button calculExacte = new Button("Càlcul Exacte");
+        final Button veureRutes= new Button("Veure Resultats (txt)");
+        final Button veureGoogle= new Button("Veure Resultats (Maps)");
         final Text calculantBack= new Text("Calculant...");
+        final Text calculantGreedy= new Text("Calculant...");
         calculantBack.setFill(Color.RED);
         calculantBack.setVisible(false);
+        calculantGreedy.setFill(Color.RED);
+        calculantGreedy.setVisible(false);
+        veureRutes.setVisible(false);
+        veureGoogle.setVisible(false);
         warningButton.setVisible(false);
         calculAproximat.setVisible(false);
         calculExacte.setVisible(false);
-        ProgressBar p= new ProgressBar();
-        p.setVisible(false);
+        ProgressBar pBack= new ProgressBar();
+        pBack.setVisible(false);
+        ProgressBar pGreedy= new ProgressBar();
+        pGreedy.setVisible(false);
         
         openButton.setOnAction(
             new EventHandler<ActionEvent>() {
@@ -115,7 +124,7 @@ public final class GUI extends Application {
                 @Override
                 public void handle(final ActionEvent e) {
                     calculExacte.setVisible(false);
-                    p.setVisible(true);
+                    pBack.setVisible(true);
                     calculantBack.setVisible(true);
                     List< List<Ruta>> rutesTotals= new ArrayList< >();
                     Iterator<Viatge> it= ProActive_Travel.viatges.iterator();
@@ -135,19 +144,58 @@ public final class GUI extends Application {
         calculAproximat.setOnAction(
             new EventHandler<ActionEvent>(){
                 @Override
-                public void handle(final ActionEvent e) {
+                public void handle(final ActionEvent e) { 
+                    //NO TOCAR --- (Progress BAR mentre calcula)
+                    calculAproximat.setVisible(false);
+                    pGreedy.setVisible(true);
+                    calculantGreedy.setVisible(true);
+                    
                     Iterator<Viatge> it = ProActive_Travel.viatges.iterator();
                     while (it.hasNext()) {
                         Ruta r = CalculGreedy.calcularRutaGreedy(it.next(), ProActive_Travel.mundi);
                     }
                     System.out.println("I'm The Reaper and death is my shadow");
+                    
+                    //NO TOCAR --- Retorn del progress BAR
+                    if(!service.isRunning()) service.start();
+                }
+            });
+        
+        veureRutes.setOnAction(
+            new EventHandler<ActionEvent>(){
+                @Override
+                public void handle(final ActionEvent e) {
+                    try {
+                        String nomFitxer= "Viatge1.txt"; int num= 1;
+                        while(true){
+                            File file = new File(nomFitxer);
+                            if (Desktop.isDesktopSupported()) Desktop.getDesktop().open(file);
+                            num++;
+                            nomFitxer= (nomFitxer.substring(0, 5)+(char)num+".txt");
+                        }
+                    } catch (IOException ex) {
+                        //No troba més fitxers, para de mostrar
+                    }
+                }
+            });
+        
+        veureGoogle.setOnAction(
+            new EventHandler<ActionEvent>(){
+                @Override
+                public void handle(final ActionEvent e) {
+                    //AQUÍ S'HA DE GENERAR I MOSTRAR DOCUMENTS GOOGLE MAPS
                 }
             });
         
         service.setOnSucceeded(e -> {
-            p.setVisible(false);
+            pBack.setVisible(false);
+            pGreedy.setVisible(false);
             calculExacte.setVisible(true);
             calculantBack.setVisible(false);
+            calculAproximat.setVisible(true);
+            calculantGreedy.setVisible(false);
+            veureRutes.setVisible(true);
+            veureGoogle.setVisible(true);
             //reset service
             service.reset();
         });
@@ -160,12 +208,17 @@ public final class GUI extends Application {
         GridPane.setConstraints(warningButton, 0, 10);
         GridPane.setConstraints(calculAproximat, 0, 15);
         GridPane.setConstraints(calculantBack, 1, 17);
+        GridPane.setConstraints(calculantGreedy, 0, 17);
         GridPane.setConstraints(calculExacte, 1, 15);
-        GridPane.setConstraints(p, 1, 15);
-        GridPane.setConstraints(names, 0, 23);
+        GridPane.setConstraints(pBack, 1, 15);
+        GridPane.setConstraints(pGreedy, 0, 15);
+        GridPane.setConstraints(names, 0, 30);
+        GridPane.setConstraints(veureRutes, 0, 23);
+        GridPane.setConstraints(veureGoogle, 1, 23);
         inputGridPane.setHgap(6);
         inputGridPane.setVgap(6);
-        inputGridPane.getChildren().addAll(titol, textExaminar, openButton, textResultatLectura, warningButton, names, calculAproximat, calculExacte, p, calculantBack);
+        inputGridPane.getChildren().addAll(titol, textExaminar, openButton, textResultatLectura, warningButton, names, 
+                calculAproximat, calculExacte, pGreedy, pBack, calculantBack, calculantGreedy, veureRutes, veureGoogle);
         
         
         Pane rootGroup = new VBox(12);
@@ -202,9 +255,9 @@ public final class GUI extends Application {
             return new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
-                    // Computations takes 3 seconds
+                    // Computations takes 50 ms
                     // Calling Thread.sleep instead of random computation
-                    Thread.sleep(500);
+                    Thread.sleep(50);
                     return null;
                 }
             };

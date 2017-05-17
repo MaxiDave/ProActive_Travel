@@ -123,22 +123,20 @@ public class Ruta {
         return !items.isEmpty() && (items.getLast() instanceof Visita || items.getLast() instanceof EstadaHotel) && items.getLast().obtPuntSortida().equals(desti);
     }
     
-    /*
     @Override
     public String toString(){
         String out="Preu: "+cost+"€\n";
         out+="Satisfacció: "+satisfaccio+"\n";
-        LocalDateTime aux= inici;
         out+=inici.toLocalDate()+"\n";
         Iterator<ItemRuta> itItem= items.iterator();
+        LocalDateTime aux= inici;
         while(itItem.hasNext()){
             ItemRuta item= itItem.next();
-            if(item.obtInici().toLocalDate().isAfter(aux.toLocalDate())){
-                out+=aux.toLocalTime()+"-"+item.obtInici().toLocalTime()+" Temps Lliure\n";
-            }
+            if(item.obtInici().toLocalDate().isAfter(aux.toLocalDate())) out+=aux.toLocalTime()+"-"+item.obtInici().toLocalTime()+" Temps Lliure\n";
+            if(item.obtInici().toLocalDate().isAfter(aux.toLocalDate())) out+=item.obtInici().toLocalDate();
             out+=item;
+            aux= item.obtFinal();
         }
         return out;
     }
-    */
 }
