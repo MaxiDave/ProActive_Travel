@@ -121,4 +121,20 @@ public class Lloc {
     public Iterator<Estacio> obtEstacions(){
         return estacions.values().iterator();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.nom);
+        return hash;
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof Lloc){
+            Lloc ll= (Lloc)o;
+            return nom.equals(ll.nom);
+        }
+        else return false;
+    }
 }

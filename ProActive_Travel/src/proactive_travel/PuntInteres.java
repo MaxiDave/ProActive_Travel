@@ -100,4 +100,9 @@ public class PuntInteres {
         }
         else return false;
     }
+    
+    @Override
+    public String toString(){
+        return nom;
+    }
 }

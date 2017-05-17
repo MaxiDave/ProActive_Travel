@@ -13,6 +13,8 @@
 
 package proactive_travel;
 
+import java.util.Objects;
+
 /**
  * DESCRIPCIÓ GENERAL
  * @brief: Representa un Mitjà de Transport, amb un nom, preu i durada
@@ -65,5 +67,21 @@ public class MitjaTransport implements Comparable<MitjaTransport>{
         if(valor == 0) return durada-o.durada;
         else if(valor > 0) return 1;
         else return -1;
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof MitjaTransport){
+            MitjaTransport m= (MitjaTransport)o;
+            return nom.equals(m.nom);
+        }
+        else return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.nom);
+        return hash;
     }
 }

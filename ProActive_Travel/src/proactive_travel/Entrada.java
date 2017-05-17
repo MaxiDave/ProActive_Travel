@@ -376,22 +376,6 @@ public abstract class Entrada {
     }
     
     /**
-     * @pre: --
-     * @post: Retorna un Scanner creat al fitxer "file"
-     */
-    private static Scanner creaScanner(PrintWriter error, File file){
-        Scanner fitxer= null;
-        try { //Pot ser que el fitxer no existeixi
-            fitxer= new Scanner(file).useLocale(Locale.US);
-        } catch (FileNotFoundException e) {
-            //Si no es troba el fitxer informa
-            fail= true;
-            error.println(e);
-        }
-        return fitxer;
-    }
-    
-    /**
      * @pre: fitxer és obert i llest per llegir
      * @post: Crea les estructures de dades a partir de les dades del fitxer d'entrada
      */
@@ -401,7 +385,7 @@ public abstract class Entrada {
             warnings= 0;
             fail= false;
             PrintWriter error = new PrintWriter("error.txt", "UTF-8");
-            Scanner fitxer= creaScanner(error, file);
+            Scanner fitxer= new Scanner(file).useLocale(Locale.US);
             llegirLinia(fitxer); //S'ignora la línia del autor
             try{
                 while(fitxer.hasNextLine()){

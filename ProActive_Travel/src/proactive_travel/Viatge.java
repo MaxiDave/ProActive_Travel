@@ -191,4 +191,27 @@ public class Viatge {
     public Double obtPreuMax(){
         return preuMax;
     }
+    
+    @Override
+    public String toString(){
+        String out= "";
+        out+="Clients: ";
+        Iterator<Client> itCli= clients.iterator();
+        while(itCli.hasNext()) out+=itCli.next()+", ";
+        out+="\n";
+        out+="Categoria Desitjada: "+catDesit+"\n";
+        out+="Inici del Viatge: "+inici+"\n";
+        out+="Duració màxima: "+duracio+"\n";
+        out+="Preu màxim: "+preuMax+"\n";
+        out+="Origen: "+origen+"\n";
+        out+="Destí: "+desti+"\n";
+        out+="Punts Intermitjos: ";
+        Iterator<PuntInteres> itPunt= pI.iterator();
+        while(itPunt.hasNext()) out+=itPunt.next()+", ";
+        out+="Rutes a calcular: ";
+        if(rutaBarata) out+="Barata, ";
+        if(rutaCurta) out+="Curta, ";
+        if(rutaSatisfactoria) out+="Satisfactòria";
+        return out;
+    }
 }
