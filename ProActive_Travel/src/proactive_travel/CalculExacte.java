@@ -62,6 +62,7 @@ public abstract class CalculExacte {
                     actual.anotar(item);
                     if(!actual.esCompleta(viatge)) algRecursiu(mundi, act, item.obtPuntSortida(), actual.obtTemps(), viatge);
                     else{
+                        System.out.println("Es completa!!!");
                         if(esMillor(actual, optima)) optima= actual;
                     }
                     actual.desanotar(item);
@@ -71,13 +72,8 @@ public abstract class CalculExacte {
         }
         
         private static boolean esPotMillorar(Solucio actual, Solucio optima){
-            return true;
-            /*
-            if(optima == null) return true;
-            else{
-                throw new UnsupportedOperationException("Not supported yet");
-            }
-            */
+           if(optima == null) return true;
+           else return esMillor(actual, optima);
         }
         
         private static boolean esMillor(Solucio actual, Solucio optima){
@@ -127,7 +123,7 @@ public abstract class CalculExacte {
             private Solucio(LocalDateTime temps, Viatge viatge){
                 nObligatsVisitats= 0;
                 tempsActual= temps;
-                ruta= new Ruta(temps);
+                ruta= new Ruta(tipusRuta, temps);
                 visitats= new HashSet<>();
                 puntsObligats= new HashMap<>();
                 Iterator<PuntInteres> it= viatge.obtIteradorPI();
@@ -138,11 +134,13 @@ public abstract class CalculExacte {
                 ruta.afegeixItemRuta(item);
                 Integer duradaTempsLliure= (int)Duration.between(tempsActual, item.obtInici()).toMinutes();
                 tempsActual= tempsActual.plusMinutes(item.obtDurada()+duradaTempsLliure);
-                if(puntsObligats.containsKey(item.obtPuntSortida())){
-                    puntsObligats.replace(item.obtPuntSortida(), Boolean.TRUE);
-                    nObligatsVisitats++;
+                if(item instanceof Visita){
+                    visitats.add(item.obtPuntSortida());
+                    if(puntsObligats.containsKey(item.obtPuntSortida())){
+                        puntsObligats.replace(item.obtPuntSortida(), Boolean.TRUE);
+                        nObligatsVisitats++;
+                    }
                 }
-                if(item instanceof Visita) visitats.add(item.obtPuntSortida());
                 System.out.println(ruta.obtCost()+"€ "+ruta.obtDurada()+"m "+ruta.obtSatisfaccio());
             }
             
@@ -150,14 +148,17 @@ public abstract class CalculExacte {
                 System.out.println("Desanotem "+item);
                 Integer duradaTempsLliure= ruta.treureUltimItem();
                 tempsActual= tempsActual.minusMinutes(item.obtDurada()+duradaTempsLliure);
-                if(puntsObligats.containsKey(item.obtPuntSortida())){
-                    puntsObligats.replace(item.obtPuntSortida(), Boolean.FALSE);
-                    nObligatsVisitats--;
+                if(item instanceof Visita){
+                    visitats.remove(item.obtPuntSortida());
+                    if(puntsObligats.containsKey(item.obtPuntSortida())){
+                        puntsObligats.replace(item.obtPuntSortida(), Boolean.FALSE);
+                        nObligatsVisitats--;
+                    }
                 }
-                if(item instanceof Visita) visitats.remove(item.obtPuntSortida());
             }
             
             private boolean acceptable(ItemRuta item, Viatge viatge){
+                System.out.println(nObligatsVisitats+" "+puntsObligats.size());
                 Integer duradaTempsLliure= (int)Duration.between(tempsActual, item.obtInici()).toMinutes();
                 if(ruta.obtDurada()+duradaTempsLliure+item.obtDurada() > viatge.obtDurada() || ruta.obtCost()+item.obtCost() > viatge.obtPreuMax()){
                     return false;
@@ -180,7 +181,7 @@ public abstract class CalculExacte {
             }
             
             private boolean esCompleta(Viatge viatge){
-                if(ruta.obtDesti().equals(viatge.obtDesti())) return nObligatsVisitats == puntsObligats.size();
+                if(ruta.arribaDesti(viatge.obtDesti())) return nObligatsVisitats == puntsObligats.size();
                 else return false;
             }
             

@@ -45,4 +45,9 @@ public class Client {
     public Iterator<String> obtPref(){
         return preferencies.iterator();
     }
+    
+    @Override
+    public String toString(){
+        return nom;
+    }
 }

@@ -27,17 +27,19 @@ public class Ruta {
     private Integer satisfaccio;
     private Double cost;
     private final LocalDateTime inici;
+    private final String tipus;
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /**
      * @pre: --
      * @post: Crea una Ruta inicial buida
      */
-    public Ruta(LocalDateTime inici){
+    public Ruta(String tipus, LocalDateTime inici){
         items= new ArrayDeque<>();
         durada= 0;
         satisfaccio= 0;
         cost= (double)0;
         this.inici= inici;
+        this.tipus= tipus;
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
@@ -47,7 +49,6 @@ public class Ruta {
      */
     public void afegeixItemRuta(ItemRuta item){
         System.out.println("Afegir");
-        items.addLast(item);
         satisfaccio+= item.obtSatisfaccio();
         System.out.print("Cost anterior: ");
         System.out.printf("%.2f", cost);
@@ -66,11 +67,12 @@ public class Ruta {
             System.out.println("Durada Nova: "+durada);
         }
         else{
-            Integer tempsExtra= (int)Duration.between(inici, item.obtInici()).toMinutes();
+            Integer tempsExtra= (int)Duration.between(items.getLast().obtFinal(), item.obtInici()).toMinutes();
             System.out.println("Temps Lliure: "+tempsExtra);
             durada+= tempsExtra;
             System.out.println("Durada Nova: "+durada);
         }
+        items.addLast(item);
     }
     
     //pre cua no buida
@@ -112,4 +114,31 @@ public class Ruta {
     public Double obtCost(){
         return cost;
     }
+    
+    public String obtTipus(){
+        return tipus;
+    }
+    
+    public Boolean arribaDesti(PuntInteres desti){
+        return !items.isEmpty() && (items.getLast() instanceof Visita || items.getLast() instanceof EstadaHotel) && items.getLast().obtPuntSortida().equals(desti);
+    }
+    
+    /*
+    @Override
+    public String toString(){
+        String out="Preu: "+cost+"€\n";
+        out+="Satisfacció: "+satisfaccio+"\n";
+        LocalDateTime aux= inici;
+        out+=inici.toLocalDate()+"\n";
+        Iterator<ItemRuta> itItem= items.iterator();
+        while(itItem.hasNext()){
+            ItemRuta item= itItem.next();
+            if(item.obtInici().toLocalDate().isAfter(aux.toLocalDate())){
+                out+=aux.toLocalTime()+"-"+item.obtInici().toLocalTime()+" Temps Lliure\n";
+            }
+            out+=item;
+        }
+        return out;
+    }
+    */
 }

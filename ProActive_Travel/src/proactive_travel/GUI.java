@@ -6,10 +6,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import javafx.application.Application;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -44,7 +42,10 @@ public final class GUI extends Application {
         final Text textResultatLectura= new Text();
         final Button warningButton = new Button("Veure Warnings");
         final Button calculAproximat = new Button("Càlcul Aproximat");
-        Button calculExacte = new Button("Càlcul Exacte");
+        final Button calculExacte = new Button("Càlcul Exacte");
+        final Text calculantBack= new Text("Calculant...");
+        calculantBack.setFill(Color.RED);
+        calculantBack.setVisible(false);
         warningButton.setVisible(false);
         calculAproximat.setVisible(false);
         calculExacte.setVisible(false);
@@ -115,13 +116,18 @@ public final class GUI extends Application {
                 public void handle(final ActionEvent e) {
                     calculExacte.setVisible(false);
                     p.setVisible(true);
+                    calculantBack.setVisible(true);
                     List< List<Ruta>> rutesTotals= new ArrayList< >();
                     Iterator<Viatge> it= ProActive_Travel.viatges.iterator();
-                    while(it.hasNext()){
-                        rutesTotals.add(CalculExacte.calcularRutaBack(ProActive_Travel.mundi, it.next()));
-                        System.out.println("finalitzat");
+                    while(it.hasNext()) rutesTotals.add(CalculExacte.calcularRutaBack(ProActive_Travel.mundi, it.next()));
+                    
+                    String nomFitxer= "Viatge1.txt"; int num= 1;
+                    Iterator<List<Ruta>> itList= rutesTotals.iterator();
+                    while(itList.hasNext()){
+                        Sortida.mostrarRutes(itList.next(), ProActive_Travel.viatges.get(num-1), nomFitxer);
+                        num++;
+                        nomFitxer= (nomFitxer.substring(0, 5)+(char)num+".txt");
                     }
-                    System.out.println("He calculat");
                     if(!service.isRunning()) service.start();
                 }
             });
@@ -141,6 +147,7 @@ public final class GUI extends Application {
         service.setOnSucceeded(e -> {
             p.setVisible(false);
             calculExacte.setVisible(true);
+            calculantBack.setVisible(false);
             //reset service
             service.reset();
         });
@@ -152,12 +159,13 @@ public final class GUI extends Application {
         GridPane.setConstraints(textResultatLectura, 0, 9);
         GridPane.setConstraints(warningButton, 0, 10);
         GridPane.setConstraints(calculAproximat, 0, 15);
+        GridPane.setConstraints(calculantBack, 1, 17);
         GridPane.setConstraints(calculExacte, 1, 15);
         GridPane.setConstraints(p, 1, 15);
-        GridPane.setConstraints(names, 0, 25);
+        GridPane.setConstraints(names, 0, 23);
         inputGridPane.setHgap(6);
         inputGridPane.setVgap(6);
-        inputGridPane.getChildren().addAll(titol, textExaminar, openButton, textResultatLectura, warningButton, names, calculAproximat, calculExacte, p);
+        inputGridPane.getChildren().addAll(titol, textExaminar, openButton, textResultatLectura, warningButton, names, calculAproximat, calculExacte, p, calculantBack);
         
         
         Pane rootGroup = new VBox(12);
@@ -171,10 +179,6 @@ public final class GUI extends Application {
         Scene escenari= new Scene(rootGroup, 500, 300);
         stage.setScene(escenari);
         stage.show();
-    }
-    
-    private static void setText(Button b, String t){
-        b.setText(t);
     }
  
     public static void inicia() {
