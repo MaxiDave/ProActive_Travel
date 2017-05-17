@@ -35,6 +35,8 @@ public abstract class CalculGreedy {
      */
     public static Ruta calcularRutaGreedy(Viatge clients,Mapa mundi){
         puntsIntermig = clients.obtenirInteressos();
+        puntsIntermig.remove(clients.obtOrigen());
+        puntsIntermig.remove(clients.obtDesti());
         actual = clients.obtDataInici();
         nCli = clients.nClients();
         finalViatge = clients.obtDataInici();
@@ -62,7 +64,9 @@ public abstract class CalculGreedy {
         Ruta barata = new Ruta(actual);
         while (!fi && temps) {
             Set<PuntInteres> cami = seleccionarMesViable(mundi, "diners", puntAct);
+            System.out.println("A");
             puntAct = analitzarLlocs(cami, barata, preferenciesClients, mundi); //Mirar si valen la pena per visitar i anar mirant la hora del dia ja que s'ha de anar a hotels
+            System.out.println("B");
             temps = comprovarTemps();
             fi = comprovarFi();
         }
@@ -79,7 +83,10 @@ public abstract class CalculGreedy {
         double cost=Double.MAX_VALUE;
         
         for(PuntInteres p : puntsIntermig){
-            d.camiMinim(mundi, puntAct, p, tipus);
+            int z=d.camiMinim(mundi, puntAct, p, tipus);
+            if(z==-1){
+                throw new UnsupportedOperationException("No hi ha ruta");
+            }
             if(tipus.equals("diners") && cost>d.retornaCost()){
                 definitiu=d;
             }
@@ -90,7 +97,9 @@ public abstract class CalculGreedy {
                 throw new UnsupportedOperationException("Not supported yet");
             }
         }
+        System.out.println("PuntsIntermig perfecte (CalculGreedy)");
         Set<PuntInteres> millorCami = definitiu.retornaPuntsInteres();
+        System.out.println("No pot fallar aqui");
         return millorCami;
     }
 

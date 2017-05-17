@@ -167,14 +167,29 @@ public class Mapa {
     
     public Double obtenirCostDespl(PuntInteres origen, PuntInteres desti){
         double costMinim=Double.MAX_VALUE;
-        HashMap<PuntInteres, Set<MTDirecte>> ori = new HashMap<PuntInteres, Set<MTDirecte>>(transDirecte.get(origen));
-        if(ori != null){
-            Set<MTDirecte> des = ori.get(desti);
-            if(des != null){
-                for(MTDirecte i : des){
-                    if(i.getPreu()< costMinim){
-                        costMinim=i.getPreu();
+        //COMPROVACIO MTDIR
+        if(transDirecte.get(origen)!=null){
+            HashMap<PuntInteres, Set<MTDirecte>> ori = new HashMap<PuntInteres, Set<MTDirecte>>(transDirecte.get(origen));
+            if (ori != null) {
+                Set<MTDirecte> des = ori.get(desti);
+                if (des != null) {
+                    for (MTDirecte i : des) {
+                        if (i.getPreu() < costMinim) {
+                            costMinim = i.getPreu();
+                        }
                     }
+                }
+            }
+        }
+        //COMPROVACIO MTURBA
+        if(origen.obtenirLloc().equals(desti.obtenirLloc())){
+            Lloc pare = origen.obtenirLloc();
+            Iterator<MitjaTransport> it = pare.obtTransportUrba();
+            double preu = Double.MAX_VALUE;
+            while(it.hasNext()){
+                preu = it.next().getPreu();
+                if(preu<costMinim){
+                    costMinim = preu;
                 }
             }
         }
@@ -244,13 +259,13 @@ public class Mapa {
         return items;
     }
     
-    public Set<PuntInteres> obtenirVeins(PuntInteres pi){
-        throw new UnsupportedOperationException("Not supported yet"); 
-        /*
-        HashMap<PuntInteres, List<MTDirecte>> veinsTransports = new HashMap<String, List<MTDirecte>>(transDirecte.get(pi.obtenirNom()));
-        Set<PuntInteres> veins = veinsTransports.keySet();
-        return veins;
-        */
+    public Set<PuntInteres> obtenirVeins(PuntInteres pi) {
+        Map<PuntInteres, Set<MTDirecte>> veinsTransports = transDirecte.get(pi);
+        if(veinsTransports!=null){
+            Set<PuntInteres> veins = veinsTransports.keySet();
+            return veins;
+        }
+        return null;
     }
     
     public Set<PuntInteres> obtenirHotelProper(PuntInteres pi,String tipusDijk){
@@ -273,5 +288,18 @@ public class Mapa {
         }
         Set<PuntInteres> cami = millor.retornaPuntsInteres();
         return cami;
+    }
+
+    Set<PuntInteres> obtenirVeinsUrba(PuntInteres pi) {
+        Lloc pare = pi.obtenirLloc();
+        Set<PuntInteres> veins = new HashSet<PuntInteres>();
+        Iterator<MitjaTransport> it = pare.obtTransportUrba();
+        if(it.hasNext()){
+            Iterator<PuntInteres> p2 = pare.obtPuntsInteres();
+            while(p2.hasNext()){
+                veins.add(p2.next());
+            }
+        }
+        return veins;
     }
 }

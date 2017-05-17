@@ -37,6 +37,7 @@ public class Dijkstra {
         PuntInteres d=dest;
         while(predecessors.containsKey(d)){
             cami.add(predecessors.get(d));
+            d=predecessors.get(d);
         }
         return cami;
     }
@@ -53,16 +54,17 @@ public class Dijkstra {
         dest=desti;
         if(tipusDij.equals("temps")) tipus="temps";
         else tipus="diners";
-        
 	temps.put(origen,0);
+        cost.put(origen, 0.0);
 	nodesPerAgafar.add(origen);
 	while(nodesPerAgafar.size()>0 && !(nodesAgafats.contains(desti))){
-		PuntInteres pi = buscarMinim(origen,nodesPerAgafar,mundi);
-		nodesAgafats.add(pi);
-		nodesPerAgafar.remove(pi);
-                if(tipus.equals("temps")) buscarDistanciesMinimes(mundi,pi);
-                else buscarCostsMinims(mundi,pi);
+            PuntInteres pi = buscarMinim(origen,nodesPerAgafar,mundi);
+            nodesAgafats.add(pi);
+            nodesPerAgafar.remove(pi);
+            if(tipus.equals("temps")) buscarDistanciesMinimes(mundi,pi);
+            else buscarCostsMinims(mundi,pi);
 	}
+        System.out.println("Soc lliure");
         if(!nodesAgafats.contains(desti)){
             return -1;
         }
@@ -103,14 +105,33 @@ public class Dijkstra {
     }
     
     private void buscarCostsMinims(Mapa mundi, PuntInteres pi){
-	Set<PuntInteres> nodesVeins = mundi.obtenirVeins(pi); //obtenir veins
-	for(PuntInteres p : nodesVeins){
-            if(obtenirTemps(p) > obtenirCost(pi) + mundi.obtenirCostDespl(pi,p)){
+        System.out.println("Nou PI <-----------------------------------");
+        System.out.println(pi.obtenirNom());
+	if(mundi.obtenirVeins(pi)!=null){
+            Set<PuntInteres> nodesVeins = mundi.obtenirVeins(pi); //obtenir veins
+            System.out.println(pi.obtenirNom());
+            //Veins MTDir
+            for (PuntInteres p : nodesVeins) {
+                System.out.println("Dir");
+                System.out.println(p.obtenirNom());
+                if (obtenirCost(p) > obtenirCost(pi) + mundi.obtenirCostDespl(pi, p)) {
+                    cost.put(p, obtenirCost(pi) + mundi.obtenirCostDespl(pi, p));
+                    predecessors.put(p, pi);
+                    nodesPerAgafar.add(p);
+                }
+            }
+        }
+        //Veins TUrba
+        Set<PuntInteres> nodesVeinsUrba = mundi.obtenirVeinsUrba(pi);
+        for(PuntInteres p : nodesVeinsUrba){
+            System.out.println("Urb");
+            System.out.println(p.obtenirNom());
+            if(obtenirCost(p) > obtenirCost(pi) + mundi.obtenirCostDespl(pi,p)){
 		cost.put(p, obtenirCost(pi) + mundi.obtenirCostDespl(pi,p));
 		predecessors.put(p,pi);
 		nodesPerAgafar.add(p);
             }
-	}
+        }
     }
     
     private int obtenirTemps(PuntInteres pi){
