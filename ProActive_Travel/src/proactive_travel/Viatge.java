@@ -25,6 +25,7 @@ public class Viatge {
     private final String catDesit;
     private final LocalDateTime inici;
     private final Integer duracio;
+    private final LocalDateTime dataMaxima;
     private final Double preuMax;
     private PuntInteres origen;
     private PuntInteres desti;
@@ -45,6 +46,7 @@ public class Viatge {
         this.satisfaccio= new HashMap<String, Integer>();
         this.catDesit= catDesit;
         this.inici= inici;
+        this.dataMaxima= inici.plusDays(duracio);
         this.duracio= duracio*24*60;
         this.preuMax= preuMax;
         this.rutaBarata= false;
@@ -150,6 +152,10 @@ public class Viatge {
      */
     public LocalDateTime obtDataInici(){
         return inici;
+    }
+    
+    public LocalDateTime obtDataMax(){
+        return dataMaxima;
     }
     
     /** 

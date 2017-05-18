@@ -20,8 +20,8 @@ public final class ProActive_Travel extends Application {
     private static List<Viatge> viatges;
     private static Map<String, Client> clients;
     private static Mapa mundi;
-    private Service serveiBack= new ProcessBacktraking();
-    private Service serveiGreedy= new ProcessGreedy();
+    private final Service serveiBack= new ProcessBacktraking();
+    private final Service serveiGreedy= new ProcessGreedy();
     
     @Override
     public void start(final Stage stage) throws MalformedURLException{
@@ -51,7 +51,7 @@ public final class ProActive_Travel extends Application {
         final Text calculantGreedy= new Text("Calculant...");
         calculantGreedy.setFill(Color.RED);
         calculantGreedy.setVisible(false);
-        ProgressBar pGreedy= new ProgressBar();
+        final ProgressBar pGreedy= new ProgressBar();
         pGreedy.setVisible(false);
         
         final Button calculExacte = new Button("Càlcul Exacte");
@@ -59,7 +59,7 @@ public final class ProActive_Travel extends Application {
         final Text calculantBack= new Text("Calculant...");
         calculantBack.setFill(Color.RED);
         calculantBack.setVisible(false);
-        ProgressBar pBack= new ProgressBar();
+        final ProgressBar pBack= new ProgressBar();
         pBack.setVisible(false);
         
         final Button veureRutes= new Button("Veure Resultats (txt)");
@@ -85,8 +85,6 @@ public final class ProActive_Travel extends Application {
                         
                         examinar.setText("Selecciona fitxer: "+file.getName());
                         if(!Entrada.fail){
-                            calculAproximat.setVisible(true);
-                            calculExacte.setVisible(true);
                             if(Entrada.warnings == 0){
                                 warningButton.setVisible(false);
                                 resultatLectura.setFill(Color.GREEN);
@@ -97,6 +95,8 @@ public final class ProActive_Travel extends Application {
                                 resultatLectura.setFill(Color.RED);
                                 resultatLectura.setText("Fitxer processat amb "+Entrada.warnings+" Warnings ("+Entrada.lineCounter+" línies)");
                             }
+                            calculAproximat.setVisible(true);
+                            calculExacte.setVisible(true);
                         }
                         else{
                             warningButton.setVisible(false);
@@ -256,7 +256,7 @@ public final class ProActive_Travel extends Application {
                         public void run() {
                             List< List<Ruta>> rutesTotals= new ArrayList< >();
                             Iterator<Viatge> it= viatges.iterator();
-                            while(it.hasNext()) rutesTotals.add(CalculExacte.calcularRutaBack(mundi, it.next()));
+                            while(it.hasNext()) rutesTotals.add(CalculExacteBeta.calcularRutaBack(mundi, it.next()));
 
                             String nomFitxer= "Viatge1.txt"; int num= 1;
                             Iterator<List<Ruta>> itList= rutesTotals.iterator();

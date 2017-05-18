@@ -49,12 +49,14 @@ public abstract class Sortida {
                 Iterator<Ruta> it= resultat.iterator();
                 while(it.hasNext()){
                     Ruta aux= it.next();
-                    
-                    if(aux.obtTipus().equals("barata")) sortida.println("RUTA MÉS BARATA");
-                    else if(aux.obtTipus().equals("curta")) sortida.println("RUTA MÉS CURTA");
-                    else sortida.println("RUTA MÉS SATISFACTÒRIA");
-                    sortida.println(aux);
-                    sortida.println();
+                    if(aux == null) sortida.println("NO S'HA TROBAT CAP RUTA");
+                    else{
+                        if(aux.obtTipus().equals("barata")) sortida.println("RUTA MÉS BARATA");
+                        else if(aux.obtTipus().equals("curta")) sortida.println("RUTA MÉS CURTA");
+                        else sortida.println("RUTA MÉS SATISFACTÒRIA");
+                        sortida.println(aux);
+                        sortida.println();
+                    }
                 }
             }
         } catch (FileNotFoundException | UnsupportedEncodingException ex) {

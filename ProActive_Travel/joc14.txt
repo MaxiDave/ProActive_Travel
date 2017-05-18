@@ -16,6 +16,38 @@ urbanisme
 *
 April 1 - September 30: 09:00-20:00
 *
+allotjament
+Hotel Torres
+41.8159435,2.5152414000000363
+Europe/Madrid
+tres estrelles
+135
+platja
+*
+allotjament
+Vilar Rural
+41.87145399999999,2.5027049999999917
+Europe/Madrid
+quatre estrelles
+67
+natura
+*
+associar lloc
+Vilar Rural
+Barcelona
+*
+allotjament
+Hotel Camiral
+41.858697,2.7667240000000675
+Europe/Madrid
+tres estrelles
+212
+platja
+*
+associar lloc
+Hotel Camiral
+Barcelona
+*
 lloc visitable
 Parc Güell
 41.41449480000001,2.1526945000000524
@@ -26,17 +58,6 @@ arquitectura
 urbanisme
 *
 January 1 - December 31: 09:00-20:00
-*
-lloc visitable
-Casa Milà
-41.39538049999999,2.1619613999999956
-Europe/Madrid
-1:30
-10.20
-arquitectura
-urbanisme
-*
-April 15 - April 20: 09:00-20:00
 *
 lloc visitable
 Camp Nou
@@ -114,6 +135,10 @@ Barcelona
 *
 associar lloc
 Tibidabo
+Barcelona
+*
+associar lloc
+Hotel Torres
 Barcelona
 *
 transport directe
@@ -248,9 +273,9 @@ esports
 *
 viatge
 2017-04-11
-08:00
+17:00
 2
-100
+500
 luxe
 Brayden Isbrand
 Supre Mairo

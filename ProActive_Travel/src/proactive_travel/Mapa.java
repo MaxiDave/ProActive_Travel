@@ -24,6 +24,7 @@ public class Mapa {
     private Map<String, Lloc> llocs;
     private Map<String, PuntInteres> punts;
     private Map<PuntInteres, Map<PuntInteres, Set<MTDirecte>>> transDirecte;
+    private Map<PuntInteres, Map<PuntInteres, Set<MitjaTransport>>> transportsUrbans;
     
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /**
@@ -31,9 +32,10 @@ public class Mapa {
      * @post: Crea un mapa buit
      */
     public Mapa(){
-        llocs= new HashMap<String, Lloc>();
-        punts= new HashMap<String, PuntInteres>();
-        transDirecte= new HashMap<PuntInteres, Map<PuntInteres, Set<MTDirecte>>>();
+        llocs= new HashMap<>();
+        punts= new HashMap<>();
+        transDirecte= new HashMap< >();
+        transportsUrbans= new HashMap< >();
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
@@ -108,6 +110,10 @@ public class Mapa {
         Lloc aux= llocs.get(llocID);
         if(aux == null) throw new Exception("LlocInexistentException");
         else return aux;
+    }
+    
+    public Iterator<PuntInteres> obtIteradorPunts(){
+        return punts.values().iterator();
     }
     
     /**
@@ -206,7 +212,7 @@ public class Mapa {
         return costMinim;
     }
     
-    private void afegirTransportsUrbans(List<ItemRuta> items, List<ItemRuta> itemsFinals, PuntInteres ant, PuntInteres act, LocalDateTime temps){
+    private void afegirTransportsUrbans(List<ItemRuta> items, List<ItemRuta> itemsFinals, ItemRuta ant, PuntInteres act, LocalDateTime temps){
         Iterator<MitjaTransport> it= act.obtenirLloc().obtTransportUrba();
         while(it.hasNext()){
             MitjaTransport mT= it.next();
@@ -223,7 +229,7 @@ public class Mapa {
         }
     }
     
-    private void afegirTransportsDirectes(List<ItemRuta> items, List<ItemRuta> itemsFinals, PuntInteres ant, PuntInteres act, LocalDateTime temps){
+    private void afegirTransportsDirectes(List<ItemRuta> items, List<ItemRuta> itemsFinals, ItemRuta ant, PuntInteres act, LocalDateTime temps){
         Map<PuntInteres, Set<MTDirecte>> t= transDirecte.get(act);
         if(t != null){
             for(Map.Entry<PuntInteres, Set<MTDirecte>> entry : t.entrySet()) {
@@ -239,7 +245,7 @@ public class Mapa {
         }
     } 
     
-    private void afegirTransportsIndirectes(List<ItemRuta> items, List<ItemRuta> itemsFinals, PuntInteres ant, PuntInteres act, LocalDateTime temps){
+    private void afegirTransportsIndirectes(List<ItemRuta> items, List<ItemRuta> itemsFinals, ItemRuta ant, PuntInteres act, LocalDateTime temps){
         Iterator<Estacio> it= act.obtenirLloc().obtEstacions();
         while(it.hasNext()){
             LocalDate data= temps.toLocalDate();
@@ -260,7 +266,7 @@ public class Mapa {
         }
     } 
     
-    public List<ItemRuta> obtenirItemsVeins(PuntInteres ant, PuntInteres act, LocalDateTime temps, Viatge viatge){
+    public List<ItemRuta> obtenirItemsVeins(ItemRuta ant, PuntInteres act, LocalDateTime temps, Viatge viatge, Set<PuntInteres> visitats){
         Map<String, Integer> MapSat= viatge.obtMapSatisfaccio();
         List<ItemRuta> items= new ArrayList<>();
         List<ItemRuta> itemsFinals= new ArrayList<>();
@@ -276,16 +282,32 @@ public class Mapa {
                     items.add(new Visita(pV, temps, sat));
                 }
             }
+            afegirTransportsUrbans(items, itemsFinals, ant, act, temps);
+            afegirTransportsDirectes(items, itemsFinals, ant, act, temps);
+            afegirTransportsIndirectes(items, itemsFinals, ant, act, temps);
+            //items.addAll(itemsFinals);
+        }
+        else if(!ant.obtPuntSortida().equals(act)){
+            Allotjament a= (Allotjament)act;
+            items.add(new EstadaHotel(a, temps, sat));
+            afegirTransportsUrbans(items, itemsFinals, ant, act, temps);
+            afegirTransportsDirectes(items, itemsFinals, ant, act, temps);
+            afegirTransportsIndirectes(items, itemsFinals, ant, act, temps);
+            //items.addAll(itemsFinals);
         }
         else{
+            afegirTransportsUrbans(items, itemsFinals, ant, act, temps);
+            afegirTransportsDirectes(items, itemsFinals, ant, act, temps);
+            afegirTransportsIndirectes(items, itemsFinals, ant, act, temps);
+            //items.addAll(itemsFinals);
             Allotjament a= (Allotjament)act;
             items.add(new EstadaHotel(a, temps, sat));
         }
-        afegirTransportsUrbans(items, itemsFinals, ant, act, temps);
-        afegirTransportsDirectes(items, itemsFinals, ant, act, temps);
-        afegirTransportsIndirectes(items, itemsFinals, ant, act, temps);
-        //items.addAll(itemsFinals);
         return items;
+    }
+    
+    public List<MitjaTransport> obtMitjansPunt(PuntInteres pI){
+        throw new UnsupportedOperationException("Not supported yet"); 
     }
     
     public Set<PuntInteres> obtenirVeins(PuntInteres pi) {

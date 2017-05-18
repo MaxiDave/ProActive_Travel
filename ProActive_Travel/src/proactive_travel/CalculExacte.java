@@ -15,6 +15,7 @@
 package proactive_travel;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 /**
@@ -39,7 +40,6 @@ public abstract class CalculExacte {
         private static Ruta optima;
         private static Solucio actual;
         private static String tipusRuta;
-        private static Map<PuntInteres, Map<PuntInteres, List<MitjaTransport>>> candidats;
         
         private static Ruta algBack(Mapa mundi, Viatge viatge, String tipus) {
             tipusRuta= tipus;
@@ -50,14 +50,14 @@ public abstract class CalculExacte {
             else return null;
         }
         
-        private static void algRecursiu(Mapa mundi, PuntInteres ant, PuntInteres act, LocalDateTime temps, Viatge viatge){
-            List<ItemRuta> items=  mundi.obtenirItemsVeins(ant, act, temps, viatge);
+        private static void algRecursiu(Mapa mundi, ItemRuta ant, PuntInteres act, LocalDateTime temps, Viatge viatge){
+            List<ItemRuta> items=  mundi.obtenirItemsVeins(ant, act, temps, viatge, actual.obtVisitats());
             for(ItemRuta item: items){
                 //System.out.println(item);
                 if(actual.acceptable(item, viatge) && esPotMillorar(actual.obtRuta(), optima)){
                     //System.out.println("És acceptable");
                     actual.anotar(item);
-                    if(!actual.esCompleta(viatge)) algRecursiu(mundi, act, item.obtPuntSortida(), actual.obtTemps(), viatge);
+                    if(!actual.esCompleta(viatge)) algRecursiu(mundi, item, item.obtPuntSortida(), actual.obtTemps(), viatge);
                     else{
                         //System.out.println("Es completa!!!");
                         if(esMillor(actual.obtRuta(), optima)) optima= new Ruta(actual.obtRuta());
@@ -140,6 +140,7 @@ public abstract class CalculExacte {
                     }
                 }
                 //System.out.println(ruta.obtCost()+"€ "+ruta.obtDurada()+"m "+ruta.obtSatisfaccio());
+                //System.out.println();
             }
             
             private void desanotar(ItemRuta item){
@@ -161,10 +162,10 @@ public abstract class CalculExacte {
                 if(ruta.obtDurada()+duradaTempsLliure+item.obtDurada() > viatge.obtDurada() || ruta.obtCost()+item.obtCost() > viatge.obtPreuMax()){
                     return false;
                 }
-                else if(item instanceof Visita && (visitats.contains(item.obtPuntSortida()) || (item.obtPuntSortida().equals(viatge.obtDesti()) && nObligatsVisitats != puntsObligats.size()))){
+                else if(item instanceof Visita && (visitats.contains(item.obtPuntSortida()) || (item.obtPuntSortida().equals(viatge.obtDesti()) && nObligatsVisitats != puntsObligats.size()) || (tipusRuta.equals("barata") && !puntsObligats.containsKey(item.obtPuntSortida())))){
                     return false;
                 }
-                else if((item instanceof TrajecteDirecte || item instanceof TrajecteIndirecte) && !viatge.obtDataInici().toLocalDate().equals(tempsActual.plusMinutes(duradaTempsLliure+item.obtDurada()).toLocalDate())){
+                else if((item instanceof TrajecteDirecte || item instanceof TrajecteIndirecte) && (tempsActual.plusMinutes(duradaTempsLliure+item.obtDurada()).toLocalTime().isBefore(LocalTime.of(4,0))) && (!viatge.obtDataInici().toLocalDate().equals(tempsActual.plusMinutes(duradaTempsLliure+item.obtDurada()).toLocalDate()))){
                     return false;
                 }       
                 else return true;
@@ -181,6 +182,10 @@ public abstract class CalculExacte {
             private boolean esCompleta(Viatge viatge){
                 if(ruta.arribaDesti(viatge.obtDesti())) return nObligatsVisitats == puntsObligats.size();
                 else return false;
+            }
+            
+            private Set<PuntInteres> obtVisitats(){
+                return visitats;
             }
         }
     }
