@@ -95,14 +95,28 @@ public class Dijkstra {
     }
         
     private void buscarDistanciesMinimes(Mapa mundi, PuntInteres pi){
-	Set<PuntInteres> nodesVeins = mundi.obtenirVeins(pi); //obtenir veins
-	for(PuntInteres p : nodesVeins){
-            if(obtenirTemps(p) > obtenirTemps(pi) + mundi.obtenirDespl(pi,p)){
-		temps.put(p, obtenirTemps(pi) + mundi.obtenirDespl(pi,p));
-		predecessors.put(p,pi);
-		nodesPerAgafar.add(p);
+        if (mundi.obtenirVeins(pi) != null) {
+            Set<PuntInteres> nodesVeins = mundi.obtenirVeins(pi); //obtenir veins
+            //Veins MTDir
+            for (PuntInteres p : nodesVeins) {
+                if (obtenirTemps(p) > obtenirTemps(pi) + mundi.obtenirDespl(pi, p)) {
+                    temps.put(p, obtenirTemps(pi) + mundi.obtenirDespl(pi, p));
+                    predecessors.put(p, pi);
+                    nodesPerAgafar.add(p);
+                }
             }
-	}
+        }
+        //Veins MTUrba
+        if(pi!=null){
+            Set<PuntInteres> nodesVeinsUrba = mundi.obtenirVeinsUrba(pi);
+            for (PuntInteres p : nodesVeinsUrba) {
+                if (obtenirTemps(p) > obtenirTemps(pi) + mundi.obtenirDespl(pi, p)) {
+                    temps.put(p, obtenirTemps(pi) + mundi.obtenirDespl(pi, p));
+                    predecessors.put(p, pi);
+                    nodesPerAgafar.add(p);
+                }
+            }
+        }
     }
     
     private void buscarCostsMinims(Mapa mundi, PuntInteres pi){
