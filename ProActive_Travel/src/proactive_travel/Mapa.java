@@ -167,6 +167,7 @@ public class Mapa {
     }
     public Integer obtenirDespl(PuntInteres origen, PuntInteres desti){
         int tempsMinim=Integer.MAX_VALUE;
+        //COMPROVACIO MTDIR
         HashMap<PuntInteres, Set<MTDirecte>> ori = new HashMap<PuntInteres, Set<MTDirecte>>(transDirecte.get(origen));
         if(ori != null){
             Set<MTDirecte> des = ori.get(desti);
@@ -175,6 +176,18 @@ public class Mapa {
                     if(i.getDurada()< tempsMinim){
                         tempsMinim=i.getDurada();
                     }
+                }
+            }
+        }
+        //COMPROVACIO MTURBA
+        if(origen.obtenirLloc().equals(desti.obtenirLloc())){
+            Lloc pare = origen.obtenirLloc();
+            Iterator<MitjaTransport> it = pare.obtTransportUrba();
+            int temps = Integer.MAX_VALUE;
+            while(it.hasNext()){
+                temps = it.next().getDurada();
+                if(temps<tempsMinim){
+                    tempsMinim = temps;
                 }
             }
         }

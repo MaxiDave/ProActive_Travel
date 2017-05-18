@@ -55,7 +55,8 @@ public abstract class CalculGreedy {
             r=barata;
         }
         if(clients.esCurta()){
-            
+            Ruta temps = calcularRapid(mundi,clients.obtOrigen(),clients.preferenciesClients());
+            r=temps;
         }
         if(clients.esSatisfactoria()){
             
@@ -89,6 +90,34 @@ public abstract class CalculGreedy {
         Set<PuntInteres> ending = d.retornaPuntsInteres();
         analitzarLlocs(ending,barata,preferenciesClients,mundi);
         return barata;
+    }
+    
+    private static Ruta calcularRapid(Mapa mundi, PuntInteres origen, Map<String, Integer> preferenciesClients){
+        Boolean fi=false;
+        Boolean temps=true;
+        PuntInteres puntAct = origen;
+        Ruta rapida = new Ruta("temps",actual);
+        //Tractament origen
+        Set<PuntInteres> preparacio = new HashSet<PuntInteres>();
+        preparacio.add(origen);
+        analitzarLlocs(preparacio, rapida, preferenciesClients, mundi);
+        
+        while (!fi && temps) {
+            Set<PuntInteres> cami = seleccionarMesViable(mundi, "temps", puntAct);
+            puntAct = analitzarLlocs(cami, rapida, preferenciesClients, mundi); //Mirar si valen la pena per visitar i anar mirant la hora del dia ja que s'ha de anar a hotels
+            temps = comprovarTemps();
+            fi = comprovarFi();
+            System.out.println("-----------------------------------------------------------");
+            System.out.println(puntAct.obtenirNom());
+            System.out.println("-----------------------------------------------------------");
+        }
+        //Tractar desti <<------------------------------------------------------ FALTA
+        System.out.println(puntAct.obtenirNom());
+        Dijkstra d = new Dijkstra();
+        d.camiMinim(mundi, puntAct, desti, "temps");
+        Set<PuntInteres> ending = d.retornaPuntsInteres();
+        analitzarLlocs(ending,rapida,preferenciesClients,mundi);
+        return rapida;
     }
     
     private static Set<PuntInteres> seleccionarMesViable(Mapa mundi, String tipus, PuntInteres puntAct) {
