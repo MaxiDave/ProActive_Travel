@@ -33,9 +33,9 @@ public class Estacio {
      */
     public Estacio(String nom){
         nomTransport= nom;
-        sortides= new HashMap<LocalDate, Map<LocalTime, MTIndirecte>>();
-        connexioArribada= new HashMap<Lloc, Integer>();
-        connexioSortida= new HashMap<Lloc, Integer>();
+        sortides= new HashMap< >();
+        connexioArribada= new HashMap<>();
+        connexioSortida= new HashMap<>();
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------

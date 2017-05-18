@@ -39,6 +39,7 @@ public abstract class CalculExacte {
         private static Ruta optima;
         private static Solucio actual;
         private static String tipusRuta;
+        private static Map<PuntInteres, Map<PuntInteres, List<MitjaTransport>>> candidats;
         
         private static Ruta algBack(Mapa mundi, Viatge viatge, String tipus) {
             tipusRuta= tipus;
@@ -59,9 +60,7 @@ public abstract class CalculExacte {
                     if(!actual.esCompleta(viatge)) algRecursiu(mundi, act, item.obtPuntSortida(), actual.obtTemps(), viatge);
                     else{
                         //System.out.println("Es completa!!!");
-                        if(esMillor(actual.obtRuta(), optima)){
-                            optima= new Ruta(actual.obtRuta());
-                        }
+                        if(esMillor(actual.obtRuta(), optima)) optima= new Ruta(actual.obtRuta());
                     }
                     actual.desanotar(item);
                 }

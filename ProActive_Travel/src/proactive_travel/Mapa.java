@@ -41,25 +41,25 @@ public class Mapa {
      * @pre: Lloc on està el punt d’interès ha d’existir
      * @post: Afegeix un punt d’interès al mapa
      */
-    public void afegeixPuntInteres(PuntInteres pI) throws Exception{
-        if(!punts.containsKey(pI.obtenirNom())) punts.put(pI.obtenirNom(), pI);
-        else throw new Exception("PuntInteresRepetitException");
+    public void afegeixPuntInteres(PuntInteres pI) {
+        if(punts.containsKey(pI.obtenirNom())) punts.replace(pI.obtenirNom(), pI);
+        else punts.put(pI.obtenirNom(), pI);
     }
     
     /**
      * @pre: --
      * @post: Afegeix un lloc al mapa  
      */
-    public void afegeixLloc(Lloc ll) throws Exception{
-        if(!llocs.containsKey(ll.obtenirNom())) llocs.put(ll.obtenirNom(), ll);
-        else throw new Exception("LlocRepetitException");
+    public void afegeixLloc(Lloc ll){
+        if(llocs.containsKey(ll.obtenirNom())) llocs.replace(ll.obtenirNom(), ll);
+        else llocs.put(ll.obtenirNom(), ll);
     }
     
     /**
      * @pre: --
      * @post: Si no existia, afegeix el Transport Directe mT al mapa. Altrament llença una excepció 
      */
-    public void afegirTransportDirecte(MTDirecte mT) throws Exception{
+    public void afegirTransportDirecte(MTDirecte mT) {
         if(!transDirecte.containsKey(mT.getOrigen())){
             Map<PuntInteres, Set<MTDirecte>> mapDesti= new HashMap<PuntInteres, Set<MTDirecte>>();
             Set<MTDirecte> mitjans= new TreeSet<>();
@@ -75,7 +75,10 @@ public class Mapa {
         else if(!transDirecte.get(mT.getOrigen()).get(mT.getDesti()).contains(mT)){
             transDirecte.get(mT.getOrigen()).get(mT.getDesti()).add(mT);
         }
-        else throw new Exception("TransportDirecteRepetitException");
+        else{
+            transDirecte.get(mT.getOrigen()).get(mT.getDesti()).remove(mT);
+            transDirecte.get(mT.getOrigen()).get(mT.getDesti()).add(mT);
+        }
     }
     
     /**
@@ -207,12 +210,14 @@ public class Mapa {
         Iterator<MitjaTransport> it= act.obtenirLloc().obtTransportUrba();
         while(it.hasNext()){
             MitjaTransport mT= it.next();
-            Iterator<PuntInteres> itPunts= act.obtenirLloc().obtPuntsInteres();
-            while(itPunts.hasNext()){
-                PuntInteres desti= itPunts.next();
-                if(!act.equals(desti)){
-                    if(ant == null || !desti.equals(ant)) items.add(new TrajecteDirecte(new MTDirecte(mT.getNom(), act, desti, mT.getPreu(), mT.getDurada()), temps));
-                    else itemsFinals.add(new TrajecteDirecte(new MTDirecte(mT.getNom(), act, desti, mT.getPreu(), mT.getDurada()), temps));
+            if(!temps.plusMinutes(mT.getDurada()).toLocalDate().isAfter(temps.toLocalDate())){
+                Iterator<PuntInteres> itPunts= act.obtenirLloc().obtPuntsInteres();
+                while(itPunts.hasNext()){
+                    PuntInteres desti= itPunts.next();
+                    if(!act.equals(desti)){
+                        if(ant == null || !desti.equals(ant)) items.add(new TrajecteDirecte(new MTDirecte(mT.getNom(), act, desti, mT.getPreu(), mT.getDurada()), temps));
+                        //else itemsFinals.add(new TrajecteDirecte(new MTDirecte(mT.getNom(), act, desti, mT.getPreu(), mT.getDurada()), temps));
+                    }
                 }
             }
         }
@@ -221,12 +226,14 @@ public class Mapa {
     private void afegirTransportsDirectes(List<ItemRuta> items, List<ItemRuta> itemsFinals, PuntInteres ant, PuntInteres act, LocalDateTime temps){
         Map<PuntInteres, Set<MTDirecte>> t= transDirecte.get(act);
         if(t != null){
-            for (Map.Entry<PuntInteres, Set<MTDirecte>> entry : t.entrySet()) {
+            for(Map.Entry<PuntInteres, Set<MTDirecte>> entry : t.entrySet()) {
                 Iterator<MTDirecte> it= entry.getValue().iterator();
                 while(it.hasNext()){
                     MTDirecte mitja= it.next();
-                    if(ant == null || !mitja.getDesti().equals(ant)) items.add(new TrajecteDirecte(mitja, temps));
-                    else itemsFinals.add(new TrajecteDirecte(mitja, temps));
+                    if(!temps.plusMinutes(mitja.getDurada()).toLocalDate().isAfter(temps.toLocalDate())){
+                        if(ant == null || !mitja.getDesti().equals(ant)) items.add(new TrajecteDirecte(mitja, temps));
+                        //else itemsFinals.add(new TrajecteDirecte(mitja, temps));
+                    }
                 }
             }
         }
@@ -239,14 +246,14 @@ public class Mapa {
             Estacio est= it.next();
             Map<LocalTime, MTIndirecte> sortidesDia= est.obtSortidesDelDia(data);
             if(sortidesDia != null){
-                for (Map.Entry<LocalTime, MTIndirecte> entry : sortidesDia.entrySet()) {
+                for(Map.Entry<LocalTime, MTIndirecte> entry : sortidesDia.entrySet()) {
                     LocalDateTime sortida= temps.minusMinutes(est.obtTempsSortidaLloc(act.obtenirLloc()));
                     Lloc desti= entry.getValue().getDesti();
                     Iterator<PuntInteres> itPunts= desti.obtPuntsInteres();
                     while(itPunts.hasNext()){
                         PuntInteres dest= itPunts.next();
                         if(ant == null || !dest.equals(ant)) items.add(new TrajecteIndirecte(entry.getValue(), sortida, act, dest));
-                        else itemsFinals.add(new TrajecteIndirecte(entry.getValue(), sortida, act, dest));
+                        //else itemsFinals.add(new TrajecteIndirecte(entry.getValue(), sortida, act, dest));
                     }
                 }
             }
@@ -261,11 +268,13 @@ public class Mapa {
         LocalTime horaDia= temps.toLocalTime();
         if(act instanceof PuntVisitable){
             PuntVisitable pV= (PuntVisitable)act;
-            if(pV.obtObertura().isAfter(horaDia) && pV.obtObertura().plusMinutes(pV.obtTempsVisita()).isBefore(pV.obtTancament())){
-                items.add(new Visita(pV, LocalDateTime.of(temps.toLocalDate(), pV.obtObertura()), sat));
-            }
-            else if(horaDia.plusMinutes(pV.obtTempsVisita()).isBefore(pV.obtTancament())){
-                items.add(new Visita(pV, temps, sat));
+            if(!temps.plusMinutes(pV.obtTempsVisita()).toLocalDate().isAfter(temps.toLocalDate())){
+                if(pV.obtObertura().isAfter(horaDia) && pV.obtObertura().plusMinutes(pV.obtTempsVisita()).isBefore(pV.obtTancament())){
+                    items.add(new Visita(pV, LocalDateTime.of(temps.toLocalDate(), pV.obtObertura()), sat));
+                }
+                else if(horaDia.plusMinutes(pV.obtTempsVisita()).isBefore(pV.obtTancament())){
+                    items.add(new Visita(pV, temps, sat));
+                }
             }
         }
         else{
@@ -275,7 +284,7 @@ public class Mapa {
         afegirTransportsUrbans(items, itemsFinals, ant, act, temps);
         afegirTransportsDirectes(items, itemsFinals, ant, act, temps);
         afegirTransportsIndirectes(items, itemsFinals, ant, act, temps);
-        items.addAll(itemsFinals);
+        //items.addAll(itemsFinals);
         return items;
     }
     
@@ -312,7 +321,7 @@ public class Mapa {
 
     Set<PuntInteres> obtenirVeinsUrba(PuntInteres pi) {
         Lloc pare = pi.obtenirLloc();
-        Set<PuntInteres> veins = new HashSet<PuntInteres>();
+        Set<PuntInteres> veins = new HashSet<>();
         Iterator<MitjaTransport> it = pare.obtTransportUrba();
         if(it.hasNext()){
             Iterator<PuntInteres> p2 = pare.obtPuntsInteres();

@@ -150,16 +150,10 @@ public abstract class Entrada {
      * @pre: Anterior valor llegit de fitxer és "client"
      * @post: Llegeix un client de fitxer i l'afegeix al Map clients amb clau el seu nom
      */
-    private static void donarAltaClient(PrintWriter error, Scanner fitxer, Map<String, Client> clients) throws InterruptedException{
-        try{
-            String nom= llegirLinia(fitxer);
-            if(clients.containsKey(nom)) throw new Exception("ClauRepetidaException");
-            Set<String> prefs= llegirPreferencies(fitxer);
-            clients.put(nom, new Client(nom, prefs));
-        } catch(Exception e){
-            error.println("Error: Client ja existent, no es llegeix");
-            tractarErrorLectura(error, fitxer, e);
-        }
+    private static void donarAltaClient(Scanner fitxer, Map<String, Client> clients) {
+        String nom= llegirLinia(fitxer);
+        Set<String> prefs= llegirPreferencies(fitxer);
+        clients.put(nom, new Client(nom, prefs));
     }
     
     /**
@@ -176,7 +170,7 @@ public abstract class Entrada {
                 llegirLinia(fitxer);
             }
             else throw new NumberFormatException();
-        } catch (Exception e){
+        } catch (NumberFormatException e){
             error.println("Error de lectura: Coordenades invàlides, no es llegeix el lloc");
             tractarErrorLectura(error, fitxer, e);
         }
@@ -236,7 +230,7 @@ public abstract class Entrada {
             llegirLinia(fitxer);
             mundi.associarLloc(lloc, pI);
         } catch (Exception e) {
-            error.println("Error de lectura: Assoc, no es llegeix");
+            error.println("Error de lectura: AssociarLloc, no es llegeix");
             tractarErrorLectura(error, fitxer, e);
         }
     }
@@ -390,7 +384,7 @@ public abstract class Entrada {
             try{
                 while(fitxer.hasNextLine()){
                     String codiOperacio= llegirLinia(fitxer);
-                    if(codiOperacio.equals("client")) donarAltaClient(error, fitxer, clients);
+                    if(codiOperacio.equals("client")) donarAltaClient(fitxer, clients);
                     else if(codiOperacio.equals("lloc")) donarAltaLloc(error, fitxer, mundi);
                     else if(codiOperacio.equals("allotjament")) donarAltaAllotjament(error, fitxer, mundi);
                     else if(codiOperacio.equals("lloc visitable")) donarAltaPuntVisitable(error, fitxer, mundi);
