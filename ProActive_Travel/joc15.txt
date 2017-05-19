@@ -5,6 +5,18 @@ Barcelona
 Europe/Madrid
 *
 lloc visitable
+Camp Nou
+41.375919,2.114639000000011
+Europe/Madrid
+1:30
+50.00
+futbol
+esports
+barça
+*
+April 1 - September 30: 09:00-20:00
+*
+lloc visitable
 Sagrada Familia
 41.4036299,2.1743558000000576
 Europe/Madrid
@@ -26,40 +38,6 @@ arquitectura
 urbanisme
 *
 January 1 - December 31: 09:00-20:00
-*
-lloc visitable
-Casa Milà
-41.39538049999999,2.1619613999999956
-Europe/Madrid
-1:30
-10.20
-arquitectura
-urbanisme
-*
-April 15 - April 20: 09:00-20:00
-*
-lloc visitable
-Camp Nou
-41.375919,2.114639000000011
-Europe/Madrid
-1:30
-50.00
-futbol
-esports
-barça
-*
-April 1 - September 30: 09:00-20:00
-*
-lloc visitable
-Catedral de Barcelona
-41.383962,2.1761990999999625
-Europe/Madrid
-1:30
-0
-religio
-arquitectura
-*
-January 1 - December 31: 00:00-23:59
 *
 lloc visitable
 Aquarium
@@ -89,23 +67,7 @@ atraccions
 April 1 - September 30: 09:00-20:00
 *
 associar lloc
-Sagrada Familia
-Barcelona
-*
-associar lloc
-Parc Güell
-Barcelona
-*
-associar lloc
-Casa Milà
-Barcelona
-*
-associar lloc
 Camp Nou
-Barcelona
-*
-associar lloc
-Catedral de Barcelona
 Barcelona
 *
 associar lloc
@@ -116,47 +78,13 @@ associar lloc
 Tibidabo
 Barcelona
 *
-transport directe
+associar lloc
 Parc Güell
-Aquarium
-bus
-00:45
-1.15
+Barcelona
 *
-transport directe
-Aquarium
-Parc Güell
-busacio
-00:45
-1.15
-*
-transport directe
-Parc Güell
-Camp Nou
-autocar
-00:45
-1.15
-*
-transport directe
-Parc Güell
-Tibidabo
-autocar2
-00:45
-1.15
-*
-transport directe
+associar lloc
 Sagrada Familia
-Casa Milà
-autocar3
-00:45
-1.15
-*
-transport directe
-Camp Nou
-Parc Güell
-autocar4
-00:15
-5.15
+Barcelona
 *
 client
 Tesla
@@ -276,7 +204,7 @@ Metro
 *
 viatge
 2017-04-11
-16:00
+9:30
 2
 400
 luxe
@@ -286,8 +214,10 @@ Rinat Eneko
 Primus Dragan
 *
 Camp Nou
-Aquarium
 Tibidabo
+Aquarium
 *
 ruta curta
+ruta barata
+ruta satisfactoria
 *

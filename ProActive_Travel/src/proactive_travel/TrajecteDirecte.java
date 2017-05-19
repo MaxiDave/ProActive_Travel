@@ -13,6 +13,7 @@
 
 package proactive_travel;
 import java.time.*;
+import java.util.Objects;
 
 /**
  * DESCRIPCIÓ GENERAL
@@ -79,6 +80,26 @@ public class TrajecteDirecte implements ItemRuta{
     
     public Integer obtDurada(){
         return (int)Duration.between(iniciTrajecte, finalTrajecte).toMinutes();
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof TrajecteDirecte){
+            TrajecteDirecte tD= (TrajecteDirecte)o;
+            return mT.getNom().equals(tD.mT.getNom()) && mT.getOrigen().equals(tD.mT.getOrigen()) && mT.getDesti().equals(tD.mT.getDesti());
+        }
+        else return false;
+    }
+    
+    public MTDirecte obtMitja(){
+        return mT;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.mT);
+        return hash;
     }
     
     @Override

@@ -22,11 +22,12 @@ import java.util.*;
  */
 public class Ruta{
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
-    Deque<ItemRuta> items;
+    private Deque<ItemRuta> items;
     private Integer durada;
     private Integer satisfaccio;
     private Double cost;
     private final LocalDateTime inici;
+    private LocalDateTime fi;
     private final String tipus;
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /**
@@ -39,6 +40,7 @@ public class Ruta{
         satisfaccio= 0;
         cost= (double)0;
         this.inici= inici;
+        this.fi= inici;
         this.tipus= tipus;
     }
     
@@ -53,6 +55,7 @@ public class Ruta{
         cost= new Double(r.cost);
         inici= r.inici.plusMinutes(0);
         tipus= new String(r.tipus);
+        fi= LocalDateTime.of(r.fi.toLocalDate(), r.fi.toLocalTime());
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
@@ -71,28 +74,32 @@ public class Ruta{
         //System.out.print("Cost nou: ");
         //System.out.printf("%.2f", cost);
         //System.out.println();
-        durada+= item.obtDurada();
+        Integer duradaItem= 0;
+        duradaItem+= item.obtDurada();
         //System.out.println("Durada Anterior: "+durada);
         if(items.isEmpty()){
             Integer tempsExtra= (int)Duration.between(inici, item.obtInici()).toMinutes();
             //System.out.println("Temps Lliure: "+tempsExtra);
-            durada+= tempsExtra;
+            duradaItem+= tempsExtra;
             //System.out.println("Durada Nova: "+durada);
         }
         else{
             Integer tempsExtra= (int)Duration.between(items.getLast().obtFinal(), item.obtInici()).toMinutes();
             //System.out.println("Temps Lliure: "+tempsExtra);
-            durada+= tempsExtra;
+            duradaItem+= tempsExtra;
             //System.out.println("Durada Nova: "+durada);
         }
+        fi= fi.plusMinutes(duradaItem);
+        durada+= duradaItem;
         items.addLast(item);
     }
     
     //pre cua no buida
-    public Integer treureUltimItem(){
+    public ItemRuta treureUltimItem(){
         //System.out.println("Treure");
         ItemRuta item= items.pollLast();
-        durada-= item.obtDurada();
+        Integer duradaItem= 0;
+        duradaItem+= item.obtDurada();
         satisfaccio-= item.obtSatisfaccio();
         //System.out.print("Cost anterior: ");
         //System.out.printf("%.2f", cost);
@@ -106,10 +113,12 @@ public class Ruta{
         //System.out.println("Durada Anterior: "+durada);
         if(items.isEmpty()) duracioTempsLliure= (int)Duration.between(inici, item.obtInici()).toMinutes();
         else duracioTempsLliure= (int)Duration.between(items.getLast().obtFinal(), item.obtInici()).toMinutes();
-        durada-= duracioTempsLliure;
+        duradaItem-= duracioTempsLliure;
+        fi= fi.minusMinutes(duradaItem);
+        durada-= duradaItem;
+        return item;
         //System.out.println("Temps Lliure: "+duracioTempsLliure);
         //System.out.println("Durada Nova: "+durada);
-        return duracioTempsLliure;
     }
     
     public PuntInteres obtDesti(){
@@ -132,8 +141,16 @@ public class Ruta{
         return tipus;
     }
     
+    public boolean teItems(){
+        return !items.isEmpty();
+    }
+    
     public Boolean arribaDesti(PuntInteres desti){
         return !items.isEmpty() && (items.getLast() instanceof Visita || items.getLast() instanceof EstadaHotel) && items.getLast().obtPuntSortida().equals(desti);
+    }
+    
+    public LocalDateTime obtFinal(){
+        return fi;
     }
     
     @Override

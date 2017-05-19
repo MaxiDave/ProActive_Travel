@@ -3,6 +3,7 @@ package proactive_travel;
 import java.awt.Desktop;                // Obrir els fitxers .txt
 import java.io.*;                       // Entrada/Sortida
 import java.net.MalformedURLException;  // COmprovar URL imatge de fons
+import java.text.DecimalFormat;
 import java.util.*;                     // Estructures de Dades de l'API
 import javafx.application.Application;  // Java Application
 import javafx.concurrent.*;             // Serveis 
@@ -22,6 +23,7 @@ public final class ProActive_Travel extends Application {
     private static Mapa mundi;
     private final Service serveiBack= new ProcessBacktraking();
     private final Service serveiGreedy= new ProcessGreedy();
+    private static long tempsCalculBack= 0;
     
     @Override
     public void start(final Stage stage) throws MalformedURLException{
@@ -134,6 +136,7 @@ public final class ProActive_Travel extends Application {
                     veureGoogle.setVisible(false);
                     calculExacte.setVisible(false);
                     pBack.setVisible(true);
+                    calculantBack.setText("Calculant...");
                     calculantBack.setVisible(true);
                     mundi.generarEDBacktraking();
                     if(!serveiBack.isRunning()) serveiBack.start();
@@ -182,7 +185,8 @@ public final class ProActive_Travel extends Application {
         serveiBack.setOnSucceeded(e -> {
             pBack.setVisible(false);
             calculExacte.setVisible(true);
-            calculantBack.setVisible(false);
+            DecimalFormat dosDecimals= new DecimalFormat("#.##");
+            calculantBack.setText("Execució: "+Double.valueOf(dosDecimals.format(tempsCalculBack/1000))+"s");
             veureRutes.setVisible(true);
             veureGoogle.setVisible(true);
             //reset service
@@ -255,10 +259,15 @@ public final class ProActive_Travel extends Application {
                 protected Void call() throws Exception {
                     Runnable runner = new Runnable(){
                         public void run() {
+                            long tempsI, tempsF;
+                            tempsI= System.currentTimeMillis();
                             List< List<Ruta>> rutesTotals= new ArrayList< >();
                             Iterator<Viatge> it= viatges.iterator();
-                            while(it.hasNext()) rutesTotals.add(CalculExacteBeta.calcularRutaBack(mundi, it.next()));
-
+                            while(it.hasNext()){
+                                Viatge viatge= it.next();
+                                CalculExacteBeta calcul= new CalculExacteBeta(mundi, viatge);
+                                rutesTotals.add(calcul.calcularRutaBack(mundi, viatge));
+                            }
                             String nomFitxer= "Viatge1.txt"; int num= 1;
                             Iterator<List<Ruta>> itList= rutesTotals.iterator();
                             while(itList.hasNext()){
@@ -266,6 +275,8 @@ public final class ProActive_Travel extends Application {
                                 num++;
                                 nomFitxer= (nomFitxer.substring(0, 5)+(char)num+".txt");
                             }
+                            tempsF= System.currentTimeMillis();
+                            tempsCalculBack= tempsF-tempsI;
                         }
                     };
                     Thread t = new Thread(runner, "Code Executer");

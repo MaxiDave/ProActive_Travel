@@ -13,6 +13,8 @@
 
 package proactive_travel;
 
+import java.util.Objects;
+
 /**
  * DESCRIPCIÓ GENERAL
  * @brief: Representa un MTDirecte, un MitjaTransport amb un origen i un destí (Punts d'interès)
@@ -48,5 +50,22 @@ public class MTDirecte extends MitjaTransport{
      */
     public PuntInteres getDesti(){
         return desti;
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof MTDirecte){
+            MTDirecte mD= (MTDirecte)o;
+            return getNom().equals(mD.getNom()) && getOrigen().equals(mD.getOrigen()) && getDesti().equals(mD.getDesti());
+        }
+        else return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.origen);
+        hash = 79 * hash + Objects.hashCode(this.desti);
+        return hash;
     }
 }

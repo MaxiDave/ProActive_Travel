@@ -1,17 +1,50 @@
 INFORMACIÓ DEL VIATGE
 
-Clients: Brayden Isbrand, Rinat Eneko, Supre Mairo, Primus Dragan, 
+Clients: Brayden Isbrand, Supre Mairo, Primus Dragan, Rinat Eneko, 
 Categoria Desitjada: luxe
-Inici del Viatge: 2017-04-11T08:00
+Inici del Viatge: 2017-04-11T09:30
 Duració màxima: 2 dies
 Preu màxim: 400.0
 Origen: Camp Nou
-Destí: Tibidabo
-Punts Intermitjos: Aquarium, 
+Destí: Aquarium
+Punts Intermitjos: Tibidabo, 
 Rutes a calcular: Barata, Curta, Satisfactòria
 
 RUTES TROBADES
 
-NO S'HA TROBAT CAP RUTA
-NO S'HA TROBAT CAP RUTA
-NO S'HA TROBAT CAP RUTA
+RUTA MÉS CURTA
+Preu: 84,80€
+Satisfacció: 2
+2017-04-11
+09:30-11:00 Camp Nou
+11:00-11:45 Camp Nou -> Tibidabo (Metro)
+11:45-13:15 Tibidabo
+13:15-14:00 Tibidabo -> Aquarium (Metro)
+14:00-15:30 Aquarium
+
+
+RUTA MÉS BARATA
+Preu: 84,80€
+Satisfacció: 2
+2017-04-11
+09:30-11:00 Camp Nou
+11:00-11:45 Camp Nou -> Tibidabo (Metro)
+11:45-13:15 Tibidabo
+13:15-14:00 Tibidabo -> Aquarium (Metro)
+14:00-15:30 Aquarium
+
+
+RUTA MÉS SATISFACTÒRIA
+Preu: 91,25€
+Satisfacció: 2
+2017-04-11
+09:30-11:00 Camp Nou
+11:00-11:45 Camp Nou -> Tibidabo (Metro)
+11:45-13:15 Tibidabo
+13:15-14:00 Tibidabo -> Camp Nou (Metro)
+14:00-14:45 Camp Nou -> Tibidabo (Metro)
+14:45-15:30 Tibidabo -> Camp Nou (Metro)
+15:30-16:15 Camp Nou -> Aquarium (Metro)
+16:15-17:45 Aquarium
+
+

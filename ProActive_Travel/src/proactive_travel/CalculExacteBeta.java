@@ -13,7 +13,6 @@
  */
 
 package proactive_travel;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -23,11 +22,10 @@ import java.util.*;
  * DESCRIPCIÓ GENERAL
  * @brief: Classe abstracte que s'encarrega dels càlculs exactes
  */
-public abstract class CalculExacteBeta {
-    private static Map<PuntInteres, Integer> satisfaccio;
+public class CalculExacteBeta {
+    private Map<PuntInteres, Integer> satisfaccio;
     
-    //MÈTODES ESTÀTICS---------------------------------------------------------------------------------------------------------------------------
-    private static void generarEDsatisfaccio(Mapa mundi, Viatge viatge){
+    public CalculExacteBeta(Mapa mundi, Viatge viatge){
         satisfaccio= new HashMap<>();
         Iterator<PuntInteres> it= mundi.obtIteradorPunts();
         while(it.hasNext()){
@@ -37,26 +35,37 @@ public abstract class CalculExacteBeta {
         }
     }
     
+    //MÈTODES ESTÀTICS---------------------------------------------------------------------------------------------------------------------------
+    
     /** 
      * @pre: --
      * @post: Calcula i retorna rutes a partir del mapa i viatge mitjançant backtraking
      */
-    public static List<Ruta> calcularRutaBack(Mapa mundi, Viatge viatge){
-        generarEDsatisfaccio(mundi, viatge);
+    public List<Ruta> calcularRutaBack(Mapa mundi, Viatge viatge){
         List<Ruta> rutes= new ArrayList<>();
-        if(viatge.esCurta()) rutes.add(Solucionador.algBack(mundi, viatge, "curta"));
-        if(viatge.esBarata()) rutes.add(Solucionador.algBack(mundi, viatge, "barata"));
-        if(viatge.esSatisfactoria()) rutes.add(Solucionador.algBack(mundi, viatge, "sat"));
+        if(viatge.esCurta()){
+            Solucionador sol= new Solucionador(viatge, "curta");
+            if(sol.inicialitzat()) rutes.add(sol.algBack(mundi, viatge));
+        }
+        if(viatge.esBarata()){
+            Solucionador sol= new Solucionador(viatge, "barata");
+            if(sol.inicialitzat()) rutes.add(sol.algBack(mundi, viatge));
+        }
+        if(viatge.esSatisfactoria()){
+            Solucionador sol= new Solucionador(viatge, "sat");
+            if(sol.inicialitzat()) rutes.add(sol.algBack(mundi, viatge));
+        }
         return rutes;
     }
     
-    private static abstract class Solucionador{
-        private static Ruta optima;
-        private static Solucio actual;
-        private static String tipusRuta;
+    private class Solucionador{
+        private Ruta optima;
+        private Solucio actual;
+        protected final String tipusRuta;
         
-        private static Boolean inicialitzaPrimerItem(Viatge viatge, Solucio actual){
-            Boolean inicialitzat= false;
+        private Solucionador(Viatge viatge, String tipus){
+            tipusRuta= tipus;
+            actual= new Solucio(viatge.obtDataInici(), viatge);
             LocalTime iniciViatge= viatge.obtDataInici().toLocalTime();
             PuntInteres inici= viatge.obtOrigen();
             if(inici instanceof PuntVisitable){
@@ -65,60 +74,55 @@ public abstract class CalculExacteBeta {
                 if(pV.obtObertura().isAfter(iniciViatge)){
                     Integer satis= satisfaccio.get(inici);
                     visita= new Visita(pV, LocalDateTime.of(viatge.obtDataInici().toLocalDate(), pV.obtObertura()), satis);
-                    actual.anotar(visita);
-                    inicialitzat= true;
+                    actual.afegirPrimerPunt(visita);
                 }
                 else if(iniciViatge.plusMinutes(pV.obtTempsVisita()).isBefore(pV.obtTancament())){
                     Integer satis= satisfaccio.get(inici);
                     visita= new Visita(pV, viatge.obtDataInici(), satis);
-                    actual.anotar(visita);
-                    inicialitzat= true;
+                    actual.afegirPrimerPunt(visita);
                 }
             }
             else{
                 Allotjament hotel= (Allotjament)inici;
                 Integer satis= satisfaccio.get(inici);
                 EstadaHotel estada= new EstadaHotel(hotel, viatge.obtDataInici(), satis);
-                actual.anotar(estada);
-                inicialitzat= true;
+                actual.afegirPrimerPunt(estada);
             }
-            return inicialitzat;
         }
         
-        private static Ruta algBack(Mapa mundi, Viatge viatge, String tipus) {
-            tipusRuta= tipus;
-            actual= new Solucio(viatge.obtDataInici(), viatge);
+        private boolean inicialitzat(){
+            return actual.obtRuta().teItems();
+        }
+        
+        private Ruta algBack(Mapa mundi, Viatge viatge) {
             optima= null;
-            if(inicialitzaPrimerItem(viatge, actual)){
-                algRecursiu(mundi, viatge.obtOrigen(), viatge);
-                if(optima != null) return optima;
-                else return null;
-            }
+            algRecursiu(mundi, viatge.obtOrigen(), viatge);
+            if(optima != null) return optima;
             else return null;
         }
         
-        private static void algRecursiu(Mapa mundi, PuntInteres act, Viatge viatge){
+        private void algRecursiu(Mapa mundi, PuntInteres act, Viatge viatge){
             Candidats iCan= actual.inicialitzarCandidats(mundi, act);
             while(!iCan.fi()){
                 if((iCan.esPossibleQuedarseHotel() && actual.estadaAcceptable(iCan.hotel(), viatge)) || (actual.acceptable(iCan.actual(), viatge) && esPotMillorar(actual.obtRuta(), optima))){
                     ItemRuta item= iCan.crearItem(actual.obtTemps(), viatge);
-                    System.out.println("Anotem: "+item);
+                    //System.out.println("Anotem: "+item);
                     actual.anotar(item, viatge);
-                    System.out.println(actual.obtRuta());
+                    //System.out.println(actual.obtRuta());
                     if(!actual.esCompleta(viatge)) algRecursiu(mundi, item.obtPuntSortida(), viatge);
                     else if(esMillor(actual.obtRuta(), optima)) optima= new Ruta(actual.obtRuta());
-                    actual.desanotar(item);
+                    actual.desanotar();
                 }
                 iCan.seguent();
             }
         }
         
-        private static boolean esPotMillorar(Ruta actual, Ruta optima){
+        private boolean esPotMillorar(Ruta actual, Ruta optima){
            if(optima == null) return true;
            else return esMillor(actual, optima);
         }
         
-        private static boolean esMillor(Ruta actual, Ruta optima){
+        private boolean esMillor(Ruta actual, Ruta optima){
             if(optima == null) return true;
             else if(tipusRuta.equals("curta")){
                 Integer cmpD= actual.obtDurada()-optima.obtDurada();
@@ -155,17 +159,15 @@ public abstract class CalculExacteBeta {
             }
         }
         
-        private static class Solucio{
-            private static Ruta ruta;
-            private static LocalDateTime tempsActual;
-            private static Set<PuntInteres> visitats;
-            private static Map<PuntInteres, Boolean> puntsObligats;
-            private static Integer nObligatsVisitats;
-            private static Deque<Boolean> afegitPI;
+        private class Solucio{
+            private Ruta ruta;
+            private Set<PuntInteres> visitats;
+            private Map<PuntInteres, Boolean> puntsObligats;
+            private Integer nObligatsVisitats;
+            private Deque<Boolean> afegitPI;
                       
             private Solucio(LocalDateTime temps, Viatge viatge){
                 nObligatsVisitats= 0;
-                tempsActual= temps;
                 ruta= new Ruta(tipusRuta, temps);
                 visitats= new HashSet<>();
                 puntsObligats= new HashMap<>();
@@ -178,51 +180,44 @@ public abstract class CalculExacteBeta {
                 return new Candidats(mundi, pI);
             }
             
-            private void anotar(ItemRuta item){
+            private void afegirPrimerPunt(ItemRuta item){
                 ruta.afegeixItemRuta(item);
-                Integer duradaTempsLliure= (int)Duration.between(tempsActual, item.obtInici()).toMinutes();
-                tempsActual= tempsActual.plusMinutes(item.obtDurada()+duradaTempsLliure);
-                if(item instanceof Visita){
-                    visitats.add(item.obtPuntSortida());
-                    if(puntsObligats.containsKey(item.obtPuntSortida())){
-                        puntsObligats.replace(item.obtPuntSortida(), Boolean.TRUE);
-                        nObligatsVisitats++;
-                    }
-                }
+                if(item instanceof Visita) visitats.add(item.obtPuntSortida());
             }
             
             private void anotar(ItemRuta item, Viatge viatge){
                 ruta.afegeixItemRuta(item);
-                Integer duradaTempsLliure= (int)Duration.between(tempsActual, item.obtInici()).toMinutes();
-                tempsActual= tempsActual.plusMinutes(item.obtDurada()+duradaTempsLliure);
                 PuntInteres aAnar= item.obtPuntSortida();
                 if(acceptable(aAnar, viatge)){
-                    afegitPI.addLast(Boolean.TRUE);
-                    PuntVisitable pV= (PuntVisitable)aAnar;
                     Integer satis= satisfaccio.get(aAnar);
-                    ItemRuta visita;
-                    if(tempsActual.toLocalTime().isAfter(pV.obtObertura())) visita= new Visita(pV, tempsActual, satis);
-                    else visita= new Visita(pV, LocalDateTime.of(viatge.obtDataInici().toLocalDate(), pV.obtObertura()), satis);
-                    System.out.println("Anotem: "+visita);
-                    ruta.afegeixItemRuta(visita);
-                    if(visita instanceof Visita){
-                        visitats.add(visita.obtPuntSortida());
-                        if(puntsObligats.containsKey(visita.obtPuntSortida())){
-                            puntsObligats.replace(visita.obtPuntSortida(), Boolean.TRUE);
+                    ItemRuta itemPunt;
+                    if(aAnar instanceof PuntVisitable){
+                        PuntVisitable pV= (PuntVisitable)aAnar;
+                        if(ruta.obtFinal().toLocalTime().isAfter(pV.obtObertura())) itemPunt= new Visita(pV, ruta.obtFinal(), satis);
+                        else itemPunt= new Visita(pV, LocalDateTime.of(ruta.obtFinal().toLocalDate(), pV.obtObertura()), satis);
+                        //System.out.println("Anotem: "+visita);
+                        visitats.add(itemPunt.obtPuntSortida());
+                        if(puntsObligats.containsKey(itemPunt.obtPuntSortida())){
+                            puntsObligats.replace(itemPunt.obtPuntSortida(), Boolean.TRUE);
                             nObligatsVisitats++;
                         }
                     }
+                    else{
+                        Allotjament hotel= (Allotjament)aAnar;
+                        itemPunt= new EstadaHotel(hotel, ruta.obtFinal() ,satis);
+                    }
+                    ruta.afegeixItemRuta(itemPunt);
+                    afegitPI.addLast(Boolean.TRUE);
                 }
                 else afegitPI.addLast(Boolean.FALSE);
             }
             
-            private void desanotar(ItemRuta item){
-                System.out.println("Desanotem: "+item);
+            private void desanotar(){
+                //System.out.println("Desanotem: "+item);
                 Boolean afegirAnteriorPI= afegitPI.pollLast();
                 if(afegirAnteriorPI){
-                    System.out.println("S'havia afegit PI, es treu");
-                    Integer duradaTempsLliure= ruta.treureUltimItem();
-                    tempsActual= tempsActual.minusMinutes(item.obtDurada()+duradaTempsLliure);
+                    //System.out.println("S'havia afegit PI, es treu");
+                    ItemRuta item= ruta.treureUltimItem();
                     if(item instanceof Visita){
                         visitats.remove(item.obtPuntSortida());
                         if(puntsObligats.containsKey(item.obtPuntSortida())){
@@ -231,30 +226,41 @@ public abstract class CalculExacteBeta {
                         }
                     }
                 }
-                Integer duradaTempsLliure= ruta.treureUltimItem();
-                tempsActual= tempsActual.minusMinutes(item.obtDurada()+duradaTempsLliure);
+                ruta.treureUltimItem();
             }
             
             private boolean estadaAcceptable(Allotjament hotel, Viatge viatge){
-                return(!tempsActual.plusDays(1).isAfter(viatge.obtDataMax()) && ruta.obtCost()+hotel.obtenirPreu() < viatge.obtPreuMax());
+                return(!ruta.obtFinal().plusDays(1).isAfter(viatge.obtDataMax()) && ruta.obtCost()+hotel.obtenirPreu() < viatge.obtPreuMax());
             }
             
             private boolean superaMaxim(MTDirecte mD, Viatge viatge){
                 return(ruta.obtCost()+mD.getPreu() > viatge.obtPreuMax() || ruta.obtDurada()+mD.getDurada() > viatge.obtDurada());
             }
             
-            private boolean acceptable(PuntInteres pI, Viatge viatge){
+            private boolean esPotVisitar(PuntVisitable pV, LocalDateTime actual, Viatge viatge){
+                LocalTime hora= actual.toLocalTime();
+                if(pV.obtObertura().isAfter(hora)){
+                    LocalDateTime obertura= LocalDateTime.of(actual.toLocalDate(), pV.obtObertura());
+                    return (!obertura.plusMinutes(pV.obtTempsVisita()).toLocalDate().isAfter(actual.toLocalDate())) && (!obertura.plusMinutes(pV.obtTempsVisita()).isAfter(viatge.obtDataMax())) && (ruta.obtCost()+pV.obtenirPreu() <= viatge.obtPreuMax());
+                }
+                else if(!hora.plusMinutes(pV.obtTempsVisita()).isAfter(pV.obtTancament())) return (!actual.plusMinutes(pV.obtTempsVisita()).toLocalDate().isAfter(actual.toLocalDate())) && (!actual.plusMinutes(pV.obtTempsVisita()).isAfter(viatge.obtDataMax())) && (ruta.obtCost()+pV.obtenirPreu() <= viatge.obtPreuMax());
+                else return false;
+            }
+            
+            private boolean acceptable(PuntInteres pI, Viatge viatge){ 
                 if(pI instanceof PuntVisitable){
                     PuntVisitable pV= (PuntVisitable)pI;
                     if(!visitats.contains(pI)){
-                        if(pV.equals(viatge.obtDesti())) return (nObligatsVisitats == puntsObligats.size()) && (pV.obtObertura().isAfter(tempsActual.toLocalTime()) || tempsActual.toLocalTime().plusMinutes(pV.obtTempsVisita()).isBefore(pV.obtTancament())) && (!tempsActual.plusMinutes(pV.obtTempsVisita()).isAfter(viatge.obtDataMax())) && (ruta.obtCost()+pV.obtenirPreu() <= viatge.obtPreuMax());
-                        else return (pV.obtObertura().isAfter(tempsActual.toLocalTime()) || tempsActual.toLocalTime().plusMinutes(pV.obtTempsVisita()).isBefore(pV.obtTancament())) && (!tempsActual.plusMinutes(pV.obtTempsVisita()).isAfter(viatge.obtDataMax())) && (ruta.obtCost()+pV.obtenirPreu() <= viatge.obtPreuMax());
+                        if(pV.equals(viatge.obtDesti())) return (nObligatsVisitats == puntsObligats.size()) && esPotVisitar(pV, ruta.obtFinal(), viatge);
+                        else if(tipusRuta.equals("barata")) return (puntsObligats.containsKey(pI) || pV.obtenirPreu() == 0) && esPotVisitar(pV, ruta.obtFinal(), viatge);
+                        else if(tipusRuta.equals("sat")) return (puntsObligats.containsKey(pI) || satisfaccio.get(pI) > 0) && esPotVisitar(pV, ruta.obtFinal(), viatge);
+                        else return puntsObligats.containsKey(pI) && esPotVisitar(pV, ruta.obtFinal(), viatge);
                     }
                     else return false;
                 }
                 else{
                     Allotjament hotel= (Allotjament)pI;
-                    return(LocalDateTime.of(tempsActual.toLocalDate().plusDays(1), LocalTime.of(4, 0)).isAfter(viatge.obtDataMax())) && (ruta.obtCost()+hotel.obtenirPreu() <= viatge.obtPreuMax());
+                    return(!LocalDateTime.of(ruta.obtFinal().toLocalDate().plusDays(1), LocalTime.of(4, 0)).isAfter(viatge.obtDataMax())) && (ruta.obtCost()+hotel.obtenirPreu() <= viatge.obtPreuMax());
                 }
             }
             
@@ -263,8 +269,8 @@ public abstract class CalculExacteBeta {
                     MTDirecte mD= (MTDirecte)mitja;
                     if(superaMaxim(mD, viatge)) return false;
                     else{
-                        LocalDate fi= tempsActual.plusMinutes(mD.getDurada()).toLocalDate();
-                        return(fi.equals(viatge.obtDataInici().toLocalDate()) || !fi.isAfter(tempsActual.toLocalDate()));
+                        LocalDate fi= ruta.obtFinal().plusMinutes(mD.getDurada()).toLocalDate();
+                        return(fi.equals(viatge.obtDataInici().toLocalDate()) || fi.equals(viatge.obtDataMax().toLocalDate()) || !fi.isAfter(ruta.obtFinal().toLocalDate()));
                     }
                 }
                 else{
@@ -273,7 +279,7 @@ public abstract class CalculExacteBeta {
             }
             
             private LocalDateTime obtTemps(){
-                return tempsActual;
+                return ruta.obtFinal();
             }
             
             private Ruta obtRuta(){
@@ -286,10 +292,10 @@ public abstract class CalculExacteBeta {
             }
         }
         
-        private static class Candidats{
-            private static List<MitjaTransport> mitjans;
-            private static Integer listCounter;
-            private static PuntInteres pI;
+        private class Candidats{
+            private final List<MitjaTransport> mitjans;
+            private Integer listCounter;
+            private final PuntInteres pI;
             
             private Candidats(Mapa mundi, PuntInteres pI){
                 this.pI= pI;
@@ -330,7 +336,6 @@ public abstract class CalculExacteBeta {
             
             private void seguent(){
                 listCounter++;
-                System.out.println(listCounter);
             }
         }
     }
