@@ -168,13 +168,15 @@ public class Mapa {
     public Integer obtenirDespl(PuntInteres origen, PuntInteres desti){
         int tempsMinim=Integer.MAX_VALUE;
         //COMPROVACIO MTDIR
-        HashMap<PuntInteres, Set<MTDirecte>> ori = new HashMap<PuntInteres, Set<MTDirecte>>(transDirecte.get(origen));
-        if(ori != null){
-            Set<MTDirecte> des = ori.get(desti);
-            if(des != null){
-                for(MTDirecte i : des){
-                    if(i.getDurada()< tempsMinim){
-                        tempsMinim=i.getDurada();
+        if(transDirecte.get(origen)!=null){
+            HashMap<PuntInteres, Set<MTDirecte>> ori = new HashMap<PuntInteres, Set<MTDirecte>>(transDirecte.get(origen));
+            if(ori != null){
+                Set<MTDirecte> des = ori.get(desti);
+                if(des != null){
+                    for(MTDirecte i : des){
+                        if(i.getDurada()< tempsMinim){
+                            tempsMinim=i.getDurada();
+                        }
                     }
                 }
             }

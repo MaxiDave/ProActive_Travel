@@ -119,6 +119,7 @@ public abstract class CalculGreedy {
         d.camiMinim(mundi, puntAct, desti, "temps");
         Set<PuntInteres> ending = d.retornaPuntsInteres();
         analitzarLlocs(ending,rapida,preferenciesClients,mundi);
+        System.out.println(rapida);
         return rapida;
     }
     
