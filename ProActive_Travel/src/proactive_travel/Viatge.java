@@ -163,7 +163,8 @@ public class Viatge {
      * @post: Retorna un iterador als punts d’interès prefixats que s’han de visitar sí o sí
      */
     public Set<PuntInteres> obtenirInteressos(){
-        return pI;
+        HashSet<PuntInteres> pIs = new HashSet<PuntInteres>(pI);
+        return pIs;
     }
     
     public Boolean esBarata(){
