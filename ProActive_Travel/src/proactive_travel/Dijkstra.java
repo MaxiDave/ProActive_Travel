@@ -35,7 +35,7 @@ public class Dijkstra {
     public HashSet<PuntInteres> retornaPuntsInteres(){
         HashSet<PuntInteres> cami = new HashSet();
         PuntInteres d=dest;
-        cami.add(d);
+        //cami.add(d);
         while(predecessors.containsKey(d)){
             cami.add(predecessors.get(d));
             d=predecessors.get(d);

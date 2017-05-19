@@ -37,26 +37,36 @@ public abstract class CalculGreedy {
      * @post: Calcula una Ruta mitjançant un algorisme voraç
      */
     public static Ruta calcularRutaGreedy(Viatge clients,Mapa mundi){
-        puntsIntermig = clients.obtenirInteressos();
-        puntsIntermig.remove(clients.obtOrigen());
-        puntsIntermig.remove(clients.obtDesti());
-        actual = clients.obtDataInici();
-        nCli = clients.nClients();
-        finalViatge = clients.obtDataInici();
-        finalViatge.plusDays(clients.obtDurada());
-        origen = clients.obtOrigen();
-        desti = clients.obtDesti();
-        visitats = new HashSet<PuntInteres>();
-        
         Ruta r = new Ruta("barata",actual);
         
         if(clients.esBarata()){
-            Ruta barata = calcularBarat(mundi,clients.obtOrigen(),clients.preferenciesClients());
-            r=barata;
+            puntsIntermig = clients.obtenirInteressos();
+            puntsIntermig.remove(clients.obtOrigen());
+            puntsIntermig.remove(clients.obtDesti());
+            actual = clients.obtDataInici();
+            nCli = clients.nClients();
+            finalViatge = clients.obtDataInici();
+            finalViatge.plusDays(clients.obtDurada());
+            origen = clients.obtOrigen();
+            desti = clients.obtDesti();
+            visitats = new HashSet<PuntInteres>();
+            Ruta barata = calcularBarat(mundi, clients.obtOrigen(), clients.preferenciesClients());
+            r = barata;
+            System.out.println(barata);
         }
         if(clients.esCurta()){
-            Ruta temps = calcularRapid(mundi,clients.obtOrigen(),clients.preferenciesClients());
-            r=temps;
+            puntsIntermig = clients.obtenirInteressos();
+            puntsIntermig.remove(clients.obtOrigen());
+            puntsIntermig.remove(clients.obtDesti());
+            actual = clients.obtDataInici();
+            nCli = clients.nClients();
+            finalViatge = clients.obtDataInici();
+            finalViatge.plusDays(clients.obtDurada());
+            origen = clients.obtOrigen();
+            desti = clients.obtDesti();
+            visitats = new HashSet<PuntInteres>();
+            Ruta temps = calcularRapid(mundi, clients.obtOrigen(), clients.preferenciesClients());
+            r = temps;
         }
         if(clients.esSatisfactoria()){
             
@@ -79,12 +89,8 @@ public abstract class CalculGreedy {
             puntAct = analitzarLlocs(cami, barata, preferenciesClients, mundi); //Mirar si valen la pena per visitar i anar mirant la hora del dia ja que s'ha de anar a hotels
             temps = comprovarTemps();
             fi = comprovarFi();
-            System.out.println("-----------------------------------------------------------");
-            System.out.println(puntAct.obtenirNom());
-            System.out.println("-----------------------------------------------------------");
         }
         //Tractar desti <<------------------------------------------------------ FALTA
-        System.out.println(puntAct.obtenirNom());
         Dijkstra d = new Dijkstra();
         d.camiMinim(mundi, puntAct, desti, "diners");
         Set<PuntInteres> ending = d.retornaPuntsInteres();
@@ -107,12 +113,8 @@ public abstract class CalculGreedy {
             puntAct = analitzarLlocs(cami, rapida, preferenciesClients, mundi); //Mirar si valen la pena per visitar i anar mirant la hora del dia ja que s'ha de anar a hotels
             temps = comprovarTemps();
             fi = comprovarFi();
-            System.out.println("-----------------------------------------------------------");
-            System.out.println(puntAct.obtenirNom());
-            System.out.println("-----------------------------------------------------------");
         }
         //Tractar desti <<------------------------------------------------------ FALTA
-        System.out.println(puntAct.obtenirNom());
         Dijkstra d = new Dijkstra();
         d.camiMinim(mundi, puntAct, desti, "temps");
         Set<PuntInteres> ending = d.retornaPuntsInteres();
@@ -165,7 +167,7 @@ public abstract class CalculGreedy {
                 while(actual.toLocalTime().compareTo(((PuntVisitable) p).obtObertura())<0){
                     actual=actual.plusMinutes(1);
                 }
-                if(actual.toLocalTime().compareTo(((PuntVisitable) p).obtObertura())>0){
+                if(actual.toLocalTime().compareTo(((PuntVisitable) p).obtTancament())>0){
                     buscarHotel(mundi,barata,p,preferenciesClients);
                 }
                 else{
