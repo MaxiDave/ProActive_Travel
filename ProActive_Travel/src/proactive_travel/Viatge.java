@@ -151,7 +151,9 @@ public class Viatge {
      * @post: Retorna la data (amb hora inclosa) de sortida del grup de clients
      */
     public LocalDateTime obtDataInici(){
-        return inici;
+        LocalDateTime ini = null;
+        ini=ini.of(inici.toLocalDate(),inici.toLocalTime());
+        return ini;
     }
     
     public LocalDateTime obtDataMax(){
@@ -163,7 +165,8 @@ public class Viatge {
      * @post: Retorna un iterador als punts d’interès prefixats que s’han de visitar sí o sí
      */
     public Set<PuntInteres> obtenirInteressos(){
-        return pI;
+        HashSet<PuntInteres> pIs = new HashSet<PuntInteres>(pI);
+        return pIs;
     }
     
     public Boolean esBarata(){

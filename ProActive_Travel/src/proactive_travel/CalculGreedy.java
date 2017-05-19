@@ -36,37 +36,58 @@ public abstract class CalculGreedy {
      * @pre: --
      * @post: Calcula una Ruta mitjançant un algorisme voraç
      */
+    private static void inicialitzarAtributs(Viatge clients){
+        puntsIntermig = clients.obtenirInteressos();
+        puntsIntermig.remove(clients.obtOrigen());
+        puntsIntermig.remove(clients.obtDesti());
+        actual = clients.obtDataInici();
+        nCli = clients.nClients();
+        finalViatge = clients.obtDataMax();
+        origen = clients.obtOrigen();
+        desti = clients.obtDesti();
+        visitats = new HashSet<PuntInteres>();
+    }
+    
+    private static void debugAtributs(Viatge clients){
+        System.out.println("La data actual es:");
+        System.out.println(actual);
+        System.out.println("El numero de clients es:");
+        System.out.println(nCli);
+        System.out.println("El final del viatge es:");
+        System.out.println(finalViatge);
+        System.out.println("L'origen es:");
+        System.out.println(origen);
+        System.out.println("El desti es:");
+        System.out.println(desti);
+        System.out.println("Durada segons clients");
+        System.out.println(clients.obtDurada());
+        System.out.println("Final segons clients");
+        System.out.println(clients.obtDataMax());
+        System.out.println("Els visitats son");
+        for(PuntInteres p : visitats){
+            System.out.println(p.obtenirNom());
+        }
+        System.out.println("Els punts intermig son");
+        for(PuntInteres p : puntsIntermig){
+            System.out.println(p.obtenirNom());
+        }
+    }
+    
     public static Ruta calcularRutaGreedy(Viatge clients,Mapa mundi){
         Ruta r = new Ruta("barata",actual);
-        
         if(clients.esBarata()){
-            puntsIntermig = clients.obtenirInteressos();
-            puntsIntermig.remove(clients.obtOrigen());
-            puntsIntermig.remove(clients.obtDesti());
-            actual = clients.obtDataInici();
-            nCli = clients.nClients();
-            finalViatge = clients.obtDataInici();
-            finalViatge.plusDays(clients.obtDurada());
-            origen = clients.obtOrigen();
-            desti = clients.obtDesti();
-            visitats = new HashSet<PuntInteres>();
+            inicialitzarAtributs(clients);
+            debugAtributs(clients);
             Ruta barata = calcularBarat(mundi, clients.obtOrigen(), clients.preferenciesClients());
             r = barata;
             System.out.println(barata);
         }
+        debugAtributs(clients);
         if(clients.esCurta()){
-            puntsIntermig = clients.obtenirInteressos();
-            puntsIntermig.remove(clients.obtOrigen());
-            puntsIntermig.remove(clients.obtDesti());
-            actual = clients.obtDataInici();
-            nCli = clients.nClients();
-            finalViatge = clients.obtDataInici();
-            finalViatge.plusDays(clients.obtDurada());
-            origen = clients.obtOrigen();
-            desti = clients.obtDesti();
-            visitats = new HashSet<PuntInteres>();
+            inicialitzarAtributs(clients);
             Ruta temps = calcularRapid(mundi, clients.obtOrigen(), clients.preferenciesClients());
             r = temps;
+            System.out.println(temps);
         }
         if(clients.esSatisfactoria()){
             
@@ -119,7 +140,6 @@ public abstract class CalculGreedy {
         d.camiMinim(mundi, puntAct, desti, "temps");
         Set<PuntInteres> ending = d.retornaPuntsInteres();
         analitzarLlocs(ending,rapida,preferenciesClients,mundi);
-        System.out.println(rapida);
         return rapida;
     }
     
