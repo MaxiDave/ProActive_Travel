@@ -135,6 +135,7 @@ public final class ProActive_Travel extends Application {
                     calculExacte.setVisible(false);
                     pBack.setVisible(true);
                     calculantBack.setVisible(true);
+                    mundi.generarEDBacktraking();
                     if(!serveiBack.isRunning()) serveiBack.start();
                 }
             });

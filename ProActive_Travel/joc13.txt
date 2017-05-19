@@ -268,6 +268,12 @@ curses
 cotxes
 esports
 *
+associar transport
+Barcelona
+Metro
+00:45
+2.15
+*
 viatge
 2017-04-11
 08:00

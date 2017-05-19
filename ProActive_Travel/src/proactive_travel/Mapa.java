@@ -24,7 +24,7 @@ public class Mapa {
     private Map<String, Lloc> llocs;
     private Map<String, PuntInteres> punts;
     private Map<PuntInteres, Map<PuntInteres, Set<MTDirecte>>> transDirecte;
-    private Map<PuntInteres, Map<PuntInteres, Set<MitjaTransport>>> transportsUrbans;
+    private Map<PuntInteres, List<MitjaTransport>> mitjans;
     
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /**
@@ -35,7 +35,7 @@ public class Mapa {
         llocs= new HashMap<>();
         punts= new HashMap<>();
         transDirecte= new HashMap< >();
-        transportsUrbans= new HashMap< >();
+        mitjans= new HashMap<>();
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
@@ -320,7 +320,26 @@ public class Mapa {
     }
     
     public List<MitjaTransport> obtMitjansPunt(PuntInteres pI){
-        throw new UnsupportedOperationException("Not supported yet"); 
+        return mitjans.get(pI);
+    }
+    
+    public void generarEDBacktraking(){
+        Iterator<PuntInteres> itPunts= obtIteradorPunts();
+        while(itPunts.hasNext()){
+            PuntInteres pI= itPunts.next();
+            List<MitjaTransport> llista= new ArrayList<>();
+            Lloc primari= pI.obtenirLloc();
+            Iterator<MitjaTransport> itUrba= primari.obtTransportUrba();
+            while(itUrba.hasNext()){
+                MitjaTransport urba= itUrba.next();
+                Iterator<PuntInteres> itVeins= primari.obtPuntsInteres();
+                while(itVeins.hasNext()){
+                    PuntInteres desti= itVeins.next();
+                    if(!desti.equals(pI)) llista.add(new MTDirecte(urba.getNom(), pI, desti, urba.getPreu(), urba.getDurada()));
+                }
+            }
+            mitjans.put(pI, llista);
+        }
     }
     
     public Set<PuntInteres> obtenirVeins(PuntInteres pi) {

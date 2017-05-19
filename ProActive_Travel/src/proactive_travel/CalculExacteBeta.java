@@ -14,6 +14,7 @@
 
 package proactive_travel;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
@@ -101,7 +102,9 @@ public abstract class CalculExacteBeta {
             while(!iCan.fi()){
                 if((iCan.esPossibleQuedarseHotel() && actual.estadaAcceptable(iCan.hotel(), viatge)) || (actual.acceptable(iCan.actual(), viatge) && esPotMillorar(actual.obtRuta(), optima))){
                     ItemRuta item= iCan.crearItem(actual.obtTemps(), viatge);
+                    System.out.println("Anotem: "+item);
                     actual.anotar(item, viatge);
+                    System.out.println(actual.obtRuta());
                     if(!actual.esCompleta(viatge)) algRecursiu(mundi, item.obtPuntSortida(), viatge);
                     else if(esMillor(actual.obtRuta(), optima)) optima= new Ruta(actual.obtRuta());
                     actual.desanotar(item);
@@ -197,7 +200,10 @@ public abstract class CalculExacteBeta {
                     afegitPI.addLast(Boolean.TRUE);
                     PuntVisitable pV= (PuntVisitable)aAnar;
                     Integer satis= satisfaccio.get(aAnar);
-                    ItemRuta visita= new Visita(pV, LocalDateTime.of(viatge.obtDataInici().toLocalDate(), pV.obtObertura()), satis);
+                    ItemRuta visita;
+                    if(tempsActual.toLocalTime().isAfter(pV.obtObertura())) visita= new Visita(pV, tempsActual, satis);
+                    else visita= new Visita(pV, LocalDateTime.of(viatge.obtDataInici().toLocalDate(), pV.obtObertura()), satis);
+                    System.out.println("Anotem: "+visita);
                     ruta.afegeixItemRuta(visita);
                     if(visita instanceof Visita){
                         visitats.add(visita.obtPuntSortida());
@@ -211,8 +217,10 @@ public abstract class CalculExacteBeta {
             }
             
             private void desanotar(ItemRuta item){
+                System.out.println("Desanotem: "+item);
                 Boolean afegirAnteriorPI= afegitPI.pollLast();
                 if(afegirAnteriorPI){
+                    System.out.println("S'havia afegit PI, es treu");
                     Integer duradaTempsLliure= ruta.treureUltimItem();
                     tempsActual= tempsActual.minusMinutes(item.obtDurada()+duradaTempsLliure);
                     if(item instanceof Visita){
@@ -238,7 +246,11 @@ public abstract class CalculExacteBeta {
             private boolean acceptable(PuntInteres pI, Viatge viatge){
                 if(pI instanceof PuntVisitable){
                     PuntVisitable pV= (PuntVisitable)pI;
-                    return (pV.obtObertura().isAfter(tempsActual.toLocalTime()) || tempsActual.toLocalTime().plusMinutes(pV.obtTempsVisita()).isBefore(pV.obtTancament())) && (!tempsActual.plusMinutes(pV.obtTempsVisita()).isAfter(viatge.obtDataMax())) && (ruta.obtCost()+pV.obtenirPreu() <= viatge.obtPreuMax());
+                    if(!visitats.contains(pI)){
+                        if(pV.equals(viatge.obtDesti())) return (nObligatsVisitats == puntsObligats.size()) && (pV.obtObertura().isAfter(tempsActual.toLocalTime()) || tempsActual.toLocalTime().plusMinutes(pV.obtTempsVisita()).isBefore(pV.obtTancament())) && (!tempsActual.plusMinutes(pV.obtTempsVisita()).isAfter(viatge.obtDataMax())) && (ruta.obtCost()+pV.obtenirPreu() <= viatge.obtPreuMax());
+                        else return (pV.obtObertura().isAfter(tempsActual.toLocalTime()) || tempsActual.toLocalTime().plusMinutes(pV.obtTempsVisita()).isBefore(pV.obtTancament())) && (!tempsActual.plusMinutes(pV.obtTempsVisita()).isAfter(viatge.obtDataMax())) && (ruta.obtCost()+pV.obtenirPreu() <= viatge.obtPreuMax());
+                    }
+                    else return false;
                 }
                 else{
                     Allotjament hotel= (Allotjament)pI;
@@ -250,7 +262,10 @@ public abstract class CalculExacteBeta {
                 if(mitja instanceof MTDirecte){
                     MTDirecte mD= (MTDirecte)mitja;
                     if(superaMaxim(mD, viatge)) return false;
-                    else return(tempsActual.toLocalDate().equals(viatge.obtDataInici().toLocalDate()) || !tempsActual.plusMinutes(mD.getDurada()).toLocalDate().isAfter(tempsActual.toLocalDate())); 
+                    else{
+                        LocalDate fi= tempsActual.plusMinutes(mD.getDurada()).toLocalDate();
+                        return(fi.equals(viatge.obtDataInici().toLocalDate()) || !fi.isAfter(tempsActual.toLocalDate()));
+                    }
                 }
                 else{
                     throw new UnsupportedOperationException("Not supported yet"); 
@@ -315,6 +330,7 @@ public abstract class CalculExacteBeta {
             
             private void seguent(){
                 listCounter++;
+                System.out.println(listCounter);
             }
         }
     }

@@ -1,6 +1,6 @@
 INFORMACIÓ DEL VIATGE
 
-Clients: Primus Dragan, Brayden Isbrand, Rinat Eneko, Supre Mairo, 
+Clients: Brayden Isbrand, Rinat Eneko, Supre Mairo, Primus Dragan, 
 Categoria Desitjada: luxe
 Inici del Viatge: 2017-04-11T08:00
 Duració màxima: 2 dies
@@ -12,34 +12,6 @@ Rutes a calcular: Barata, Curta, Satisfactòria
 
 RUTES TROBADES
 
-RUTA MÉS CURTA
-Preu: 89,10€
-Satisfacció: 2
-2017-04-11
-08:00-09:00 Temps Lliure
-09:00-10:30 Camp Nou
-10:30-10:45 Camp Nou -> Parc Güell (autocar4)
-10:45-11:30 Parc Güell -> Aquarium (bus)
-11:30-13:00 Aquarium
-13:00-13:45 Aquarium -> Parc Güell (busacio)
-13:45-14:30 Parc Güell -> Tibidabo (autocar2)
-14:30-16:00 Tibidabo
-
-
 NO S'HA TROBAT CAP RUTA
-
-RUTA MÉS SATISFACTÒRIA
-Preu: 89,10€
-Satisfacció: 4
-2017-04-11
-08:00-09:00 Temps Lliure
-09:00-10:30 Camp Nou
-10:30-10:45 Camp Nou -> Parc Güell (autocar4)
-10:45-12:15 Parc Güell
-12:15-13:00 Parc Güell -> Aquarium (bus)
-13:00-14:30 Aquarium
-14:30-15:15 Aquarium -> Parc Güell (busacio)
-15:15-16:00 Parc Güell -> Tibidabo (autocar2)
-16:00-17:30 Tibidabo
-
-
+NO S'HA TROBAT CAP RUTA
+NO S'HA TROBAT CAP RUTA
