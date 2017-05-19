@@ -151,7 +151,9 @@ public class Viatge {
      * @post: Retorna la data (amb hora inclosa) de sortida del grup de clients
      */
     public LocalDateTime obtDataInici(){
-        return inici;
+        LocalDateTime ini = null;
+        ini=ini.of(inici.toLocalDate(),inici.toLocalTime());
+        return ini;
     }
     
     public LocalDateTime obtDataMax(){

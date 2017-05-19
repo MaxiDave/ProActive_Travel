@@ -49,7 +49,7 @@ public abstract class CalculGreedy {
         visitats = new HashSet<PuntInteres>();
     }
     
-    private static void debugAtributs(){
+    private static void debugAtributs(Viatge clients){
         System.out.println("La data actual es:");
         System.out.println(actual);
         System.out.println("El numero de clients es:");
@@ -60,6 +60,10 @@ public abstract class CalculGreedy {
         System.out.println(origen);
         System.out.println("El desti es:");
         System.out.println(desti);
+        System.out.println("Durada segons clients");
+        System.out.println(clients.obtDurada());
+        System.out.println("Final segons clients");
+        System.out.println(clients.obtDataMax());
         System.out.println("Els visitats son");
         for(PuntInteres p : visitats){
             System.out.println(p.obtenirNom());
@@ -74,12 +78,12 @@ public abstract class CalculGreedy {
         Ruta r = new Ruta("barata",actual);
         if(clients.esBarata()){
             inicialitzarAtributs(clients);
-            debugAtributs();
+            debugAtributs(clients);
             Ruta barata = calcularBarat(mundi, clients.obtOrigen(), clients.preferenciesClients());
             r = barata;
             System.out.println(barata);
         }
-        debugAtributs();
+        debugAtributs(clients);
         if(clients.esCurta()){
             inicialitzarAtributs(clients);
             Ruta temps = calcularRapid(mundi, clients.obtOrigen(), clients.preferenciesClients());
