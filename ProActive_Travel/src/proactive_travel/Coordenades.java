@@ -41,4 +41,12 @@ public class Coordenades {
     public ZoneId obtZona(){
         return tZ;
     }
+    
+    public String obtLatitud(){
+        return latitud;
+    }
+    
+    public String obtLongitud(){
+        return longitud;
+    }
 }

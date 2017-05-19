@@ -42,8 +42,7 @@ public abstract class CalculGreedy {
         puntsIntermig.remove(clients.obtDesti());
         actual = clients.obtDataInici();
         nCli = clients.nClients();
-        finalViatge = clients.obtDataInici();
-        finalViatge=finalViatge.plusDays(clients.obtDurada());
+        finalViatge = clients.obtDataMax();
         origen = clients.obtOrigen();
         desti = clients.obtDesti();
         visitats = new HashSet<PuntInteres>();
