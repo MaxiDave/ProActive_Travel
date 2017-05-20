@@ -47,17 +47,30 @@ public abstract class Sortida {
                 sortida.println("RUTES TROBADES");
                 sortida.println();
                 Iterator<Ruta> it= resultat.iterator();
-                while(it.hasNext()){
-                    Ruta aux= it.next();
-                    if(aux == null) sortida.println("NO S'HA TROBAT CAP RUTA");
-                    else{
-                        if(aux.obtTipus().equals("barata")) sortida.println("RUTA MÉS BARATA");
-                        else if(aux.obtTipus().equals("curta")) sortida.println("RUTA MÉS CURTA");
-                        else sortida.println("RUTA MÉS SATISFACTÒRIA");
-                        sortida.println(aux);
-                        sortida.println();
+                boolean solucioTrobada= false;
+                while(!solucioTrobada && it.hasNext()) solucioTrobada= it.next() != null;
+                it= resultat.iterator();
+                if(solucioTrobada){
+                    while(it.hasNext()){
+                        Ruta aux= it.next();
+                        if(aux != null && aux.obtTipus().equals("barata")){
+                            sortida.println("RUTA MÉS BARATA");
+                            sortida.println(aux);
+                            sortida.println();
+                        }
+                        else if(aux != null && aux.obtTipus().equals("curta")){
+                            sortida.println("RUTA MÉS CURTA");
+                            sortida.println(aux);
+                            sortida.println();
+                        }
+                        else if(aux != null){
+                            sortida.println("RUTA MÉS SATISFACTÒRIA");
+                            sortida.println(aux);
+                            sortida.println();
+                        }
                     }
                 }
+                else sortida.println("NO S'HA TROBAT CAP RUTA");
             }
         } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             Logger.getLogger(Sortida.class.getName()).log(Level.SEVERE, null, ex);

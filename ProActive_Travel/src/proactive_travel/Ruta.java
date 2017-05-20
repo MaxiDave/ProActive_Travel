@@ -28,7 +28,7 @@ public class Ruta{
     private Double cost;
     private final LocalDateTime inici;
     private LocalDateTime fi;
-    private final String tipus;
+    private String tipus;
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /**
      * @pre: --
@@ -151,6 +151,10 @@ public class Ruta{
     
     public LocalDateTime obtFinal(){
         return fi;
+    }
+    
+    public void canviarTipus(String tipus){
+        this.tipus= tipus;
     }
     
     @Override

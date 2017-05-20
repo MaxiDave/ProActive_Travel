@@ -1,0 +1,12 @@
+Error de lectura: AssociarLloc, no es llegeix
+Línia 70: java.lang.Exception: PIInexistentException
+Mòdul ignorat
+
+Error de lectura: AssociarLloc, no es llegeix
+Línia 90: java.lang.Exception: PIInexistentException
+Mòdul ignorat
+
+Error de lectura: AssociarLloc, no es llegeix
+Línia 94: java.lang.Exception: PIInexistentException
+Mòdul ignorat
+

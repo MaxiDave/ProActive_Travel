@@ -17,18 +17,6 @@ barça
 April 1 - September 30: 09:00-20:00
 *
 lloc visitable
-Sagrada Familia
-41.4036299,2.1743558000000576
-Europe/Madrid
-1:30
-15.75
-arquitectura
-religio
-urbanisme
-*
-April 1 - September 30: 09:00-20:00
-*
-lloc visitable
 Parc Güell
 41.41449480000001,2.1526945000000524
 Europe/Madrid
@@ -66,27 +54,13 @@ atraccions
 *
 April 1 - September 30: 09:00-20:00
 *
-lloc visitable
-Casa Milà
+allotjament
+Hotel Casa Milà
 41.39538049999999,2.1619613999999956
 Europe/Madrid
-1:30
-10.20
+tres estrelles
+60
 arquitectura
-urbanisme
-*
-April 15 - April 20: 09:00-20:00
-*
-lloc visitable
-Catedral de Barcelona
-41.383962,2.1761990999999625
-Europe/Madrid
-1:30
-0
-religio
-arquitectura
-*
-January 1 - December 31: 00:00-23:59
 *
 associar lloc
 Camp Nou
@@ -94,6 +68,10 @@ Barcelona
 *
 associar lloc
 Catedral de Barcelona
+Barcelona
+*
+associar lloc
+Hotel Casa Milà
 Barcelona
 *
 associar lloc
@@ -249,7 +227,5 @@ Camp Nou
 Tibidabo
 Aquarium
 *
-ruta curta
-ruta barata
 ruta satisfactoria
 *

@@ -56,16 +56,15 @@ public class MTDirecte extends MitjaTransport{
     public boolean equals(Object o){
         if(o instanceof MTDirecte){
             MTDirecte mD= (MTDirecte)o;
-            return getNom().equals(mD.getNom()) && getOrigen().equals(mD.getOrigen()) && getDesti().equals(mD.getDesti());
+            return getNom().equals(mD.getNom());
         }
         else return false;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 79 * hash + Objects.hashCode(this.origen);
-        hash = 79 * hash + Objects.hashCode(this.desti);
+        int hash = 7;
+        hash = 19 * hash + Objects.hashCode(this.origen);
         return hash;
     }
 }

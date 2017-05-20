@@ -21,9 +21,9 @@ import java.util.Objects;
  */
 public class MitjaTransport implements Comparable<MitjaTransport>{
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
-    private final String nom;
-    private final Double preu;
-    private final Integer durada;
+    protected final String nom;
+    protected final Double preu;
+    protected final Integer durada;
     
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /**
