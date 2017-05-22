@@ -233,9 +233,35 @@ Metro
 00:45
 2.15
 *
+transport directe
+Camp Nou
+Tibidabo
+JetPack Promo
+00:20
+20
+*
+transport directe
+Tibidabo
+Aquarium
+Helicopter
+00:15
+300
+*
+allotjament
+Hotel Barcelona Sants
+41.39343,2.162407700000017
+Europe/Madrid
+dos estrelles
+120
+ciutat
+*
+associar lloc
+Hotel Barcelona Sants
+Barcelona
+*
 viatge
 2017-04-11
-9:30
+8:00
 2
 400
 luxe
@@ -245,6 +271,7 @@ Rinat Eneko
 Primus Dragan
 Loke Amador
 *
+Hotel Barcelona Sants
 Camp Nou
 Tibidabo
 Aquarium

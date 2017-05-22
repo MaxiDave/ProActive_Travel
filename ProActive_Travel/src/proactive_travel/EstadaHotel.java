@@ -33,7 +33,8 @@ public class EstadaHotel implements ItemRuta{
     public EstadaHotel(Allotjament hotel, LocalDateTime iniciEstada, Integer satisfaccio){
         this.hotel= hotel;
         this.iniciEstada= iniciEstada;
-        LocalDateTime aux= iniciEstada.plusDays(1);
+        LocalDateTime aux= iniciEstada;
+        if(iniciEstada.toLocalTime().isAfter(LocalTime.of(3,59))) aux= iniciEstada.plusDays(1);
         aux= aux.withHour(4);
         aux= aux.withMinute(0);
         this.finalEstada= aux;
@@ -78,7 +79,7 @@ public class EstadaHotel implements ItemRuta{
      * @post: Retorna el cost per persona de l'estada
      */
     public Double obtCost(){
-        return hotel.obtenirPreu()/2; 
+        return hotel.obtenirPreu(); 
     }
     
     public Integer obtDurada(){
@@ -87,6 +88,6 @@ public class EstadaHotel implements ItemRuta{
     
     @Override
     public String toString(){
-        return iniciEstada.toLocalTime()+"-"+finalEstada.toLocalTime()+" "+hotel.obtenirNom()+"\n";
+        return iniciEstada.toLocalTime()+"-..:.. "+hotel.obtenirNom()+" (Estada)"+"\n";
     }
 }

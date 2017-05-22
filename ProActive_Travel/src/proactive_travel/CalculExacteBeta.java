@@ -46,6 +46,8 @@ public class CalculExacteBeta {
         for(int i=0; i<3; i++) rutes.add(i, null);
         if(viatge.esCurta()){
             Solucionador sol= new Solucionador(viatge, "curta", null);
+            System.out.println("RUTA CURTA");
+            System.out.println("------------------------------------------------------------------------------------------------------------");
             if(sol.inicialitzat()) rutes.set(0, sol.algBack(mundi, viatge));
         }
         if(viatge.esBarata()){
@@ -56,6 +58,8 @@ public class CalculExacteBeta {
                 sol= new Solucionador(viatge, "barata", optima);
             }
             else sol= new Solucionador(viatge, "barata", null);
+            System.out.println("RUTA BARATA");
+            System.out.println("------------------------------------------------------------------------------------------------------------");
             if(sol.inicialitzat()) rutes.set(1, sol.algBack(mundi, viatge));
         }
         if(viatge.esSatisfactoria()){
@@ -71,6 +75,8 @@ public class CalculExacteBeta {
                 sol= new Solucionador(viatge, "sat", optima);
             }
             else sol= new Solucionador(viatge, "sat", null);
+            System.out.println("RUTA SAT");
+            System.out.println("------------------------------------------------------------------------------------------------------------");
             if(sol.inicialitzat()) rutes.set(2, sol.algBack(mundi, viatge));
         }
         return rutes;
@@ -183,7 +189,6 @@ public class CalculExacteBeta {
             private Map<PuntInteres, Boolean> puntsObligats;
             private Integer nObligatsVisitats;
             private Deque<Boolean> afegitPI;
-            private Map<MTDirecte, Integer> detectaBucles;
             private MTDirecte anterior;
                       
             private Solucio(LocalDateTime temps, Viatge viatge){
@@ -191,7 +196,6 @@ public class CalculExacteBeta {
                 ruta= new Ruta(tipusRuta, temps);
                 visitats= new HashSet<>();
                 puntsObligats= new HashMap<>();
-                detectaBucles= new HashMap<>();
                 anterior= null;
                 afegitPI= new ArrayDeque<>();
                 Iterator<PuntInteres> it= viatge.obtIteradorPI();
@@ -208,41 +212,41 @@ public class CalculExacteBeta {
             }
             
             private void anotar(ItemRuta item, Viatge viatge){
-                ruta.afegeixItemRuta(item);
                 if(item instanceof TrajecteDirecte){
-                    TrajecteDirecte anotat= (TrajecteDirecte)item;
-                    Integer vegades= detectaBucles.get(anotat.obtMitja());
-                    if(vegades == null){
-                        detectaBucles.put(anotat.obtMitja(), 1);
-                    }
-                    else detectaBucles.put(anotat.obtMitja(), vegades+1);
-                }
-                PuntInteres aAnar= item.obtPuntSortida();
-                if(acceptable(aAnar, viatge)){
-                    anterior= null;
-                    Integer satis= satisfaccio.get(aAnar);
-                    ItemRuta itemPunt;
-                    if(aAnar instanceof PuntVisitable){
-                        PuntVisitable pV= (PuntVisitable)aAnar;
-                        if(ruta.obtFinal().toLocalTime().isAfter(pV.obtObertura())) itemPunt= new Visita(pV, ruta.obtFinal(), satis);
-                        else itemPunt= new Visita(pV, LocalDateTime.of(ruta.obtFinal().toLocalDate(), pV.obtObertura()), satis);
-                        //System.out.println("Anotem: "+visita);
-                        visitats.add(itemPunt.obtPuntSortida());
-                        if(puntsObligats.containsKey(itemPunt.obtPuntSortida())){
-                            puntsObligats.replace(itemPunt.obtPuntSortida(), Boolean.TRUE);
-                            nObligatsVisitats++;
+                    ruta.afegeixItemRuta(item);
+                    PuntInteres aAnar= item.obtPuntSortida();
+                    if(acceptable(aAnar, viatge)){
+                        anterior= null;
+                        Integer satis= satisfaccio.get(aAnar);
+                        ItemRuta itemPunt;
+                        if(aAnar instanceof PuntVisitable){
+                            PuntVisitable pV= (PuntVisitable)aAnar;
+                            if(ruta.obtFinal().toLocalTime().isAfter(pV.obtObertura())) itemPunt= new Visita(pV, ruta.obtFinal(), satis);
+                            else itemPunt= new Visita(pV, LocalDateTime.of(ruta.obtFinal().toLocalDate(), pV.obtObertura()), satis);
+                            //System.out.println("Anotem: "+visita);
+                            visitats.add(itemPunt.obtPuntSortida());
+                            if(puntsObligats.containsKey(itemPunt.obtPuntSortida())){
+                                puntsObligats.replace(itemPunt.obtPuntSortida(), Boolean.TRUE);
+                                nObligatsVisitats++;
+                            }
                         }
+                        else{
+                            Allotjament hotel= (Allotjament)aAnar;
+                            itemPunt= new EstadaHotel(hotel, ruta.obtFinal() ,satis);
+                        }
+                        ruta.afegeixItemRuta(itemPunt);
+                        afegitPI.addLast(Boolean.TRUE);
                     }
-                    else{
-                        Allotjament hotel= (Allotjament)aAnar;
-                        itemPunt= new EstadaHotel(hotel, ruta.obtFinal() ,satis);
+                    else if(anterior == null){
+                        TrajecteDirecte tD= (TrajecteDirecte)item;
+                        anterior= tD.obtMitja();
+                        afegitPI.addLast(Boolean.FALSE);
                     }
-                    ruta.afegeixItemRuta(itemPunt);
-                    afegitPI.addLast(Boolean.TRUE);
+                    else afegitPI.addLast(Boolean.FALSE);
                 }
-                else if(anterior == null){
-                    TrajecteDirecte tD= (TrajecteDirecte)item;
-                    anterior= tD.obtMitja();
+                else if(item instanceof EstadaHotel){
+                    anterior= null;
+                    ruta.afegeixItemRuta(item);
                     afegitPI.addLast(Boolean.FALSE);
                 }
                 else afegitPI.addLast(Boolean.FALSE);
@@ -263,13 +267,7 @@ public class CalculExacteBeta {
                         }
                     }
                 }
-                ItemRuta item= ruta.treureUltimItem();
-                if(item instanceof TrajecteDirecte){
-                    TrajecteDirecte desanotat= (TrajecteDirecte)item;
-                    Integer vegades= detectaBucles.get(desanotat.obtMitja());
-                    if(vegades == 1) detectaBucles.remove(desanotat.obtMitja());
-                    else detectaBucles.put(desanotat.obtMitja(), vegades-1);
-                }
+                ruta.treureUltimItem();
             }
             
             private boolean estadaAcceptable(Allotjament hotel, Viatge viatge){
@@ -308,7 +306,7 @@ public class CalculExacteBeta {
             private boolean acceptable(MitjaTransport mitja, Viatge viatge){
                 if(mitja instanceof MTDirecte){
                     MTDirecte mD= (MTDirecte)mitja;
-                    if((anterior != null && anterior.equals(mD)) || (detectaBucles.containsKey(mD) && detectaBucles.get(mD) == 2) || superaMaxim(mD, viatge)) return false;
+                    if((anterior != null && anterior.equals(mD)) || superaMaxim(mD, viatge)) return false;
                     else{
                         LocalDate fi= ruta.obtFinal().plusMinutes(mD.getDurada()).toLocalDate();
                         return(fi.equals(viatge.obtDataInici().toLocalDate()) || fi.equals(viatge.obtDataMax().toLocalDate()) || !fi.isAfter(ruta.obtFinal().toLocalDate()));
@@ -340,7 +338,7 @@ public class CalculExacteBeta {
             
             private Candidats(Mapa mundi, PuntInteres pI){
                 this.pI= pI;
-                mitjans= mundi.obtMitjansPunt(pI);
+                mitjans= mundi.obtMitjansPunt(pI, tipusRuta);
                 if(pI instanceof Allotjament) listCounter= -1;
                 else listCounter= 0;
             }

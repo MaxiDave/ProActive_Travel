@@ -24,7 +24,8 @@ public class Mapa {
     private Map<String, Lloc> llocs;
     private Map<String, PuntInteres> punts;
     private Map<PuntInteres, Map<PuntInteres, Set<MTDirecte>>> transDirecte;
-    private Map<PuntInteres, List<MitjaTransport>> mitjans;
+    private Map<PuntInteres, List<MitjaTransport>> transportPerDurada;
+    private Map<PuntInteres, List<MitjaTransport>> transportPerPreu;
     
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /**
@@ -35,7 +36,8 @@ public class Mapa {
         llocs= new HashMap<>();
         punts= new HashMap<>();
         transDirecte= new HashMap< >();
-        mitjans= new HashMap<>();
+        transportPerDurada= new HashMap<>();
+        transportPerPreu= new HashMap<>();
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
@@ -226,7 +228,7 @@ public class Mapa {
         }
         return costMinim;
     }
-    
+    /*
     private void afegirTransportsUrbans(List<ItemRuta> items, List<ItemRuta> itemsFinals, ItemRuta ant, PuntInteres act, LocalDateTime temps){
         Iterator<MitjaTransport> it= act.obtenirLloc().obtTransportUrba();
         while(it.hasNext()){
@@ -320,9 +322,35 @@ public class Mapa {
         }
         return items;
     }
+    */
     
-    public List<MitjaTransport> obtMitjansPunt(PuntInteres pI){
-        return mitjans.get(pI);
+    //pre: tipus és barata, curta o sat
+    public List<MitjaTransport> obtMitjansPunt(PuntInteres pI, String tipus){
+        if(tipus.equals("curta")) return transportPerDurada.get(pI);
+        else return transportPerPreu.get(pI);
+    }
+    
+    public void afegirMTUrbans(PuntInteres pI, List<MitjaTransport> llista){
+        Lloc primari= pI.obtenirLloc();
+        Iterator<MitjaTransport> itUrba= primari.obtTransportUrba();
+        while(itUrba.hasNext()){
+            MitjaTransport urba= itUrba.next();
+            Iterator<PuntInteres> itVeins= primari.obtPuntsInteres();
+            while(itVeins.hasNext()){
+                PuntInteres desti= itVeins.next();
+                if(!desti.equals(pI)) llista.add(new MTDirecte(urba.getNom(), pI, desti, urba.getPreu(), urba.getDurada()));
+            }
+        }
+    }
+    
+    public void afegirMTDirectes(PuntInteres pI, List<MitjaTransport> llista){
+        if(transDirecte.containsKey(pI)){
+            Map<PuntInteres, Set<MTDirecte>> transports= transDirecte.get(pI);
+            transports.entrySet().forEach((entry) -> {
+                Iterator<MTDirecte> it= entry.getValue().iterator();
+                while(it.hasNext()) llista.add(it.next());
+            });
+        }
     }
     
     public void generarEDBacktraking(){
@@ -330,17 +358,13 @@ public class Mapa {
         while(itPunts.hasNext()){
             PuntInteres pI= itPunts.next();
             List<MitjaTransport> llista= new ArrayList<>();
-            Lloc primari= pI.obtenirLloc();
-            Iterator<MitjaTransport> itUrba= primari.obtTransportUrba();
-            while(itUrba.hasNext()){
-                MitjaTransport urba= itUrba.next();
-                Iterator<PuntInteres> itVeins= primari.obtPuntsInteres();
-                while(itVeins.hasNext()){
-                    PuntInteres desti= itVeins.next();
-                    if(!desti.equals(pI)) llista.add(new MTDirecte(urba.getNom(), pI, desti, urba.getPreu(), urba.getDurada()));
-                }
-            }
-            mitjans.put(pI, llista);
+            afegirMTUrbans(pI, llista);
+            afegirMTDirectes(pI, llista);
+            List<MitjaTransport> llista2= new ArrayList<>(llista);
+            llista.sort(MitjaTransport.COMPARA_PER_PREU);
+            llista2.sort(MitjaTransport.COMPARA_PER_DURADA);
+            transportPerPreu.put(pI, llista);
+            transportPerDurada.put(pI, llista2);
         }
     }
     

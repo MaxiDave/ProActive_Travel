@@ -81,13 +81,13 @@ public class Ruta{
             Integer tempsExtra= (int)Duration.between(inici, item.obtInici()).toMinutes();
             //System.out.println("Temps Lliure: "+tempsExtra);
             duradaItem+= tempsExtra;
-            //System.out.println("Durada Nova: "+durada);
+            //System.out.println("Durada Nova: "+(durada+duradaItem));
         }
         else{
             Integer tempsExtra= (int)Duration.between(items.getLast().obtFinal(), item.obtInici()).toMinutes();
             //System.out.println("Temps Lliure: "+tempsExtra);
             duradaItem+= tempsExtra;
-            //System.out.println("Durada Nova: "+durada);
+            //System.out.println("Durada Nova: "+(durada+duradaItem));
         }
         fi= fi.plusMinutes(duradaItem);
         durada+= duradaItem;
@@ -113,12 +113,12 @@ public class Ruta{
         //System.out.println("Durada Anterior: "+durada);
         if(items.isEmpty()) duracioTempsLliure= (int)Duration.between(inici, item.obtInici()).toMinutes();
         else duracioTempsLliure= (int)Duration.between(items.getLast().obtFinal(), item.obtInici()).toMinutes();
-        duradaItem-= duracioTempsLliure;
+        duradaItem+= duracioTempsLliure;
         fi= fi.minusMinutes(duradaItem);
         durada-= duradaItem;
-        return item;
         //System.out.println("Temps Lliure: "+duracioTempsLliure);
         //System.out.println("Durada Nova: "+durada);
+        return item;
     }
     
     public PuntInteres obtDesti(){
@@ -162,15 +162,17 @@ public class Ruta{
         String costArrodonit= String.format("%.2f", cost);
         String out="Preu: "+costArrodonit+"€\n";
         out+="Satisfacció: "+satisfaccio+"\n";
-        out+=inici.toLocalDate()+"\n";
+        out+="\n"+inici.toLocalDate()+"\n";
         Iterator<ItemRuta> itItem= items.iterator();
-        LocalDateTime aux= inici;
+        LocalDateTime aux= LocalDateTime.of(inici.toLocalDate(), inici.toLocalTime());
+        LocalDateTime aux2= aux;
         while(itItem.hasNext()){
             ItemRuta item= itItem.next();
-            if(item.obtInici().toLocalTime().isAfter(aux.toLocalTime())) out+=aux.toLocalTime()+"-"+item.obtInici().toLocalTime()+" Temps Lliure\n";
-            if(item.obtInici().toLocalDate().isAfter(aux.toLocalDate())) out+=item.obtInici().toLocalDate();
+            if(item.obtInici().toLocalTime().isAfter(aux2.toLocalTime())) out+=aux2.toLocalTime()+"-"+item.obtInici().toLocalTime()+" Temps Lliure\n";
+            if(item.obtInici().toLocalDate().isAfter(aux.toLocalDate())) out+="\n"+item.obtInici().toLocalDate()+"\n";
             out+=item;
-            aux= item.obtFinal();
+            aux= item.obtInici();
+            aux2= item.obtFinal();
         }
         return out;
     }

@@ -88,6 +88,18 @@ atraccions
 *
 April 1 - September 30: 09:00-20:00
 *
+allotjament
+Hotel Barcelona Sants
+41.39343,2.162407700000017
+Europe/Madrid
+dos estrelles
+120
+ciutat
+*
+associar lloc
+Hotel Barcelona Sants
+Barcelona
+*
 associar lloc
 Sagrada Familia
 Barcelona

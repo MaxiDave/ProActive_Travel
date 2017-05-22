@@ -13,6 +13,7 @@
 
 package proactive_travel;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
@@ -60,6 +61,26 @@ public class MitjaTransport implements Comparable<MitjaTransport>{
     public Integer getDurada(){
         return durada;
     }
+    
+    public static Comparator COMPARA_PER_PREU = new Comparator<MitjaTransport>() {
+        public int compare(MitjaTransport a, MitjaTransport b) {
+            if(a.preu<b.preu) return -1;
+            else if(a.preu>b.preu) return 1;
+            else if(a.durada<b.durada) return -1;
+            else if(a.durada>b.durada) return 1;
+            else return 0;
+        }
+    };
+    
+    public static Comparator COMPARA_PER_DURADA = new Comparator<MitjaTransport>() {
+        public int compare(MitjaTransport a, MitjaTransport b) {
+            if(a.durada<b.durada) return -1;
+            else if(a.durada>b.durada) return 1;
+            else if(a.preu<b.preu) return -1;
+            else if(a.preu>b.preu) return 1;
+            else return 0;
+        }
+    };
 
     @Override
     public int compareTo(MitjaTransport o) {
