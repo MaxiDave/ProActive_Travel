@@ -101,8 +101,8 @@ public class sortidaKML {
                     posarBandera(ir.obtPuntSortida().obtenirNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
                 }
                 else{
-                    lc.add(((Allotjament) ir).obtCoordenades());
-                    posarBandera(((Allotjament) ir).obtenirNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
+                    lc.add(((EstadaHotel) ir).obtPuntSortida().obtCoordenades());
+                    posarBandera(((EstadaHotel) ir).obtPuntSortida().obtenirNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
                 }
             }
         }
