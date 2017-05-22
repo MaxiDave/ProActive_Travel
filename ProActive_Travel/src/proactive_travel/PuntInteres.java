@@ -105,4 +105,8 @@ public class PuntInteres {
     public String toString(){
         return nom;
     }
+    
+    public Coordenades obtCoordenades(){
+        return coords;
+    }
 }
