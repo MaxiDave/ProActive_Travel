@@ -7,6 +7,8 @@ package proactive_travel;
 
 import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -84,12 +86,20 @@ public class sortidaKML {
         sortidaKML.println("</Placemark>");
     }
     
-    public static void generarFitxer(Ruta r) throws FileNotFoundException, UnsupportedEncodingException{
+    public static void generarFitxer(Ruta r){
         //Setup
         Iterator<ItemRuta> it = r.iterarItems();
         ItemRuta ir = null;
         
-        setup();
+        try {
+            try {
+                setup();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(sortidaKML.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(sortidaKML.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         Deque<Coordenades> lc = new ArrayDeque<Coordenades>();
         while(it.hasNext()){
