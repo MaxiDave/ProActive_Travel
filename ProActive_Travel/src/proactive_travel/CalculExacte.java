@@ -145,8 +145,8 @@ public abstract class CalculExacte {
             
             private void desanotar(ItemRuta item){
                 //System.out.println("Desanotem "+item);
-                Integer duradaTempsLliure= ruta.treureUltimItem();
-                tempsActual= tempsActual.minusMinutes(item.obtDurada()+duradaTempsLliure);
+                // ------> Integer duradaTempsLliure= ruta.treureUltimItem();
+                // ------> tempsActual= tempsActual.minusMinutes(item.obtDurada()+duradaTempsLliure);
                 if(item instanceof Visita){
                     visitats.remove(item.obtPuntSortida());
                     if(puntsObligats.containsKey(item.obtPuntSortida())){

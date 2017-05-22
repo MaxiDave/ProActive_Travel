@@ -14,14 +14,14 @@ import java.util.*;
  */
 
 public class sortidaKML {
-    private PrintWriter sortidaKML;
-    public void setup() throws FileNotFoundException, UnsupportedEncodingException{
+    private static PrintWriter sortidaKML;
+    private static void setup() throws FileNotFoundException, UnsupportedEncodingException{
         //Preparacio del fitxer
-        sortidaKML = new PrintWriter("NOM_FITXER.kml","UTF-8");
+        sortidaKML = new PrintWriter("NOM_FITXER.kml","UTF-8"); //Aqui tens el nom si el vols passar per parametre amb string et deixo sino posem un generic
         
         //Capçalera del fitxer
         sortidaKML.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-        sortidaKML.println("kml xmlns=\"http://earth.google.com/kml/2.2\"");
+        sortidaKML.println("<kml xmlns=\"http://earth.google.com/kml/2.2\">");
         sortidaKML.println("    <Document>");
         sortidaKML.println("        <Style id=\"myDefaultStyles\">");
         sortidaKML.println("            <LineStyle>");
@@ -38,12 +38,14 @@ public class sortidaKML {
         sortidaKML.println("        </Style>");
     }
     
-    public void ending(){
+    private static void ending(){
         sortidaKML.println("    </Document>");
         sortidaKML.println("</kml>");
+        
+        sortidaKML.flush();
     }
     
-    public void posarBandera(String nom,String latitud,String longitud){
+    private static void posarBandera(String nom,String latitud,String longitud){
         sortidaKML.println("<Placemark>");
         sortidaKML.print("    <name>");
         sortidaKML.print(nom);
@@ -59,7 +61,7 @@ public class sortidaKML {
         sortidaKML.println("</Placemark>");
     }
     
-    public void ferCircuit(List<Coordenades> l){
+    private static void ferCircuit(Deque<Coordenades> l){
         sortidaKML.println("<Placemark>");
         sortidaKML.println("    <name>Circuit</name>"); //Si et fa ilu pots posar un nom millor
         sortidaKML.println("    <styleUrl>#myDefaultStyles</styleUrl>");
@@ -70,6 +72,7 @@ public class sortidaKML {
         sortidaKML.println("        <coordinates>");
         
         for(Coordenades c : l){
+            sortidaKML.print("            ");
             sortidaKML.print(c.obtLongitud());
             sortidaKML.print(",");
             sortidaKML.print(c.obtLatitud());
@@ -79,5 +82,33 @@ public class sortidaKML {
         sortidaKML.println("        </coordinates>");
         sortidaKML.println("    </LineString>");
         sortidaKML.println("</Placemark>");
+    }
+    
+    public static void generarFitxer(Ruta r) throws FileNotFoundException, UnsupportedEncodingException{
+        //Setup
+        Iterator<ItemRuta> it = r.iterarItems();
+        ItemRuta ir = null;
+        
+        setup();
+        
+        Deque<Coordenades> lc = new ArrayDeque<Coordenades>();
+        while(it.hasNext()){
+            ir = it.next();
+            if(ir.obtPuntSortida() instanceof PuntVisitable || ir.obtPuntSortida() instanceof Allotjament){
+                //Afegir al List per fer circuit i posar bandera
+                if (ir.obtPuntSortida() instanceof PuntVisitable) {
+                    lc.add(ir.obtPuntSortida().obtCoordenades());
+                    posarBandera(ir.obtPuntSortida().obtenirNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
+                }
+                else{
+                    lc.add(((Allotjament) ir).obtCoordenades());
+                    posarBandera(((Allotjament) ir).obtenirNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
+                }
+            }
+        }
+        //Fer circuit
+        ferCircuit(lc);
+        
+        ending();
     }
 }

@@ -157,6 +157,10 @@ public class Ruta{
         this.tipus= tipus;
     }
     
+    public Iterator iterarItems(){
+        return items.iterator();
+    }
+    
     @Override
     public String toString(){
         String costArrodonit= String.format("%.2f", cost);

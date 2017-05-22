@@ -5,6 +5,8 @@ import java.io.*;                       // Entrada/Sortida
 import java.net.MalformedURLException;  // COmprovar URL imatge de fons
 import java.text.DecimalFormat;
 import java.util.*;                     // Estructures de Dades de l'API
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;  // Java Application
 import javafx.concurrent.*;             // Serveis 
 import javafx.event.*;                  // Events
@@ -179,6 +181,15 @@ public final class ProActive_Travel extends Application {
                 @Override
                 public void handle(final ActionEvent e) {
                     //AQUÍ S'HA DE GENERAR I MOSTRAR DOCUMENTS GOOGLE MAPS
+                    try {
+                        String nom= "NOM_FITXER.kml"; Integer num= 1; String ext=".txt"; //De moment nomes es genera NOM_FITXER.kml es a dir un mira com esta posat a ProActive_Travel / Greedy
+                        while(true){
+                            File file = new File(nom);
+                            if (Desktop.isDesktopSupported()) Desktop.getDesktop().open(file);
+                        }
+                    } catch (IOException | IllegalArgumentException ex) {
+                        //No troba més fitxers, para de mostrar
+                    }
                 }
             });
         
@@ -299,6 +310,13 @@ public final class ProActive_Travel extends Application {
                             Iterator<Viatge> it = viatges.iterator();
                             while (it.hasNext()) {
                                 Ruta r = CalculGreedy.calcularRutaGreedy(it.next(), mundi);
+                                try {
+                                    sortidaKML.generarFitxer(r);
+                                } catch (FileNotFoundException ex) {
+                                    Logger.getLogger(ProActive_Travel.class.getName()).log(Level.SEVERE, null, ex);
+                                } catch (UnsupportedEncodingException ex) {
+                                    Logger.getLogger(ProActive_Travel.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
                             System.out.println("I'm The Reaper and death is my shadow");
                         }
