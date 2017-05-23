@@ -167,8 +167,9 @@ public class Mapa {
         }
         return minim;
     }
-    public Integer obtenirDespl(PuntInteres origen, PuntInteres desti){
+    public Integer obtenirDespl(PuntInteres origen, PuntInteres desti,Map<PuntInteres,MitjaTransport> MTs,boolean afegir){
         int tempsMinim=Integer.MAX_VALUE;
+        MitjaTransport MT= null;
         //COMPROVACIO MTDIR
         if(transDirecte.get(origen)!=null){
             HashMap<PuntInteres, Set<MTDirecte>> ori = new HashMap<PuntInteres, Set<MTDirecte>>(transDirecte.get(origen));
@@ -178,6 +179,7 @@ public class Mapa {
                     for(MTDirecte i : des){
                         if(i.getDurada()< tempsMinim){
                             tempsMinim=i.getDurada();
+                            MT=i;
                         }
                     }
                 }
@@ -188,18 +190,23 @@ public class Mapa {
             Lloc pare = origen.obtenirLloc();
             Iterator<MitjaTransport> it = pare.obtTransportUrba();
             int temps = Integer.MAX_VALUE;
+            MitjaTransport mX = null;
             while(it.hasNext()){
-                temps = it.next().getDurada();
+                mX = it.next();
+                temps = mX.getDurada();
                 if(temps<tempsMinim){
                     tempsMinim = temps;
+                    MT=mX;
                 }
             }
         }
+        if(afegir)MTs.put(desti, MT);
         return tempsMinim;
     }
     
-    public Double obtenirCostDespl(PuntInteres origen, PuntInteres desti){
+    public Double obtenirCostDespl(PuntInteres origen, PuntInteres desti,Map<PuntInteres,MitjaTransport> MTs, boolean afegir){
         double costMinim=Double.MAX_VALUE;
+        MitjaTransport MT= null;
         //COMPROVACIO MTDIR
         if(transDirecte.get(origen)!=null){
             HashMap<PuntInteres, Set<MTDirecte>> ori = new HashMap<PuntInteres, Set<MTDirecte>>(transDirecte.get(origen));
@@ -209,23 +216,28 @@ public class Mapa {
                     for (MTDirecte i : des) {
                         if (i.getPreu() < costMinim) {
                             costMinim = i.getPreu();
+                            MT=i;
                         }
                     }
                 }
             }
         }
         //COMPROVACIO MTURBA
-        if(origen.obtenirLloc().equals(desti.obtenirLloc())){
+        if(origen!=null && origen.obtenirLloc().equals(desti.obtenirLloc())){
             Lloc pare = origen.obtenirLloc();
             Iterator<MitjaTransport> it = pare.obtTransportUrba();
             double preu = Double.MAX_VALUE;
+            MitjaTransport mX = null;
             while(it.hasNext()){
-                preu = it.next().getPreu();
+                mX = it.next();
+                preu = mX.getPreu();
                 if(preu<costMinim){
                     costMinim = preu;
+                    MT=mX;
                 }
             }
         }
+        if(afegir)MTs.put(desti, MT);
         return costMinim;
     }    
     /*

@@ -104,15 +104,17 @@ public class sortidaKML {
         Deque<Coordenades> lc = new ArrayDeque<Coordenades>();
         while(it.hasNext()){
             ir = it.next();
-            if(ir.obtPuntSortida() instanceof PuntVisitable || ir.obtPuntSortida() instanceof Allotjament){
-                //Afegir al List per fer circuit i posar bandera
-                if (ir.obtPuntSortida() instanceof PuntVisitable) {
-                    lc.add(ir.obtPuntSortida().obtCoordenades());
-                    posarBandera(ir.obtPuntSortida().obtenirNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
-                }
-                else{
-                    lc.add(((EstadaHotel) ir).obtPuntSortida().obtCoordenades());
-                    posarBandera(((EstadaHotel) ir).obtPuntSortida().obtenirNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
+            if(ir instanceof Visita || ir instanceof EstadaHotel){
+                if(ir.obtPuntSortida() instanceof PuntVisitable || ir.obtPuntSortida() instanceof Allotjament){
+                    //Afegir al List per fer circuit i posar bandera
+                    if (ir.obtPuntSortida() instanceof PuntVisitable) {
+                        lc.add(ir.obtPuntSortida().obtCoordenades());
+                        posarBandera(ir.obtPuntSortida().obtenirNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
+                    }
+                    else{
+                        lc.add(((EstadaHotel) ir).obtPuntSortida().obtCoordenades());
+                        posarBandera(((EstadaHotel) ir).obtPuntSortida().obtenirNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
+                    }
                 }
             }
         }

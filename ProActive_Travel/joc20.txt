@@ -839,19 +839,21 @@ viatge
 2017-04-11
 08:00
 2
-400
+4000
 luxe
 Brayden Isbrand
 Supre Mairo
 Rinat Eneko
 Primus Dragan
 *
+Sagrada Familia
+Parc Güell
+Casa Milà
 Camp Nou
+Catedral de Barcelona
+Aquarium
 Gran Teatre del Liceo
 Tibidabo
-Catedral de Barcelona
-Gran Ruta de l'Aigua
-Sant Pol de Mar
 *
 ruta barata
 ruta curta

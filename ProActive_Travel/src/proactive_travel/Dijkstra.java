@@ -17,6 +17,8 @@ public class Dijkstra {
     private Set<PuntInteres> nodesPerAgafar;
 
     private Map<PuntInteres,PuntInteres> predecessors;
+    private Map<PuntInteres,MitjaTransport> transports;
+    
     private Map<PuntInteres,Integer> temps;
     private Map<PuntInteres,Double> cost;
     private Map<PuntInteres,Integer> satisfaccio;
@@ -30,6 +32,7 @@ public class Dijkstra {
 	temps = new HashMap<PuntInteres, Integer>();
         cost = new HashMap<PuntInteres, Double>();
 	predecessors = new HashMap<PuntInteres, PuntInteres>();
+        transports = new HashMap<PuntInteres, MitjaTransport>();
         satisfaccio = new HashMap<PuntInteres, Integer>();
         tipus = new String();
     }
@@ -44,6 +47,11 @@ public class Dijkstra {
         }
         cami.add(d);
         return cami;
+    }
+    
+    public Map<PuntInteres, MitjaTransport> retornaMitjans(){
+        //HashMap<PuntInteres,Mitjatransport> camiMT = new HashMap();
+        return transports;
     }
     
     public Integer retornaTemps(){
@@ -88,22 +96,27 @@ public class Dijkstra {
             }
             else{
                 if(tipus.equals("temps")){
-                    if(mundi.obtenirDespl(origen, p) < mundi.obtenirDespl(origen, minim)){ //Obtenir despl
+                    if(mundi.obtenirDespl(origen, p,transports,false) < mundi.obtenirDespl(origen, minim, transports,false)){ //Obtenir despl
                         minim=p;
                     }
                 }
                 else if(tipus.equals("diners")){
-                    if(mundi.obtenirCostDespl(origen, p) < mundi.obtenirCostDespl(origen, minim)){ //Obtenir despl
+                    if(mundi.obtenirCostDespl(origen, p,transports,false) < mundi.obtenirCostDespl(origen, minim,transports,false)){ //Obtenir despl
                         minim=p;
                     }
                 }
                 else{
-                    if(mundi.obtenirDespl(origen, p) > mundi.obtenirDespl(origen, minim)){ //Obtenir despl
+                    if(mundi.obtenirDespl(origen, p,transports,false) > mundi.obtenirDespl(origen, minim,transports,false)){ //Obtenir despl
                         minim=p;
                     }
                 }
             }
         }
+        
+        if(tipus.equals("temps")) mundi.obtenirDespl(origen,minim,transports,true);
+        else if(tipus.equals("diners")) mundi.obtenirCostDespl(origen,minim,transports,true);
+        else mundi.obtenirDespl(origen,minim,transports,true);
+        
         return minim;
     }
         
@@ -112,8 +125,8 @@ public class Dijkstra {
             Set<PuntInteres> nodesVeins = mundi.obtenirVeins(pi); //obtenir veins
             //Veins MTDir
             for (PuntInteres p : nodesVeins) {
-                if (obtenirTemps(p) > obtenirTemps(pi) + mundi.obtenirDespl(pi, p)) {
-                    temps.put(p, obtenirTemps(pi) + mundi.obtenirDespl(pi, p));
+                if (obtenirTemps(p) > obtenirTemps(pi) + mundi.obtenirDespl(pi, p,transports,false)) {
+                    temps.put(p, obtenirTemps(pi) + mundi.obtenirDespl(pi, p,transports,false));
                     predecessors.put(p, pi);
                     nodesPerAgafar.add(p);
                 }
@@ -123,8 +136,8 @@ public class Dijkstra {
         if(pi!=null){
             Set<PuntInteres> nodesVeinsUrba = mundi.obtenirVeinsUrba(pi);
             for (PuntInteres p : nodesVeinsUrba) {
-                if (obtenirTemps(p) > obtenirTemps(pi) + mundi.obtenirDespl(pi, p)) {
-                    temps.put(p, obtenirTemps(pi) + mundi.obtenirDespl(pi, p));
+                if (obtenirTemps(p) > obtenirTemps(pi) + mundi.obtenirDespl(pi, p,transports,false)) {
+                    temps.put(p, obtenirTemps(pi) + mundi.obtenirDespl(pi, p,transports,false));
                     predecessors.put(p, pi);
                     nodesPerAgafar.add(p);
                 }
@@ -137,8 +150,8 @@ public class Dijkstra {
             Set<PuntInteres> nodesVeins = mundi.obtenirVeins(pi); //obtenir veins
             //Veins MTDir
             for (PuntInteres p : nodesVeins) {;
-                if (obtenirCost(p) > obtenirCost(pi) + mundi.obtenirCostDespl(pi, p)) {
-                    cost.put(p, obtenirCost(pi) + mundi.obtenirCostDespl(pi, p));
+                if (obtenirCost(p) > obtenirCost(pi) + mundi.obtenirCostDespl(pi, p,transports,false)) {
+                    cost.put(p, obtenirCost(pi) + mundi.obtenirCostDespl(pi, p,transports,false));
                     predecessors.put(p, pi);
                     nodesPerAgafar.add(p);
                 }
@@ -148,8 +161,8 @@ public class Dijkstra {
         if(pi!=null){
             Set<PuntInteres> nodesVeinsUrba = mundi.obtenirVeinsUrba(pi);
             for (PuntInteres p : nodesVeinsUrba) {
-                if (obtenirCost(p) > obtenirCost(pi) + mundi.obtenirCostDespl(pi, p)) {
-                    cost.put(p, obtenirCost(pi) + mundi.obtenirCostDespl(pi, p));
+                if (obtenirCost(p) > obtenirCost(pi) + mundi.obtenirCostDespl(pi, p,transports,false)) {
+                    cost.put(p, obtenirCost(pi) + mundi.obtenirCostDespl(pi, p,transports,false));
                     predecessors.put(p, pi);
                     nodesPerAgafar.add(p);
                 }

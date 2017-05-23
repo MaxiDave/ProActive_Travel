@@ -103,20 +103,24 @@ public abstract class CalculGreedy {
         Ruta barata = new Ruta("barata",actual);
         //Tractament origen
         Set<PuntInteres> preparacio = new HashSet<PuntInteres>();
+        Map<PuntInteres, MitjaTransport> MT1 = null;
         preparacio.add(origen);
-        analitzarLlocs(preparacio, barata, preferenciesClients, mundi);
+        analitzarLlocs(preparacio, barata, preferenciesClients, mundi, MT1, puntAct);
         
         while (!fi && temps) {
-            Set<PuntInteres> cami = seleccionarMesViable(mundi, "diners", puntAct);
-            puntAct = analitzarLlocs(cami, barata, preferenciesClients, mundi); //Mirar si valen la pena per visitar i anar mirant la hora del dia ja que s'ha de anar a hotels
+            Dijkstra d = seleccionarMesViable(mundi, "diners", puntAct);
+            Set<PuntInteres> cami = d.retornaPuntsInteres();
+            Map<PuntInteres, MitjaTransport> camiMT = d.retornaMitjans();
+            puntAct = analitzarLlocs(cami, barata, preferenciesClients, mundi, camiMT,puntAct); //Mirar si valen la pena per visitar i anar mirant la hora del dia ja que s'ha de anar a hotels
             temps = comprovarTemps();
             fi = comprovarFi();
         }
-        //Tractar desti <<------------------------------------------------------ FALTA
+        //Tractar desti
         Dijkstra d = new Dijkstra();
         d.camiMinim(mundi, puntAct, desti, "diners");
+        Map<PuntInteres, MitjaTransport> MT2 = d.retornaMitjans();
         Set<PuntInteres> ending = d.retornaPuntsInteres();
-        analitzarLlocs(ending,barata,preferenciesClients,mundi);
+        analitzarLlocs(ending,barata,preferenciesClients,mundi, MT2, puntAct);
         return barata;
     }
     
@@ -128,11 +132,14 @@ public abstract class CalculGreedy {
         //Tractament origen
         Set<PuntInteres> preparacio = new HashSet<PuntInteres>();
         preparacio.add(origen);
-        analitzarLlocs(preparacio, rapida, preferenciesClients, mundi);
+        Map<PuntInteres,MitjaTransport> MT1 = null;
+        analitzarLlocs(preparacio, rapida, preferenciesClients, mundi, MT1, puntAct);
         
         while (!fi && temps) {
-            Set<PuntInteres> cami = seleccionarMesViable(mundi, "temps", puntAct);
-            puntAct = analitzarLlocs(cami, rapida, preferenciesClients, mundi); //Mirar si valen la pena per visitar i anar mirant la hora del dia ja que s'ha de anar a hotels
+            Dijkstra d = seleccionarMesViable(mundi, "temps", puntAct);
+            Set<PuntInteres> cami = d.retornaPuntsInteres();
+            Map<PuntInteres, MitjaTransport> camiMT = d.retornaMitjans();
+            puntAct = analitzarLlocs(cami, rapida, preferenciesClients, mundi,camiMT, puntAct); //Mirar si valen la pena per visitar i anar mirant la hora del dia ja que s'ha de anar a hotels
             temps = comprovarTemps();
             fi = comprovarFi();
         }
@@ -140,11 +147,12 @@ public abstract class CalculGreedy {
         Dijkstra d = new Dijkstra();
         d.camiMinim(mundi, puntAct, desti, "temps");
         Set<PuntInteres> ending = d.retornaPuntsInteres();
-        analitzarLlocs(ending,rapida,preferenciesClients,mundi);
+        Map<PuntInteres,MitjaTransport> MT2 = d.retornaMitjans();
+        analitzarLlocs(ending,rapida,preferenciesClients,mundi, MT2, puntAct);
         return rapida;
     }
     
-    private static Set<PuntInteres> seleccionarMesViable(Mapa mundi, String tipus, PuntInteres puntAct) {
+    private static Dijkstra seleccionarMesViable(Mapa mundi, String tipus, PuntInteres puntAct) {
         Dijkstra d = new Dijkstra();
         Dijkstra definitiu = new Dijkstra();
         
@@ -167,13 +175,25 @@ public abstract class CalculGreedy {
                 throw new UnsupportedOperationException("Not supported yet");
             }
         }
-        HashSet<PuntInteres> millorCami = definitiu.retornaPuntsInteres();
-        return millorCami;
+        return definitiu;
     }
 
-    private static PuntInteres analitzarLlocs(Set<PuntInteres> cami, Ruta barata, Map<String, Integer> preferenciesClients, Mapa mundi) {
+    private static PuntInteres analitzarLlocs(Set<PuntInteres> cami, Ruta barata, Map<String, Integer> preferenciesClients, Mapa mundi, Map<PuntInteres, MitjaTransport> camiMT, PuntInteres puntAct) {
         PuntInteres act = null;
         for(PuntInteres p : cami){
+            if(camiMT!=null && camiMT.get(p)!=null && p!=puntAct){
+                if(camiMT.get(p) instanceof MTIndirecte){
+
+                }
+                else{
+                    MitjaTransport mtu = camiMT.get(p);
+                    MTDirecte cast = new MTDirecte(mtu.getNom(),puntAct,p,mtu.getPreu(),mtu.getDurada());
+                    TrajecteDirecte td = new TrajecteDirecte(cast,actual);
+                    barata.afegeixItemRuta(td);
+                    actual=td.obtFinal();
+                }
+            }
+            
             if(p.grauSatisfaccio(preferenciesClients) > nCli/3 && p instanceof PuntVisitable && !puntsIntermig.contains(p) && desti!=p && origen!=p && !visitats.contains(p)){
                 if(((PuntVisitable) p).estaObert(actual.toLocalTime())){
                     Visita v = new Visita(((PuntVisitable) p),actual,p.grauSatisfaccio(preferenciesClients));
@@ -219,6 +239,16 @@ public abstract class CalculGreedy {
                 act = p2;
             }
         }
+        
+        while(actual.getHour()<4){
+            if(actual.getHour()<3){
+                actual=actual.plusHours(1);
+            }
+            else{
+                actual=actual.plusMinutes(1);
+            }
+        }
+        
         Dijkstra d2 = new Dijkstra();
         d2.camiMinim(mundi, act, p, "diners");
 
@@ -244,12 +274,15 @@ public abstract class CalculGreedy {
         Ruta rapida = new Ruta("satisfactoria",actual);
         //Tractament origen
         Set<PuntInteres> preparacio = new HashSet<PuntInteres>();
+        Map<PuntInteres, MitjaTransport> MT1 = null;
         preparacio.add(origen);
-        analitzarLlocs(preparacio, rapida, preferenciesClients, mundi);
+        analitzarLlocs(preparacio, rapida, preferenciesClients, mundi, MT1, puntAct);
         
         while (!fi && temps) {
-            Set<PuntInteres> cami = seleccionarMesViable(mundi, "temps", puntAct);
-            puntAct = analitzarLlocs(cami, rapida, preferenciesClients, mundi); //Mirar si valen la pena per visitar i anar mirant la hora del dia ja que s'ha de anar a hotels
+            Dijkstra d = seleccionarMesViable(mundi, "temps", puntAct);
+            Set<PuntInteres> cami = d.retornaPuntsInteres();
+            Map<PuntInteres, MitjaTransport> camiMT = d.retornaMitjans();
+            puntAct = analitzarLlocs(cami, rapida, preferenciesClients, mundi, camiMT, puntAct); //Mirar si valen la pena per visitar i anar mirant la hora del dia ja que s'ha de anar a hotels
             temps = comprovarTemps();
             fi = comprovarFi();
         }
@@ -257,7 +290,8 @@ public abstract class CalculGreedy {
         Dijkstra d = new Dijkstra();
         d.camiMinim(mundi, puntAct, desti, "temps");
         Set<PuntInteres> ending = d.retornaPuntsInteres();
-        analitzarLlocs(ending,rapida,preferenciesClients,mundi);
+        Map<PuntInteres, MitjaTransport> MT2 = d.retornaMitjans();
+        analitzarLlocs(ending,rapida,preferenciesClients,mundi, MT2, puntAct);
         return rapida;
     }
     
