@@ -177,8 +177,9 @@ public class Mapa {
         }
         return minim;
     }
-    public Integer obtenirDespl(PuntInteres origen, PuntInteres desti){
+    public Integer obtenirDespl(PuntInteres origen, PuntInteres desti,Map<PuntInteres,MitjaTransport> MTs,boolean afegir){
         int tempsMinim=Integer.MAX_VALUE;
+        MitjaTransport MT= null;
         //COMPROVACIO MTDIR
         if(transDirecte.get(origen)!=null){
             HashMap<PuntInteres, Set<MTDirecte>> ori = new HashMap<PuntInteres, Set<MTDirecte>>(transDirecte.get(origen));
@@ -188,6 +189,7 @@ public class Mapa {
                     for(MTDirecte i : des){
                         if(i.getDurada()< tempsMinim){
                             tempsMinim=i.getDurada();
+                            MT=i;
                         }
                     }
                 }
@@ -198,18 +200,23 @@ public class Mapa {
             Lloc pare = origen.obtenirLloc();
             Iterator<MitjaTransport> it = pare.obtTransportUrba();
             int temps = Integer.MAX_VALUE;
+            MitjaTransport mX = null;
             while(it.hasNext()){
-                temps = it.next().getDurada();
+                mX = it.next();
+                temps = mX.getDurada();
                 if(temps<tempsMinim){
                     tempsMinim = temps;
+                    MT=mX;
                 }
             }
         }
+        if(afegir)MTs.put(desti, MT);
         return tempsMinim;
     }
     
-    public Double obtenirCostDespl(PuntInteres origen, PuntInteres desti){
+    public Double obtenirCostDespl(PuntInteres origen, PuntInteres desti,Map<PuntInteres,MitjaTransport> MTs, boolean afegir){
         double costMinim=Double.MAX_VALUE;
+        MitjaTransport MT= null;
         //COMPROVACIO MTDIR
         if(transDirecte.get(origen)!=null){
             HashMap<PuntInteres, Set<MTDirecte>> ori = new HashMap<PuntInteres, Set<MTDirecte>>(transDirecte.get(origen));
@@ -219,25 +226,31 @@ public class Mapa {
                     for (MTDirecte i : des) {
                         if (i.getPreu() < costMinim) {
                             costMinim = i.getPreu();
+                            MT=i;
                         }
                     }
                 }
             }
         }
         //COMPROVACIO MTURBA
-        if(origen.obtenirLloc().equals(desti.obtenirLloc())){
+        if(origen!=null && origen.obtenirLloc().equals(desti.obtenirLloc())){
             Lloc pare = origen.obtenirLloc();
             Iterator<MitjaTransport> it = pare.obtTransportUrba();
             double preu = Double.MAX_VALUE;
+            MitjaTransport mX = null;
             while(it.hasNext()){
-                preu = it.next().getPreu();
+                mX = it.next();
+                preu = mX.getPreu();
                 if(preu<costMinim){
                     costMinim = preu;
+                    MT=mX;
                 }
             }
         }
+        if(afegir)MTs.put(desti, MT);
         return costMinim;
     }
+    
     
     //pre: tipus és barata, curta o sat
     public List<MitjaTransport> obtMitjansPunt(PuntRuta pR, String tipus){
@@ -356,16 +369,6 @@ public class Mapa {
         generarEDLlocs();
     }
     
-    public void mostraEDBacktraking(){
-        //private Map<Estacio, Map<Lloc, List<MTPunts>>> estacioAPunts;
-        //List<MTPunts> llista= estacioAPunts.get(llocs.get("Girona").obtEstacio("tren")).get(llocs.get("Barcelona"));
-        //List<MTPunts> llista2= estacioAPunts.get(llocs.get("Barcelona").obtEstacio("tren")).get(llocs.get("Girona"));
-        //System.out.println(llista);
-        //System.out.println(llista2);
-        //List<MitjaTransport> llista= obtMitjansPunt(punts.get("Aquarium"), "barata");
-        //System.out.println(llista);
-    }
-    
     public Set<PuntInteres> obtenirVeins(PuntInteres pi) {
         Map<PuntInteres, Set<MTDirecte>> veinsTransports = transDirecte.get(pi);
         if(veinsTransports!=null){
@@ -375,25 +378,31 @@ public class Mapa {
         return null;
     }
     
-    public Set<PuntInteres> obtenirHotelProper(PuntInteres pi,String tipusDijk){
+    public ArrayDeque<PuntInteres> obtenirHotelProper(PuntInteres pi,String tipusDijk){
         Dijkstra d = new Dijkstra();
-        Dijkstra millor = new Dijkstra();
+        Dijkstra millor = null;
         Collection<PuntInteres> c = punts.values();
         for(PuntInteres p : c){
+            System.out.println(p.obtNom());
             if(p instanceof Allotjament){
+                System.out.println("Allotjament localitzat");
                 d.camiMinim(this, pi, p, tipusDijk);
-                if(tipusDijk.matches("diners") && (d.retornaCost() < millor.retornaCost())){
-                    millor=d;
+                if(tipusDijk.matches("diners") && millor!=null){
+                    if(d.retornaCost() < millor.retornaCost()){
+                        millor=d;
+                    }
                 }
-                else if(tipusDijk.matches("temps") && (d.retornaTemps()< millor.retornaTemps())){
-                    millor=d;
+                else if(tipusDijk.matches("temps") && millor!=null){
+                    if(d.retornaTemps()< millor.retornaTemps()){
+                        millor=d;
+                    }
                 }
                 else{
-                    //Satisfaccio
+                    millor=d;
                 }
             }
         }
-        Set<PuntInteres> cami = millor.retornaPuntsInteres();
+        ArrayDeque<PuntInteres> cami = millor.retornaPuntsInteres();
         return cami;
     }
 

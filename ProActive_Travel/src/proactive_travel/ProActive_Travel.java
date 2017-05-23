@@ -3,10 +3,7 @@ package proactive_travel;
 import java.awt.Desktop;                // Obrir els fitxers .txt
 import java.io.*;                       // Entrada/Sortida
 import java.net.MalformedURLException;  // COmprovar URL imatge de fons
-import java.text.DecimalFormat;
 import java.util.*;                     // Estructures de Dades de l'API
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;  // Java Application
 import javafx.concurrent.*;             // Serveis 
 import javafx.event.*;                  // Events
@@ -141,7 +138,6 @@ public final class ProActive_Travel extends Application {
                     calculantBack.setText("Calculant...");
                     calculantBack.setVisible(true);
                     mundi.generarEDBacktraking();
-                    mundi.mostraEDBacktraking();
                     if(!serveiBack.isRunning()) serveiBack.start();
                 }
             });

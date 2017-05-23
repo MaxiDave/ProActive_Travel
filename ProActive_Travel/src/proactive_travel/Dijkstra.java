@@ -17,8 +17,11 @@ public class Dijkstra {
     private Set<PuntInteres> nodesPerAgafar;
 
     private Map<PuntInteres,PuntInteres> predecessors;
+    private Map<PuntInteres,MitjaTransport> transports;
+    
     private Map<PuntInteres,Integer> temps;
     private Map<PuntInteres,Double> cost;
+    private Map<PuntInteres,Integer> satisfaccio;
     
     private String tipus;
     private PuntInteres dest;
@@ -29,19 +32,33 @@ public class Dijkstra {
 	temps = new HashMap<PuntInteres, Integer>();
         cost = new HashMap<PuntInteres, Double>();
 	predecessors = new HashMap<PuntInteres, PuntInteres>();
+        transports = new HashMap<PuntInteres, MitjaTransport>();
+        satisfaccio = new HashMap<PuntInteres, Integer>();
         tipus = new String();
     }
     
-    public HashSet<PuntInteres> retornaPuntsInteres(){
-        HashSet<PuntInteres> cami = new HashSet();
+    public ArrayDeque<PuntInteres> retornaPuntsInteres(){
+        System.out.println(dest.obtNom());
+        ArrayDeque<PuntInteres> invers = new ArrayDeque();
         PuntInteres d=dest;
-        cami.add(d);
+        invers.add(d);
         while(predecessors.containsKey(d)){
-            cami.add(predecessors.get(d));
+            invers.add(predecessors.get(d));
             d=predecessors.get(d);
         }
-        cami.add(d);
+        //invers.add(d);
+        
+        ArrayDeque<PuntInteres> cami = new ArrayDeque();
+        while(!invers.isEmpty()){
+            cami.add(invers.pollLast());
+        }
+        
         return cami;
+    }
+    
+    public Map<PuntInteres, MitjaTransport> retornaMitjans(){
+        //HashMap<PuntInteres,Mitjatransport> camiMT = new HashMap();
+        return transports;
     }
     
     public Integer retornaTemps(){
@@ -52,10 +69,15 @@ public class Dijkstra {
         return cost.get(dest);
     }
     
+    public Integer retornaSatisfaccio(){
+        return satisfaccio.get(dest);
+    }
+    
     public Integer camiMinim(Mapa mundi, PuntInteres origen, PuntInteres desti, String tipusDij){
         dest=desti;
         if(tipusDij.equals("temps")) tipus="temps";
-        else tipus="diners";
+        else if(tipusDij.equals("diners")) tipus="diners";
+        else tipus="satisfaccio";
 	temps.put(origen,0);
         cost.put(origen, 0.0);
 	nodesPerAgafar.add(origen);
@@ -64,7 +86,8 @@ public class Dijkstra {
             nodesAgafats.add(pi);
             nodesPerAgafar.remove(pi);
             if(tipus.equals("temps")) buscarDistanciesMinimes(mundi,pi);
-            else buscarCostsMinims(mundi,pi);
+            else if(tipus.equals("diners")) buscarCostsMinims(mundi,pi);
+            else buscarSatisfaccioMaxima(mundi,pi);
 	}
         if(!nodesAgafats.contains(desti)){
             return -1;
@@ -80,17 +103,27 @@ public class Dijkstra {
             }
             else{
                 if(tipus.equals("temps")){
-                    if(mundi.obtenirDespl(origen, p) < mundi.obtenirDespl(origen, minim)){ //Obtenir despl
+                    if(mundi.obtenirDespl(origen, p,transports,false) < mundi.obtenirDespl(origen, minim, transports,false)){ //Obtenir despl
+                        minim=p;
+                    }
+                }
+                else if(tipus.equals("diners")){
+                    if(mundi.obtenirCostDespl(origen, p,transports,false) < mundi.obtenirCostDespl(origen, minim,transports,false)){ //Obtenir despl
                         minim=p;
                     }
                 }
                 else{
-                    if(mundi.obtenirCostDespl(origen, p) < mundi.obtenirCostDespl(origen, minim)){ //Obtenir despl
+                    if(mundi.obtenirDespl(origen, p,transports,false) > mundi.obtenirDespl(origen, minim,transports,false)){ //Obtenir despl
                         minim=p;
                     }
-                }       
+                }
             }
         }
+        
+        if(tipus.equals("temps")) mundi.obtenirDespl(origen,minim,transports,true);
+        else if(tipus.equals("diners")) mundi.obtenirCostDespl(origen,minim,transports,true);
+        else mundi.obtenirDespl(origen,minim,transports,true);
+        
         return minim;
     }
         
@@ -99,8 +132,8 @@ public class Dijkstra {
             Set<PuntInteres> nodesVeins = mundi.obtenirVeins(pi); //obtenir veins
             //Veins MTDir
             for (PuntInteres p : nodesVeins) {
-                if (obtenirTemps(p) > obtenirTemps(pi) + mundi.obtenirDespl(pi, p)) {
-                    temps.put(p, obtenirTemps(pi) + mundi.obtenirDespl(pi, p));
+                if (obtenirTemps(p) > obtenirTemps(pi) + mundi.obtenirDespl(pi, p,transports,false)) {
+                    temps.put(p, obtenirTemps(pi) + mundi.obtenirDespl(pi, p,transports,false));
                     predecessors.put(p, pi);
                     nodesPerAgafar.add(p);
                 }
@@ -110,8 +143,8 @@ public class Dijkstra {
         if(pi!=null){
             Set<PuntInteres> nodesVeinsUrba = mundi.obtenirVeinsUrba(pi);
             for (PuntInteres p : nodesVeinsUrba) {
-                if (obtenirTemps(p) > obtenirTemps(pi) + mundi.obtenirDespl(pi, p)) {
-                    temps.put(p, obtenirTemps(pi) + mundi.obtenirDespl(pi, p));
+                if (obtenirTemps(p) > obtenirTemps(pi) + mundi.obtenirDespl(pi, p,transports,false)) {
+                    temps.put(p, obtenirTemps(pi) + mundi.obtenirDespl(pi, p,transports,false));
                     predecessors.put(p, pi);
                     nodesPerAgafar.add(p);
                 }
@@ -124,8 +157,8 @@ public class Dijkstra {
             Set<PuntInteres> nodesVeins = mundi.obtenirVeins(pi); //obtenir veins
             //Veins MTDir
             for (PuntInteres p : nodesVeins) {;
-                if (obtenirCost(p) > obtenirCost(pi) + mundi.obtenirCostDespl(pi, p)) {
-                    cost.put(p, obtenirCost(pi) + mundi.obtenirCostDespl(pi, p));
+                if (obtenirCost(p) > obtenirCost(pi) + mundi.obtenirCostDespl(pi, p,transports,false)) {
+                    cost.put(p, obtenirCost(pi) + mundi.obtenirCostDespl(pi, p,transports,false));
                     predecessors.put(p, pi);
                     nodesPerAgafar.add(p);
                 }
@@ -135,8 +168,33 @@ public class Dijkstra {
         if(pi!=null){
             Set<PuntInteres> nodesVeinsUrba = mundi.obtenirVeinsUrba(pi);
             for (PuntInteres p : nodesVeinsUrba) {
-                if (obtenirCost(p) > obtenirCost(pi) + mundi.obtenirCostDespl(pi, p)) {
-                    cost.put(p, obtenirCost(pi) + mundi.obtenirCostDespl(pi, p));
+                if (obtenirCost(p) > obtenirCost(pi) + mundi.obtenirCostDespl(pi, p,transports,false)) {
+                    cost.put(p, obtenirCost(pi) + mundi.obtenirCostDespl(pi, p,transports,false));
+                    predecessors.put(p, pi);
+                    nodesPerAgafar.add(p);
+                }
+            }
+        }
+    }
+    
+        private void buscarSatisfaccioMaxima(Mapa mundi, PuntInteres pi) {
+        if(mundi.obtenirVeins(pi)!=null){
+            Set<PuntInteres> nodesVeins = mundi.obtenirVeins(pi); //obtenir veins
+            //Veins MTDir
+            for (PuntInteres p : nodesVeins) {;
+                if (obtenirSatisfaccio(p) < obtenirSatisfaccio(pi) + obtenirSatisfaccio(p)) {
+                    satisfaccio.put(p, obtenirSatisfaccio(pi) + obtenirSatisfaccio(p));
+                    predecessors.put(p, pi);
+                    nodesPerAgafar.add(p);
+                }
+            }
+        }
+        //Veins TUrba
+        if(pi!=null){
+            Set<PuntInteres> nodesVeinsUrba = mundi.obtenirVeinsUrba(pi);
+            for (PuntInteres p : nodesVeinsUrba) {
+                if (obtenirSatisfaccio(p) > obtenirSatisfaccio(pi) + obtenirSatisfaccio(p)) {
+                    satisfaccio.put(p, obtenirSatisfaccio(pi) + obtenirSatisfaccio(p));
                     predecessors.put(p, pi);
                     nodesPerAgafar.add(p);
                 }
@@ -158,6 +216,16 @@ public class Dijkstra {
 	Double t = cost.get(pi);
 	if(t==null){
 		return Double.MAX_VALUE; //Valor maxim
+	}
+	else{
+		return t;
+	}
+    }
+
+    private Integer obtenirSatisfaccio(PuntInteres pi) {
+        Integer t = satisfaccio.get(pi);
+	if(t==null){
+		return Integer.MAX_VALUE; //Valor maxim
 	}
 	else{
 		return t;

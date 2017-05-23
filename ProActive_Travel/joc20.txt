@@ -1,0 +1,861 @@
+﻿# MaxiDave i MasterBoss
+lloc
+Barcelona
+41.388916,2.174606
+Europe/Madrid
+*
+lloc
+Rubi
+41.49716107567686,2.0306396344676614
+Europe/Madrid
+*
+lloc
+Terrassa
+41.56490897652471,2.0095824915915728
+Europe/Madrid
+*
+lloc
+Sabadell
+41.54949458337239,2.1070861537009478
+Europe/Madrid
+*
+lloc
+Mataro
+41.54024420798892,2.4394225794821978
+Europe/Madrid
+*
+lloc
+Arenys de Mar
+41.58956431774635,2.5506591517478228
+Europe/Madrid
+*
+lloc
+Sant Celoni
+41.68911714277657,2.4765014578588307
+Europe/Madrid
+*
+lloc
+Breda
+41.756766184257046,2.5588989187963307
+Europe/Madrid
+*
+lloc
+Arbucies
+41.81718002824702,2.5012206961400807
+Europe/Madrid
+*
+lloc
+Sant Hilari Sacalm
+41.88571653900208,2.5094604212790728
+Europe/Madrid
+*
+lloc
+Santa Coloma de Farners
+41.87446931461775,2.6605224539525807
+Europe/Madrid
+*
+lloc
+Sils
+41.813085973465355,2.7525329519994557
+Europe/Madrid
+*
+lloc
+Caldes de Malavella
+41.83969265151586,2.8060913016088307
+Europe/Madrid
+*
+lloc
+Llagostera
+41.82956295699892,2.8944396937731653
+Europe/Madrid
+*
+lloc
+Vidreres
+41.790154436884976,2.7749633754137903
+Europe/Madrid
+*
+lloc
+Maçanet
+41.790154436884976,2.7749633754137903
+Europe/Madrid
+*
+lloc
+Girona
+41.98082967266811,2.8161621058825403
+Europe/Madrid
+*
+lloc visitable
+Sagrada Familia
+41.4036299,2.1743558000000576
+Europe/Madrid
+1:30
+15.75
+arquitectura
+religio
+urbanisme
+*
+April 1 - September 30: 09:00-20:00
+*
+lloc visitable
+Parc Güell
+41.41449480000001,2.1526945000000524
+Europe/Madrid
+1:30
+0
+arquitectura
+urbanisme
+*
+January 1 - December 31: 09:00-20:00
+*
+lloc visitable
+Casa Milà
+41.39538049999999,2.1619613999999956
+Europe/Madrid
+1:30
+10.20
+arquitectura
+urbanisme
+*
+April 15 - April 20: 09:00-20:00
+*
+lloc visitable
+Camp Nou
+41.375919,2.114639000000011
+Europe/Madrid
+1:30
+50.00
+futbol
+esports
+barça
+*
+April 1 - September 30: 09:00-20:00
+*
+lloc visitable
+Catedral de Barcelona
+41.383962,2.1761990999999625
+Europe/Madrid
+1:30
+0
+religio
+arquitectura
+*
+January 1 - December 31: 00:00-23:59
+*
+lloc visitable
+Aquarium
+41.3936752,2.156687099999999
+Europe/Madrid
+1:30
+15.75
+peixos
+vida
+pesca
+aigua
+mar
+*
+March 1 - May 4: 09:00-18:00
+*
+lloc visitable
+Tibidabo
+41.4225,2.118610999999987
+Europe/Madrid
+1:30
+14.75
+aventura
+adrenalina
+accio
+atraccions
+*
+April 1 - September 30: 09:00-20:00
+*
+lloc visitable
+Gran Teatre del Liceo
+41.38019690000001,2.173294800000008
+Europe/Madrid
+1:30
+10.30
+teatre
+arquitectura
+*
+April 1 - September 30: 09:00-20:00
+*
+lloc visitable
+Masia Freixa
+41.5629906,2.004251100000033
+Europe/Madrid
+0:45
+0
+natura
+arquitectura
+*
+April 1 - September 30: 09:00-20:00
+*
+lloc visitable
+Sant Pol de Mar
+41.6064873,2.6139654999999493
+Europe/Madrid
+1:30
+0
+aigua
+pesca
+mar
+vaixells
+*
+January 1 - December 31: 00:00-23:59
+*
+lloc visitable
+Gran Ruta de l'Aigua
+41.909380376060525,2.4898910452611744
+Europe/Madrid
+1:30
+0
+aigua
+rius
+natura
+fauna
+arbres
+pesca
+*
+January 1 - December 31: 00:00-23:59
+*
+lloc visitable
+Cementiri Arenys de Mar
+41.577047,2.5464769999999817
+Europe/Madrid
+0:30
+0
+arquitectura
+zombies
+religio
+art
+poesia
+*
+January 1 - December 31: 00:00-23:59
+*
+associar lloc
+Sagrada Familia
+Barcelona
+*
+associar lloc
+Parc Güell
+Barcelona
+*
+associar lloc
+Casa Milà
+Barcelona
+*
+associar lloc
+Camp Nou
+Barcelona
+*
+associar lloc
+Catedral de Barcelona
+Barcelona
+*
+associar lloc
+Aquarium
+Barcelona
+*
+associar lloc
+Tibidabo
+Barcelona
+*
+associar lloc
+Gran Teatre del Liceo
+Barcelona
+*
+associar lloc
+Masia Freixa
+Terrassa
+*
+associar lloc
+Sant Pol de Mar
+Arenys de Mar
+*
+associar lloc
+Gran Ruta de l'Aigua
+Sant Hilari Sacalm
+*
+associar lloc
+Cementiri Arenys de Mar
+Arenys de Mar
+*
+associar transport
+Barcelona
+metro
+00:45
+2.15
+*
+associar transport
+Barcelona
+Jet
+00:10
+100.75
+*
+associar transport
+Arenys de Mar
+Vaixell
+00:30
+50.12
+*
+associar transport
+Arenys de Mar
+Taxi
+00:40
+5.80
+*
+associar transport
+Barcelona
+Taxi
+01:00
+30.00
+*
+associar transport
+Terrassa
+Taxi
+00:25
+14.15
+*
+transport directe
+Sagrada Familia
+Casa Milà
+bus
+00:45
+1.15
+*
+transport directe
+Camp Nou
+Parc Güell
+bus
+00:15
+5.15
+*
+transport directe
+Aquarium
+Sant Pol de Mar
+tren
+00:10
+7.05
+*
+transport directe
+Catedral de Barcelona
+Gran Ruta de l'Aigua
+bicicleta
+02:40
+0.55
+*
+transport indirecte
+Barcelona
+Rubi
+tren
+00:30
+00:15
+2017-04-11
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+2017-04-12
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+2017-04-13
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+2017-04-14
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+*
+transport indirecte
+Barcelona
+Terrassa
+tren
+00:10
+00:13
+2017-04-11
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+2017-04-12
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+2017-04-13
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+*
+transport indirecte
+Sabadell
+Barcelona
+tren
+00:30
+00:15
+2017-04-11
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+2017-04-12
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+2017-04-13
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+*
+transport indirecte
+Mataro
+Barcelona
+avio
+00:10
+00:15
+2017-04-11
+9:00
+00:10
+12.15
+10:00
+00:10
+12.15
+11:00
+00:10
+12.15
+12:00
+00:10
+12.15
+2017-04-12
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+2017-04-13
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+*
+transport indirecte
+Rubi
+Arenys de Mar
+tren
+00:40
+00:15
+2017-04-11
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+2017-04-12
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+2017-04-13
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+*
+transport indirecte
+Terrassa
+Sant Hilari Sacalm
+tren
+00:04
+00:20
+2017-04-11
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+2017-04-12
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+2017-04-13
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+*
+transport indirecte
+Arenys de Mar
+Mataro
+tren
+00:40
+00:15
+2017-04-11
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+2017-04-12
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+2017-04-13
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+*
+transport indirecte
+Sant Hilari Sacalm
+Sabadell
+tren
+00:40
+00:15
+2017-04-11
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+2017-04-12
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+2017-04-13
+9:00
+00:45
+12.15
+10:00
+00:45
+12.15
+11:00
+00:45
+12.15
+12:00
+00:45
+12.15
+*
+client
+Tesla
+ciencia
+tecnologia
+animals
+numeros
+*
+client
+Hardman Derryl
+ponts
+construccio
+magia
+esports
+esquiar
+*
+client
+Phoibos Nuadha
+dards
+dibuix
+cultura
+menjar
+musica
+fotografia
+*
+client
+Isidoro Hari
+fantasmas
+paranormal
+vudu
+magia
+*
+client
+Emanuel Vili
+poker
+cartes
+casino
+billar
+apostes
+*
+client
+Kishor Yaroslav
+musica
+fotografia
+paintball
+piano
+natacio
+*
+client
+Gerold Logan
+windsurf
+surf
+rafting
+esqui
+yoga
+*
+client
+Primus Dragan
+platja
+arquitectura
+carreres
+vela
+cuina
+esgrima
+*
+client
+Sacha Sanjiv
+malabars
+poker
+cine
+magia
+musica
+*
+client
+Samuil Slamet
+nadar
+ballar
+cotxes
+teatre
+*
+client
+Loke Amador
+acampada
+ocells
+musica
+minerals
+animals
+*
+client
+Brayden Isbrand
+religio
+art
+arquitectura
+robotica
+esports
+*
+client
+Rinat Eneko
+internet
+robotica
+tecnologia
+maquinaria
+*
+client
+Supre Mairo
+bolets
+castells
+curses
+cotxes
+esports
+*
+viatge
+2017-04-11
+08:00
+2
+4000
+luxe
+Brayden Isbrand
+Supre Mairo
+Rinat Eneko
+Primus Dragan
+*
+Sagrada Familia
+Parc Güell
+Casa Milà
+Camp Nou
+Catedral de Barcelona
+Aquarium
+Gran Teatre del Liceo
+Tibidabo
+*
+ruta barata
+ruta curta
+ruta satisfactoria
+*

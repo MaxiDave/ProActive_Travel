@@ -101,7 +101,7 @@ public class sortidaKML {
             Logger.getLogger(sortidaKML.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        Deque<Coordenades> lc = new ArrayDeque<Coordenades>();
+        Deque<Coordenades> lc = new ArrayDeque<>();
         while(it.hasNext()){
             ir = it.next();
             if(ir.obtPuntSortida() instanceof PuntVisitable || ir.obtPuntSortida() instanceof Allotjament){
@@ -114,12 +114,25 @@ public class sortidaKML {
                 else{
                     lc.add(((EstadaHotel) ir).obtPuntSortida().obtCoordenades());
                     posarBandera(((EstadaHotel) ir).obtPuntSortida().obtNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
+                if(ir instanceof Visita || ir instanceof EstadaHotel){
+                    if(ir.obtPuntSortida() instanceof PuntVisitable || ir.obtPuntSortida() instanceof Allotjament){
+                        //Afegir al List per fer circuit i posar bandera
+                        if (ir.obtPuntSortida() instanceof PuntVisitable) {
+                            lc.add(pI.obtCoordenades());
+                            posarBandera(ir.obtPuntSortida().obtNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
+                        }
+                        else{
+                            lc.add(((EstadaHotel) ir).obtPuntSortida().obtCoordenades());
+                            posarBandera(((EstadaHotel) ir).obtPuntSortida().obtNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
+                        }
+                    }
                 }
             }
+            //Fer circuit
+            ferCircuit(lc);
+
+            ending();
+            }
         }
-        //Fer circuit
-        ferCircuit(lc);
-        
-        ending();
     }
 }

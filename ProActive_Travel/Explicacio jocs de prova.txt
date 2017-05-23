@@ -10,3 +10,5 @@ Joc09.txt - Joc08 mes MT Indirecte
 Joc10.txt - Joc09 amb Viatge
 Joc11.txt - Joc10 sense errors
 Joc12.txt - Part de Joc11 petita per a fer proves (Sense MTIndirecte)
+Joc13-16.txt Tu sabras David que vols fer amb ells
+Joc20.txt Ruta turistica per Barcelona passa per tots els llocs de Barcelona
