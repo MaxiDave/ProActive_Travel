@@ -19,7 +19,7 @@ import java.time.*;
  * DESCRIPCIÓ GENERAL
  * @brief: Representa un Lloc, amb unes coordenades, estacions, punts d'interès i transports
  */
-public class Lloc {
+public class Lloc{
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private final String nom;
     private final Coordenades coords;
@@ -46,7 +46,7 @@ public class Lloc {
      * @pre: --
      * @post: Retorna el nom del lloc 
      */
-    public String obtenirNom(){
+    public String obtNom(){
         return nom;
     }
     
@@ -54,7 +54,7 @@ public class Lloc {
      * @pre: --
      * @post: Retorna les coordenades del lloc 
      */
-    public Coordenades obtenirCoordenades(){
+    public Coordenades obtCoordenades(){
         return coords;
     }
     
@@ -64,7 +64,7 @@ public class Lloc {
      *         amb un temps d'origen de "temps"
      */
     public void afegirConnexioSortidaMTI(String nomEst, Lloc desti, Integer temps){
-        if(!estacions.containsKey(nomEst)) estacions.put(nomEst, new Estacio(nomEst));
+        if(!estacions.containsKey(nomEst)) estacions.put(nomEst, new Estacio(nomEst, this));
         Estacio actual= estacions.get(nomEst);
         actual.afegirConnexioSortida(desti, temps);
     }
@@ -75,7 +75,7 @@ public class Lloc {
      *         amb un temps de destí de "temps"
      */
     public void afegirConnexioArribadaMTI(String nomEst, Lloc origen, Integer temps){
-        if(!estacions.containsKey(nomEst)) estacions.put(nomEst, new Estacio(nomEst));
+        if(!estacions.containsKey(nomEst)) estacions.put(nomEst, new Estacio(nomEst, this));
         Estacio actual= estacions.get(nomEst);
         actual.afegirConnexioArribada(origen, temps);
     }
@@ -120,6 +120,11 @@ public class Lloc {
     
     public Iterator<Estacio> obtEstacions(){
         return estacions.values().iterator();
+    }
+    
+    @Override
+    public String toString(){
+        return nom;
     }
 
     @Override

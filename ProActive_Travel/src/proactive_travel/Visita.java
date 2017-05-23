@@ -58,7 +58,7 @@ public class Visita implements ItemRuta{
      * @pre: --
      * @post: Retorna el punt d'interes de sortida de la visita, en aquest cas el propi punt visitable 
      */
-    public PuntInteres obtPuntSortida(){
+    public PuntVisitable obtPuntSortida(){
         return pV; 
     }
     
@@ -84,6 +84,6 @@ public class Visita implements ItemRuta{
     
     @Override
     public String toString(){
-        return iniciVisita.toLocalTime()+"-"+finalVisita.toLocalTime()+" "+pV.obtenirNom()+" (Visita)"+"\n";
+        return iniciVisita.toLocalTime()+"-"+finalVisita.toLocalTime()+" "+pV.obtNom()+" (Visita)"+"\n";
     }
 }

@@ -24,7 +24,7 @@ public interface ItemRuta{
      * @pre: --
      * @post: Retorna el punt d'interes de sortida del Item 
      */
-    public PuntInteres obtPuntSortida();
+    public PuntRuta obtPuntSortida();
     
     /** 
      * @pre: --

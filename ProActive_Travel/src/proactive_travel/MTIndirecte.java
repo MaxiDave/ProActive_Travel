@@ -13,6 +13,7 @@
 
 package proactive_travel;
 import java.time.*;
+import java.util.Objects;
 
 /**
  * DESCRIPCIÓ GENERAL
@@ -20,15 +21,15 @@ import java.time.*;
  */
 public class MTIndirecte extends MitjaTransport{
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
-    private final Lloc origen;
-    private final Lloc desti;
+    private final Estacio origen;
+    private final Estacio desti;
     
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /**
      * @pre: --
      * @post: Crea un mitjà de transport amb origen, destí, preu, durada i descriptor
      */
-    public MTIndirecte(String descriptor, Lloc o, Lloc d, Double preu, Integer durada) {
+    public MTIndirecte(String descriptor, Estacio o, Estacio d, Double preu, Integer durada) {
         super(descriptor, preu, durada);
         origen= o;
         desti= d;
@@ -39,7 +40,7 @@ public class MTIndirecte extends MitjaTransport{
      * @pre: --
      * @post: Retorna el lloc d’origen del transport
      */
-    public Lloc getOrigen(){
+    public Estacio getOrigen(){
         return origen;
     }
     
@@ -47,7 +48,23 @@ public class MTIndirecte extends MitjaTransport{
      * @pre: --
      * @post: Retorna el lloc de destí del transport
      */
-    public Lloc getDesti(){
+    public Estacio getDesti(){
         return desti;
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof MTIndirecte){
+            MTIndirecte mI= (MTIndirecte)o;
+            return getNom().equals(mI.getNom()) && (getPreu()==mI.getPreu()) && (getDurada()==mI.getDurada() && origen.equals(mI.origen) && desti.equals(mI.desti));
+        }
+        else return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.origen);
+        return hash;
     }
 }

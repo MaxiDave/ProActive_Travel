@@ -13,43 +13,37 @@
 
 package proactive_travel;
 import java.time.*;
-
+import java.util.Objects;
 
 /**
  * DESCRIPCIÓ GENERAL
  * @brief: Representa un Trajecte, amb el mitjà de transport i les hores d'arribada i sortida
  */
-
-public class TrajecteIndirecte implements ItemRuta{
+public class TrajectePunts implements ItemRuta{
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
-    private final MTIndirecte mT;
-    private final ZonedDateTime iniciTrajecte;
-    private final ZonedDateTime finalTrajecte;
+    private final MTPunts mT;
+    private final LocalDateTime iniciTrajecte;
+    private final LocalDateTime finalTrajecte;
     
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
-     * @post: Es crea un Trajecte amb el mitjà indirecte, l'hora d'inici de trajecte, i el punt d'interés de destí
+     * @post: Es crea un Trajecte amb el transport i l'hora d'inici de trajecte
      */
-    public TrajecteIndirecte(MTIndirecte mT, LocalDateTime iniciTrajecte){
+    public TrajectePunts(MTPunts mT, LocalDateTime iniciTrajecte){
         this.mT= mT;
-        ZoneId zH= mT.getOrigen().obtLloc().obtCoordenades().obtZona();
-        this.iniciTrajecte= iniciTrajecte.atZone(zH);
-        this.finalTrajecte= this.iniciTrajecte.withZoneSameInstant(zH).plusMinutes(mT.getDurada());
+        this.iniciTrajecte= iniciTrajecte;
+        this.finalTrajecte= iniciTrajecte.plusMinutes(mT.getDurada());
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     
     /** 
      * @pre: --
-     * @post: Retorna el PuntInteres de destí 
+     * @post: Retorna l'Estació de destí 
      */
-    public Estacio obtPuntSortida(){
+    public PuntRuta obtPuntSortida(){
         return mT.getDesti();
-    }
-    
-    public Lloc obtLlocOrigen(){
-        return mT.getOrigen().obtLloc();
     }
     
     /** 
@@ -73,7 +67,7 @@ public class TrajecteIndirecte implements ItemRuta{
      * @post: Retorna l'hora de sortida del Trajecte 
      */
     public LocalDateTime obtInici(){
-        return iniciTrajecte.toLocalDateTime(); 
+        return iniciTrajecte; 
     }
     
     /** 
@@ -81,15 +75,26 @@ public class TrajecteIndirecte implements ItemRuta{
      * @post: Retorna l'hora d'arribada del Trajecte 
      */
     public LocalDateTime obtFinal(){
-        return finalTrajecte.toLocalDateTime(); 
+        return finalTrajecte; 
     }
     
     public Integer obtDurada(){
-        return mT.getDurada();
+        return (int)Duration.between(iniciTrajecte, finalTrajecte).toMinutes();
+    }
+    
+    public MTPunts obtMitja(){
+        return mT;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.mT);
+        return hash;
     }
     
     @Override
     public String toString(){
-        return iniciTrajecte.toLocalTime()+"-"+finalTrajecte.toLocalTime()+" "+mT.getOrigen().obtLloc().obtNom()+" -> "+mT.getDesti().obtLloc().obtNom()+" ("+mT.getNom()+")"+"\n";
+        return iniciTrajecte.toLocalTime()+"-"+finalTrajecte.toLocalTime()+" "+mT.getOrigen().obtLloc().obtNom()+" -> "+mT.getDesti().obtNom()+" ("+mT.getNom()+")"+"\n";
     }
 }

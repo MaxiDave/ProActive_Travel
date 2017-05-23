@@ -18,7 +18,7 @@ import java.util.*;
  * DESCRIPCIÓ GENERAL 
  * @brief: Representa un punt on els clients tenen interès, bé sigui per visitar o bé per allotjar-se. 
  */
-public class PuntInteres {
+public class PuntInteres implements PuntRuta{
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     protected final String nom;
     protected final Set<String> activitats;
@@ -57,7 +57,7 @@ public class PuntInteres {
      * @pre: --
      * @post: Retorna el nom del punt d’interès
      */
-    public String obtenirNom(){
+    public String obtNom(){
         return nom;
     }
     

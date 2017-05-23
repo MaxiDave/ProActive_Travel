@@ -105,14 +105,15 @@ public class sortidaKML {
         while(it.hasNext()){
             ir = it.next();
             if(ir.obtPuntSortida() instanceof PuntVisitable || ir.obtPuntSortida() instanceof Allotjament){
+                PuntInteres pI= (PuntInteres)ir.obtPuntSortida();
                 //Afegir al List per fer circuit i posar bandera
-                if (ir.obtPuntSortida() instanceof PuntVisitable) {
-                    lc.add(ir.obtPuntSortida().obtCoordenades());
-                    posarBandera(ir.obtPuntSortida().obtenirNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
+                if (pI instanceof PuntVisitable) {
+                    lc.add(pI.obtCoordenades());
+                    posarBandera(pI.obtNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
                 }
                 else{
                     lc.add(((EstadaHotel) ir).obtPuntSortida().obtCoordenades());
-                    posarBandera(((EstadaHotel) ir).obtPuntSortida().obtenirNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
+                    posarBandera(((EstadaHotel) ir).obtPuntSortida().obtNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
                 }
             }
         }

@@ -298,7 +298,7 @@ public abstract class Entrada {
                         LocalDateTime horaSortida= LocalDateTime.of(anyMesDia, horaMinuts);
                         Integer durada= processarTemps(fitxer);
                         Double preu= llegirDouble(fitxer);
-                        MTIndirecte mitja= new MTIndirecte(nomTrans, origen, desti, preu, durada);
+                        MTIndirecte mitja= new MTIndirecte(nomTrans, origen.obtEstacio(nomTrans), desti.obtEstacio(nomTrans), preu, durada);
                         mundi.afegirMTIndirecte(mitja, horaSortida, origen);
                         hora= llegirLinia(fitxer);
                     }

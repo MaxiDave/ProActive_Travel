@@ -1,65 +1,64 @@
 INFORMACIÓ DEL VIATGE
 
-Clients: Brayden Isbrand, Supre Mairo, Primus Dragan, Rinat Eneko, Loke Amador, 
+Clients: Brayden Isbrand, 
 Categoria Desitjada: luxe
 Inici del Viatge: 2017-04-11T08:00
 Duració màxima: 2 dies
 Preu màxim: 400.0
-Origen: Hotel Barcelona Sants
-Destí: Aquarium
-Punts Intermitjos: Tibidabo, Camp Nou, 
+Origen: Camp Nou
+Destí: Catedral de Girona
+Punts Intermitjos: 
 Rutes a calcular: Barata, Curta, Satisfactòria
 
 RUTES TROBADES
 
 RUTA MÉS CURTA
-Preu: 224,80€
-Satisfacció: 2
+Preu: 72,15€
+Satisfacció: 3
 
 2017-04-11
-08:00-..:.. Hotel Barcelona Sants (Estada)
-
-2017-04-12
-04:00-04:45 Hotel Barcelona Sants -> Camp Nou (Metro)
-04:45-09:00 Temps Lliure
+08:00-09:00 Temps Lliure
 09:00-10:30 Camp Nou (Visita)
-10:30-10:50 Camp Nou -> Tibidabo (JetPack Promo)
-10:50-12:20 Tibidabo (Visita)
-12:20-13:05 Tibidabo -> Aquarium (Metro)
-13:05-14:35 Aquarium (Visita)
+10:30-10:30 Camp Nou -> Barcelona (Trasllat a l'Estació de tren)
+10:30-12:00 Temps Lliure
+12:00-12:45 Barcelona -> Girona (tren)
+12:45-13:00 Girona -> Catedral de Girona (Trasllat de l'Estació de tren)
+13:00-14:00 Catedral de Girona (Visita)
 
 
 RUTA MÉS BARATA
-Preu: 206,95€
-Satisfacció: 2
+Preu: 72,15€
+Satisfacció: 3
 
 2017-04-11
-08:00-..:.. Hotel Barcelona Sants (Estada)
-
-2017-04-12
-04:00-04:45 Hotel Barcelona Sants -> Camp Nou (Metro)
-04:45-09:00 Temps Lliure
+08:00-09:00 Temps Lliure
 09:00-10:30 Camp Nou (Visita)
-10:30-11:15 Camp Nou -> Tibidabo (Metro)
-11:15-12:45 Tibidabo (Visita)
-12:45-13:30 Tibidabo -> Aquarium (Metro)
-13:30-15:00 Aquarium (Visita)
+10:30-10:30 Camp Nou -> Barcelona (Trasllat a l'Estació de tren)
+10:30-12:00 Temps Lliure
+12:00-12:45 Barcelona -> Girona (tren)
+12:45-13:00 Girona -> Catedral de Girona (Trasllat de l'Estació de tren)
+13:00-14:00 Catedral de Girona (Visita)
 
 
 RUTA MÉS SATISFACTÒRIA
-Preu: 224,80€
-Satisfacció: 2
+Preu: 306,65€
+Satisfacció: 5
 
 2017-04-11
-08:00-..:.. Hotel Barcelona Sants (Estada)
-
-2017-04-12
-04:00-04:45 Hotel Barcelona Sants -> Camp Nou (Metro)
-04:45-09:00 Temps Lliure
+08:00-09:00 Temps Lliure
 09:00-10:30 Camp Nou (Visita)
 10:30-10:50 Camp Nou -> Tibidabo (JetPack Promo)
-10:50-12:20 Tibidabo (Visita)
-12:20-13:05 Tibidabo -> Aquarium (Metro)
-13:05-14:35 Aquarium (Visita)
+10:50-11:35 Tibidabo -> H2 Rubi (Metro)
+11:35-..:.. H2 Rubi (Estada)
+
+2017-04-12
+04:00-04:45 H2 Rubi -> Casa Milà (Metro)
+04:45-09:00 Temps Lliure
+09:00-10:30 Casa Milà (Visita)
+10:30-10:30 Casa Milà -> Barcelona (Trasllat a l'Estació de tren)
+10:30-12:00 Temps Lliure
+12:00-12:45 Barcelona -> Girona (tren)
+12:45-13:00 Girona -> Catedral de Girona (Trasllat de l'Estació de tren)
+13:00-14:00 Catedral de Girona (Visita)
 
 

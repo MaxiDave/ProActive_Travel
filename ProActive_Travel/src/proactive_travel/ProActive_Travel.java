@@ -141,6 +141,7 @@ public final class ProActive_Travel extends Application {
                     calculantBack.setText("Calculant...");
                     calculantBack.setVisible(true);
                     mundi.generarEDBacktraking();
+                    mundi.mostraEDBacktraking();
                     if(!serveiBack.isRunning()) serveiBack.start();
                 }
             });
@@ -196,8 +197,8 @@ public final class ProActive_Travel extends Application {
         serveiBack.setOnSucceeded(e -> {
             pBack.setVisible(false);
             calculExacte.setVisible(true);
-            DecimalFormat dosDecimals= new DecimalFormat("#.##");
-            calculantBack.setText("Execució: "+Double.valueOf(dosDecimals.format(tempsCalculBack/1000))+"s");
+            if(tempsCalculBack < 10000) calculantBack.setText("Execució: "+tempsCalculBack+"ms");
+            else calculantBack.setText("Execució: "+(tempsCalculBack/1000)+"s");
             veureRutes.setVisible(true);
             veureGoogle.setVisible(true);
             //reset service
@@ -276,7 +277,7 @@ public final class ProActive_Travel extends Application {
                             Iterator<Viatge> it= viatges.iterator();
                             while(it.hasNext()){
                                 Viatge viatge= it.next();
-                                CalculExacteBeta calcul= new CalculExacteBeta(mundi, viatge);
+                                CalculExacte calcul= new CalculExacte(mundi, viatge);
                                 rutesTotals.add(calcul.calcularRutaBack(mundi, viatge));
                             }
                             String nomFitxer= "Viatge1.txt"; int num= 1;

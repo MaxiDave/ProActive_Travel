@@ -65,11 +65,11 @@ public abstract class CalculGreedy {
         System.out.println(clients.obtDataMax());
         System.out.println("Els visitats son");
         for(PuntInteres p : visitats){
-            System.out.println(p.obtenirNom());
+            System.out.println(p.obtNom());
         }
         System.out.println("Els punts intermig son");
         for(PuntInteres p : puntsIntermig){
-            System.out.println(p.obtenirNom());
+            System.out.println(p.obtNom());
         }
     }
     

@@ -121,7 +121,11 @@ public class Ruta{
         return item;
     }
     
-    public PuntInteres obtDesti(){
+    public ItemRuta obtUltimItem(){
+        return items.peekLast();
+    }
+    
+    public Object obtDesti(){
         return items.getLast().obtPuntSortida();
     }
     
@@ -146,7 +150,11 @@ public class Ruta{
     }
     
     public Boolean arribaDesti(PuntInteres desti){
-        return !items.isEmpty() && (items.getLast() instanceof Visita || items.getLast() instanceof EstadaHotel) && items.getLast().obtPuntSortida().equals(desti);
+        if(items.getLast().obtPuntSortida() instanceof PuntInteres){
+            PuntInteres pI= (PuntInteres)items.getLast().obtPuntSortida();
+            return !items.isEmpty() && (items.getLast() instanceof Visita || items.getLast() instanceof EstadaHotel) && pI.equals(desti);
+        }
+        else return false;
     }
     
     public LocalDateTime obtFinal(){

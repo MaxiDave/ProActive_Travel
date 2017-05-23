@@ -41,7 +41,7 @@ public abstract class Sortida {
             sortida.println(viatge);
             sortida.println();
             if(resultat.isEmpty()){
-                sortida.println("NO S'HA TROBAT CAP RUTA");
+                sortida.println("NO S'HA TROBAT CAP RUTA QUE COMPLEIXI AMB ELS REQUISITS");
             }
             else{
                 sortida.println("RUTES TROBADES");

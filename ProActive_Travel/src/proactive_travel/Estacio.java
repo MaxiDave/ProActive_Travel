@@ -19,23 +19,27 @@ import java.time.*;
  * DESCRIPCIÓ GENERAL
  * @brief: Representa una Estacio, amb les connexions de sortida i arribada, i les sortides
  */
-public class Estacio {
+public class Estacio implements PuntRuta{
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
     private final String nomTransport;
-    private Map<LocalDate, Map<LocalTime, MTIndirecte>> sortides;
+    private Map<LocalDate, Map<MTIndirecte, Set<LocalTime>>> sortides;
+    private Set<MTIndirecte> transports;
     private Map<Lloc, Integer> connexioArribada;
     private Map<Lloc, Integer> connexioSortida;
+    private final Lloc pare;
     
     //CONSTRUCTORS-------------------------------------------------------------------------------------------------------------------------------
     /** 
      * @pre: --
      * @post: Crea una estació de nomTransport nom 
      */
-    public Estacio(String nom){
+    public Estacio(String nom, Lloc pare){
         nomTransport= nom;
         sortides= new HashMap< >();
         connexioArribada= new HashMap<>();
         connexioSortida= new HashMap<>();
+        transports= new HashSet<>();
+        this.pare= pare;
     }
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
@@ -43,7 +47,7 @@ public class Estacio {
      * @pre: --
      * @post: Retorna el nom de l'estació
      */
-    public String getNom(){
+    public String obtNom(){
         return nomTransport;
     }
     
@@ -68,25 +72,76 @@ public class Estacio {
      * @post: Afegeix una sortida "mitja" (MTIndirecte)
      */
     public void afegirSortida(MTIndirecte mitja, LocalDateTime horaSortida){
-        Map<LocalTime, MTIndirecte> horaris= sortides.get(horaSortida.toLocalDate());
-        if(horaris == null){
-            Map<LocalTime, MTIndirecte> nou= new HashMap<LocalTime, MTIndirecte>();
-            nou.put(horaSortida.toLocalTime(), mitja);
+        transports.add(mitja);
+        Map<MTIndirecte, Set<LocalTime>> mitjansSortides= sortides.get(horaSortida.toLocalDate());
+        if(mitjansSortides == null){
+            Map<MTIndirecte, Set<LocalTime>> nou= new HashMap<>();
+            Set<LocalTime> sortida= new TreeSet<>();
+            sortida.add(horaSortida.toLocalTime());
+            nou.put(mitja, sortida);
+            sortides.put(horaSortida.toLocalDate(), nou);
         }
-        else horaris.put(horaSortida.toLocalTime(), mitja);
+        else{
+            Set<LocalTime> horesSortides= mitjansSortides.get(mitja);
+            if(horesSortides == null){
+                Set<LocalTime> sortida= new TreeSet<>();
+                sortida.add(horaSortida.toLocalTime());
+                mitjansSortides.put(mitja, sortida);
+            }
+            else horesSortides.add(horaSortida.toLocalTime());
+        }
     }
     
     // pre sortida existeix a connexioSortida
-    public Integer obtTempsSortidaLloc(Lloc sortida){
-        return connexioSortida.get(sortida);
+    public Integer obtTempsSortidaLloc(Lloc origen){
+        return connexioSortida.get(origen);
     }
     
     // pre sortida existeix a connexioArribada
-    public Integer obtTempsArribadaLloc(Lloc arribada){
-        return connexioArribada.get(arribada);
+    public Integer obtTempsArribadaLloc(Lloc desti){
+        return connexioArribada.get(desti);
     }
     
-    public Map<LocalTime, MTIndirecte> obtSortidesDelDia(LocalDate dia){
-        return sortides.get(dia);
+    public Iterator<MTIndirecte> obtMitjans(){
+        return transports.iterator();
+    }
+    
+    public Lloc obtLloc(){
+        return pare;
+    }
+    
+    public LocalDateTime obtSortida(MTIndirecte mI, LocalDateTime actual){
+        LocalDateTime resultat= null;
+        Map<MTIndirecte, Set<LocalTime>> sortidesDia= sortides.get(actual.toLocalDate());
+        if(sortidesDia != null){
+            Set<LocalTime> sortidesHores= sortidesDia.get(mI);
+            if(sortidesHores != null){
+                Boolean fi= false;
+                Iterator<LocalTime> itHores= sortidesHores.iterator();
+                while(!fi && itHores.hasNext()){
+                    LocalTime sortida= itHores.next();
+                    if(!sortida.isBefore(actual.toLocalTime())){
+                        resultat= LocalDateTime.of(actual.toLocalDate(), sortida);
+                        fi= true;
+                    }
+                }
+            }
+        }
+        return resultat;
+    }
+    
+    public void mostraConexions(){
+        System.out.println("Connexions sortida Girona");
+        for (Map.Entry<Lloc, Integer> pair : connexioSortida.entrySet()) {
+            System.out.println(pair.getKey()+" "+pair.getValue());
+        }
+        System.out.println("Connexions arribada Girona");
+        for (Map.Entry<Lloc, Integer> pair : connexioArribada.entrySet()) {
+            System.out.println(pair.getKey()+" "+pair.getValue());
+        }
+    }
+    
+    public String toString(){
+        return nomTransport;
     }
 }

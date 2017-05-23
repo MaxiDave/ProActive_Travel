@@ -62,7 +62,7 @@ public class EstadaHotel implements ItemRuta{
      * @pre: --
      * @post: Retorna el punt d'interes de sortida del Item, en aquest cas l'hotel 
      */
-    public PuntInteres obtPuntSortida(){
+    public Allotjament obtPuntSortida(){
         return hotel; 
     }
     
@@ -88,6 +88,6 @@ public class EstadaHotel implements ItemRuta{
     
     @Override
     public String toString(){
-        return iniciEstada.toLocalTime()+"-..:.. "+hotel.obtenirNom()+" (Estada)"+"\n";
+        return iniciEstada.toLocalTime()+"-..:.. "+hotel.obtNom()+" (Estada)"+"\n";
     }
 }

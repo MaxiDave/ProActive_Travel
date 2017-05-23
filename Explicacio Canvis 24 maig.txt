@@ -1,0 +1,27 @@
+CANVIS ESTRUCTURALS
+
+MTDirecte: MT entre dos PuntsInteres, pot ser el que considerem MTDirecte i MTUrba
+MTIndirecte: MT entre dos estacions
+MTEstacio: MT entre un PuntInteres (origen) i una Estació (destí), serveix per anar d'un PI a una de les estacions del lloc associat
+MTPunts: MT entre una Estació (origen) i un PuntInteres (destí), serveix per anar d'una estació a un dels punts d'interés del lloc associat
+
+Tots els MT... implementen MitjaTransport
+
+Visita: Cap canvi destacable
+EstadaHotel: Cap canvi destacable
+TrajecteDirecte: Trajecte que representa un Trajecte amb MTDirecte
+TrajecteIndirecte: Trajecte que representa un Trajecte entre estacions
+TrajecteEstacio: Trajecte que representa un Trajecte entre un PI i una Estacio
+TrajectePunts: Trajecte que representa un Trajecte entre una Estacio i un PI
+Totes aquestes classes anteriors implementen ItemRuta
+
+Sense MTIndirecte, un Punt era l'únic element de Ruta, ara també hi poden haver estacions, per tant, s'ha creat:
+PuntRuta: Interface que representa un punt de la ruta, o bé un PI o bé una Estacio
+
+ALTRES CANVIS
+Implementació d'alguns hashCode, equals, toString, compareTo, comparadors...
+S'ha començat a documentar coses noves, back i corretgir documentacions antigues de mètodes que s'han modificat.
+Aquest matí puliré algun petit bug del Back satisfactori, documentar codi i jocs de proves, i fer el diagrama de classes UML, juntament amb puliments de l'interfície gràfica,
+i descarregare alguns jocs del repo de classe.
+
+PD: Et passaré DC del E4 de Enginyeria Software pq comencis amb els diagrames quan puguis, pots fer a paper o PC com et sembli mes comode.
