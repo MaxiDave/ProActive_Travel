@@ -227,7 +227,7 @@ public class Mapa {
             }
         }
         return costMinim;
-    }
+    }    
     /*
     private void afegirTransportsUrbans(List<ItemRuta> items, List<ItemRuta> itemsFinals, ItemRuta ant, PuntInteres act, LocalDateTime temps){
         Iterator<MitjaTransport> it= act.obtenirLloc().obtTransportUrba();

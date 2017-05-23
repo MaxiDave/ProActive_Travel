@@ -77,12 +77,10 @@ public abstract class CalculGreedy {
         Ruta r = new Ruta("barata",actual);
         if(clients.esBarata()){
             inicialitzarAtributs(clients);
-            debugAtributs(clients);
             Ruta barata = calcularBarat(mundi, clients.obtOrigen(), clients.preferenciesClients());
             r = barata;
             System.out.println(barata);
         }
-        debugAtributs(clients);
         if(clients.esCurta()){
             inicialitzarAtributs(clients);
             Ruta temps = calcularRapid(mundi, clients.obtOrigen(), clients.preferenciesClients());
@@ -90,7 +88,10 @@ public abstract class CalculGreedy {
             System.out.println(temps);
         }
         if(clients.esSatisfactoria()){
-            
+            inicialitzarAtributs(clients);
+            Ruta satis = calcularSatisfactoria(mundi, clients.obtOrigen(), clients.preferenciesClients());
+            r = satis;
+            System.out.println(satis);
         }
         return r;
     }
@@ -236,12 +237,28 @@ public abstract class CalculGreedy {
         }
     }
     
-    private Ruta calcularCurt(){
-        throw new UnsupportedOperationException("Not supported yet"); 
-    }
-    
-    private Ruta calcularSatisfactoria(){
-        throw new UnsupportedOperationException("Not supported yet"); 
+    private static Ruta calcularSatisfactoria(Mapa mundi, PuntInteres origen, Map<String,Integer> preferenciesClients){
+        Boolean fi=false;
+        Boolean temps=true;
+        PuntInteres puntAct = origen;
+        Ruta rapida = new Ruta("satisfactoria",actual);
+        //Tractament origen
+        Set<PuntInteres> preparacio = new HashSet<PuntInteres>();
+        preparacio.add(origen);
+        analitzarLlocs(preparacio, rapida, preferenciesClients, mundi);
+        
+        while (!fi && temps) {
+            Set<PuntInteres> cami = seleccionarMesViable(mundi, "temps", puntAct);
+            puntAct = analitzarLlocs(cami, rapida, preferenciesClients, mundi); //Mirar si valen la pena per visitar i anar mirant la hora del dia ja que s'ha de anar a hotels
+            temps = comprovarTemps();
+            fi = comprovarFi();
+        }
+        //Tractar desti <<------------------------------------------------------ FALTA
+        Dijkstra d = new Dijkstra();
+        d.camiMinim(mundi, puntAct, desti, "temps");
+        Set<PuntInteres> ending = d.retornaPuntsInteres();
+        analitzarLlocs(ending,rapida,preferenciesClients,mundi);
+        return rapida;
     }
     
     private static Boolean comprovarTemps(){
