@@ -37,15 +37,22 @@ public class Dijkstra {
         tipus = new String();
     }
     
-    public HashSet<PuntInteres> retornaPuntsInteres(){
-        HashSet<PuntInteres> cami = new HashSet();
+    public ArrayDeque<PuntInteres> retornaPuntsInteres(){
+        System.out.println(dest.obtenirNom());
+        ArrayDeque<PuntInteres> invers = new ArrayDeque();
         PuntInteres d=dest;
-        cami.add(d);
+        invers.add(d);
         while(predecessors.containsKey(d)){
-            cami.add(predecessors.get(d));
+            invers.add(predecessors.get(d));
             d=predecessors.get(d);
         }
-        cami.add(d);
+        //invers.add(d);
+        
+        ArrayDeque<PuntInteres> cami = new ArrayDeque();
+        while(!invers.isEmpty()){
+            cami.add(invers.pollLast());
+        }
+        
         return cami;
     }
     

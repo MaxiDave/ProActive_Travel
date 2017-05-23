@@ -64,10 +64,24 @@
     </Point>
 </Placemark>
 <Placemark>
+    <name>Hotel Can Pistraus</name>
+    <styleUrl>#myDefaultStyles</styleUrl>
+    <Point>
+        <coordinates>2.232285,41.418787,0.0</coordinates>
+    </Point>
+</Placemark>
+<Placemark>
     <name>Tibidabo</name>
     <styleUrl>#myDefaultStyles</styleUrl>
     <Point>
         <coordinates>2.118610999999987,41.4225,0.0</coordinates>
+    </Point>
+</Placemark>
+<Placemark>
+    <name>Gran Ruta de l'Aigua</name>
+    <styleUrl>#myDefaultStyles</styleUrl>
+    <Point>
+        <coordinates>2.4898910452611744,41.909380376060525,0.0</coordinates>
     </Point>
 </Placemark>
 <Placemark>
@@ -85,7 +99,9 @@
             2.156687099999999,41.3936752,0.0
             2.114639000000011,41.375919,0.0
             2.1619613999999956,41.39538049999999,0.0
+            2.232285,41.418787,0.0
             2.118610999999987,41.4225,0.0
+            2.4898910452611744,41.909380376060525,0.0
         </coordinates>
     </LineString>
 </Placemark>

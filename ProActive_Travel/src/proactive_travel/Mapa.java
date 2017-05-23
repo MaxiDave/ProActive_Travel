@@ -389,25 +389,31 @@ public class Mapa {
         return null;
     }
     
-    public Set<PuntInteres> obtenirHotelProper(PuntInteres pi,String tipusDijk){
+    public ArrayDeque<PuntInteres> obtenirHotelProper(PuntInteres pi,String tipusDijk){
         Dijkstra d = new Dijkstra();
-        Dijkstra millor = new Dijkstra();
+        Dijkstra millor = null;
         Collection<PuntInteres> c = punts.values();
         for(PuntInteres p : c){
+            System.out.println(p.obtenirNom());
             if(p instanceof Allotjament){
+                System.out.println("Allotjament localitzat");
                 d.camiMinim(this, pi, p, tipusDijk);
-                if(tipusDijk.matches("diners") && (d.retornaCost() < millor.retornaCost())){
-                    millor=d;
+                if(tipusDijk.matches("diners") && millor!=null){
+                    if(d.retornaCost() < millor.retornaCost()){
+                        millor=d;
+                    }
                 }
-                else if(tipusDijk.matches("temps") && (d.retornaTemps()< millor.retornaTemps())){
-                    millor=d;
+                else if(tipusDijk.matches("temps") && millor!=null){
+                    if(d.retornaTemps()< millor.retornaTemps()){
+                        millor=d;
+                    }
                 }
                 else{
-                    //Satisfaccio
+                    millor=d;
                 }
             }
         }
-        Set<PuntInteres> cami = millor.retornaPuntsInteres();
+        ArrayDeque<PuntInteres> cami = millor.retornaPuntsInteres();
         return cami;
     }
 
