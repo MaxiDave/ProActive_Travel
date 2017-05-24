@@ -10,5 +10,9 @@ Joc09.txt - Joc08 mes MT Indirecte
 Joc10.txt - Joc09 amb Viatge
 Joc11.txt - Joc10 sense errors
 Joc12.txt - Part de Joc11 petita per a fer proves (Sense MTIndirecte)
-Joc13-16.txt Tu sabras David que vols fer amb ells
-Joc20.txt Ruta turistica per Barcelona passa per tots els llocs de Barcelona
+Joc13-17.txt Tu sabras David que vols fer amb ells
+Joc18.txt - Joc 17 pero amb mes punts per visitar
+Joc19.txt - Joc 18 pero amb un error a viatge
+Joc20.txt - Ruta turistica per Barcelona passa per tots els llocs de Barcelona (testeig urba)
+Joc21.txt - S'ha afegit un hotel perque la ruta 20 sigui possible i un MTDirecte (testeig directe)
+Joc22.txt - 21 pero ara hi han 2 viatges
