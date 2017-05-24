@@ -21,22 +21,23 @@ import java.util.*;
  * @brief: Classe que retorna els camins mes rapids/barats/satisfactoris a seguir
  */
 public class Dijkstra {
-    private Set<PuntInteres> nodesAgafats;
-    private Set<PuntInteres> nodesPerAgafar;
+    private Set<PuntInteres> nodesAgafats;                      ///< @brief: Nodes per on dijlstra ha passat
+    private Set<PuntInteres> nodesPerAgafar;                    ///< @brief: Nodes que dijkstra te com a condidats
 
-    private Map<PuntInteres,PuntInteres> predecessors;
-    private Map<PuntInteres,MitjaTransport> transports;
+    private Map<PuntInteres,PuntInteres> predecessors;          ///< @brief: PuntInteres i el seu predecessor
+    private Map<PuntInteres,MitjaTransport> transports;         ///< @brief: PuntInteres i el millor transport per anarhi
     
-    private Map<PuntInteres,Integer> temps;
-    private Map<PuntInteres,Double> cost;
-    private Map<PuntInteres,Integer> satisfaccio;
+    private Map<PuntInteres,Integer> temps;                     ///< @brief: PuntInteres i el temps que es tarda a arribar
+    private Map<PuntInteres,Double> cost;                       ///< @brief: PuntInteres i el cost per arribar
+    private Map<PuntInteres,Integer> satisfaccio;               ///< @brief: PuntInteres i la satisfaccio que dona
     
-    private String tipus;
-    private PuntInteres dest;
+    private String tipus;                                       ///< @brief: Tipus de la ruta que esta fent
+    private PuntInteres dest;                                   ///< @brief: Punt desti
     
     /**
      * @pre --
      * @post Totes les variables queden inicialitzades
+     * @brief: Variables inicialitzades
      */
     Dijkstra() {
 	nodesAgafats = new HashSet<PuntInteres>();
@@ -52,6 +53,7 @@ public class Dijkstra {
     /**
      * @pre S'ha de haver cridat camiMinim
      * @post Retorna els punts de interes que dijkstra ha trobat mes rapids/barats/satisfactoris
+     * @brief: Retorna els punts d'interes que conformaran la ruta
      */
     public ArrayDeque<PuntInteres> retornaPuntsInteres(){
         ArrayDeque<PuntInteres> invers = new ArrayDeque();
@@ -74,6 +76,7 @@ public class Dijkstra {
     /**
      * @pre S'ha d'haver cridat camiMinim
      * @post Retorna un mapa amb els PuntsInteres i el mitja de transport millor per arribarhi
+     * @brief: Retorna el millor mitja de transport per cada punt d'interes
      */
     public Map<PuntInteres, MitjaTransport> retornaMitjans(){
         //HashMap<PuntInteres,Mitjatransport> camiMT = new HashMap();
@@ -83,6 +86,7 @@ public class Dijkstra {
     /**
      * @pre S'ha d'haver cridat camiMinim
      * @post Retorna el temps que es tarda fins a desti
+     * @brief: Retorna el temps
      */
     public Integer retornaTemps(){
         return temps.get(dest);
@@ -91,6 +95,7 @@ public class Dijkstra {
     /**
      * @pre S'ha d'haver cridat camiMinim
      * @post Retorna el cost fins a desti
+     * @brief: Retorna el cost
      */
     public Double retornaCost(){
         return cost.get(dest);
@@ -99,6 +104,7 @@ public class Dijkstra {
     /**
      * @pre S'ha d'haver cridat camiMinim
      * @post Retorna la satisfaccio fins a desti
+     * @brief: Retorna la satisfaccio
      */
     public Integer retornaSatisfaccio(){
         return satisfaccio.get(dest);
@@ -107,6 +113,7 @@ public class Dijkstra {
     /**
      * @pre --
      * @post Calcula el cami minim de un origen a un desti aplicant dijkstra, retorna un -1 si no hi ha ruta i 0 si hi ha ruta
+     * @brief: Calcula el cami minim entre dos punts
      */
     public Integer camiMinim(Mapa mundi, PuntInteres origen, PuntInteres desti, String tipusDij){
         dest=desti;
@@ -133,6 +140,7 @@ public class Dijkstra {
     /**
      * @pre --
      * @post Retorna el millor punt per fixar
+     * @brief: Busca el millor punt per agafar
      */
     private PuntInteres buscarMinim(PuntInteres origen, Set<PuntInteres> nodesPerAgafar, Mapa mundi){
 	PuntInteres minim = null;
@@ -165,6 +173,7 @@ public class Dijkstra {
     /**
      * @pre --
      * @post Actualitza els veins de un dijkstra per temps
+     * @brief: Actualitza veins per temps
      */
     private void buscarDistanciesMinimes(Mapa mundi, PuntInteres pi){
         if (mundi.obtenirVeins(pi) != null) {
@@ -194,6 +203,7 @@ public class Dijkstra {
     /**
      * @pre --
      * @post Actualitza els veins de un dijkstra per cost
+     * @brief: Actualitza veins per cost
      */
     private void buscarCostsMinims(Mapa mundi, PuntInteres pi){
 	if(mundi.obtenirVeins(pi)!=null){
@@ -223,6 +233,7 @@ public class Dijkstra {
     /**
      * @pre --
      * @post Actualitza els veins de un dijkstra per satisfaccio
+     * @brief: Actualitza veins per satisfaccio
      */
     private void buscarSatisfaccioMaxima(Mapa mundi, PuntInteres pi) {
         if(mundi.obtenirVeins(pi)!=null){
@@ -252,6 +263,7 @@ public class Dijkstra {
     /**
      * @pre --
      * @post Retorna el temps que es tarda en arribar en aquell punt, Integer.MAX_VALUE si no es pot arribar
+     * @brief: Retorna el temps per anar a un punt
      */
     private int obtenirTemps(PuntInteres pi){
 	Integer t = temps.get(pi);
@@ -266,6 +278,7 @@ public class Dijkstra {
     /**
      * @pre --
      * @post Retorna el cost que es te en arribar en aquell punt, Double.MAX_VALUE si no es pot arribar
+     * @brief: Retorna el cost per anar a un punt
      */
     private Double obtenirCost(PuntInteres pi){
 	Double t = cost.get(pi);
@@ -280,6 +293,7 @@ public class Dijkstra {
     /**
      * @pre --
      * @post Retorna la satisfaccio que es proporciona arribar en aquell punt, Int.MAX_VALUE si no es pot arribar
+     * @brief: Retorna la satisfaccio per anar a un punt
      */
     private Integer obtenirSatisfaccio(PuntInteres pi) {
         Integer t = satisfaccio.get(pi);
