@@ -299,9 +299,6 @@ public final class ProActive_Travel extends Application {
                     Runnable runner = new Runnable(){
                         public void run() {
                              List<Ruta> r = CalculGreedy.calcularRutaGreedy(viatge, mundi);
-                             //Sortida.mostrarRutes(r, viatge, "viatge1.txt");
-                             //sortidaKML.generarFitxer(r);
-                            System.out.println("I'm The Reaper and death is my shadow");
                         }
                     };
                     Thread t = new Thread(runner, "Code Executer");

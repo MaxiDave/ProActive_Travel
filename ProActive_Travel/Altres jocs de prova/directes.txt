@@ -1,0 +1,25 @@
+# Author : Marc Sánchez
+transport directe
+Mas Vivent
+Castell de Peralada
+Microbusus barceló
+00:26
+2.5
+*
+transport directe
+Mas Vivent
+Castell de Peralada
+Marcel de la tita llarga
+00:15
+5
+*
+transport directe
+Castell de Peralada
+Sagrada Família
+Microbusus barceló
+01:45
+23.00
+*
+
+
+

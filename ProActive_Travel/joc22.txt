@@ -218,6 +218,15 @@ pesca
 *
 January 1 - December 31: 00:00-23:59
 *
+allotjament
+Hotel Can Pistraus
+41.418787,2.232285
+Europe/Madrid
+luxe
+65
+platja
+piscina
+*
 lloc visitable
 Cementiri Arenys de Mar
 41.577047,2.5464769999999817
@@ -271,6 +280,10 @@ Terrassa
 associar lloc
 Sant Pol de Mar
 Arenys de Mar
+*
+associar lloc
+Hotel Can Pistraus
+Barcelona
 *
 associar lloc
 Gran Ruta de l'Aigua
@@ -839,18 +852,42 @@ viatge
 2017-04-11
 08:00
 2
-400
+4000
 luxe
 Brayden Isbrand
 Supre Mairo
 Rinat Eneko
 Primus Dragan
 *
+Sagrada Familia
+Parc Güell
+Casa Milà
 Camp Nou
+Catedral de Barcelona
+Aquarium
 Gran Teatre del Liceo
 Tibidabo
+Gran Ruta de l'Aigua
 *
 ruta barata
-ruta curta
+*
+viatge
+2017-04-11
+08:00
+2
+4000
+luxe
+Brayden Isbrand
+Supre Mairo
+Rinat Eneko
+Primus Dragan
+*
+Sagrada Familia
+Catedral de Barcelona
+Aquarium
+Gran Teatre del Liceo
+Tibidabo
+Gran Ruta de l'Aigua
+*
 ruta satisfactoria
 *

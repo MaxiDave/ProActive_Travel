@@ -1,0 +1,28 @@
+# Marc Sánchez
+client
+Pere de la cullera
+platja
+piscina
+mar
+gambes
+muntanya
+*
+client
+Marc Sánchez pifarré
+vaixell
+mercats
+platja
+munTanya
+piscina
+*
+client
+Francesc Xavier Bullich
+Estany
+estany
+Piscina
+*
+client
+*
+client
+Abel Toy
+*

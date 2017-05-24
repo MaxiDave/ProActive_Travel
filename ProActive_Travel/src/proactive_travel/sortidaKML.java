@@ -1,7 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+//ProActive_Travel
+
+/**
+ * @file: CalculGreedy.java
+ * @author: Roger Barnés, u1939667
+ * @author: David Martínez, u1939690
+ * @version: 1
+ * @date: Curs 2016-2017
+ * @warning: --
+ * @brief: Mòdul funcional que s'encarrega de dur a terme els càlculs relacionats en trobar
+ *         una bona solució (Greedy) de Ruta, en termes monetaris, temps i Satisfacció 
+ * @copyright: Public License
  */
 package proactive_travel;
 
@@ -11,13 +19,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Roger
+ * DESCRIPCIÓ GENERAL
+ * @brief: Classe que s'encarrega de generar un fitxer kml
  */
 
 public class sortidaKML {
-    private static PrintWriter sortidaKML;
-    private static int contadorFitxer=0;
+    private static PrintWriter sortidaKML;  ///< @brief PrintWriter que aculmulara tota la informacio per enviarla a un fitxer
+    private static int contadorFitxer=0;    ///< @brief Contador perque al haver mes de una ruta no es sobreescriguin
+    
+    /**
+     * @pre --
+     * @post Posa tot el que ha d'anar a la capcalera del fitxer
+     */
     private static void setup() throws FileNotFoundException, UnsupportedEncodingException{
         //Preparacio del fitxer
         sortidaKML = new PrintWriter("viatge"+contadorFitxer+".kml","UTF-8"); //Aqui tens el nom si el vols passar per parametre amb string et deixo sino posem un generic
@@ -41,6 +54,10 @@ public class sortidaKML {
         sortidaKML.println("        </Style>");
     }
     
+    /**
+     * @pre --
+     * @post Posa tot el que ha d'anar al final del fitxer i escriu tot el que ha anat guardant
+     */
     private static void ending(){
         sortidaKML.println("    </Document>");
         sortidaKML.println("</kml>");
@@ -48,6 +65,10 @@ public class sortidaKML {
         sortidaKML.flush();
     }
     
+    /**
+     * @pre --
+     * @post Posa una bandera amb nom a una latitud i longitud
+     */
     private static void posarBandera(String nom,String latitud,String longitud){
         sortidaKML.println("<Placemark>");
         sortidaKML.print("    <name>");
@@ -64,6 +85,10 @@ public class sortidaKML {
         sortidaKML.println("</Placemark>");
     }
     
+    /**
+     * @pre --
+     * @post Traca el circuit a les coordenades passades per parametre
+     */
     private static void ferCircuit(Deque<Coordenades> l){
         sortidaKML.println("<Placemark>");
         sortidaKML.println("    <name>Circuit</name>"); //Si et fa ilu pots posar un nom millor
@@ -87,6 +112,10 @@ public class sortidaKML {
         sortidaKML.println("</Placemark>");
     }
     
+    /**
+     * @pre --
+     * @post Genera un fitxer KML amb la ruta donada
+     */
     public static void generarFitxer(Ruta r){
         //Setup
         contadorFitxer++;

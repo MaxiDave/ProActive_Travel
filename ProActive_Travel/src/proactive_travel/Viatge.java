@@ -37,8 +37,8 @@ public class Viatge {
     
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /** 
-     * @pre: --
-     * @post: Es crea un Viatge amb clients, categoria desitjada, inici i duració.
+     * @pre --
+     * @post Es crea un Viatge amb clients, categoria desitjada, inici i duració.
      */
     public Viatge(String catDesit, LocalDateTime inici, Integer duracio, Double preuMax){
         this.clients= new HashSet<Client>();
@@ -56,8 +56,8 @@ public class Viatge {
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     /** 
-     * @pre: --
-     * @post: Afegeix un client a la llista dels clients del viatge
+     * @pre --
+     * @post Afegeix un client a la llista dels clients del viatge
      */
     public void afegirClient(Client c){
         clients.add(c);
@@ -70,48 +70,48 @@ public class Viatge {
     }
     
     /** 
-     * @pre: --
-     * @post: Assigna un Punt d'Interes com a origen del viatge
+     * @pre --
+     * @post Assigna un Punt d'Interes com a origen del viatge
      */
     public void assignarOrigen(PuntInteres punt){
         origen= punt;
     }
     
     /** 
-     * @pre: --
-     * @post: Assigna un Punt d'Interes com a destí del viatge
+     * @pre --
+     * @post Assigna un Punt d'Interes com a destí del viatge
      */
     public void assignarDesti(PuntInteres punt){
         desti= punt;
     }
     
     /** 
-     * @pre: --
-     * @post: Afegeix un Punt d'Interes a la llista dels punts per on es vol passar del viatge
+     * @pre --
+     * @post Afegeix un Punt d'Interes a la llista dels punts per on es vol passar del viatge
      */
     public void afegirPI(PuntInteres punt){
         pI.add(punt);
     }
     
     /** 
-     * @pre: --
-     * @post: El viatge vol la Ruta més barata 
+     * @pre --
+     * @post El viatge vol la Ruta més barata 
      */
     public void assignarBarata(){
         rutaBarata= true;
     }
     
     /** 
-     * @pre: --
-     * @post: El viatge vol la Ruta més curta 
+     * @pre --
+     * @post El viatge vol la Ruta més curta 
      */
     public void assignarCurta(){
         rutaCurta= true;
     }
     
     /** 
-     * @pre: --
-     * @post: El viatge vol la Ruta més satisfactoria
+     * @pre --
+     * @post El viatge vol la Ruta més satisfactoria
      */
     public void assignarSatisfactoria(){
         rutaSatisfactoria= true;
@@ -122,8 +122,8 @@ public class Viatge {
     }
     
     /** 
-     * @pre: --
-     * @post: Retorna cert si l’allotjament “hotel” és de la categoria que desitja el conjunt de clients
+     * @pre --
+     * @post Retorna cert si l’allotjament “hotel” és de la categoria que desitja el conjunt de clients
      */
     public Boolean categoriaDesitjada(Allotjament hotel){
         if(hotel.obtenirCat().equals(catDesit)) return true;
@@ -131,24 +131,24 @@ public class Viatge {
     }
     
     /** 
-     * @pre: --
-     * @post: Retorna el PuntInteres d’origen del viatge del grup de clients
+     * @pre --
+     * @post Retorna el PuntInteres d’origen del viatge del grup de clients
      */
     public PuntInteres obtOrigen(){
         return origen; 
     }
     
     /** 
-     * @pre: --
-     * @post: Retorna el PuntInteres de destí del viatge del grup de clients
+     * @pre --
+     * @post Retorna el PuntInteres de destí del viatge del grup de clients
      */
     public PuntInteres obtDesti(){
         return desti; 
     }
     
     /** 
-     * @pre: --
-     * @post: Retorna la data (amb hora inclosa) de sortida del grup de clients
+     * @pre --
+     * @post Retorna la data (amb hora inclosa) de sortida del grup de clients
      */
     public LocalDateTime obtDataInici(){
         LocalDateTime ini = null;
@@ -161,8 +161,8 @@ public class Viatge {
     }
     
     /** 
-     * @pre: --
-     * @post: Retorna un iterador als punts d’interès prefixats que s’han de visitar sí o sí
+     * @pre --
+     * @post Retorna un iterador als punts d’interès prefixats que s’han de visitar sí o sí
      */
     public Set<PuntInteres> obtenirInteressos(){
         HashSet<PuntInteres> pIs = new HashSet<PuntInteres>(pI);

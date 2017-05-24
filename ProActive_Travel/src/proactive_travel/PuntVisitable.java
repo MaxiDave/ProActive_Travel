@@ -27,8 +27,8 @@ public class PuntVisitable extends PuntInteres {
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     /** 
-     * @pre: --
-     * @post: Es crea un punt visitable a partir de la informació del punt d’interès i el temps mitjà de visita
+     * @pre --
+     * @post Es crea un punt visitable a partir de la informació del punt d’interès i el temps mitjà de visita
      */
     public PuntVisitable(String name,Collection<String> acts,Double cost,Integer tempsVisita, LocalTime obertura, LocalTime tancament, Coordenades coor){
         super(name, acts, cost, coor);
@@ -38,24 +38,24 @@ public class PuntVisitable extends PuntInteres {
     }
     
     /** 
-     * @pre: --
-     * @post: Retorna el temps mitjà de visita
+     * @pre --
+     * @post Retorna el temps mitjà de visita
      */
     public Integer obtTempsVisita(){
         return tempsV;
     }
     
     /** 
-     * @pre: --
-     * @post: Retorna el moment d'obertura del punt visitable
+     * @pre --
+     * @post Retorna el moment d'obertura del punt visitable
      */
     public LocalTime obtObertura(){
         return obertura;
     }
     
     /** 
-     * @pre: --
-     * @post: Retorna el moment de tancament del punt visitable
+     * @pre --
+     * @post Retorna el moment de tancament del punt visitable
      */
     public LocalTime obtTancament(){
         return tancament;

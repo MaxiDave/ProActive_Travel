@@ -1,0 +1,83 @@
+# Author : Marc Sánchez 
+transport indirecte
+Vilamaniscle
+Peralada
+Ampurdán bus
+00:13
+00:20
+2017-04-11
+12:46
+01:16
+10.50
+13:46
+01:20
+10.50
+2017-04-12
+10:16
+01:19
+10.50
+*
+tansport indirecte
+Denpasar
+Melbourne
+avió
+01:00
+00:30
+2017-05-13
+10:00
+04:00
+105.90
+22:00
+04:00
+150.00
+2017-05-14
+10:16
+04:00
+190.90
+*
+tansport indirecte
+Barcelona
+Denpasar
+avió
+01:00
+00:30
+2017-05-12
+10:00
+12:00
+670
+12:00
+11:30
+685
+*
+tansport indirecte
+Melbourne
+Barcelona
+avió
+00:55
+00:30
+2017-05-15
+05:00
+10:22
+567
+12:00
+11:30
+566
+*
+transport indirecte
+Barcelona
+Vilamaniscle
+Teisa
+00:45
+00:05
+2017-04-15
+12:46
+01:16
+10.50
+13:46
+01:20
+10.50
+2017-04-16
+10:16
+01:19
+10.50
+*

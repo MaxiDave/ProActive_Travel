@@ -21,19 +21,19 @@ import java.time.*;
  */
 public class Mapa {
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
-    private Map<String, Lloc> llocs;
-    private Map<String, PuntInteres> punts;
-    private Map<PuntInteres, Map<PuntInteres, Set<MTDirecte>>> transDirecte;
-    private Map<PuntInteres, List<MitjaTransport>> puntsPerDurada;
-    private Map<PuntInteres, List<MitjaTransport>> puntsPerPreu;
-    private Map<Estacio, List<MitjaTransport>> estacionsPerDurada;
-    private Map<Estacio, List<MitjaTransport>> estacionsPerPreu;
-    private Map<Estacio, Map<Lloc, List<MTPunts>>> estacioAPunts;
+    private Map<String, Lloc> llocs;                                            ///< @brief Mapa de llocs
+    private Map<String, PuntInteres> punts;                                     ///< @brief Mapa de punts
+    private Map<PuntInteres, Map<PuntInteres, Set<MTDirecte>>> transDirecte;    ///< @brief Mapa de conexions PuntInteres a PuntInteres amb MTDirecte
+    private Map<PuntInteres, List<MitjaTransport>> puntsPerDurada;              ///< @brief Mapa de PuntInteres amb els seus transports ordenats per temps
+    private Map<PuntInteres, List<MitjaTransport>> puntsPerPreu;                ///< @brief Mapa de PuntInteres amb els seus transports ordenats per preu
+    private Map<Estacio, List<MitjaTransport>> estacionsPerDurada;              ///< @brief Mapa de les Estacions amb els seus transports ordenats per temps
+    private Map<Estacio, List<MitjaTransport>> estacionsPerPreu;                ///< @brief Mapa de les Estacions amb els seus transports ordenats per temps
+    private Map<Estacio, Map<Lloc, List<MTPunts>>> estacioAPunts;               ///< @brief Mapa de les Estacions amb els seus destins
     
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /**
-     * @pre: --
-     * @post: Crea un mapa buit
+     * @pre --
+     * @post Crea un mapa buit
      */
     public Mapa(){
         llocs= new HashMap<>();
@@ -48,8 +48,8 @@ public class Mapa {
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     /**
-     * @pre: Lloc on està el punt d’interès ha d’existir
-     * @post: Afegeix un punt d’interès al mapa
+     * @pre Lloc on està el punt d’interès ha d’existir
+     * @post Afegeix un punt d’interès al mapa
      */
     public void afegeixPuntInteres(PuntInteres pI) {
         if(punts.containsKey(pI.obtNom())) punts.replace(pI.obtNom(), pI);
@@ -57,8 +57,8 @@ public class Mapa {
     }
     
     /**
-     * @pre: --
-     * @post: Afegeix un lloc al mapa  
+     * @pre --
+     * @post Afegeix un lloc al mapa  
      */
     public void afegeixLloc(Lloc ll){
         if(llocs.containsKey(ll.obtNom())) llocs.replace(ll.obtNom(), ll);
@@ -66,8 +66,8 @@ public class Mapa {
     }
     
     /**
-     * @pre: --
-     * @post: Si no existia, afegeix el Transport Directe mT al mapa. Altrament llença una excepció 
+     * @pre --
+     * @post Si no existia, afegeix el Transport Directe mT al mapa. Altrament llença una excepció 
      */
     public void afegirTransportDirecte(MTDirecte mT) {
         if(!transDirecte.containsKey(mT.getOrigen())){
@@ -92,8 +92,8 @@ public class Mapa {
     }
     
     /**
-     * @pre: primari ha d'existir a llocs i secundari a punts
-     * @post: Associa el lloc secundari amb nom IDpI al lloc primari IDlloc
+     * @pre primari ha d'existir a llocs i secundari a punts
+     * @post Associa el lloc secundari amb nom IDpI al lloc primari IDlloc
      */
     public void associarLloc(Lloc primari, PuntInteres secundari){
         secundari.vincularLloc(primari);
@@ -101,8 +101,8 @@ public class Mapa {
     }
     
     /**
-     * @pre: lloc existeix a llocs
-     * @post: Si "trans" no existeix a ll, s'associa a la llista de transports urbans del lloc.
+     * @pre lloc existeix a llocs
+     * @post Si "trans" no existeix a ll, s'associa a la llista de transports urbans del lloc.
      *        Altrament llença una excepció
      */
     public void associarUrba(Lloc ll, MitjaTransport trans) throws Exception{
@@ -110,8 +110,8 @@ public class Mapa {
     }
     
     /**
-     * @pre: --
-     * @post: Retorna el Lloc associat amb l' identificador llocID.
+     * @pre --
+     * @post Retorna el Lloc associat amb l' identificador llocID.
      *        Si no existeix llença excepció
      */
     public Lloc obtenirLloc(String llocID) throws Exception{
@@ -129,8 +129,8 @@ public class Mapa {
     }
     
     /**
-     * @pre: --
-     * @post: Retorna el puntInteres associat amb l' identificador puntID.
+     * @pre --
+     * @post Retorna el puntInteres associat amb l' identificador puntID.
      *        Si no existeix llença excepció
      */
     public PuntInteres obtenirPI(String puntID) throws Exception{
@@ -140,8 +140,8 @@ public class Mapa {
     }
     
     /**
-     * @pre: --
-     * @post: 
+     * @pre --
+     * @post 
      */
     public PuntRuta obtenirPuntRuta(String ID) throws Exception{
         PuntInteres aux= punts.get(ID);
@@ -158,15 +158,15 @@ public class Mapa {
     }
     
     /**
-     * @pre: --
-     * @post: Retorna el nombre de punts d’interès del mapa
+     * @pre --
+     * @post Retorna el nombre de punts d’interès del mapa
      */
     public Integer nPuntsInteres(){
         return punts.size();
     }
     
-    /** @pre:  Lloc origen i lloc desti han d'existir
-     *  @post: Si no existeix l'estació de nom nomEst a origen i/o destí, la/les crea.
+    /** @pre  Lloc origen i lloc desti han d'existir
+     *  @post Si no existeix l'estació de nom nomEst a origen i/o destí, la/les crea.
      *         Afegeix al lloc origen una connexió de sortida cap al lloc desti amb un temps d'origen tempsOrigen
      *         Afegeix al lloc desti una connexió d'arribada des del lloc origen amb un temps de destí tempsDesti
      */
@@ -175,16 +175,16 @@ public class Mapa {
         desti.afegirConnexioArribadaMTI(nomEst, origen, tempsDesti);
     }
     
-    /** @pre:  Origen i destí han de tenir estació de nom el mateix que el mitjà
-     *  @post: Afegeix el mitjà al Lloc origen (Sortida) i al Lloc desti (Arribada)
+    /** @pre  Origen i destí han de tenir estació de nom el mateix que el mitjà
+     *  @post Afegeix el mitjà al Lloc origen (Sortida) i al Lloc desti (Arribada)
      */
     public void afegirMTIndirecte(MTIndirecte mitja, LocalDateTime horaSortida, Lloc origen){
         origen.afegirSortidaMTI(mitja, horaSortida);
     }
     
     /**
-     * @pre: --   
-     * @post: Retorna un Map amb els punts d’interès des d’on es pot anar a partir de pI i el seu MTDirecte (El de mínim temps)
+     * @pre --   
+     * @post Retorna un Map amb els punts d’interès des d’on es pot anar a partir de pI i el seu MTDirecte (El de mínim temps)
      */
     public Map<PuntInteres,MitjaTransport> obtenirDesplsMins(PuntInteres pI,String tipus){
         Map<PuntInteres,MitjaTransport> minim= new HashMap<>();
@@ -205,7 +205,7 @@ public class Mapa {
                 Set<MTDirecte> des = ori.get(desti);
                 if(des != null){
                     for(MTDirecte i : des){
-                        if(i.obtDurada()< tempsMinim || MT==null){
+                        if(i.obtDurada()< tempsMinim){
                             tempsMinim=i.obtDurada();
                             MT=i;
                         }
@@ -236,8 +236,8 @@ public class Mapa {
     }
     
     /**
-     * @pre: --   
-     * @post: Retorna un Map amb els punts d’interès des d’on es pot anar a partir de pI i el seu MTDirecte (El de mínim cost)
+     * @pre --   
+     * @post Retorna un Map amb els punts d’interès des d’on es pot anar a partir de pI i el seu MTDirecte (El de mínim cost)
      */
     public Double obtenirCostDespl(PuntInteres origen, PuntInteres desti,Map<PuntInteres,MitjaTransport> MTs, boolean afegir){
         double costMinim=Double.MAX_VALUE;
@@ -400,8 +400,8 @@ public class Mapa {
     }
     
     /**
-     * @pre: --   
-     * @post: Retorna un set amb els veins de un PuntInteres concret, considerant nomes MTDirecte
+     * @pre --   
+     * @post Retorna un set amb els veins de un PuntInteres concret, considerant nomes MTDirecte
      */
     public Set<PuntInteres> obtenirVeins(PuntInteres pi) {
         Map<PuntInteres, Set<MTDirecte>> veinsTransports = transDirecte.get(pi);
@@ -413,8 +413,8 @@ public class Mapa {
     }
     
     /**
-     * @pre: --   
-     * @post: Retorna el dijkstra a l'hotel mes proper
+     * @pre --   
+     * @post Retorna el dijkstra a l'hotel mes proper
      */
     public Dijkstra obtenirHotelProper(PuntInteres pi,String tipusDijk){
         Dijkstra d = new Dijkstra();
@@ -442,8 +442,8 @@ public class Mapa {
     }
 
     /**
-     * @pre: --   
-     * @post: Retorna tots els veins de un punt concret, nomes considerant transport urba
+     * @pre --   
+     * @post Retorna tots els veins de un punt concret, nomes considerant transport urba
      */
     Set<PuntInteres> obtenirVeinsUrba(PuntInteres pi) {
         Lloc pare = pi.obtenirLloc();

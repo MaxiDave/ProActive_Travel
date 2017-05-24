@@ -1,12 +1,17 @@
 INFORMACIÓ DEL VIATGE
 
+<<<<<<< HEAD
 Clients: Supre Mairo, Rinat Eneko, Primus Dragan, Brayden Isbrand, 
+=======
+Clients: Primus Dragan, Brayden Isbrand, Rinat Eneko, Supre Mairo, 
+>>>>>>> 0b4d9bdf402891383a8a1c6a03f73a02ae01f771
 Categoria Desitjada: luxe
 Inici del Viatge: 2017-04-11T08:00
 Duració màxima: 2 dies
 Preu màxim: 4000.0
 Origen: Sagrada Familia
 Destí: Gran Ruta de l'Aigua
+<<<<<<< HEAD
 Punts Intermitjos: Tibidabo, Casa Milà, Camp Nou, Aquarium, Gran Teatre del Liceo, Parc Güell, Catedral de Barcelona, 
 Rutes a calcular: Barata, Curta, Satisfactòria
 
@@ -76,15 +81,23 @@ Satisfacció: 15
 13:20-14:50 Gran Ruta de l'Aigua (Visita)
 
 
+=======
+Punts Intermitjos: Tibidabo, Aquarium, Gran Teatre del Liceo, Catedral de Barcelona, 
+Rutes a calcular: Satisfactòria
+
+RUTES TROBADES
+
+>>>>>>> 0b4d9bdf402891383a8a1c6a03f73a02ae01f771
 RUTA MÉS SATISFACTÒRIA
-Preu: 992,60€
-Satisfacció: 15
+Preu: 560,85€
+Satisfacció: 8
 
 2017-04-11
 08:00-09:00 Temps Lliure
 09:00-10:30 Sagrada Familia (Visita)
 10:30-10:40 Sagrada Familia -> Catedral de Barcelona (Jet)
 10:40-12:10 Catedral de Barcelona (Visita)
+<<<<<<< HEAD
 12:10-12:20 Catedral de Barcelona -> Parc Güell (Jet)
 12:20-13:50 Parc Güell (Visita)
 13:50-14:00 Parc Güell -> Gran Teatre del Liceo (Jet)
@@ -106,5 +119,16 @@ Satisfacció: 15
 10:30-10:40 Tibidabo -> Catedral de Barcelona (Jet)
 10:40-13:20 Tibidabo -> Gran Ruta de l'Aigua (bicicleta)
 13:20-14:50 Gran Ruta de l'Aigua (Visita)
+=======
+12:10-12:20 Catedral de Barcelona -> Gran Teatre del Liceo (Jet)
+12:20-13:50 Gran Teatre del Liceo (Visita)
+13:50-14:00 Gran Teatre del Liceo -> Aquarium (Jet)
+14:00-15:30 Aquarium (Visita)
+15:30-15:40 Aquarium -> Tibidabo (Jet)
+15:40-17:10 Tibidabo (Visita)
+17:10-17:20 Tibidabo -> Catedral de Barcelona (Jet)
+17:20-20:00 Catedral de Barcelona -> Gran Ruta de l'Aigua (bicicleta)
+20:00-21:30 Gran Ruta de l'Aigua (Visita)
+>>>>>>> 0b4d9bdf402891383a8a1c6a03f73a02ae01f771
 
 

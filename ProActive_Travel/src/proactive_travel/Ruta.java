@@ -31,8 +31,8 @@ public class Ruta{
     private String tipus;
     //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
     /**
-     * @pre: --
-     * @post: Crea una Ruta inicial buida
+     * @pre --
+     * @post Crea una Ruta inicial buida
      */
     public Ruta(String tipus, LocalDateTime inici){
         items= new ArrayDeque<>();
@@ -45,8 +45,8 @@ public class Ruta{
     }
     
     /**
-     * @pre: --
-     * @post: Crea una Ruta que és una còpia de r
+     * @pre --
+     * @post Crea una Ruta que és una còpia de r
      */
     public Ruta(Ruta r){
         items= new ArrayDeque<>(r.items);
@@ -60,8 +60,8 @@ public class Ruta{
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     /**
-     * @pre: --
-     * @post: Afegeix un ItemRuta a la Ruta
+     * @pre --
+     * @post Afegeix un ItemRuta a la Ruta
      */
     public void afegeixItemRuta(ItemRuta item){
         //System.out.println("Afegir");
