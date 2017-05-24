@@ -123,6 +123,17 @@ public class sortidaKML {
                 if(ir instanceof TrajecteDirecte){
                     lc.add(((TrajecteDirecte)ir).obtPuntSortida().obtCoordenades());
                 }
+                else if(ir instanceof TrajecteEstacio){
+                    PuntRuta pr = ((TrajecteEstacio)ir).obtPuntSortida();
+                    lc.add(((Estacio)pr).obtLloc().obtCoordenades());
+                }
+                else if(ir instanceof TrajectePunts){
+                    PuntRuta pr = (((TrajectePunts)ir).obtPuntSortida());
+                    lc.add(((PuntInteres)pr).obtCoordenades());
+                }
+                else{
+                    lc.add(((TrajecteIndirecte)ir).obtPuntSortida().obtLloc().obtCoordenades());
+                }
             }
         }
         ferCircuit(lc);
