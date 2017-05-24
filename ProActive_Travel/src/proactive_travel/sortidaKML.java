@@ -17,9 +17,10 @@ import java.util.logging.Logger;
 
 public class sortidaKML {
     private static PrintWriter sortidaKML;
+    private static int contadorFitxer=0;
     private static void setup() throws FileNotFoundException, UnsupportedEncodingException{
         //Preparacio del fitxer
-        sortidaKML = new PrintWriter("NOM_FITXER.kml","UTF-8"); //Aqui tens el nom si el vols passar per parametre amb string et deixo sino posem un generic
+        sortidaKML = new PrintWriter("viatge"+contadorFitxer+".kml","UTF-8"); //Aqui tens el nom si el vols passar per parametre amb string et deixo sino posem un generic
         
         //Capçalera del fitxer
         sortidaKML.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
@@ -88,6 +89,7 @@ public class sortidaKML {
     
     public static void generarFitxer(Ruta r){
         //Setup
+        contadorFitxer++;
         Iterator<ItemRuta> it = r.iterarItems();
         ItemRuta ir = null;
         
@@ -104,35 +106,37 @@ public class sortidaKML {
         Deque<Coordenades> lc = new ArrayDeque<>();
         while(it.hasNext()){
             ir = it.next();
-            if(ir.obtPuntSortida() instanceof PuntVisitable || ir.obtPuntSortida() instanceof Allotjament){
-                PuntInteres pI= (PuntInteres)ir.obtPuntSortida();
-                //Afegir al List per fer circuit i posar bandera
-                if (pI instanceof PuntVisitable) {
-                    lc.add(pI.obtCoordenades());
-                    posarBandera(pI.obtNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
-                }
-                else{
-                    lc.add(((EstadaHotel) ir).obtPuntSortida().obtCoordenades());
-                    posarBandera(((EstadaHotel) ir).obtPuntSortida().obtNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
-                if(ir instanceof Visita || ir instanceof EstadaHotel){
-                    if(ir.obtPuntSortida() instanceof PuntVisitable || ir.obtPuntSortida() instanceof Allotjament){
-                        //Afegir al List per fer circuit i posar bandera
-                        if (ir.obtPuntSortida() instanceof PuntVisitable) {
-                            lc.add(pI.obtCoordenades());
-                            posarBandera(ir.obtPuntSortida().obtNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
-                        }
-                        else{
-                            lc.add(((EstadaHotel) ir).obtPuntSortida().obtCoordenades());
-                            posarBandera(((EstadaHotel) ir).obtPuntSortida().obtNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
-                        }
+            if(ir instanceof Visita || ir instanceof EstadaHotel){
+                if(ir.obtPuntSortida() instanceof PuntInteres){
+                    //Afegir al List per fer circuit i posar bandera
+                    if (ir.obtPuntSortida() instanceof PuntVisitable) {
+                        lc.add(((PuntInteres)ir.obtPuntSortida()).obtCoordenades());
+                        posarBandera(((PuntInteres)ir.obtPuntSortida()).obtNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
+                    }
+                    else{
+                        lc.add(((EstadaHotel) ir).obtPuntSortida().obtCoordenades());
+                        posarBandera(((PuntInteres)ir.obtPuntSortida()).obtNom(),lc.getLast().obtLatitud(),lc.getLast().obtLongitud());
                     }
                 }
             }
-            //Fer circuit
-            ferCircuit(lc);
-
-            ending();
+            else{
+                if(ir instanceof TrajecteDirecte){
+                    lc.add(((TrajecteDirecte)ir).obtPuntSortida().obtCoordenades());
+                }
+                else if(ir instanceof TrajecteEstacio){
+                    PuntRuta pr = ((TrajecteEstacio)ir).obtPuntSortida();
+                    lc.add(((Estacio)pr).obtLloc().obtCoordenades());
+                }
+                else if(ir instanceof TrajectePunts){
+                    PuntRuta pr = (((TrajectePunts)ir).obtPuntSortida());
+                    lc.add(((PuntInteres)pr).obtCoordenades());
+                }
+                else{
+                    lc.add(((TrajecteIndirecte)ir).obtPuntSortida().obtLloc().obtCoordenades());
+                }
             }
         }
+        ferCircuit(lc);
+        ending();
     }
 }

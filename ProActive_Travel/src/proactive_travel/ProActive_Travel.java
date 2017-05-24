@@ -174,7 +174,7 @@ public final class ProActive_Travel extends Application {
                 public void handle(final ActionEvent e) {
                     //AQUÍ S'HA DE GENERAR I MOSTRAR DOCUMENTS GOOGLE MAPS
                     try {
-                        String nom= "NOM_FITXER.kml"; Integer num= 1; String ext=".txt"; //De moment nomes es genera NOM_FITXER.kml es a dir un mira com esta posat a ProActive_Travel / Greedy
+                        String nom= "visita1.kml"; Integer num= 1; String ext=".txt"; //De moment nomes es genera NOM_FITXER.kml es a dir un mira com esta posat a ProActive_Travel / Greedy
                         while(true){
                             File file = new File(nom);
                             if (Desktop.isDesktopSupported()) Desktop.getDesktop().open(file);
@@ -296,8 +296,9 @@ public final class ProActive_Travel extends Application {
                 protected Void call() throws Exception {
                     Runnable runner = new Runnable(){
                         public void run() {
-                            Ruta r = CalculGreedy.calcularRutaGreedy(viatge, mundi);
-                            sortidaKML.generarFitxer(r);
+                             List<Ruta> r = CalculGreedy.calcularRutaGreedy(viatge, mundi);
+                             //Sortida.mostrarRutes(r, viatge, "viatge1.txt");
+                             //sortidaKML.generarFitxer(r);
                             System.out.println("I'm The Reaper and death is my shadow");
                         }
                     };

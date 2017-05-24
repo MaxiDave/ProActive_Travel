@@ -27,6 +27,8 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * DESCRIPCIÓ GENERAL
@@ -403,45 +405,55 @@ public abstract class Entrada {
      * @post Crea les estructures de dades a partir de les dades del fitxer d'entrada i retorna l'últim Viatge entrat (Considerarem només 1 viatge per fitxer)
      * @brief Crea les estructures de dades a partir de les dades del fitxer d'entrada i retorna l'últim Viatge entrat
      */
-    public static Viatge inicialitzaAplicatiu(File file, Map<String, Client> clients, Mapa mundi) throws FileNotFoundException, UnsupportedEncodingException{
-        PrintWriter error = new PrintWriter("error.txt", "UTF-8");
+    public static Viatge inicialitzaAplicatiu(File file, Map<String, Client> clients, Mapa mundi){
+        PrintWriter error = null;
         try{
-            Viatge viatge= null;
-            lineCounter= 0;
-            warnings= 0;
-            fail= false;
-            Scanner fitxer= new Scanner(file).useLocale(Locale.US);
-            llegirLinia(fitxer); //S'ignora la línia del autor
-            while(fitxer.hasNextLine()){
-                String codiOperacio= llegirLinia(fitxer);
-                if(codiOperacio.equals("client")) donarAltaClient(fitxer, clients);
-                else if(codiOperacio.equals("lloc")) donarAltaLloc(error, fitxer, mundi);
-                else if(codiOperacio.equals("allotjament")) donarAltaAllotjament(error, fitxer, mundi);
-                else if(codiOperacio.equals("lloc visitable")) donarAltaPuntVisitable(error, fitxer, mundi);
-                else if(codiOperacio.equals("associar lloc")) associarLloc(error, fitxer, mundi);
-                else if(codiOperacio.equals("associar transport")) associarUrba(error, fitxer, mundi);
-                else if(codiOperacio.equals("transport directe")) afegirTransportDirecte(error, fitxer, mundi);
-                else if(codiOperacio.equals("transport indirecte")) afegirTransportIndirecte(error, fitxer, mundi);
-                else if(codiOperacio.equals("viatge")){
-                    Viatge aux= afegirViatge(error, fitxer, mundi, clients);
-                    if(aux != null) viatge= aux;
+            error= new PrintWriter("error.txt", "UTF-8");
+            try{
+                Viatge viatge= null;
+                lineCounter= 0;
+                warnings= 0;
+                fail= false;
+                Scanner fitxer= new Scanner(file).useLocale(Locale.US);
+                llegirLinia(fitxer); //S'ignora la línia del autor
+                while(fitxer.hasNextLine()){
+                    String codiOperacio= llegirLinia(fitxer);
+                    if(codiOperacio.equals("client")) donarAltaClient(fitxer, clients);
+                    else if(codiOperacio.equals("lloc")) donarAltaLloc(error, fitxer, mundi);
+                    else if(codiOperacio.equals("allotjament")) donarAltaAllotjament(error, fitxer, mundi);
+                    else if(codiOperacio.equals("lloc visitable")) donarAltaPuntVisitable(error, fitxer, mundi);
+                    else if(codiOperacio.equals("associar lloc")) associarLloc(error, fitxer, mundi);
+                    else if(codiOperacio.equals("associar transport")) associarUrba(error, fitxer, mundi);
+                    else if(codiOperacio.equals("transport directe")) afegirTransportDirecte(error, fitxer, mundi);
+                    else if(codiOperacio.equals("transport indirecte")) afegirTransportIndirecte(error, fitxer, mundi);
+                    else if(codiOperacio.equals("viatge")){
+                        Viatge aux= afegirViatge(error, fitxer, mundi, clients);
+                        if(aux != null) viatge= aux;
+                    }
+                    else{
+                        Integer liniesAnteriors= lineCounter;
+                        ignorarFinsSeparador(fitxer);
+                        error.println("Línia "+liniesAnteriors+": Codi d'operació '"+codiOperacio+"' invàlid. S'ha ignorat el mòdul ("+(lineCounter-liniesAnteriors)+" línies)");
+                        error.println();
+                        warnings++;
+                    }
                 }
-                else{
-                    Integer liniesAnteriors= lineCounter;
-                    ignorarFinsSeparador(fitxer);
-                    error.println("Línia "+liniesAnteriors+": Codi d'operació '"+codiOperacio+"' invàlid. S'ha ignorat el mòdul ("+(lineCounter-liniesAnteriors)+" línies)");
-                    error.println();
-                    warnings++;    
-                }
+                error.close();
+                fitxer.close();
+                return viatge;
+            } catch(FileNotFoundException | NoSuchElementException iE){
+                fail= true;
+                error.println(iE);
+                error.println("Fatal Error 404: Si us plau torni-ho a intentar, ens sap greu :(");
+                return null;
             }
-            error.close();
-            fitxer.close();
-            return viatge;
-        } catch(FileNotFoundException | NoSuchElementException iE){
+        } catch(FileNotFoundException | UnsupportedEncodingException ex){
             fail= true;
-            error.println(iE);
+            error.println(ex);
             error.println("Fatal Error 404: Si us plau torni-ho a intentar, ens sap greu :(");
             return null;
+        } finally {
+            error.close();
         }
     }
 }
