@@ -22,6 +22,13 @@
     </Point>
 </Placemark>
 <Placemark>
+    <name>Aquarium</name>
+    <styleUrl>#myDefaultStyles</styleUrl>
+    <Point>
+        <coordinates>2.156687099999999,41.3936752,0.0</coordinates>
+    </Point>
+</Placemark>
+<Placemark>
     <name>Tibidabo</name>
     <styleUrl>#myDefaultStyles</styleUrl>
     <Point>
@@ -29,10 +36,10 @@
     </Point>
 </Placemark>
 <Placemark>
-    <name>Aquarium</name>
+    <name>Parc Güell</name>
     <styleUrl>#myDefaultStyles</styleUrl>
     <Point>
-        <coordinates>2.156687099999999,41.3936752,0.0</coordinates>
+        <coordinates>2.1526945000000524,41.41449480000001,0.0</coordinates>
     </Point>
 </Placemark>
 <Placemark>
@@ -44,10 +51,12 @@
         <altitudeMode>clampToGround</altitudeMode>
         <coordinates>
             2.114639000000011,41.375919,0.0
-            2.118610999999987,41.4225,0.0
-            2.118610999999987,41.4225,0.0
             2.156687099999999,41.3936752,0.0
             2.156687099999999,41.3936752,0.0
+            2.118610999999987,41.4225,0.0
+            2.118610999999987,41.4225,0.0
+            2.1526945000000524,41.41449480000001,0.0
+            2.1526945000000524,41.41449480000001,0.0
         </coordinates>
     </LineString>
 </Placemark>

@@ -1,0 +1,450 @@
+JOC 10:
+
+INFORMACIÓ DEL VIATGE
+
+Clients: Rinat Eneko, Primus Dragan, Brayden Isbrand, Supre Mairo, 
+Categoria Desitjada: luxe
+Inici del Viatge: 2017-04-11T08:00
+Duració màxima: 2 dies
+Preu màxim: 400.0
+Origen: Camp Nou
+Destí: Tibidabo
+Punts Intermitjos: Gran Teatre del Liceo, 
+Rutes a calcular: Barata, Curta, Satisfactòria
+
+RUTES TROBADES
+
+RUTA MÉS BARATA
+Preu: 79,35€
+Satisfacció: 4
+
+2017-04-11
+08:00-09:00 Temps Lliure
+09:00-10:30 Camp Nou (Visita)
+10:30-11:15 Camp Nou -> Gran Teatre del Liceo (metro)
+11:15-12:45 Gran Teatre del Liceo (Visita)
+12:45-13:30 Gran Teatre del Liceo -> Tibidabo (metro)
+13:30-15:00 Tibidabo (Visita)
+
+
+RUTA MÉS CURTA
+Preu: 276,55€
+Satisfacció: 4
+
+2017-04-11
+08:00-09:00 Temps Lliure
+09:00-10:30 Camp Nou (Visita)
+10:30-10:40 Camp Nou -> Gran Teatre del Liceo (Jet)
+10:40-12:10 Gran Teatre del Liceo (Visita)
+12:10-12:20 Gran Teatre del Liceo -> Tibidabo (Jet)
+12:20-13:50 Tibidabo (Visita)
+
+
+RUTA MÉS SATISFACTÒRIA
+Preu: 276,55€
+Satisfacció: 4
+
+2017-04-11
+08:00-09:00 Temps Lliure
+09:00-10:30 Camp Nou (Visita)
+10:30-10:40 Camp Nou -> Gran Teatre del Liceo (Jet)
+10:40-12:10 Gran Teatre del Liceo (Visita)
+12:10-12:20 Gran Teatre del Liceo -> Tibidabo (Jet)
+12:20-13:50 Tibidabo (Visita)
+---------------------------------------------------------------------------------------------
+Joc 11
+
+INFORMACIÓ DEL VIATGE
+
+Clients: Primus Dragan, Brayden Isbrand, Supre Mairo, Rinat Eneko, 
+Categoria Desitjada: luxe
+Inici del Viatge: 2017-04-11T08:00
+Duració màxima: 2 dies
+Preu màxim: 400.0
+Origen: Camp Nou
+Destí: Tibidabo
+Punts Intermitjos: Gran Teatre del Liceo, 
+Rutes a calcular: Barata, Curta, Satisfactòria
+
+RUTES TROBADES
+
+RUTA MÉS BARATA
+Preu: 79,35€
+Satisfacció: 4
+
+2017-04-11
+08:00-09:00 Temps Lliure
+09:00-10:30 Camp Nou (Visita)
+10:30-11:15 Camp Nou -> Gran Teatre del Liceo (metro)
+11:15-12:45 Gran Teatre del Liceo (Visita)
+12:45-13:30 Gran Teatre del Liceo -> Tibidabo (metro)
+13:30-15:00 Tibidabo (Visita)
+
+
+RUTA MÉS CURTA
+Preu: 276,55€
+Satisfacció: 4
+
+2017-04-11
+08:00-09:00 Temps Lliure
+09:00-10:30 Camp Nou (Visita)
+10:30-10:40 Camp Nou -> Gran Teatre del Liceo (Jet)
+10:40-12:10 Gran Teatre del Liceo (Visita)
+12:10-12:20 Gran Teatre del Liceo -> Tibidabo (Jet)
+12:20-13:50 Tibidabo (Visita)
+
+
+RUTA MÉS SATISFACTÒRIA
+Preu: 276,55€
+Satisfacció: 4
+
+2017-04-11
+08:00-09:00 Temps Lliure
+09:00-10:30 Camp Nou (Visita)
+10:30-10:40 Camp Nou -> Gran Teatre del Liceo (Jet)
+10:40-12:10 Gran Teatre del Liceo (Visita)
+12:10-12:20 Gran Teatre del Liceo -> Tibidabo (Jet)
+12:20-13:50 Tibidabo (Visita)
+
+
+---------------------------------------------------------------------------------------
+JOC 12
+
+INFORMACIÓ DEL VIATGE
+
+Clients: Brayden Isbrand, Primus Dragan, Supre Mairo, Rinat Eneko, 
+Categoria Desitjada: luxe
+Inici del Viatge: 2017-04-11T08:00
+Duració màxima: 2 dies
+Preu màxim: 400.0
+Origen: Camp Nou
+Destí: Tibidabo
+Punts Intermitjos: Aquarium, 
+Rutes a calcular: Barata, 
+
+RUTES TROBADES
+
+RUTA MÉS BARATA
+Preu: 84,80€
+Satisfacció: 2
+
+2017-04-11
+08:00-09:00 Temps Lliure
+09:00-10:30 Camp Nou (Visita)
+10:30-11:15 Camp Nou -> Aquarium (metro)
+11:15-12:45 Aquarium (Visita)
+12:45-13:30 Aquarium -> Tibidabo (metro)
+13:30-15:00 Tibidabo (Visita)
+
+
+----------------------------------------------------------------------------------
+JOC 13
+
+INFORMACIÓ DEL VIATGE
+
+Clients: Supre Mairo, Primus Dragan, Brayden Isbrand, Rinat Eneko, 
+Categoria Desitjada: luxe
+Inici del Viatge: 2017-04-11T14:00
+Duració màxima: 2 dies
+Preu màxim: 400.0
+Origen: Camp Nou
+Destí: Tibidabo
+Punts Intermitjos: Aquarium, 
+Rutes a calcular: Curta, 
+
+RUTES TROBADES
+
+RUTA MÉS CURTA
+Preu: 84,80€
+Satisfacció: 2
+
+2017-04-11
+14:00-15:30 Camp Nou (Visita)
+15:30-16:15 Camp Nou -> Aquarium (Metro)
+16:15-17:45 Aquarium (Visita)
+17:45-18:30 Aquarium -> Tibidabo (Metro)
+18:30-20:00 Tibidabo (Visita)
+
+
+-----------------------------------------------------------------------------------------------------
+JOC 14
+
+INFORMACIÓ DEL VIATGE
+
+Clients: Supre Mairo, Rinat Eneko, Brayden Isbrand, Primus Dragan, 
+Categoria Desitjada: luxe
+Inici del Viatge: 2017-04-11T17:00
+Duració màxima: 2 dies
+Preu màxim: 500.0
+Origen: Camp Nou
+Destí: Tibidabo
+Punts Intermitjos: Aquarium, 
+Rutes a calcular: Curta, 
+
+RUTES TROBADES
+
+RUTA MÉS CURTA
+Preu: 301,10€
+Satisfacció: 3
+
+2017-04-11
+17:00-18:30 Camp Nou (Visita)
+18:30-19:15 Camp Nou -> Aquarium (Metro)
+19:15-20:00 Aquarium -> Hotel Camiral (Metro)
+20:00-..:.. Hotel Camiral (Estada)
+
+2017-04-12
+04:00-04:45 Hotel Camiral -> Aquarium (Metro)
+04:45-09:00 Temps Lliure
+09:00-10:30 Aquarium (Visita)
+10:30-11:15 Aquarium -> Tibidabo (Metro)
+11:15-12:45 Tibidabo (Visita)
+
+
+------------------------------------------------------------------------
+JOC 15
+
+Transport indirecte Greedy no te sortida
+
+------------------------------------------------------------------------
+JOC 16
+
+INFORMACIÓ DEL VIATGE
+
+Clients: Primus Dragan, Supre Mairo, Rinat Eneko, Brayden Isbrand, Loke Amador, 
+Categoria Desitjada: luxe
+Inici del Viatge: 2017-04-11T09:30
+Duració màxima: 2 dies
+Preu màxim: 400.0
+Origen: Camp Nou
+Destí: Aquarium
+Punts Intermitjos: Tibidabo, 
+Rutes a calcular: Satisfactòria
+
+RUTES TROBADES
+
+RUTA MÉS SATISFACTÒRIA
+Preu: 84,80€
+Satisfacció: 2
+
+2017-04-11
+09:30-11:00 Camp Nou (Visita)
+11:00-11:45 Camp Nou -> Tibidabo (Metro)
+11:45-13:15 Tibidabo (Visita)
+13:15-14:00 Tibidabo -> Aquarium (Metro)
+14:00-15:30 Aquarium (Visita)
+
+
+------------------------------------------------------------------------------------------------------------
+JOC 17
+
+INFORMACIÓ DEL VIATGE
+
+Clients: Brayden Isbrand, 
+Categoria Desitjada: luxe
+Inici del Viatge: 2017-04-11T08:00
+Duració màxima: 2 dies
+Preu màxim: 400.0
+Origen: Camp Nou
+Destí: Aquarium
+Punts Intermitjos: Tibidabo, 
+Rutes a calcular: Barata, Curta, Satisfactòria
+
+RUTES TROBADES
+
+RUTA MÉS BARATA
+Preu: 84,80€
+Satisfacció: 1
+
+2017-04-11
+08:00-09:00 Temps Lliure
+09:00-10:30 Camp Nou (Visita)
+10:30-11:15 Camp Nou -> Tibidabo (Metro)
+11:15-12:45 Tibidabo (Visita)
+12:45-13:30 Tibidabo -> Aquarium (Metro)
+13:30-15:00 Aquarium (Visita)
+
+
+RUTA MÉS CURTA
+Preu: 400,50€
+Satisfacció: 1
+
+2017-04-11
+08:00-09:00 Temps Lliure
+09:00-10:30 Camp Nou (Visita)
+10:30-10:50 Camp Nou -> Tibidabo (JetPack Promo)
+10:50-12:20 Tibidabo (Visita)
+12:20-12:35 Tibidabo -> Aquarium (Helicopter)
+12:35-14:05 Aquarium (Visita)
+
+
+RUTA MÉS SATISFACTÒRIA
+Preu: 400,50€
+Satisfacció: 1
+
+2017-04-11
+08:00-09:00 Temps Lliure
+09:00-10:30 Camp Nou (Visita)
+10:30-10:50 Camp Nou -> Tibidabo (JetPack Promo)
+10:50-12:20 Tibidabo (Visita)
+12:20-12:35 Tibidabo -> Aquarium (Helicopter)
+12:35-14:05 Aquarium (Visita)
+
+-------------------------------------------------------------------------------
+JOC 18
+
+INFORMACIÓ DEL VIATGE
+
+Clients: Brayden Isbrand, 
+Categoria Desitjada: luxe
+Inici del Viatge: 2017-04-11T08:00
+Duració màxima: 2 dies
+Preu màxim: 400.0
+Origen: Camp Nou
+Destí: Parc Güell
+Punts Intermitjos: Tibidabo, Aquarium, 
+Rutes a calcular: Barata, Curta, Satisfactòria
+
+RUTES TROBADES
+
+RUTA MÉS BARATA
+Preu: 86,95€
+Satisfacció: 2
+
+2017-04-11
+08:00-09:00 Temps Lliure
+09:00-10:30 Camp Nou (Visita)
+10:30-11:15 Camp Nou -> Aquarium (Metro)
+11:15-12:45 Aquarium (Visita)
+12:45-13:30 Aquarium -> Tibidabo (Metro)
+13:30-15:00 Tibidabo (Visita)
+15:00-15:45 Tibidabo -> Parc Güell (Metro)
+15:45-17:15 Parc Güell (Visita)
+
+
+RUTA MÉS CURTA
+Preu: 402,65€
+Satisfacció: 2
+
+2017-04-11
+08:00-09:00 Temps Lliure
+09:00-10:30 Camp Nou (Visita)
+10:30-10:50 Camp Nou -> Tibidabo (JetPack Promo)
+10:50-12:20 Tibidabo (Visita)
+12:20-12:35 Tibidabo -> Aquarium (Helicopter)
+12:35-14:05 Aquarium (Visita)
+14:05-14:50 Aquarium -> Parc Güell (Metro)
+14:50-16:20 Parc Güell (Visita)
+
+
+RUTA MÉS SATISFACTÒRIA
+Preu: 402,65€
+Satisfacció: 2
+
+2017-04-11
+08:00-09:00 Temps Lliure
+09:00-10:30 Camp Nou (Visita)
+10:30-10:50 Camp Nou -> Tibidabo (JetPack Promo)
+10:50-12:20 Tibidabo (Visita)
+12:20-12:35 Tibidabo -> Aquarium (Helicopter)
+12:35-14:05 Aquarium (Visita)
+14:05-14:50 Aquarium -> Parc Güell (Metro)
+14:50-16:20 Parc Güell (Visita)
+
+
+------------------------------------------------------------------------------
+JOC 19
+
+Greedy no el fa be llença un null pointer exception (Motiu 2 viatges)
+
+--------------------------------------------------------------------------------
+JOC 20
+
+Greedy no el fa be llença un null pointer exception no hi ha ruta (En aquest joc no hi ha hotels)
+
+---------------------------------------------------------------------------------
+JOC 21
+
+INFORMACIÓ DEL VIATGE
+
+Clients: Brayden Isbrand, Rinat Eneko, Primus Dragan, Supre Mairo, 
+Categoria Desitjada: luxe
+Inici del Viatge: 2017-04-11T08:00
+Duració màxima: 2 dies
+Preu màxim: 4000.0
+Origen: Sagrada Familia
+Destí: Gran Ruta de l'Aigua
+Punts Intermitjos: Tibidabo, Casa Milà, Camp Nou, Aquarium, Gran Teatre del Liceo, Parc Güell, Catedral de Barcelona, 
+Rutes a calcular: Barata, 
+
+RUTES TROBADES
+
+RUTA MÉS BARATA
+Preu: 203,80€
+Satisfacció: 15
+
+2017-04-11
+08:00-09:00 Temps Lliure
+09:00-10:30 Sagrada Familia (Visita)
+10:30-11:15 Sagrada Familia -> Catedral de Barcelona (metro)
+11:15-12:45 Catedral de Barcelona (Visita)
+12:45-13:30 Catedral de Barcelona -> Parc Güell (metro)
+13:30-15:00 Parc Güell (Visita)
+15:00-15:45 Parc Güell -> Gran Teatre del Liceo (metro)
+15:45-17:15 Gran Teatre del Liceo (Visita)
+17:15-18:00 Gran Teatre del Liceo -> Aquarium (metro)
+18:00-19:30 Aquarium (Visita)
+19:30-20:15 Aquarium -> Camp Nou (metro)
+20:15-21:00 Camp Nou -> Hotel Can Pistraus (metro)
+21:00-..:.. Hotel Can Pistraus (Estada)
+
+2017-04-12
+04:00-04:45 Hotel Can Pistraus -> Camp Nou (metro)
+04:45-09:00 Temps Lliure
+09:00-10:30 Camp Nou (Visita)
+10:30-11:15 Camp Nou -> Casa Milà (metro)
+11:15-12:45 Casa Milà (Visita)
+12:45-13:30 Casa Milà -> Tibidabo (metro)
+13:30-15:00 Tibidabo (Visita)
+15:00-15:45 Tibidabo -> Catedral de Barcelona (metro)
+15:45-18:25 Catedral de Barcelona -> Gran Ruta de l'Aigua (bicicleta)
+18:25-19:55 Gran Ruta de l'Aigua (Visita)
+
+
+-----------------------------------------------------------------------------------------------------
+JOC 22
+
+INFORMACIÓ DEL VIATGE
+
+Clients: Primus Dragan, Brayden Isbrand, Rinat Eneko, Supre Mairo, 
+Categoria Desitjada: luxe
+Inici del Viatge: 2017-04-11T08:00
+Duració màxima: 2 dies
+Preu màxim: 4000.0
+Origen: Sagrada Familia
+Destí: Gran Ruta de l'Aigua
+Punts Intermitjos: Tibidabo, Aquarium, Gran Teatre del Liceo, Catedral de Barcelona, 
+Rutes a calcular: Satisfactòria
+
+RUTES TROBADES
+
+RUTA MÉS SATISFACTÒRIA
+Preu: 560,85€
+Satisfacció: 8
+
+2017-04-11
+08:00-09:00 Temps Lliure
+09:00-10:30 Sagrada Familia (Visita)
+10:30-10:40 Sagrada Familia -> Catedral de Barcelona (Jet)
+10:40-12:10 Catedral de Barcelona (Visita)
+12:10-12:20 Catedral de Barcelona -> Gran Teatre del Liceo (Jet)
+12:20-13:50 Gran Teatre del Liceo (Visita)
+13:50-14:00 Gran Teatre del Liceo -> Aquarium (Jet)
+14:00-15:30 Aquarium (Visita)
+15:30-15:40 Aquarium -> Tibidabo (Jet)
+15:40-17:10 Tibidabo (Visita)
+17:10-17:20 Tibidabo -> Catedral de Barcelona (Jet)
+17:20-20:00 Catedral de Barcelona -> Gran Ruta de l'Aigua (bicicleta)
+20:00-21:30 Gran Ruta de l'Aigua (Visita)
+
+

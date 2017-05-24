@@ -1,110 +1,34 @@
 INFORMACIÓ DEL VIATGE
 
-Clients: Primus Dragan, Rinat Eneko, Supre Mairo, Brayden Isbrand, 
+Clients: Primus Dragan, Brayden Isbrand, Rinat Eneko, Supre Mairo, 
 Categoria Desitjada: luxe
 Inici del Viatge: 2017-04-11T08:00
 Duració màxima: 2 dies
 Preu màxim: 4000.0
 Origen: Sagrada Familia
 Destí: Gran Ruta de l'Aigua
-Punts Intermitjos: Tibidabo, Casa Milà, Camp Nou, Aquarium, Gran Teatre del Liceo, Parc Güell, Catedral de Barcelona, 
-Rutes a calcular: Barata, Curta, Satisfactòria
+Punts Intermitjos: Tibidabo, Aquarium, Gran Teatre del Liceo, Catedral de Barcelona, 
+Rutes a calcular: Satisfactòria
 
 RUTES TROBADES
 
-RUTA MÉS BARATA
-Preu: 203,80€
-Satisfacció: 15
-
-2017-04-11
-08:00-09:00 Temps Lliure
-09:00-10:30 Sagrada Familia (Visita)
-10:30-11:15 Sagrada Familia -> Catedral de Barcelona (metro)
-11:15-12:45 Catedral de Barcelona (Visita)
-12:45-13:30 Catedral de Barcelona -> Parc Güell (metro)
-13:30-15:00 Parc Güell (Visita)
-15:00-15:45 Parc Güell -> Gran Teatre del Liceo (metro)
-15:45-17:15 Gran Teatre del Liceo (Visita)
-17:15-18:00 Gran Teatre del Liceo -> Aquarium (metro)
-18:00-19:30 Aquarium (Visita)
-19:30-20:15 Aquarium -> Camp Nou (metro)
-20:15-21:00 Camp Nou -> Hotel Can Pistraus (metro)
-21:00-..:.. Hotel Can Pistraus (Estada)
-
-2017-04-12
-04:00-04:45 Hotel Can Pistraus -> Camp Nou (metro)
-04:45-09:00 Temps Lliure
-09:00-10:30 Camp Nou (Visita)
-10:30-11:15 Camp Nou -> Casa Milà (metro)
-11:15-12:45 Casa Milà (Visita)
-12:45-13:30 Casa Milà -> Tibidabo (metro)
-13:30-15:00 Tibidabo (Visita)
-15:00-15:45 Tibidabo -> Catedral de Barcelona (metro)
-15:45-18:25 Catedral de Barcelona -> Gran Ruta de l'Aigua (bicicleta)
-18:25-19:55 Gran Ruta de l'Aigua (Visita)
-
-
-RUTA MÉS CURTA
-Preu: 992,60€
-Satisfacció: 15
-
-2017-04-11
-08:00-09:00 Temps Lliure
-09:00-10:30 Sagrada Familia (Visita)
-10:30-10:40 Sagrada Familia -> Catedral de Barcelona (Jet)
-10:40-12:10 Catedral de Barcelona (Visita)
-12:10-12:20 Catedral de Barcelona -> Parc Güell (Jet)
-12:20-13:50 Parc Güell (Visita)
-13:50-14:00 Parc Güell -> Gran Teatre del Liceo (Jet)
-14:00-15:30 Gran Teatre del Liceo (Visita)
-15:30-15:40 Gran Teatre del Liceo -> Aquarium (Jet)
-15:40-17:10 Aquarium (Visita)
-17:10-17:20 Aquarium -> Camp Nou (Jet)
-17:20-18:50 Camp Nou (Visita)
-18:50-19:00 Camp Nou -> Casa Milà (Jet)
-19:00-20:30 Casa Milà (Visita)
-20:30-20:40 Casa Milà -> Tibidabo (Jet)
-20:40-21:25 Tibidabo -> Hotel Can Pistraus (metro)
-21:25-..:.. Hotel Can Pistraus (Estada)
-
-2017-04-12
-04:00-04:45 Hotel Can Pistraus -> Tibidabo (metro)
-04:45-09:00 Temps Lliure
-09:00-10:30 Tibidabo (Visita)
-10:30-10:40 Tibidabo -> Catedral de Barcelona (Jet)
-10:40-13:20 Catedral de Barcelona -> Gran Ruta de l'Aigua (bicicleta)
-13:20-14:50 Gran Ruta de l'Aigua (Visita)
-
-
 RUTA MÉS SATISFACTÒRIA
-Preu: 992,60€
-Satisfacció: 15
+Preu: 560,85€
+Satisfacció: 8
 
 2017-04-11
 08:00-09:00 Temps Lliure
 09:00-10:30 Sagrada Familia (Visita)
 10:30-10:40 Sagrada Familia -> Catedral de Barcelona (Jet)
 10:40-12:10 Catedral de Barcelona (Visita)
-12:10-12:20 Catedral de Barcelona -> Parc Güell (Jet)
-12:20-13:50 Parc Güell (Visita)
-13:50-14:00 Parc Güell -> Gran Teatre del Liceo (Jet)
-14:00-15:30 Gran Teatre del Liceo (Visita)
-15:30-15:40 Gran Teatre del Liceo -> Aquarium (Jet)
-15:40-17:10 Aquarium (Visita)
-17:10-17:20 Aquarium -> Camp Nou (Jet)
-17:20-18:50 Camp Nou (Visita)
-18:50-19:00 Camp Nou -> Casa Milà (Jet)
-19:00-20:30 Casa Milà (Visita)
-20:30-20:40 Casa Milà -> Tibidabo (Jet)
-20:40-21:25 Tibidabo -> Hotel Can Pistraus (metro)
-21:25-..:.. Hotel Can Pistraus (Estada)
-
-2017-04-12
-04:00-04:45 Hotel Can Pistraus -> Tibidabo (metro)
-04:45-09:00 Temps Lliure
-09:00-10:30 Tibidabo (Visita)
-10:30-10:40 Tibidabo -> Catedral de Barcelona (Jet)
-10:40-13:20 Catedral de Barcelona -> Gran Ruta de l'Aigua (bicicleta)
-13:20-14:50 Gran Ruta de l'Aigua (Visita)
+12:10-12:20 Catedral de Barcelona -> Gran Teatre del Liceo (Jet)
+12:20-13:50 Gran Teatre del Liceo (Visita)
+13:50-14:00 Gran Teatre del Liceo -> Aquarium (Jet)
+14:00-15:30 Aquarium (Visita)
+15:30-15:40 Aquarium -> Tibidabo (Jet)
+15:40-17:10 Tibidabo (Visita)
+17:10-17:20 Tibidabo -> Catedral de Barcelona (Jet)
+17:20-20:00 Catedral de Barcelona -> Gran Ruta de l'Aigua (bicicleta)
+20:00-21:30 Gran Ruta de l'Aigua (Visita)
 
 
