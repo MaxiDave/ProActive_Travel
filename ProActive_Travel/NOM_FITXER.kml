@@ -15,73 +15,10 @@
             </IconStyle>
         </Style>
 <Placemark>
-    <name>Sagrada Familia</name>
-    <styleUrl>#myDefaultStyles</styleUrl>
-    <Point>
-        <coordinates>2.1743558000000576,41.4036299,0.0</coordinates>
-    </Point>
-</Placemark>
-<Placemark>
-    <name>Catedral de Barcelona</name>
-    <styleUrl>#myDefaultStyles</styleUrl>
-    <Point>
-        <coordinates>2.1761990999999625,41.383962,0.0</coordinates>
-    </Point>
-</Placemark>
-<Placemark>
-    <name>Parc Güell</name>
-    <styleUrl>#myDefaultStyles</styleUrl>
-    <Point>
-        <coordinates>2.1526945000000524,41.41449480000001,0.0</coordinates>
-    </Point>
-</Placemark>
-<Placemark>
-    <name>Gran Teatre del Liceo</name>
-    <styleUrl>#myDefaultStyles</styleUrl>
-    <Point>
-        <coordinates>2.173294800000008,41.38019690000001,0.0</coordinates>
-    </Point>
-</Placemark>
-<Placemark>
-    <name>Aquarium</name>
-    <styleUrl>#myDefaultStyles</styleUrl>
-    <Point>
-        <coordinates>2.156687099999999,41.3936752,0.0</coordinates>
-    </Point>
-</Placemark>
-<Placemark>
     <name>Camp Nou</name>
     <styleUrl>#myDefaultStyles</styleUrl>
     <Point>
         <coordinates>2.114639000000011,41.375919,0.0</coordinates>
-    </Point>
-</Placemark>
-<Placemark>
-    <name>Casa Milà</name>
-    <styleUrl>#myDefaultStyles</styleUrl>
-    <Point>
-        <coordinates>2.1619613999999956,41.39538049999999,0.0</coordinates>
-    </Point>
-</Placemark>
-<Placemark>
-    <name>Hotel Can Pistraus</name>
-    <styleUrl>#myDefaultStyles</styleUrl>
-    <Point>
-        <coordinates>2.232285,41.418787,0.0</coordinates>
-    </Point>
-</Placemark>
-<Placemark>
-    <name>Tibidabo</name>
-    <styleUrl>#myDefaultStyles</styleUrl>
-    <Point>
-        <coordinates>2.118610999999987,41.4225,0.0</coordinates>
-    </Point>
-</Placemark>
-<Placemark>
-    <name>Gran Ruta de l'Aigua</name>
-    <styleUrl>#myDefaultStyles</styleUrl>
-    <Point>
-        <coordinates>2.4898910452611744,41.909380376060525,0.0</coordinates>
     </Point>
 </Placemark>
 <Placemark>
@@ -92,16 +29,101 @@
         <tessellate>true</tessellate>
         <altitudeMode>clampToGround</altitudeMode>
         <coordinates>
-            2.1743558000000576,41.4036299,0.0
-            2.1761990999999625,41.383962,0.0
-            2.1526945000000524,41.41449480000001,0.0
-            2.173294800000008,41.38019690000001,0.0
-            2.156687099999999,41.3936752,0.0
             2.114639000000011,41.375919,0.0
-            2.1619613999999956,41.39538049999999,0.0
-            2.232285,41.418787,0.0
+        </coordinates>
+    </LineString>
+</Placemark>
+    </Document>
+</kml>
+<Placemark>
+    <name>Aquarium</name>
+    <styleUrl>#myDefaultStyles</styleUrl>
+    <Point>
+        <coordinates>2.156687099999999,41.3936752,0.0</coordinates>
+    </Point>
+</Placemark>
+<Placemark>
+    <name>Circuit</name>
+    <styleUrl>#myDefaultStyles</styleUrl>
+    <LineString>
+        <extrude>false</extrude>
+        <tessellate>true</tessellate>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>
+            2.114639000000011,41.375919,0.0
+            2.156687099999999,41.3936752,0.0
+        </coordinates>
+    </LineString>
+</Placemark>
+    </Document>
+</kml>
+<Placemark>
+    <name>Aquarium</name>
+    <styleUrl>#myDefaultStyles</styleUrl>
+    <Point>
+        <coordinates>2.156687099999999,41.3936752,0.0</coordinates>
+    </Point>
+</Placemark>
+<Placemark>
+    <name>Circuit</name>
+    <styleUrl>#myDefaultStyles</styleUrl>
+    <LineString>
+        <extrude>false</extrude>
+        <tessellate>true</tessellate>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>
+            2.114639000000011,41.375919,0.0
+            2.156687099999999,41.3936752,0.0
+            2.156687099999999,41.3936752,0.0
+        </coordinates>
+    </LineString>
+</Placemark>
+    </Document>
+</kml>
+<Placemark>
+    <name>Tibidabo</name>
+    <styleUrl>#myDefaultStyles</styleUrl>
+    <Point>
+        <coordinates>2.118610999999987,41.4225,0.0</coordinates>
+    </Point>
+</Placemark>
+<Placemark>
+    <name>Circuit</name>
+    <styleUrl>#myDefaultStyles</styleUrl>
+    <LineString>
+        <extrude>false</extrude>
+        <tessellate>true</tessellate>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>
+            2.114639000000011,41.375919,0.0
+            2.156687099999999,41.3936752,0.0
+            2.156687099999999,41.3936752,0.0
             2.118610999999987,41.4225,0.0
-            2.4898910452611744,41.909380376060525,0.0
+        </coordinates>
+    </LineString>
+</Placemark>
+    </Document>
+</kml>
+<Placemark>
+    <name>Tibidabo</name>
+    <styleUrl>#myDefaultStyles</styleUrl>
+    <Point>
+        <coordinates>2.118610999999987,41.4225,0.0</coordinates>
+    </Point>
+</Placemark>
+<Placemark>
+    <name>Circuit</name>
+    <styleUrl>#myDefaultStyles</styleUrl>
+    <LineString>
+        <extrude>false</extrude>
+        <tessellate>true</tessellate>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>
+            2.114639000000011,41.375919,0.0
+            2.156687099999999,41.3936752,0.0
+            2.156687099999999,41.3936752,0.0
+            2.118610999999987,41.4225,0.0
+            2.118610999999987,41.4225,0.0
         </coordinates>
     </LineString>
 </Placemark>

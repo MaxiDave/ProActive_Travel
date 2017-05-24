@@ -17,7 +17,7 @@ import javafx.stage.FileChooser;        // Selector de fitxers
 import javafx.stage.Stage;              // Stages
 
 public final class ProActive_Travel extends Application {
-    private static List<Viatge> viatges;
+    private static Viatge viatge;
     private static Map<String, Client> clients;
     private static Mapa mundi;
     private final Service serveiBack= new ProcessBacktraking();
@@ -77,13 +77,12 @@ public final class ProActive_Travel extends Application {
                     File file = fileChooser.showOpenDialog(stage);
                     if (file != null){
                         //Es creen les estructures de dades principals
-                        viatges= new ArrayList<>();
+                        viatge= null;
                         clients= new HashMap<>();
                         mundi= new Mapa();
 
                         //Es duu a terme el procés d'entrada de dades a partir del Scanner al mapa i al Mapa de clients
-                        Entrada.inicialitzaAplicatiu(file, clients, mundi, viatges);
-                        
+                        viatge= Entrada.inicialitzaAplicatiu(file, clients, mundi);
                         examinar.setText("Selecciona fitxer: "+file.getName());
                         if(!Entrada.fail){
                             if(Entrada.warnings == 0){
@@ -160,15 +159,11 @@ public final class ProActive_Travel extends Application {
             new EventHandler<ActionEvent>(){
                 @Override
                 public void handle(final ActionEvent e) {
-                    try {
-                        String nom= "Viatge"; Integer num= 1; String ext=".txt";
-                        while(true){
-                            File file = new File(nom+num+ext);
-                            if (Desktop.isDesktopSupported()) Desktop.getDesktop().open(file);
-                            num++;
-                        }
-                    } catch (IOException | IllegalArgumentException ex) {
-                        //No troba més fitxers, para de mostrar
+                    File file = new File("Resultat.txt");
+                    if (Desktop.isDesktopSupported()) try {
+                        Desktop.getDesktop().open(file);
+                    } catch (IOException ex) {
+                        
                     }
                 }
             });
@@ -191,12 +186,18 @@ public final class ProActive_Travel extends Application {
             });
         
         serveiBack.setOnSucceeded(e -> {
+            
             pBack.setVisible(false);
             calculExacte.setVisible(true);
-            if(tempsCalculBack < 10000) calculantBack.setText("Execució: "+tempsCalculBack+"ms");
-            else calculantBack.setText("Execució: "+(tempsCalculBack/1000)+"s");
-            veureRutes.setVisible(true);
-            veureGoogle.setVisible(true);
+            if(viatge == null){
+                calculantBack.setText("No s'ha trobat viatge");
+            }
+            else{
+                if(tempsCalculBack < 10000) calculantBack.setText("Execució: "+tempsCalculBack+"ms");
+                else calculantBack.setText("Execució: "+(tempsCalculBack/1000)+"s");
+                veureRutes.setVisible(true);
+                veureGoogle.setVisible(true);
+            }
             //reset service
             serveiBack.reset();
         });
@@ -269,20 +270,11 @@ public final class ProActive_Travel extends Application {
                         public void run() {
                             long tempsI, tempsF;
                             tempsI= System.currentTimeMillis();
-                            List< List<Ruta>> rutesTotals= new ArrayList< >();
-                            Iterator<Viatge> it= viatges.iterator();
-                            while(it.hasNext()){
-                                Viatge viatge= it.next();
-                                CalculExacte calcul= new CalculExacte(mundi, viatge);
-                                rutesTotals.add(calcul.calcularRutaBack(mundi, viatge));
-                            }
-                            String nomFitxer= "Viatge1.txt"; int num= 1;
-                            Iterator<List<Ruta>> itList= rutesTotals.iterator();
-                            while(itList.hasNext()){
-                                Sortida.mostrarRutes(itList.next(), viatges.get(num-1), nomFitxer);
-                                num++;
-                                nomFitxer= (nomFitxer.substring(0, 5)+(char)num+".txt");
-                            }
+                            List<Ruta> rutesTotals= new ArrayList< >();
+                            CalculExacte calcul= new CalculExacte(mundi, viatge);
+                            rutesTotals= calcul.calcularRutaBack(mundi, viatge);
+                            String nomFitxer= "Resultat.txt";
+                            Sortida.mostrarRutes(rutesTotals, viatge, nomFitxer);
                             tempsF= System.currentTimeMillis();
                             tempsCalculBack= tempsF-tempsI;
                         }
@@ -304,11 +296,8 @@ public final class ProActive_Travel extends Application {
                 protected Void call() throws Exception {
                     Runnable runner = new Runnable(){
                         public void run() {
-                            Iterator<Viatge> it = viatges.iterator();
-                            while (it.hasNext()) {
-                                Ruta r = CalculGreedy.calcularRutaGreedy(it.next(), mundi);
-                                sortidaKML.generarFitxer(r);
-                            }
+                            Ruta r = CalculGreedy.calcularRutaGreedy(viatge, mundi);
+                            sortidaKML.generarFitxer(r);
                             System.out.println("I'm The Reaper and death is my shadow");
                         }
                     };

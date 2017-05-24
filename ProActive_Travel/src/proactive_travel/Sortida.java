@@ -40,7 +40,7 @@ public abstract class Sortida {
             sortida.println();
             sortida.println(viatge);
             sortida.println();
-            if(resultat.isEmpty()){
+            if(resultat == null || resultat.isEmpty()){
                 sortida.println("NO S'HA TROBAT CAP RUTA QUE COMPLEIXI AMB ELS REQUISITS");
             }
             else{

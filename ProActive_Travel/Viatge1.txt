@@ -1,64 +1,46 @@
 INFORMACIÓ DEL VIATGE
 
-Clients: Brayden Isbrand, 
+Clients: Primus Dragan, Supre Mairo, Rinat Eneko, Brayden Isbrand, 
 Categoria Desitjada: luxe
 Inici del Viatge: 2017-04-11T08:00
 Duració màxima: 2 dies
-Preu màxim: 400.0
-Origen: Camp Nou
-Destí: Catedral de Girona
-Punts Intermitjos: 
-Rutes a calcular: Barata, Curta, Satisfactòria
+Preu màxim: 4000.0
+Origen: Sagrada Familia
+Destí: Gran Ruta de l'Aigua
+Punts Intermitjos: Tibidabo, Casa Milà, Camp Nou, Aquarium, Gran Teatre del Liceo, Parc Güell, Catedral de Barcelona, 
+Rutes a calcular: Barata, 
 
 RUTES TROBADES
 
-RUTA MÉS CURTA
-Preu: 72,15€
-Satisfacció: 3
-
-2017-04-11
-08:00-09:00 Temps Lliure
-09:00-10:30 Camp Nou (Visita)
-10:30-10:30 Camp Nou -> Barcelona (Trasllat a l'Estació de tren)
-10:30-12:00 Temps Lliure
-12:00-12:45 Barcelona -> Girona (tren)
-12:45-13:00 Girona -> Catedral de Girona (Trasllat de l'Estació de tren)
-13:00-14:00 Catedral de Girona (Visita)
-
-
 RUTA MÉS BARATA
-Preu: 72,15€
-Satisfacció: 3
+Preu: 198,50€
+Satisfacció: 16
 
 2017-04-11
 08:00-09:00 Temps Lliure
-09:00-10:30 Camp Nou (Visita)
-10:30-10:30 Camp Nou -> Barcelona (Trasllat a l'Estació de tren)
-10:30-12:00 Temps Lliure
-12:00-12:45 Barcelona -> Girona (tren)
-12:45-13:00 Girona -> Catedral de Girona (Trasllat de l'Estació de tren)
-13:00-14:00 Catedral de Girona (Visita)
-
-
-RUTA MÉS SATISFACTÒRIA
-Preu: 306,65€
-Satisfacció: 5
-
-2017-04-11
-08:00-09:00 Temps Lliure
-09:00-10:30 Camp Nou (Visita)
-10:30-10:50 Camp Nou -> Tibidabo (JetPack Promo)
-10:50-11:35 Tibidabo -> H2 Rubi (Metro)
-11:35-..:.. H2 Rubi (Estada)
+09:00-10:30 Sagrada Familia (Visita)
+10:30-11:15 Sagrada Familia -> Casa Milà (bus)
+11:15-12:45 Casa Milà (Visita)
+12:45-13:30 Casa Milà -> Hotel Can Pistraus (metro)
+13:30-..:.. Hotel Can Pistraus (Estada)
 
 2017-04-12
-04:00-04:45 H2 Rubi -> Casa Milà (Metro)
+04:00-04:45 Hotel Can Pistraus -> Parc Güell (metro)
 04:45-09:00 Temps Lliure
-09:00-10:30 Casa Milà (Visita)
-10:30-10:30 Casa Milà -> Barcelona (Trasllat a l'Estació de tren)
-10:30-12:00 Temps Lliure
-12:00-12:45 Barcelona -> Girona (tren)
-12:45-13:00 Girona -> Catedral de Girona (Trasllat de l'Estació de tren)
-13:00-14:00 Catedral de Girona (Visita)
+09:00-10:30 Parc Güell (Visita)
+10:30-11:15 Parc Güell -> Gran Teatre del Liceo (metro)
+11:15-12:45 Gran Teatre del Liceo (Visita)
+12:45-13:30 Gran Teatre del Liceo -> Tibidabo (metro)
+13:30-15:00 Tibidabo (Visita)
+15:00-15:45 Tibidabo -> Aquarium (metro)
+15:45-17:15 Aquarium (Visita)
+17:15-18:00 Aquarium -> Camp Nou (metro)
+18:00-19:30 Camp Nou (Visita)
+19:30-20:15 Camp Nou -> Catedral de Barcelona (metro)
+20:15-21:45 Catedral de Barcelona (Visita)
+21:45-00:25 Catedral de Barcelona -> Gran Ruta de l'Aigua (bicicleta)
+
+2017-04-13
+00:25-01:55 Gran Ruta de l'Aigua (Visita)
 
 

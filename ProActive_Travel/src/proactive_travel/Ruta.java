@@ -149,10 +149,15 @@ public class Ruta{
         return !items.isEmpty();
     }
     
-    public Boolean arribaDesti(PuntInteres desti){
-        if(items.getLast().obtPuntSortida() instanceof PuntInteres){
+    public Boolean arribaDesti(PuntRuta desti){
+        if(items.getLast().obtPuntSortida() instanceof PuntInteres && desti instanceof PuntInteres){
             PuntInteres pI= (PuntInteres)items.getLast().obtPuntSortida();
-            return !items.isEmpty() && (items.getLast() instanceof Visita || items.getLast() instanceof EstadaHotel) && pI.equals(desti);
+            return (items.getLast() instanceof Visita || items.getLast() instanceof EstadaHotel) && pI.equals(desti);
+        }
+        else if(items.getLast().obtPuntSortida() instanceof Estacio && desti instanceof Estacio){
+            Estacio est= (Estacio)items.getLast().obtPuntSortida();
+            Estacio dest= (Estacio)desti;
+            return (est.obtLloc().equals(dest.obtLloc()));
         }
         else return false;
     }

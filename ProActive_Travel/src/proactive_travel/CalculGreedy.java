@@ -189,7 +189,7 @@ public abstract class CalculGreedy {
                 }
                 else{
                     MitjaTransport mtu = camiMT.get(p);
-                    MTDirecte cast = new MTDirecte(mtu.getNom(),puntAct,p,mtu.getPreu(),mtu.getDurada());
+                    MTDirecte cast = new MTDirecte(mtu.obtNom(),puntAct,p,mtu.obtPreu(),mtu.obtDurada());
                     TrajecteDirecte td = new TrajecteDirecte(cast,actual);
                     barata.afegeixItemRuta(td);
                     actual=td.obtFinal();

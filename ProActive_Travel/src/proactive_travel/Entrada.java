@@ -1,46 +1,56 @@
 //ProActive_Travel
 
 /**
- * @file: Entrada.java
- * @author: Roger Barnés, u1939667
- * @author: David Martínez, u1939690
- * @version: 1
- * @date: Curs 2016-2017
- * @warning: --
- * @brief: Mòdul funcional que s'encarrega de dur a terme els càlculs relacionats en 
+ * @file Entrada.java
+ * @author Roger Barnés, u1939667
+ * @author David Martínez, u1939690
+ * @version 1
+ * @date Curs 2016-2017
+ * @brief Mòdul funcional que s'encarrega de dur a terme els càlculs relacionats en 
  *         la generació de dades a partir del fitxer d'entrada inicial
- * @copyright: Public License
+ * @copyright Public License
  */
 
+//PACKAGES / IMPORTS NECESSARIS PER AL FUNCIONAMENT---------------------------------------------------------------------------------------------
 package proactive_travel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.*;
-import java.time.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.InputMismatchException;
+import java.util.Locale;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+import java.util.Set;
 
 /**
  * DESCRIPCIÓ GENERAL
- * @brief: Classe abstracte que s'encarrega dels càlculs d'entrada
+ * @brief Classe abstracte que s'encarrega dels càlculs d'entrada
  */
 public abstract class Entrada {
     //VARIABLES LOCALS---------------------------------------------------------------------------------------------------------------------------
-    public static int lineCounter;
-    public static int warnings;
-    public static Boolean fail;
+    public static int lineCounter;      ///< @brief Representa un contador a les línies que es van processant del fitxer
+    public static int warnings;         ///< @brief Representa un contador als warnings que es van detectant al fitxer
+    public static Boolean fail;         ///< @brief Conté informació de si l'entrada s'ha processat bé (TRUE) o amb error (FALSE)
     
     //MÈTODES ESTÀTICS---------------------------------------------------------------------------------------------------------------------------
-    /** @pre: --
-     *  @post: Retorna cert si "a" és una data, és a dir, si conté algún caràcter '-'
+    /** @pre --
+     *  @post Retorna cert si "a" és una data, és a dir, si conté algún caràcter '-'
+     *  @brief "a" és una Data?
      */
     private static boolean esData(String a){
         return a.contains("-");
     }
     
     /**
-     * @pre: --
-     * @post: Ignora línees del fitxer fins que es troba amb un separador 
+     * @pre Scanner "fitxer" obert i preparat per lectura
+     * @post Ignora línees del fitxer fins que es troba amb un separador 
+     * @brief Ignora fins al següent separador
      */
     private static void ignorarFinsSeparador(Scanner fitxer){
         String linia= llegirLinia(fitxer);
@@ -48,18 +58,19 @@ public abstract class Entrada {
     }
     
     /**
-     * @pre: --
-     * @post: Retorna una línia llegida del Scanner i incrementa el comptador de línia
+     * @pre Scanner "fitxer" obert i preparat per lectura
+     * @post Incrementa el comptador de línia i retorna la següent línia llegida del Scanner "fitxer"
+     * @brief Llegeix una línia del Scanner "fitxer"
      */
     private static String llegirLinia(Scanner fitxer){
         lineCounter++;
-        String c = null;
         return fitxer.nextLine();
     }
     
     /**
-     * @pre: --
-     * @post: Retorna un Double llegit del Scanner, canvia de línia i incrementa el comptador de línia
+     * @pre Scanner "fitxer" obert i preparat per lectura
+     * @post Retorna un Double llegit del Scanner, canvia de línia i incrementa el comptador de línia
+     * @brief Lleigeix un double + CR del Scanner "fitxer"
      */
     private static Double llegirDouble(Scanner fitxer){
         lineCounter++;
@@ -70,8 +81,9 @@ public abstract class Entrada {
     }
     
     /**
-     * @pre: --
-     * @post: Retorna un Integer llegit del Scanner, canvia de línia i incrementa el comptador de línia
+     * @pre Scanner "fitxer" obert i preparat per lectura
+     * @post Retorna un Integer llegit del Scanner, canvia de línia i incrementa el comptador de línia
+     * @brief Lleigeix un enter + CR del Scanner "fitxer"
      */
     private static Integer llegirInteger(Scanner fitxer){
         lineCounter++;
@@ -82,21 +94,24 @@ public abstract class Entrada {
     }
     
     /**
-     * @pre: --
-     * @post: Tracta l'error de format durant l'entrada de les dades
+     * @pre Scanner "fitxer" obert i preparat per lectura, PrintWriter "error" obert i preparat per escriptura
+     * @post Tracta l'advertència de mal format durant l'entrada de les dades (Warning) tot ignorant fins a separador 
+     *       i escriurà informació sobre aquest problema al PrintWriter "error"
+     * @brief Tracta el Warning de Lectura tot ignorant fins a separador i escribint l'advertència a PrintWriter "error"
      */
-    private static void tractarErrorLectura(PrintWriter error, Scanner fitxer, Exception e) throws InterruptedException{
+    private static void tractarErrorLectura(PrintWriter error, Scanner fitxer, Exception e){
         error.println("Línia "+lineCounter+": "+e);
         ignorarFinsSeparador(fitxer);
-        error.println("Mòdul ignorat");
+        error.println("Mòdul ignorat (En cas de múltiples viatges, s'ignora l'antic)");
         error.println();
         warnings++;
-        Thread.sleep(1);
     }
     
     /**
-     * @pre: --
-     * @post: Llegeix de fitxer una expresió hh:mm i retorna el valor en minuts d'una expressió hh:mm si està correctament escrita, altrament dispara excepció
+     * @pre Scanner "fitxer" obert i preparat per lectura
+     * @post Llegeix de l'Scanner "fitxer" una expresió hh:mm i retorna el valor en minuts d'una expressió hh:mm si està correctament escrita
+     * @brief Llegeix de l'Scanner "fitxer" una expressió hh:mm i la retorna el valor en format Integer minuts
+     * @throws NumberFormatException si l'expressió no està correctament escrita
      */
     private static Integer processarTemps(Scanner fitxer){
         String[] hhmm = llegirLinia(fitxer).split(":");
@@ -110,8 +125,10 @@ public abstract class Entrada {
     }
     
     /**
-     * @pre: --
-     * @post: Rep una expresió (string) en format hh:mm i retorna el LocalTime corresponent si està correctament escrita, altrament dispara excepció
+     * @pre --
+     * @post Rep una expresió (string) en format hh:mm i retorna el LocalTime corresponent si està correctament escrita
+     * @brief Rep una expresió (string) en format hh:mm i retorna el LocalTime corresponent
+     * @throws NumberFormatException si l'expressió no està correctament escrita 
      */
     private static LocalTime processarHora(String hora){
         String[] hhmm = hora.split(":");
@@ -124,8 +141,10 @@ public abstract class Entrada {
     }
     
     /**
-     * @pre: --
-     * @post: Si el format és correcte (yyyy-mm-dd) el retorna en forma de LocalDate, altrament dispara una excepció
+     * @pre --
+     * @post Si el format de "data" és correcte (yyyy-mm-dd) el retorna en forma de LocalDate
+     * @brief Retorna "data" en forma de LocalDate
+     * @throws DateTimeException si el format de "data" no és correcte
      */
     private static LocalDate processarData(String data){
         String [] anyMesDia= data.split("-");
@@ -133,8 +152,9 @@ public abstract class Entrada {
     }
     
     /**
-     * @pre: --
-     * @post: Llegeix preferències de fitxer fins que troba un separador i les retorna en forma de Set
+     * @pre Scanner "fitxer" obert i preparat per lectura
+     * @post Llegeix preferències de l'Scanner "fitxer" fins que troba un separador i les retorna en forma de Set
+     * @brief Llegeix preferències de l'Scanner "fitxer" fins que troba un separador i les retorna en forma de Set
      */
     private static Set<String> llegirPreferencies(Scanner fitxer){
         Set<String> prefs= new HashSet<String>();
@@ -147,8 +167,9 @@ public abstract class Entrada {
     }
     
     /**
-     * @pre: Anterior valor llegit de fitxer és "client"
-     * @post: Llegeix un client de fitxer i l'afegeix al Map clients amb clau el seu nom
+     * @pre Anterior valor llegit de fitxer és "client", Scanner "fitxer" obert i preparat per lectura
+     * @post Llegeix un client d l'Scanner "fitxer" i l'afegeix al Map "clients" amb clau el seu nom
+     * @brief Dona d'alta un nou Client i l'afegeix al Map "clients"
      */
     private static void donarAltaClient(Scanner fitxer, Map<String, Client> clients) {
         String nom= llegirLinia(fitxer);
@@ -157,10 +178,11 @@ public abstract class Entrada {
     }
     
     /**
-     * @pre: Anterior valor llegit de fitxer és "lloc"
-     * @post: Llegeix un lloc de fitxer i l'afegeix al mapa
+     * @pre Anterior valor llegit de fitxer és "lloc", Scanner "fitxer" obert i preparat per lectura, PrintWriter "error" obert i preparat per escriptura
+     * @post Llegeix un lloc d l'Scanner "fitxer" i l'afegeix al Mapa "mundi" si s'ha processat correctament, altrament Tracta l'error de Lectura
+     * @brief Dona d'alta un nou Lloc i l'afegeix al Mapa "mundi"
      */
-    private static void donarAltaLloc(PrintWriter error, Scanner fitxer, Mapa mundi) throws InterruptedException{
+    private static void donarAltaLloc(PrintWriter error, Scanner fitxer, Mapa mundi){
         try{
             String nomID= llegirLinia(fitxer);
             String coords= llegirLinia(fitxer);
@@ -177,10 +199,11 @@ public abstract class Entrada {
     }
     
     /**
-     * @pre: Anterior valor llegit de fitxer és "allotjament"
-     * @post: Llegeix un allotjament de fitxer i l'afegeix al mapa
+     * @pre Anterior valor llegit de fitxer és "allotjament", , Scanner "fitxer" obert i preparat per lectura, PrintWriter "error" obert i preparat per escriptura
+     * @post Llegeix un allotjament d l'Scanner "fitxer" i l'afegeix al Mapa "mundi" si s'ha processat correctament, altrament Tracta l'error de Lectura
+     * @brief Dona d'alta un nou Allotjament i l'afegeix al Mapa "mundi"
      */
-    private static void donarAltaAllotjament(PrintWriter error, Scanner fitxer, Mapa mundi) throws InterruptedException{
+    private static void donarAltaAllotjament(PrintWriter error, Scanner fitxer, Mapa mundi){
         try{
             String nomID= llegirLinia(fitxer);
             String coords= llegirLinia(fitxer);
@@ -196,10 +219,11 @@ public abstract class Entrada {
     }
     
     /**
-     * @pre: Anterior valor llegit de fitxer és "lloc visitable"
-     * @post: Llegeix un puntVisitable de fitxer i l'afegeix al mapa
+     * @pre Anterior valor llegit de fitxer és "lloc visitable", , Scanner "fitxer" obert i preparat per lectura, PrintWriter "error" obert i preparat per escriptura
+     * @post Llegeix un PuntVisitable de l'Scanner "fitxer" i l'afegeix al Mapa "mundi" si s'ha processat correctament, altrament Tracta l'error de Lectura
+     * @brief Dona d'alta un nou PuntVisitable i l'afegeix al Mapa "mundi"
      */
-    private static void donarAltaPuntVisitable(PrintWriter error, Scanner fitxer, Mapa mundi) throws InterruptedException{
+    private static void donarAltaPuntVisitable(PrintWriter error, Scanner fitxer, Mapa mundi){
         try{
             String nomID= llegirLinia(fitxer);
             String coords= llegirLinia(fitxer);
@@ -220,10 +244,11 @@ public abstract class Entrada {
     }
     
     /**
-     * @pre: Anterior valor llegit de fitxer és "associar lloc"
-     * @post: Llegeix un puntInteres i lloc de fitxer associa aquest puntInteres al lloc
+     * @pre Anterior valor llegit de fitxer és "associar lloc", Scanner "fitxer" obert i preparat per lectura, PrintWriter "error" obert i preparat per escriptura
+     * @post Llegeix un PuntInteres i un Lloc de l'Scanner "fitxer" i associa el Lloc al PuntInteres si s'ha processat correctament, altrament Tracta l'error de Lectura
+     * @brief Associa un Lloc a un PuntInteres del Mapa "mundi"
      */
-    private static void associarLloc(PrintWriter error, Scanner fitxer, Mapa mundi) throws InterruptedException{
+    private static void associarLloc(PrintWriter error, Scanner fitxer, Mapa mundi){
         try {
             PuntInteres pI= mundi.obtenirPI(llegirLinia(fitxer));
             Lloc lloc= mundi.obtenirLloc(llegirLinia(fitxer));
@@ -236,8 +261,9 @@ public abstract class Entrada {
     }
     
     /**
-     * @pre: Anterior valor llegit de fitxer és "associar transport"
-     * @post: Llegeix un lloc de fitxer i l'afegeix al mapa
+     * @pre Anterior valor llegit de fitxer és "associar transport", Scanner "fitxer" obert i preparat per lectura, PrintWriter "error" obert i preparat per escriptura
+     * @post Llegeix un Lloc i un MitjaTransport de l'Scanner "fitxer" i associa aquest mitjà al Lloc si s'ha processat correctament, altrament Tracta l'error de Lectura
+     * @brief Associa un MitjaTransport a un Lloc del Mapa "mundi"
      */
     private static void associarUrba(PrintWriter error, Scanner fitxer, Mapa mundi){
         try{
@@ -254,12 +280,13 @@ public abstract class Entrada {
             warnings++;
         }
     }
-    
+
     /**
-     * @pre: Anterior valor llegit de fitxer és "transport directe"
-     * @post: Llegeix dos llocs de fitxer i crea un mitjà de transport entre aquests dos llocs
+     * @pre Anterior valor llegit de fitxer és "transport directe", , Scanner "fitxer" obert i preparat per lectura, PrintWriter "error" obert i preparat per escriptura
+     * @post Llegeix un MTDirecte de l'Scanner "fitxer" entre dos PuntInteres i l'afegeix al Mapa "mundi" si s'ha processat correctament, altrament Tracta l'error de Lectura
+     * @brief Afegeix un nou MTDirecte al Mapa "mundi"
      */
-    private static void afegirTransportDirecte(PrintWriter error, Scanner fitxer, Mapa mundi) throws InterruptedException{
+    private static void afegirTransportDirecte(PrintWriter error, Scanner fitxer, Mapa mundi){
         try{
             PuntInteres origen= mundi.obtenirPI(llegirLinia(fitxer));
             PuntInteres desti= mundi.obtenirPI(llegirLinia(fitxer));
@@ -277,10 +304,11 @@ public abstract class Entrada {
     }
     
     /**
-     * @pre: Anterior valor llegit de fitxer és "transport indirecte"
-     * @post: Llegeix dos llocs de fitxer i crea un mitjà de transport entre aquests dos llocs
+     * @pre Anterior valor llegit de fitxer és "transport indirecte", , Scanner "fitxer" obert i preparat per lectura, PrintWriter "error" obert i preparat per escriptura
+     * @post Llegeix un MTIndirecte de l'Scanner "fitxer" entre dos Estacions i l'afegeix al Mapa "mundi" si s'ha processat correctament, altrament Tracta l'error de Lectura
+     * @brief Afegeix un nou MTIndirecte al Mapa "mundi"
      */
-    private static void afegirTransportIndirecte(PrintWriter error, Scanner fitxer, Mapa mundi) throws InterruptedException{
+    private static void afegirTransportIndirecte(PrintWriter error, Scanner fitxer, Mapa mundi){
         try{
             Lloc origen= mundi.obtenirLloc(llegirLinia(fitxer));
             Lloc desti= mundi.obtenirLloc(llegirLinia(fitxer));
@@ -313,10 +341,11 @@ public abstract class Entrada {
     }
     
     /**
-     * @pre: Anterior valor llegit de fitxer és "viatge"
-     * @post: Llegeix un viatge de fitxer i l'afegeix a la llista de viatges
+     * @pre Anterior valor llegit de fitxer és "viatge", , Scanner "fitxer" obert i preparat per lectura, PrintWriter "error" obert i preparat per escriptura
+     * @post Llegeix i Retorna un Viatge llegit de l'Scanner "fitxer", que sobreescriurà l'alterior (Si n'hi havia), si s'ha processat correctament, altrament Tracta l'error de Lectura
+     * @brief Llegeix i Retorna un nou Viatge que sobreescriurà l'alterior (Si n'hi havia)
      */
-    private static void afegirViatge(PrintWriter error, Scanner fitxer, Mapa mundi, List<Viatge> viatges, Map<String, Client> clients) throws InterruptedException{
+    private static Viatge afegirViatge(PrintWriter error, Scanner fitxer, Mapa mundi, Map<String, Client> clients){
         try{
             LocalDate anyMesDia= processarData(llegirLinia(fitxer));
             LocalTime horaMinuts= processarHora(llegirLinia(fitxer));
@@ -344,7 +373,7 @@ public abstract class Entrada {
             PuntInteres punt= mundi.obtenirPI(llegirLinia(fitxer));
             String puntAux= llegirLinia(fitxer);
             while(!puntAux.equals("*")){
-                viatge.afegirPI(punt);
+                viatge.afegirPI((PuntInteres)punt);
                 punt= mundi.obtenirPI(puntAux);
                 puntAux= llegirLinia(fitxer);
             }
@@ -362,54 +391,57 @@ public abstract class Entrada {
                 }
                 ruta= llegirLinia(fitxer);
             }
-            viatges.add(viatge);
+            return viatge;
         } catch (Exception e){
-            error.println("Error de lectura: Viatge, no es llegeix");
             tractarErrorLectura(error, fitxer, e);
+            return null;
         }
     }
     
     /**
-     * @pre: fitxer és obert i llest per llegir
-     * @post: Crea les estructures de dades a partir de les dades del fitxer d'entrada
+     * @pre File "file" és obert i llest per llegir
+     * @post Crea les estructures de dades a partir de les dades del fitxer d'entrada i retorna l'últim Viatge entrat (Considerarem només 1 viatge per fitxer)
+     * @brief Crea les estructures de dades a partir de les dades del fitxer d'entrada i retorna l'últim Viatge entrat
      */
-    public static void inicialitzaAplicatiu(File file, Map<String, Client> clients, Mapa mundi, List<Viatge> viatges){
+    public static Viatge inicialitzaAplicatiu(File file, Map<String, Client> clients, Mapa mundi) throws FileNotFoundException, UnsupportedEncodingException{
+        PrintWriter error = new PrintWriter("error.txt", "UTF-8");
         try{
+            Viatge viatge= null;
             lineCounter= 0;
             warnings= 0;
             fail= false;
-            PrintWriter error = new PrintWriter("error.txt", "UTF-8");
             Scanner fitxer= new Scanner(file).useLocale(Locale.US);
             llegirLinia(fitxer); //S'ignora la línia del autor
-            try{
-                while(fitxer.hasNextLine()){
-                    String codiOperacio= llegirLinia(fitxer);
-                    if(codiOperacio.equals("client")) donarAltaClient(fitxer, clients);
-                    else if(codiOperacio.equals("lloc")) donarAltaLloc(error, fitxer, mundi);
-                    else if(codiOperacio.equals("allotjament")) donarAltaAllotjament(error, fitxer, mundi);
-                    else if(codiOperacio.equals("lloc visitable")) donarAltaPuntVisitable(error, fitxer, mundi);
-                    else if(codiOperacio.equals("associar lloc")) associarLloc(error, fitxer, mundi);
-                    else if(codiOperacio.equals("associar transport")) associarUrba(error, fitxer, mundi);
-                    else if(codiOperacio.equals("transport directe")) afegirTransportDirecte(error, fitxer, mundi);
-                    else if(codiOperacio.equals("transport indirecte")) afegirTransportIndirecte(error, fitxer, mundi);
-                    else if(codiOperacio.equals("viatge")) afegirViatge(error, fitxer, mundi, viatges, clients);
-                    else{
-                        Integer liniesAnteriors= lineCounter;
-                        ignorarFinsSeparador(fitxer);
-                        error.println("Línia "+liniesAnteriors+": Codi d'operació '"+codiOperacio+"' invàlid. S'ha ignorat el mòdul ("+(lineCounter-liniesAnteriors)+" línies)");
-                        error.println();
-                        warnings++;
-                    }
+            while(fitxer.hasNextLine()){
+                String codiOperacio= llegirLinia(fitxer);
+                if(codiOperacio.equals("client")) donarAltaClient(fitxer, clients);
+                else if(codiOperacio.equals("lloc")) donarAltaLloc(error, fitxer, mundi);
+                else if(codiOperacio.equals("allotjament")) donarAltaAllotjament(error, fitxer, mundi);
+                else if(codiOperacio.equals("lloc visitable")) donarAltaPuntVisitable(error, fitxer, mundi);
+                else if(codiOperacio.equals("associar lloc")) associarLloc(error, fitxer, mundi);
+                else if(codiOperacio.equals("associar transport")) associarUrba(error, fitxer, mundi);
+                else if(codiOperacio.equals("transport directe")) afegirTransportDirecte(error, fitxer, mundi);
+                else if(codiOperacio.equals("transport indirecte")) afegirTransportIndirecte(error, fitxer, mundi);
+                else if(codiOperacio.equals("viatge")){
+                    Viatge aux= afegirViatge(error, fitxer, mundi, clients);
+                    if(aux != null) viatge= aux;
                 }
-            } catch(InterruptedException iE){
-                fail= true;
-                error.println(iE);
-                error.println("Fatal Error 404: Si us plau torni-ho a intentar, ens sap greu :(");
+                else{
+                    Integer liniesAnteriors= lineCounter;
+                    ignorarFinsSeparador(fitxer);
+                    error.println("Línia "+liniesAnteriors+": Codi d'operació '"+codiOperacio+"' invàlid. S'ha ignorat el mòdul ("+(lineCounter-liniesAnteriors)+" línies)");
+                    error.println();
+                    warnings++;    
+                }
             }
             error.close();
             fitxer.close();
-        } catch(FileNotFoundException | UnsupportedEncodingException ex){
+            return viatge;
+        } catch(FileNotFoundException | NoSuchElementException iE){
             fail= true;
+            error.println(iE);
+            error.println("Fatal Error 404: Si us plau torni-ho a intentar, ens sap greu :(");
+            return null;
         }
     }
 }

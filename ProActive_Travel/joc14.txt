@@ -20,7 +20,7 @@ allotjament
 Hotel Torres
 41.8159435,2.5152414000000363
 Europe/Madrid
-tres estrelles
+luxe
 135
 platja
 *

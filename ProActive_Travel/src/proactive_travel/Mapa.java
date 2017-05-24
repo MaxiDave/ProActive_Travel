@@ -141,6 +141,24 @@ public class Mapa {
     
     /**
      * @pre: --
+     * @post: 
+     */
+    public PuntRuta obtenirPuntRuta(String ID) throws Exception{
+        PuntInteres aux= punts.get(ID);
+        if(aux == null){
+            Lloc ll= llocs.get(ID);
+            if(ll == null) throw new Exception("PuntLlocInexistentException");
+            else{
+                Iterator<Estacio> itEst= ll.obtEstacions();
+                if(itEst.hasNext()) return itEst.next();
+                else throw new Exception("LLocNoTeEstacions");     
+            }
+        }
+        else return aux;
+    }
+    
+    /**
+     * @pre: --
      * @post: Retorna el nombre de punts d’interès del mapa
      */
     public Integer nPuntsInteres(){
@@ -187,8 +205,8 @@ public class Mapa {
                 Set<MTDirecte> des = ori.get(desti);
                 if(des != null){
                     for(MTDirecte i : des){
-                        if(i.getDurada()< tempsMinim){
-                            tempsMinim=i.getDurada();
+                        if(i.obtDurada()< tempsMinim){
+                            tempsMinim=i.obtDurada();
                             MT=i;
                         }
                     }
@@ -203,7 +221,7 @@ public class Mapa {
             MitjaTransport mX = null;
             while(it.hasNext()){
                 mX = it.next();
-                temps = mX.getDurada();
+                temps = mX.obtDurada();
                 if(temps<tempsMinim){
                     tempsMinim = temps;
                     MT=mX;
@@ -224,8 +242,8 @@ public class Mapa {
                 Set<MTDirecte> des = ori.get(desti);
                 if (des != null) {
                     for (MTDirecte i : des) {
-                        if (i.getPreu() < costMinim) {
-                            costMinim = i.getPreu();
+                        if (i.obtPreu() < costMinim) {
+                            costMinim = i.obtPreu();
                             MT=i;
                         }
                     }
@@ -240,7 +258,7 @@ public class Mapa {
             MitjaTransport mX = null;
             while(it.hasNext()){
                 mX = it.next();
-                preu = mX.getPreu();
+                preu = mX.obtPreu();
                 if(preu<costMinim){
                     costMinim = preu;
                     MT=mX;
@@ -276,13 +294,15 @@ public class Mapa {
     
     private void afegirMTUrbans(PuntInteres pI, List<MitjaTransport> llista){
         Lloc primari= pI.obtenirLloc();
-        Iterator<MitjaTransport> itUrba= primari.obtTransportUrba();
-        while(itUrba.hasNext()){
-            MitjaTransport urba= itUrba.next();
-            Iterator<PuntInteres> itVeins= primari.obtPuntsInteres();
-            while(itVeins.hasNext()){
-                PuntInteres desti= itVeins.next();
-                if(!desti.equals(pI)) llista.add(new MTDirecte(urba.getNom(), pI, desti, urba.getPreu(), urba.getDurada()));
+        if(primari != null){
+            Iterator<MitjaTransport> itUrba= primari.obtTransportUrba();
+            while(itUrba.hasNext()){
+                MitjaTransport urba= itUrba.next();
+                Iterator<PuntInteres> itVeins= primari.obtPuntsInteres();
+                while(itVeins.hasNext()){
+                    PuntInteres desti= itVeins.next();
+                    if(!desti.equals(pI)) llista.add(new MTDirecte(urba.obtNom(), pI, desti, urba.obtPreu(), urba.obtDurada()));
+                }
             }
         }
     }
@@ -303,10 +323,13 @@ public class Mapa {
     }
     
     private void afegirMTEstacions(PuntInteres pI, List<MitjaTransport> llista){
-        Iterator<Estacio> itEst= pI.obtenirLloc().obtEstacions();
-        while(itEst.hasNext()){
-            Estacio est= itEst.next();
-            llista.add(new MTEstacio(pI, est, 0.0, 0));
+        Lloc primari= pI.obtenirLloc();
+        if(primari != null){
+            Iterator<Estacio> itEst= primari.obtEstacions();
+            while(itEst.hasNext()){
+                Estacio est= itEst.next();
+                llista.add(new MTEstacio(pI, est, 0.0, 0));
+            }
         }
     }
     

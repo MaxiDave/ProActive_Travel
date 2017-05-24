@@ -16,9 +16,7 @@ package proactive_travel;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -106,7 +104,7 @@ public class CalculExacte {
         private Solucionador(Viatge viatge, String tipus, Ruta optima){
             this.optima= optima;
             tipusRuta= tipus;
-            actual= new Solucio(viatge.obtDataInici(), viatge);
+            actual= new Solucio(viatge.obtDataInici(), viatge.obtIteradorPI());
             LocalTime iniciViatge= viatge.obtDataInici().toLocalTime();
             PuntInteres inici= viatge.obtOrigen();
             if(inici instanceof PuntVisitable){
@@ -161,8 +159,9 @@ public class CalculExacte {
             Candidats iCan= actual.inicialitzarCandidats(mundi, act);
             while(!iCan.fi()){
                 if(actual.acceptable(iCan, viatge) && esPotMillorar(actual.obtRuta(), optima)){
-                    ItemRuta item= iCan.crearItem(actual);
-                    actual.anotar(item, viatge);
+                    ItemRuta item= iCan.crearItem(actual, viatge);
+                    actual.anotar(item);
+                    //System.out.println(actual.obtRuta());
                     if(!actual.esCompleta(viatge)) algRecursiu(mundi, item.obtPuntSortida(), viatge);
                     else if(esMillor(actual.obtRuta(), optima)) optima= new Ruta(actual.obtRuta());
                     actual.desanotar();
@@ -177,8 +176,9 @@ public class CalculExacte {
          * @brief Es pot millorar la ruta actual respecte l'optima?
          */
         private boolean esPotMillorar(Ruta actual, Ruta optima){
-           if(optima == null) return true;
-           else return esMillor(actual, optima);
+            return true;
+            //if(optima == null || tipusRuta.equals("sat")) return true;
+            //else return esMillor(actual, optima);
         }
         
         /** 
@@ -222,34 +222,52 @@ public class CalculExacte {
                 }
             }
         }
-        
+
+        /**
+        * DESCRIPCIÓ GENERAL
+        * @brief   Classe que emmagatzema la solució parcial del Backtraking a mesura que es va executant
+        * @details S'encarrega de dur a terme la part d'emmagatzament de dades en ED útils de cares al càlcul,
+        *          i també de la Ruta que va elaborant
+        */
         private class Solucio{
-            private Ruta ruta;
-            private Set<PuntInteres> visitats;
-            private Map<PuntInteres, Boolean> puntsObligats;
-            private Integer nObligatsVisitats;
-            private Deque<Boolean> afegitPI;
-            private MTDirecte anterior;
-            private LocalDateTime sortidaMTIndirecte;
-                      
-            private Solucio(LocalDateTime temps, Viatge viatge){
+            //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
+            private Ruta ruta;                                  ///< @brief Emmagatzema la Ruta parcial que es va modificant a mida que l'algorisme de Backtraking treballa
+            private Set<PuntInteres> visitats;                  ///< @brief Contenidor que emmagatzema la informació de quins punts d'interès ha visitat
+            private Map<PuntInteres, Boolean> puntsObligats;    ///< @brief Contenidor que emmagatzema els punts als que la Ruta està obligada a passar juntament amb un booleà que indica si ja hi ha passat o no
+            private Integer nObligatsVisitats;                  ///< @brief Emmagatzema el nombre de punts intermitjos obligats que s'han visitat, per tal de saber quan tots els puntsObligats estan a cert
+            private LocalDateTime hora;                         ///< @brief Emmagatzema una hora de sortida en cas de que un MitjaTransport sigui acceptable i s'hagi d'anotar, per tal de no tornar a calcular-ho
+            
+            //CONSTRUCTOR--------------------------------------------------------------------------------------------------------------------------------
+            /** 
+             * @pre --
+             * @post Es crea una solució a partir d'una data d'inici i d'un iterador al PuntInteres els quals la Ruta està obligada a passar
+             * @brief Constructor
+             */
+            private Solucio(LocalDateTime temps, Iterator<PuntInteres> itPunts){
                 nObligatsVisitats= 0;
                 ruta= new Ruta(tipusRuta, temps);
                 visitats= new HashSet<>();
                 puntsObligats= new HashMap<>();
-                anterior= null;
-                sortidaMTIndirecte= null;
-                afegitPI= new ArrayDeque<>();
-                Iterator<PuntInteres> it= viatge.obtIteradorPI();
-                while(it.hasNext()) puntsObligats.put(it.next(), Boolean.FALSE);
+                while(itPunts.hasNext()) puntsObligats.put(itPunts.next(), Boolean.FALSE);
             }
             
+            //MÈTODES PRIVATS----------------------------------------------------------------------------------------------------------------------------
+            /** 
+            * @pre --
+            * @post Crea i Retorna els candidats a afegir a la Ruta a partir del PuntRuta actual "pI" i el Mapa "mundi"
+            * @brief Inicialitza els candidats
+            */
             private Candidats inicialitzarCandidats(Mapa mundi, PuntRuta pI){
                 ItemRuta ultimItem= ruta.obtUltimItem();
                 if((ruta.teItems() && ultimItem instanceof TrajecteIndirecte)) return new Candidats(mundi, (Estacio)pI, ((TrajecteIndirecte) ultimItem).obtLlocOrigen());
                 else return new Candidats(mundi, pI);
             }
             
+            /** 
+            * @pre --
+            * @post Afegeix el primer punt de la Ruta com l'ItemRuta "item"
+            * @brief Afegeix el primer punt de la Ruta (Tractat com a situació especial)
+            */
             private void afegirPrimerPunt(ItemRuta item){
                 ruta.afegeixItemRuta(item);
                 if(item instanceof Visita){
@@ -258,84 +276,74 @@ public class CalculExacte {
                 }
             }
             
-            private void anotar(ItemRuta item, Viatge viatge){
-                if(item instanceof TrajecteDirecte || item instanceof TrajectePunts){
-                    ruta.afegeixItemRuta(item);
-                    PuntInteres aAnar= (PuntInteres)item.obtPuntSortida();
-                    if(acceptable(aAnar, viatge)){
-                        anterior= null;
-                        Integer satis= satisfaccio.get(aAnar);
-                        ItemRuta itemPunt;
-                        if(aAnar instanceof PuntVisitable){
-                            PuntVisitable pV= (PuntVisitable)aAnar;
-                            if(ruta.obtFinal().toLocalTime().isAfter(pV.obtObertura())) itemPunt= new Visita(pV, ruta.obtFinal(), satis);
-                            else itemPunt= new Visita(pV, LocalDateTime.of(ruta.obtFinal().toLocalDate(), pV.obtObertura()), satis);
-                            //System.out.println("Anotem: "+visita);
-                            visitats.add((PuntInteres)itemPunt.obtPuntSortida());
-                            if(puntsObligats.containsKey((PuntInteres)itemPunt.obtPuntSortida())){
-                                puntsObligats.replace((PuntInteres)itemPunt.obtPuntSortida(), Boolean.TRUE);
-                                nObligatsVisitats++;
-                            }
-                        }
-                        else{
-                            Allotjament hotel= (Allotjament)aAnar;
-                            itemPunt= new EstadaHotel(hotel, ruta.obtFinal() ,satis);
-                        }
-                        ruta.afegeixItemRuta(itemPunt);
-                        afegitPI.addLast(Boolean.TRUE);
+            /** 
+            * @pre ItemRuta "item" és acceptable 
+            * @post Anota l'ItemRuta "item" a la solució, i si és una visita l'afegeix a visitats, i si també és dels punts obligats posa puntsObligats(punt -> cert)
+            * @brief Anota l'ItemRuta "item"
+            */
+            private void anotar(ItemRuta item){
+                ruta.afegeixItemRuta(item);
+                if(item instanceof Visita){
+                    PuntInteres pI= (PuntInteres)item.obtPuntSortida();
+                    visitats.add(pI);
+                    if(puntsObligats.containsKey(pI)){
+                        puntsObligats.replace(pI, Boolean.TRUE);
+                        nObligatsVisitats++;
                     }
-                    else if(anterior == null){
-                        TrajecteDirecte tD= (TrajecteDirecte)item;
-                        anterior= tD.obtMitja();
-                        afegitPI.addLast(Boolean.FALSE);
-                    }
-                    else afegitPI.addLast(Boolean.FALSE);
                 }
-                else if(item instanceof EstadaHotel || item instanceof TrajecteEstacio || item instanceof TrajecteIndirecte){
-                    anterior= null;
-                    ruta.afegeixItemRuta(item);
-                    afegitPI.addLast(Boolean.FALSE);
-                }
-                else afegitPI.addLast(Boolean.FALSE);
             }
             
+            /** 
+            * @pre Ruta no buida
+            * @post Desanota l'últim ItemRuta de la Ruta actual, i si és una visita el treu de visitats, i si és necessari, posa fals el puntsObligats del seu PuntInteres
+            * @brief Desanota l'últim ItemRuta
+            */
             private void desanotar(){
-                anterior= null;
-                //System.out.println("Desanotem: "+item);
-                Boolean afegirAnteriorPI= afegitPI.pollLast();
-                if(afegirAnteriorPI){
-                    //System.out.println("S'havia afegit PI, es treu");
-                    ItemRuta item= ruta.treureUltimItem();
-                    if(item instanceof Visita){
-                        visitats.remove((PuntInteres)item.obtPuntSortida());
-                        if(puntsObligats.containsKey((PuntInteres)item.obtPuntSortida())){
-                            puntsObligats.replace((PuntInteres)item.obtPuntSortida(), Boolean.FALSE);
-                            nObligatsVisitats--;
-                        }
+                ItemRuta item= ruta.treureUltimItem();
+                if(item instanceof Visita){
+                    PuntInteres pI= (PuntInteres)item.obtPuntSortida();
+                    if(puntsObligats.containsKey(pI)){
+                        puntsObligats.replace(pI, Boolean.FALSE);
+                        nObligatsVisitats--;
                     }
+                    visitats.remove(pI);
                 }
-                ruta.treureUltimItem();
             }
             
-            private boolean estadaAcceptable(Allotjament hotel, Viatge viatge){
-                return(!ruta.obtFinal().plusDays(1).isAfter(viatge.obtDataMax()) && ruta.obtCost()+hotel.obtenirPreu() < viatge.obtPreuMax());
-            }
-            
+            /** 
+            * @pre --
+            * @post Retorna cert si el candidat MitjaTransport "mT" supera el màxim permés en preu o durada estipulats en el Viatge "viatge"
+            * @brief Supera el candidat el màxim permés?
+            */
             private boolean superaMaxim(MitjaTransport mT, Viatge viatge){
-                return(ruta.obtCost()+mT.getPreu() > viatge.obtPreuMax() || ruta.obtDurada()+mT.getDurada() > viatge.obtDurada());
+                return(ruta.obtCost()+mT.obtPreu() > viatge.obtPreuMax() || ruta.obtDurada()+mT.obtDurada() > viatge.obtDurada());
             }
             
+            /** 
+            * @pre --
+            * @post Retorna cert si el PuntVisitable candidat "pV" es pot visitar a partir del moment "actual" i de les condicions estipulades en el Viatge "viatge"
+            * @brief Supera el candidat el màxim permés?
+            */
             private boolean esPotVisitar(PuntVisitable pV, LocalDateTime actual, Viatge viatge){
-                LocalTime hora= actual.toLocalTime();
-                if(pV.obtObertura().isAfter(hora)){
+                LocalTime horaActual= actual.toLocalTime();
+                if(pV.obtObertura().isAfter(horaActual)){
                     LocalDateTime obertura= LocalDateTime.of(actual.toLocalDate(), pV.obtObertura());
+                    hora= obertura;
                     return (!obertura.plusMinutes(pV.obtTempsVisita()).toLocalDate().isAfter(actual.toLocalDate())) && (!obertura.plusMinutes(pV.obtTempsVisita()).isAfter(viatge.obtDataMax())) && (ruta.obtCost()+pV.obtenirPreu() <= viatge.obtPreuMax());
                 }
-                else if(!hora.plusMinutes(pV.obtTempsVisita()).isAfter(pV.obtTancament())) return (!actual.plusMinutes(pV.obtTempsVisita()).toLocalDate().isAfter(actual.toLocalDate())) && (!actual.plusMinutes(pV.obtTempsVisita()).isAfter(viatge.obtDataMax())) && (ruta.obtCost()+pV.obtenirPreu() <= viatge.obtPreuMax());
+                else if(!horaActual.plusMinutes(pV.obtTempsVisita()).isAfter(pV.obtTancament())){
+                    hora= actual;
+                    return (!actual.plusMinutes(pV.obtTempsVisita()).toLocalDate().isAfter(actual.toLocalDate())) && (!actual.plusMinutes(pV.obtTempsVisita()).isAfter(viatge.obtDataMax())) && (ruta.obtCost()+pV.obtenirPreu() <= viatge.obtPreuMax());
+                }
                 else return false;
             }
             
-            private boolean acceptable(PuntInteres pI, Viatge viatge){ 
+            /** 
+            * @pre --
+            * @post Retorna cert si el candidat PuntInteres "pI" és acceptable a partir de les condicions estipulades en el Viatge "viatge"
+            * @brief És el PuntInteres "pI" acceptable?
+            */
+            private boolean puntAcceptable(PuntInteres pI, Viatge viatge){
                 if(pI instanceof PuntVisitable && !visitats.contains(pI)){
                     PuntVisitable pV= (PuntVisitable)pI;
                     if(pV.equals(viatge.obtDesti())) return (nObligatsVisitats == puntsObligats.size()) && esPotVisitar(pV, ruta.obtFinal(), viatge);
@@ -345,21 +353,26 @@ public class CalculExacte {
                 }
                 else if(pI instanceof Allotjament){
                     Allotjament hotel= (Allotjament)pI;
-                    return(viatge.categoriaDesitjada(hotel) && !LocalDateTime.of(ruta.obtFinal().toLocalDate().plusDays(1), LocalTime.of(4, 0)).isAfter(viatge.obtDataMax())) && (ruta.obtCost()+hotel.obtenirPreu() <= viatge.obtPreuMax());
+                    return(!LocalDateTime.of(ruta.obtFinal().toLocalDate().plusDays(1), LocalTime.of(4, 0)).isAfter(viatge.obtDataMax())) && (ruta.obtCost()+hotel.obtenirPreu() <= viatge.obtPreuMax());
                 }
                 else return false;
             }
             
-            private boolean acceptable(MitjaTransport mitja, Viatge viatge){
-                if(mitja instanceof MTDirecte){
-                    MTDirecte mD= (MTDirecte)mitja;
-                    if((anterior != null && anterior.equals(mD)) || superaMaxim(mD, viatge)) return false;
+            /** 
+            * @pre --
+            * @post Retorna cert si el candidat MitjaTransport "mT" és acceptable a partir de les condicions estipulades en el Viatge "viatge"
+            * @brief És el MitjaTransport "mT" acceptable?
+            */
+            private boolean mitjaAcceptable(MitjaTransport mT, Viatge viatge){
+                if(mT instanceof MTDirecte){
+                    MTDirecte mD= (MTDirecte)mT;
+                    if((ruta.obtUltimItem() instanceof TrajecteDirecte && ((TrajecteDirecte)ruta.obtUltimItem()).obtMitja().equals(mD)) || superaMaxim(mD, viatge)) return false;
                     else{
-                        LocalDate fi= ruta.obtFinal().plusMinutes(mD.getDurada()).toLocalDate();
-                        return(fi.equals(viatge.obtDataInici().toLocalDate()) || fi.equals(viatge.obtDataMax().toLocalDate()) || !fi.isAfter(ruta.obtFinal().toLocalDate()));
+                        LocalDate fi= ruta.obtFinal().plusMinutes(mD.obtDurada()).toLocalDate();
+                        return !fi.isAfter(ruta.obtFinal().toLocalDate());
                     }
                 }
-                else if(mitja instanceof MTEstacio){
+                else if(mT instanceof MTEstacio){
                     if(ruta.obtUltimItem() instanceof TrajecteDirecte){
                         TrajecteDirecte tD= (TrajecteDirecte)ruta.obtUltimItem();
                         MTDirecte mD= tD.obtMitja();
@@ -367,69 +380,96 @@ public class CalculExacte {
                     }
                     else return true;
                 }
-                else if(mitja instanceof MTIndirecte){
-                   MTIndirecte mI= (MTIndirecte)mitja;
-                   LocalDateTime actual= ruta.obtFinal().plusMinutes(mI.getOrigen().obtTempsSortidaLloc(mI.getDesti().obtLloc()));
-                   LocalDateTime sortida= mI.getOrigen().obtSortida(mI, actual);
-                   if(sortida != null){
-                        LocalDate fi= sortida.plusMinutes(mI.getDurada()).toLocalDate();
-                        LocalDate diaSortida= sortida.toLocalDate();
-                        if(diaSortida.equals(viatge.obtDataInici().toLocalDate()) || diaSortida.equals(viatge.obtDataMax().toLocalDate()) || !fi.isAfter(actual.toLocalDate())){
-                            sortidaMTIndirecte= sortida;
-                            return true;
-                        }
-                        else return false;
+                else if(mT instanceof MTIndirecte){
+                    MTIndirecte mI= (MTIndirecte)mT;
+                    LocalDateTime actual= ruta.obtFinal().plusMinutes(mI.getOrigen().obtTempsSortidaLloc(mI.getDesti().obtLloc()));
+                    if(actual.toLocalDate().isAfter(ruta.obtFinal().toLocalDate())) return false;
+                    else{
+                        LocalDateTime sortida= mI.getOrigen().obtSortida(mI, actual);
+                        if(sortida != null){
+                             LocalDate fi= sortida.plusMinutes(mI.obtDurada()).toLocalDate();
+                             LocalDate diaSortida= sortida.toLocalDate();
+                             if(diaSortida.equals(viatge.obtDataInici().toLocalDate()) || diaSortida.equals(viatge.obtDataMax().toLocalDate()) || !fi.isAfter(actual.toLocalDate())){
+                                 hora= sortida;
+                                 return true;
+                             }
+                             else return false;
+                         }
+                         else return false;
                     }
-                    else return false;
                 }
                 else{
-                    MTPunts mP= (MTPunts)mitja;
+                    MTPunts mP= (MTPunts)mT;
                     if(superaMaxim(mP, viatge)) 
                         return false;
                     else{
-                        LocalDate fi= ruta.obtFinal().plusMinutes(mP.getDurada()).toLocalDate();
+                        LocalDate fi= ruta.obtFinal().plusMinutes(mP.obtDurada()).toLocalDate();
                         return(ruta.obtFinal().toLocalDate().equals(viatge.obtDataInici().toLocalDate()) || ruta.obtFinal().toLocalDate().equals(viatge.obtDataMax().toLocalDate()) || !fi.isAfter(ruta.obtFinal().toLocalDate()));
                     }
                 }
             }
             
+            /** 
+            * @pre --
+            * @post Retorna cert si el candidat Candidats "iCan" és acceptable a partir de les condicions estipulades en el Viatge "viatge"
+            * @brief És el Candidats "iCan" acceptable?
+            */
             private boolean acceptable(Candidats iCan, Viatge viatge){
-                if(iCan.esPossibleQuedarseHotel()){
-                    return actual.estadaAcceptable(iCan.hotel(), viatge);
-                }
-                else return actual.acceptable(iCan.actual(), viatge);
+                if(iCan.esPuntInteres()) return puntAcceptable(iCan.puntActual(), viatge);
+                else return mitjaAcceptable(iCan.mitjaActual(), viatge);
             }
             
-            private LocalDateTime obtTemps(){
-                return ruta.obtFinal();
-            }
-            
+            /** 
+            * @pre --
+            * @post Retorna la Ruta parcial de la Solució
+            * @brief Retorna la Ruta parcial de la Solució
+            */
             private Ruta obtRuta(){
                 return ruta;
             }
             
+            /** 
+            * @pre --
+            * @post Retorna cert si la solució actual és completa a partir del destí del Viatge "desti"
+            * @brief La solució és completa?
+            */
             private boolean esCompleta(Viatge viatge){
                 if(ruta.arribaDesti(viatge.obtDesti())) return nObligatsVisitats == puntsObligats.size();
                 else return false;
             }
         }
         
+        /**
+        * DESCRIPCIÓ GENERAL
+        * @brief   Classe que emmagatzema els candidats de la solució en cada pas recursiu
+        * @details S'encarrega de dur a terme la part de control dels candidats
+        */
         private class Candidats{
-            private final PuntRuta pR;
-            private final List<MitjaTransport> mitjans;
-            private List<MTPunts> baixarAPunts;
-            private Integer listCounter;
-            private Integer baixarCounter;
+            private final PuntRuta pR;                      ///< @brief Representa el punt de la ruta on es troba l'algorisme quan inicialitza els candidats
+            private final List<MitjaTransport> mitjans;     ///< @brief Conté els MitjaTransport candidats per agafar respecte pR 
+            private List<MTPunts> baixarAPunts;             ///< @brief Conté els MTPunts candidats per agafar respecte pR en cas que sigui una Estacio 
+            private Integer listCounter;                    ///< @brief Contador que ens indica a quina posició de la llista "mitjans" ens trobem
+            private Integer baixarCounter;                  ///< @brief Contador que ens indica a quina posició de la llista "baixarAPunts" ens trobem
             
-            private Candidats(Mapa mundi, PuntRuta pI){
-                pR= pI;
+            /** 
+            * @pre --
+            * @post Es generen els candidats a partir del Mapa "mundi" i el PuntRuta "pR"
+            * @brief Constructor per defecte
+            */
+            private Candidats(Mapa mundi, PuntRuta pR){
+                this.pR= pR;
                 mitjans= mundi.obtMitjansPunt(pR, tipusRuta);
                 baixarAPunts= new ArrayList<>();
                 baixarCounter= 0;
-                if(pR instanceof Allotjament) listCounter= -1;
+                if(pR instanceof PuntInteres) listCounter= -1;
                 else listCounter= 0;
             }
             
+            /** 
+            * @pre --
+            * @post Es generen els candidats a partir del Mapa "mundi", l'estació actual "est" i el lloc d'origen
+            * @brief Constructor a partir d'Estació si es ve d'un MTIndirecte
+            */
             private Candidats(Mapa mundi, Estacio est, Lloc origen){
                 pR= est;
                 mitjans= mundi.obtMitjansPunt(pR, tipusRuta);
@@ -438,30 +478,60 @@ public class CalculExacte {
                 listCounter= 0;
             }
             
+            /** 
+            * @pre --
+            * @post Retorna cert si és fi, és a dir, si no queden candidats
+            * @brief Queden candidats?
+            */
             private Boolean fi(){
                 return listCounter==mitjans.size() && baixarCounter==baixarAPunts.size();
             }
             
-            private Boolean esPossibleQuedarseHotel(){
-                return(pR instanceof Allotjament && listCounter==-1);
+            /** 
+            * @pre --
+            * @post Retorna cert si el candidat actual és un PuntInteres
+            * @brief És el candidat un PuntInteres ?
+            */
+            private Boolean esPuntInteres(){
+                return pR instanceof PuntInteres && listCounter==-1;
             }
             
-            //pre: es possible quedarse hotel
-            private Allotjament hotel(){
-                return (Allotjament)pR;
+            /** 
+            * @pre Candidats actual és un PuntInteres 
+            * @post Retorna el PuntInteres actual candidat
+            * @brief Retorna el PuntInteres actual candidat
+            */
+            private PuntInteres puntActual(){
+                return (PuntInteres)pR;
             }
             
-            private MitjaTransport actual(){
+            /** 
+            * @pre Candidats actual és un MitjaTransport 
+            * @post Retorna el MitjaTransport actual candidat
+            * @brief Retorna el MitjaTransport actual candidat
+            */
+            private MitjaTransport mitjaActual(){
                 if(baixarAPunts.isEmpty()) return(mitjans.get(listCounter));
                 else return(baixarAPunts.get(baixarCounter));
             }
             
-            private ItemRuta crearItem(Solucio sol){
-                LocalDateTime tempsActual= sol.obtTemps();
+            /** 
+            * @pre --
+            * @post Crea un ItemRuta amb el candidat actual a partir de la Solucio "sol" i el Viatge "viatge"
+            * @brief Retorna el PuntInteres actual candidat
+            */
+            private ItemRuta crearItem(Solucio sol, Viatge viatge){
+                LocalDateTime tempsActual= sol.obtRuta().obtFinal();
                 ItemRuta item;
-                if(esPossibleQuedarseHotel()){
+                if(pR instanceof Allotjament && listCounter==-1){
                     Integer satis= satisfaccio.get((PuntInteres)pR);
+                    if(viatge.categoriaDesitjada((Allotjament)pR)) satis++;
                     item= new EstadaHotel((Allotjament)pR, tempsActual, satis);
+                }
+                else if(pR instanceof PuntVisitable && listCounter==-1){
+                    Integer satis= satisfaccio.get((PuntInteres)pR);
+                    item= new Visita((PuntVisitable)pR, sol.hora, satis);
+                    sol.hora= null;
                 }
                 else{
                     MitjaTransport mT;
@@ -474,8 +544,8 @@ public class CalculExacte {
                         item= new TrajecteEstacio((MTEstacio)mT, tempsActual);
                     }
                     else if(mT instanceof MTIndirecte){
-                        item= new TrajecteIndirecte((MTIndirecte)mT, sol.sortidaMTIndirecte);
-                        sol.sortidaMTIndirecte= null;
+                        item= new TrajecteIndirecte((MTIndirecte)mT, sol.hora);
+                        sol.hora= null;
                     }
                     else{
                         item= new TrajectePunts((MTPunts)mT, tempsActual);
@@ -484,11 +554,19 @@ public class CalculExacte {
                 return item;
             }
             
+            /** 
+            * @pre !Candidats.fi()
+            * @post Passa al següent candidat
+            * @brief Passa al següent candidat
+            */
             private void seguent(){
                 if(baixarAPunts.isEmpty()) listCounter++;
                 else{
                     baixarCounter++;
-                    if(baixarCounter==mitjans.size()) baixarAPunts= new ArrayList<>();
+                    if(baixarCounter==baixarAPunts.size()){
+                        baixarCounter= 0;
+                        baixarAPunts= new ArrayList<>();
+                    }
                 }
             }
         }
