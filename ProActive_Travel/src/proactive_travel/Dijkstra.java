@@ -1,16 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+//ProActive_Travel
+
+/**
+ * @file: CalculGreedy.java
+ * @author: Roger Barnés, u1939667
+ * @author: David Martínez, u1939690
+ * @version: 1
+ * @date: Curs 2016-2017
+ * @warning: --
+ * @brief: Mòdul funcional que s'encarrega de dur a terme els càlculs relacionats en trobar
+ *         una bona solució (Greedy) de Ruta, en termes monetaris, temps i Satisfacció 
+ * @copyright: Public License
  */
+
 package proactive_travel;
 
 import java.util.*;
 
 /**
- *
- * @author Roger i David
- * Tipus de Dijkstra: Temps o Diners
+ * DESCRIPCIÓ GENERAL
+ * @brief: Classe que retorna els camins mes rapids/barats/satisfactoris a seguir
  */
 public class Dijkstra {
     private Set<PuntInteres> nodesAgafats;
@@ -26,6 +34,10 @@ public class Dijkstra {
     private String tipus;
     private PuntInteres dest;
     
+    /**
+     * @pre: --
+     * @post: Totes les variables queden inicialitzades
+     */
     Dijkstra() {
 	nodesAgafats = new HashSet<PuntInteres>();
 	nodesPerAgafar = new HashSet<PuntInteres>();
@@ -37,6 +49,10 @@ public class Dijkstra {
         tipus = new String();
     }
     
+    /**
+     * @pre: S'ha de haver cridat camiMinim
+     * @post: Retorna els punts de interes que dijkstra ha trobat mes rapids/barats/satisfactoris
+     */
     public ArrayDeque<PuntInteres> retornaPuntsInteres(){
         ArrayDeque<PuntInteres> invers = new ArrayDeque();
         PuntInteres d=dest;
@@ -55,23 +71,43 @@ public class Dijkstra {
         return cami;
     }
     
+    /**
+     * @pre: S'ha d'haver cridat camiMinim
+     * @post: Retorna un mapa amb els PuntsInteres i el mitja de transport millor per arribarhi
+     */
     public Map<PuntInteres, MitjaTransport> retornaMitjans(){
         //HashMap<PuntInteres,Mitjatransport> camiMT = new HashMap();
         return transports;
     }
     
+    /**
+     * @pre: S'ha d'haver cridat camiMinim
+     * @post: Retorna el temps que es tarda fins a desti
+     */
     public Integer retornaTemps(){
         return temps.get(dest);
     }
     
+    /**
+     * @pre: S'ha d'haver cridat camiMinim
+     * @post: Retorna el cost fins a desti
+     */
     public Double retornaCost(){
         return cost.get(dest);
     }
     
+    /**
+     * @pre: S'ha d'haver cridat camiMinim
+     * @post: Retorna la satisfaccio fins a desti
+     */
     public Integer retornaSatisfaccio(){
         return satisfaccio.get(dest);
     }
     
+    /**
+     * @pre: --
+     * @post: Calcula el cami minim de un origen a un desti aplicant dijkstra, retorna un -1 si no hi ha ruta i 0 si hi ha ruta
+     */
     public Integer camiMinim(Mapa mundi, PuntInteres origen, PuntInteres desti, String tipusDij){
         dest=desti;
         if(tipusDij.equals("temps")) tipus="temps";
@@ -94,6 +130,10 @@ public class Dijkstra {
         return 0;
     }
     
+    /**
+     * @pre: --
+     * @post: Retorna el millor punt per fixar
+     */
     private PuntInteres buscarMinim(PuntInteres origen, Set<PuntInteres> nodesPerAgafar, Mapa mundi){
 	PuntInteres minim = null;
 	for(PuntInteres p : nodesPerAgafar){
@@ -122,6 +162,10 @@ public class Dijkstra {
         return minim;
     }
         
+    /**
+     * @pre: --
+     * @post: Actualitza els veins de un dijkstra per temps
+     */
     private void buscarDistanciesMinimes(Mapa mundi, PuntInteres pi){
         if (mundi.obtenirVeins(pi) != null) {
             Set<PuntInteres> nodesVeins = mundi.obtenirVeins(pi); //obtenir veins
@@ -147,6 +191,10 @@ public class Dijkstra {
         }
     }
     
+    /**
+     * @pre: --
+     * @post: Actualitza els veins de un dijkstra per cost
+     */
     private void buscarCostsMinims(Mapa mundi, PuntInteres pi){
 	if(mundi.obtenirVeins(pi)!=null){
             Set<PuntInteres> nodesVeins = mundi.obtenirVeins(pi); //obtenir veins
@@ -172,7 +220,11 @@ public class Dijkstra {
         }
     }
     
-        private void buscarSatisfaccioMaxima(Mapa mundi, PuntInteres pi) {
+    /**
+     * @pre: --
+     * @post: Actualitza els veins de un dijkstra per satisfaccio
+     */
+    private void buscarSatisfaccioMaxima(Mapa mundi, PuntInteres pi) {
         if(mundi.obtenirVeins(pi)!=null){
             Set<PuntInteres> nodesVeins = mundi.obtenirVeins(pi); //obtenir veins
             //Veins MTDir
@@ -197,6 +249,10 @@ public class Dijkstra {
         }
     }
     
+    /**
+     * @pre: --
+     * @post: Retorna el temps que es tarda en arribar en aquell punt, Integer.MAX_VALUE si no es pot arribar
+     */
     private int obtenirTemps(PuntInteres pi){
 	Integer t = temps.get(pi);
 	if(t==null){
@@ -207,6 +263,10 @@ public class Dijkstra {
 	}
     }
     
+    /**
+     * @pre: --
+     * @post: Retorna el cost que es te en arribar en aquell punt, Double.MAX_VALUE si no es pot arribar
+     */
     private Double obtenirCost(PuntInteres pi){
 	Double t = cost.get(pi);
 	if(t==null){
@@ -217,6 +277,10 @@ public class Dijkstra {
 	}
     }
 
+    /**
+     * @pre: --
+     * @post: Retorna la satisfaccio que es proporciona arribar en aquell punt, Int.MAX_VALUE si no es pot arribar
+     */
     private Integer obtenirSatisfaccio(PuntInteres pi) {
         Integer t = satisfaccio.get(pi);
 	if(t==null){

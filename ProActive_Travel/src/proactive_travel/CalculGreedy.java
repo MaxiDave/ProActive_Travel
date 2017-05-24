@@ -48,6 +48,11 @@ public abstract class CalculGreedy {
         visitats = new HashSet<PuntInteres>();
     }
     
+    /** 
+     * @pre --
+     * @post Metode de Debug que t'ensenya el valor dels atributs locals i de alguns atributs de Viatge
+     * @brief Mostra els atributs locals i de Viatge
+     */
     private static void debugAtributs(Viatge clients){
         System.out.println("La data actual es:");
         System.out.println(actual);
@@ -73,6 +78,10 @@ public abstract class CalculGreedy {
         }
     }
     
+    /** 
+     * @pre Viatge i Mapa han de ser valids
+     * @post Calcula les rutes donades per viatge i les desa en un fitxer .txt i en un fitxer .kml
+     */
     public static List<Ruta> calcularRutaGreedy(Viatge clients,Mapa mundi){
         Ruta r = new Ruta("barata",actual);
         List<Ruta> ll = new ArrayList<Ruta>();
@@ -113,6 +122,10 @@ public abstract class CalculGreedy {
         return ll;
     }
     
+    /** 
+     * @pre --
+     * @post Retorna la ruta mes barata trobada per estrategia voraç
+     */
     private static Ruta calcularBarat(Mapa mundi, PuntInteres origen, Map<String, Integer> preferenciesClients){
         Boolean fi=false;
         Boolean temps=true;
@@ -141,6 +154,10 @@ public abstract class CalculGreedy {
         return barata;
     }
     
+    /** 
+     * @pre --
+     * @post Retorna la ruta mes rapida trobada per estrategia voraç
+     */
     private static Ruta calcularRapid(Mapa mundi, PuntInteres origen, Map<String, Integer> preferenciesClients){
         Boolean fi=false;
         Boolean temps=true;
@@ -172,6 +189,10 @@ public abstract class CalculGreedy {
         return rapida;
     }
     
+    /** 
+     * @pre --
+     * @post Retorna el PuntInteres mes proper/barat/satisfactori per a poder visitar de la llista dels obligatoris
+     */
     private static Dijkstra seleccionarMesViable(Mapa mundi, String tipus, PuntInteres puntAct) {
         Dijkstra d = new Dijkstra();
         Dijkstra definitiu = new Dijkstra();
@@ -198,6 +219,10 @@ public abstract class CalculGreedy {
         return definitiu;
     }
 
+    /** 
+     * @pre --
+     * @post Analitza tots els punts per on es passa i va construint la ruta, tambe controla la hora i dia i retorna el Punt de Interes on s'ha quedat
+     */
     private static PuntInteres analitzarLlocs(ArrayDeque<PuntInteres> cami, Ruta barata, Map<String, Integer> preferenciesClients, Mapa mundi, Map<PuntInteres, MitjaTransport> camiMT, PuntInteres puntAct) {
         PuntInteres act = null;
         PuntInteres ant = puntAct;
@@ -250,6 +275,10 @@ public abstract class CalculGreedy {
         return act;
     }
 
+    /** 
+     * @pre --
+     * @post Busca l'hotel mes proper avança un dia i escriu la ruta d'anada i de tornada
+     */
     private static void buscarHotel(Mapa mundi, Ruta barata, PuntInteres p, Map<String, Integer> preferenciesClients) {
         ArrayDeque<PuntInteres> camiHotel = mundi.obtenirHotelProper(p, "diners");
         PuntInteres act = null;
@@ -289,6 +318,10 @@ public abstract class CalculGreedy {
         }
     }
     
+    /** 
+     * @pre --
+     * @post Retorna la ruta mes satisfactoria trobada per estrategia voraç
+     */
     private static Ruta calcularSatisfactoria(Mapa mundi, PuntInteres origen, Map<String,Integer> preferenciesClients){
         Boolean fi=false;
         Boolean temps=true;
@@ -317,6 +350,10 @@ public abstract class CalculGreedy {
         return rapida;
     }
     
+    /** 
+     * @pre --
+     * @post Retorna si final de viatge, fals altrement
+     */
     private static Boolean comprovarTemps(){
         boolean temps;
         if(actual.compareTo(finalViatge)<0){
@@ -328,6 +365,10 @@ public abstract class CalculGreedy {
         return temps;
     }
     
+    /** 
+     * @pre --
+     * @post Retorna true si s'han acabat els punts intermig
+     */
     private static Boolean comprovarFi(){
         return puntsIntermig.isEmpty();
     }
