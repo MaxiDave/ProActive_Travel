@@ -166,7 +166,7 @@ public class Mapa {
     
     /**
      * @pre: --   
-     * @post: Retorna un Map amb els punts d’interès des d’on es pot anar a partir de pI i el seu MTDirecte (El de mínim temps, mínima distància o mínim cost depenent de “tipus”)
+     * @post: Retorna un Map amb els punts d’interès des d’on es pot anar a partir de pI i el seu MTDirecte (El de mínim temps)
      */
     public Map<PuntInteres,MitjaTransport> obtenirDesplsMins(PuntInteres pI,String tipus){
         Map<PuntInteres,MitjaTransport> minim= new HashMap<>();
@@ -217,6 +217,10 @@ public class Mapa {
         return tempsMinim;
     }
     
+    /**
+     * @pre: --   
+     * @post: Retorna un Map amb els punts d’interès des d’on es pot anar a partir de pI i el seu MTDirecte (El de mínim cost)
+     */
     public Double obtenirCostDespl(PuntInteres origen, PuntInteres desti,Map<PuntInteres,MitjaTransport> MTs, boolean afegir){
         double costMinim=Double.MAX_VALUE;
         MitjaTransport MT= null;
@@ -372,6 +376,10 @@ public class Mapa {
         generarEDLlocs();
     }
     
+    /**
+     * @pre: --   
+     * @post: Retorna un set amb els veins de un PuntInteres concret, considerant nomes MTDirecte
+     */
     public Set<PuntInteres> obtenirVeins(PuntInteres pi) {
         Map<PuntInteres, Set<MTDirecte>> veinsTransports = transDirecte.get(pi);
         if(veinsTransports!=null){
@@ -381,6 +389,10 @@ public class Mapa {
         return null;
     }
     
+    /**
+     * @pre: --   
+     * @post: Retorna el dijkstra a l'hotel mes proper
+     */
     public Dijkstra obtenirHotelProper(PuntInteres pi,String tipusDijk){
         Dijkstra d = new Dijkstra();
         Dijkstra millor = null;
@@ -403,10 +415,13 @@ public class Mapa {
                 }
             }
         }
-        //ArrayDeque<PuntInteres> cami = millor.retornaPuntsInteres();
         return millor;
     }
 
+    /**
+     * @pre: --   
+     * @post: Retorna tots els veins de un punt concret, nomes considerant transport urba
+     */
     Set<PuntInteres> obtenirVeinsUrba(PuntInteres pi) {
         Lloc pare = pi.obtenirLloc();
         Set<PuntInteres> veins = new HashSet<>();
