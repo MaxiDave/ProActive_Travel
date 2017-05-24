@@ -73,30 +73,44 @@ public abstract class CalculGreedy {
         }
     }
     
-    public static Ruta calcularRutaGreedy(Viatge clients,Mapa mundi){
+    public static List<Ruta> calcularRutaGreedy(Viatge clients,Mapa mundi){
         Ruta r = new Ruta("barata",actual);
+        List<Ruta> ll = new ArrayList<Ruta>();
         if(clients.esBarata()){
             inicialitzarAtributs(clients);
             Ruta barata = calcularBarat(mundi, clients.obtOrigen(), clients.preferenciesClients());
             r = barata;
             System.out.println(barata);
+            ll.add(barata);
             sortidaKML.generarFitxer(r);
+        }
+        else{
+            ll.add(null);
         }
         if(clients.esCurta()){
             inicialitzarAtributs(clients);
             Ruta temps = calcularRapid(mundi, clients.obtOrigen(), clients.preferenciesClients());
             r = temps;
             System.out.println(temps);
+            ll.add(temps);
             sortidaKML.generarFitxer(r);
+        }
+        else{
+            ll.add(null);
         }
         if(clients.esSatisfactoria()){
             inicialitzarAtributs(clients);
             Ruta satis = calcularSatisfactoria(mundi, clients.obtOrigen(), clients.preferenciesClients());
             r = satis;
             System.out.println(satis);
+            ll.add(satis);
             sortidaKML.generarFitxer(r);
         }
-        return r;
+        else{
+            ll.add(null);
+        }
+        Sortida.mostrarRutes(ll, clients, "viatge1.txt");
+        return ll;
     }
     
     private static Ruta calcularBarat(Mapa mundi, PuntInteres origen, Map<String, Integer> preferenciesClients){

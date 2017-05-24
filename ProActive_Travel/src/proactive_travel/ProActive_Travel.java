@@ -306,7 +306,8 @@ public final class ProActive_Travel extends Application {
                         public void run() {
                             Iterator<Viatge> it = viatges.iterator();
                             while (it.hasNext()) {
-                                Ruta r = CalculGreedy.calcularRutaGreedy(it.next(), mundi);
+                                List<Ruta> r = CalculGreedy.calcularRutaGreedy(it.next(), mundi);
+                                //Sortida.mostrarRutes(r, viatge, "viatge1.txt");
                                 //sortidaKML.generarFitxer(r);
                             }
                             System.out.println("I'm The Reaper and death is my shadow");
