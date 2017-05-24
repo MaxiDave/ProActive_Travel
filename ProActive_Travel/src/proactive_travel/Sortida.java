@@ -29,8 +29,8 @@ import java.util.logging.Logger;
 public abstract class Sortida {
     //MÈTODES ESTÀTICS---------------------------------------------------------------------------------------------------------------------------
     /**
-     * @pre: --
-     * @post: Mostra les rutes “resultat” al fitxer nomFitxer
+     * @pre --
+     * @post Mostra les rutes “resultat” al fitxer nomFitxer
      */
     public static void mostrarRutes(List<Ruta> resultat, Viatge viatge, String nomFitxer){
         PrintWriter sortida= null;

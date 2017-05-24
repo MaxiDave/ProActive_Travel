@@ -28,8 +28,8 @@ public class PuntInteres implements PuntRuta{
     
     //MÈTODES PÚBLICS----------------------------------------------------------------------------------------------------------------------------
     /** 
-     * @pre: --
-     * @post: Es crea un punt d’interès de nom “name” amb les activitats que ofereix “acts” i el preu  “cost”.
+     * @pre --
+     * @post Es crea un punt d’interès de nom “name” amb les activitats que ofereix “acts” i el preu  “cost”.
      */
     public PuntInteres(String name,Collection<String> acts,Double cost, Coordenades coor){
         nom= name;
@@ -40,8 +40,8 @@ public class PuntInteres implements PuntRuta{
     }
     
     /** 
-     * @pre: --
-     * @post: 
+     * @pre --
+     * @post 
      */
     public Integer grauSatisfaccio(Map<String, Integer> pref){
         int grauSatis=0;
@@ -54,32 +54,32 @@ public class PuntInteres implements PuntRuta{
     }
     
     /** 
-     * @pre: --
-     * @post: Retorna el nom del punt d’interès
+     * @pre --
+     * @post Retorna el nom del punt d’interès
      */
     public String obtNom(){
         return nom;
     }
     
     /** 
-     * @pre: --
-     * @post: Retorna el lloc on està vinculat el punt d’interès
+     * @pre --
+     * @post Retorna el lloc on està vinculat el punt d’interès
      */
     public Lloc obtenirLloc(){
         return associat;
     }
     
     /** 
-     * @pre: --
-     * @post: Retorna el cost. Si és gratis, retorna 0
+     * @pre --
+     * @post Retorna el cost. Si és gratis, retorna 0
      */
     public Double obtenirPreu(){
         return preu;
     }
     
     /** 
-     * @pre: --
-     * @post: El lloc "ll" passarà a ser el lloc on es vincula aquest Punt d'Interès
+     * @pre --
+     * @post El lloc "ll" passarà a ser el lloc on es vincula aquest Punt d'Interès
      */
     public void vincularLloc(Lloc ll){
         associat= ll;
