@@ -23,18 +23,17 @@ import java.util.*;
  */
 public abstract class CalculGreedy {
     
-    private static Set<PuntInteres> puntsIntermig;
-    private static LocalDateTime actual;
-    private static Integer nCli;
-    private static LocalDateTime finalViatge;
-    private static PuntInteres desti;
-    private static PuntInteres origen;
-    private static Set<PuntInteres> visitats;
+    private static Set<PuntInteres> puntsIntermig;          ///< @brief Set on es guarden els punts intermig per on s'ha de passar
+    private static LocalDateTime actual;                    ///< @brief Data actual
+    private static Integer nCli;                            ///< @brief Numero de clients del viatge
+    private static LocalDateTime finalViatge;               ///< @brief Data final del viatge
+    private static PuntInteres desti;                       ///< @brief Desti del viatge
+    private static PuntInteres origen;                      ///< @brief Origen del viatge
+    private static Set<PuntInteres> visitats;               ///< @brief Punts ja visitats que no es tornaran a visitar
     
-    //MÈTODES ESTÀTICS---------------------------------------------------------------------------------------------------------------------------
     /**
-     * @pre: --
-     * @post: Calcula una Ruta mitjançant un algorisme voraç
+     * @pre --
+     * @post Calcula una Ruta mitjançant un algorisme voraç
      */
     private static void inicialitzarAtributs(Viatge clients){
         puntsIntermig = clients.obtenirInteressos();
@@ -232,7 +231,7 @@ public abstract class CalculGreedy {
                 else{
                      
                     MitjaTransport mtu = camiMT.get(p);
-                    MTDirecte cast = new MTDirecte(mtu.obtNom(),puntAct,p,mtu.obtPreu(),mtu.obtDurada());
+                    MTDirecte cast = new MTDirecte(mtu.obtNom(),ant,p,mtu.obtPreu(),mtu.obtDurada());
                     TrajecteDirecte td = new TrajecteDirecte(cast,actual);
                     barata.afegeixItemRuta(td);
                     actual=td.obtFinal();

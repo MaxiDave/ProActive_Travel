@@ -1,16 +1,6 @@
 INFORMACIÓ DEL VIATGE
 
-<<<<<<< HEAD
-Clients: Supre Mairo, Rinat Eneko, Brayden Isbrand, Primus Dragan, 
-Categoria Desitjada: luxe
-Inici del Viatge: 2017-04-11T08:00
-Duració màxima: 2 dies
-Preu màxim: 400.0
-Origen: Camp Nou
-Destí: Tibidabo
-Punts Intermitjos: Gran Teatre del Liceo, 
-=======
-Clients: Brayden Isbrand, Supre Mairo, Primus Dragan, Rinat Eneko, 
+Clients: Primus Dragan, Brayden Isbrand, Supre Mairo, Rinat Eneko, 
 Categoria Desitjada: luxe
 Inici del Viatge: 2017-04-11T08:00
 Duració màxima: 2 dies
@@ -18,56 +8,10 @@ Preu màxim: 4000.0
 Origen: Sagrada Familia
 Destí: Gran Ruta de l'Aigua
 Punts Intermitjos: Tibidabo, Casa Milà, Camp Nou, Aquarium, Gran Teatre del Liceo, Parc Güell, Catedral de Barcelona, 
->>>>>>> 387fcf70e267ed7a92f2edc78419fa2b7a3ef508
 Rutes a calcular: Barata, Curta, Satisfactòria
 
 RUTES TROBADES
 
-<<<<<<< HEAD
-RUTA MÉS CURTA
-Preu: 276,55€
-Satisfacció: 4
-
-2017-04-11
-08:00-09:00 Temps Lliure
-09:00-10:30 Camp Nou (Visita)
-10:30-10:40 Camp Nou -> Gran Teatre del Liceo (Jet)
-10:40-12:10 Gran Teatre del Liceo (Visita)
-12:10-12:20 Gran Teatre del Liceo -> Tibidabo (Jet)
-12:20-13:50 Tibidabo (Visita)
-
-
-RUTA MÉS BARATA
-Preu: 79,35€
-Satisfacció: 4
-
-2017-04-11
-08:00-09:00 Temps Lliure
-09:00-10:30 Camp Nou (Visita)
-10:30-11:15 Camp Nou -> Gran Teatre del Liceo (metro)
-11:15-12:45 Gran Teatre del Liceo (Visita)
-12:45-13:30 Gran Teatre del Liceo -> Tibidabo (metro)
-13:30-15:00 Tibidabo (Visita)
-
-
-RUTA MÉS SATISFACTÒRIA
-Preu: 397,35€
-Satisfacció: 12
-
-2017-04-11
-08:00-09:00 Temps Lliure
-09:00-10:30 Camp Nou (Visita)
-10:30-11:15 Camp Nou -> Catedral de Barcelona (metro)
-11:15-12:45 Catedral de Barcelona (Visita)
-12:45-13:30 Catedral de Barcelona -> Parc Güell (metro)
-13:30-15:00 Parc Güell (Visita)
-15:00-15:10 Parc Güell -> Sagrada Familia (Jet)
-15:10-16:40 Sagrada Familia (Visita)
-16:40-16:50 Sagrada Familia -> Gran Teatre del Liceo (Jet)
-16:50-18:20 Gran Teatre del Liceo (Visita)
-18:20-18:30 Gran Teatre del Liceo -> Tibidabo (Jet)
-18:30-20:00 Tibidabo (Visita)
-=======
 RUTA MÉS BARATA
 Preu: 203,80€
 Satisfacció: 15
@@ -162,6 +106,5 @@ Satisfacció: 15
 10:30-10:40 Tibidabo -> Catedral de Barcelona (Jet)
 10:40-13:20 Catedral de Barcelona -> Gran Ruta de l'Aigua (bicicleta)
 13:20-14:50 Gran Ruta de l'Aigua (Visita)
->>>>>>> 387fcf70e267ed7a92f2edc78419fa2b7a3ef508
 
 
