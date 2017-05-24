@@ -118,7 +118,7 @@ public abstract class CalculGreedy {
         else{
             ll.add(null);
         }
-        Sortida.mostrarRutes(ll, clients, "viatge1.txt");
+        Sortida.mostrarRutes(ll, clients, "Resultat.txt");
         return ll;
     }
     
