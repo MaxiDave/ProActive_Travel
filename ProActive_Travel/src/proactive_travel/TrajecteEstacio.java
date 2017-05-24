@@ -95,15 +95,6 @@ public class TrajecteEstacio implements ItemRuta{
     
     /** 
      * @pre --
-     * @post Retorna el MTEstacio del TrajecteEstacio
-     * @brief Retorna el MTEstacio del TrajecteEstacio
-     */
-    public MTEstacio obtMitja(){
-        return mT;
-    }
-    
-    /** 
-     * @pre --
      * @post Sobreescriptura del hashCode generada automàticament
      * @brief Sobreescriptura del hashCode generada automàticament
      */

@@ -870,4 +870,6 @@ Tibidabo
 Gran Ruta de l'Aigua
 *
 ruta barata
+ruta curta
+ruta satisfactoria
 *

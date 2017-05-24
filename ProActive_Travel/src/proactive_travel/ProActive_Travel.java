@@ -275,6 +275,8 @@ public final class ProActive_Travel extends Application {
                             rutesTotals= calcul.calcularRutaBack(mundi, viatge);
                             String nomFitxer= "Resultat.txt";
                             Sortida.mostrarRutes(rutesTotals, viatge, nomFitxer);
+                            Iterator<Ruta> itRuta= rutesTotals.iterator();
+                            while(itRuta.hasNext()) sortidaKML.generarFitxer(itRuta.next());
                             tempsF= System.currentTimeMillis();
                             tempsCalculBack= tempsF-tempsI;
                         }

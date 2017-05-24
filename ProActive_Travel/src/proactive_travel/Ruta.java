@@ -125,7 +125,7 @@ public class Ruta{
         return items.peekLast();
     }
     
-    public Object obtDesti(){
+    public PuntRuta obtDesti(){
         return items.getLast().obtPuntSortida();
     }
     
@@ -145,7 +145,7 @@ public class Ruta{
         return tipus;
     }
     
-    public boolean teItems(){
+    public Boolean teItems(){
         return !items.isEmpty();
     }
     
