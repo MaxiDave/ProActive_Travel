@@ -187,7 +187,7 @@ public class Mapa {
                 Set<MTDirecte> des = ori.get(desti);
                 if(des != null){
                     for(MTDirecte i : des){
-                        if(i.getDurada()< tempsMinim){
+                        if(i.getDurada()< tempsMinim || MT==null){
                             tempsMinim=i.getDurada();
                             MT=i;
                         }
@@ -210,7 +210,10 @@ public class Mapa {
                 }
             }
         }
-        if(afegir)MTs.put(desti, MT);
+        if(afegir){
+            //if(MT!=null)System.out.println( MT.getNom());
+            MTs.put(desti, MT);
+        }
         return tempsMinim;
     }
     
@@ -383,9 +386,7 @@ public class Mapa {
         Dijkstra millor = null;
         Collection<PuntInteres> c = punts.values();
         for(PuntInteres p : c){
-            System.out.println(p.obtNom());
             if(p instanceof Allotjament){
-                System.out.println("Allotjament localitzat");
                 d.camiMinim(this, pi, p, tipusDijk);
                 if(tipusDijk.matches("diners") && millor!=null){
                     if(d.retornaCost() < millor.retornaCost()){

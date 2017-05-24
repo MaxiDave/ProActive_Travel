@@ -80,18 +80,21 @@ public abstract class CalculGreedy {
             Ruta barata = calcularBarat(mundi, clients.obtOrigen(), clients.preferenciesClients());
             r = barata;
             System.out.println(barata);
+            sortidaKML.generarFitxer(r);
         }
         if(clients.esCurta()){
             inicialitzarAtributs(clients);
             Ruta temps = calcularRapid(mundi, clients.obtOrigen(), clients.preferenciesClients());
             r = temps;
             System.out.println(temps);
+            sortidaKML.generarFitxer(r);
         }
         if(clients.esSatisfactoria()){
             inicialitzarAtributs(clients);
             Ruta satis = calcularSatisfactoria(mundi, clients.obtOrigen(), clients.preferenciesClients());
             r = satis;
             System.out.println(satis);
+            sortidaKML.generarFitxer(r);
         }
         return r;
     }
@@ -148,6 +151,9 @@ public abstract class CalculGreedy {
         d.camiMinim(mundi, puntAct, desti, "temps");
         ArrayDeque<PuntInteres> ending = d.retornaPuntsInteres();
         Map<PuntInteres,MitjaTransport> MT2 = d.retornaMitjans();
+        for(PuntInteres p : MT2.keySet()){
+            System.out.println(p.obtNom()); 
+        }
         analitzarLlocs(ending,rapida,preferenciesClients,mundi, MT2, puntAct);
         return rapida;
     }
@@ -180,16 +186,17 @@ public abstract class CalculGreedy {
 
     private static PuntInteres analitzarLlocs(ArrayDeque<PuntInteres> cami, Ruta barata, Map<String, Integer> preferenciesClients, Mapa mundi, Map<PuntInteres, MitjaTransport> camiMT, PuntInteres puntAct) {
         PuntInteres act = null;
-        System.out.println("--------");
-        for(PuntInteres p : cami){
-            System.out.println(p.obtNom());
-            if(camiMT!=null && camiMT.get(p)!=null && p!=puntAct){
+        PuntInteres ant = puntAct;
+        for(PuntInteres p : cami){ 
+            if(camiMT!=null && camiMT.get(p)!=null && p!=ant){
+                
                 if(camiMT.get(p) instanceof MTIndirecte){
-
+                    
                 }
                 else{
+                     
                     MitjaTransport mtu = camiMT.get(p);
-                    MTDirecte cast = new MTDirecte(mtu.getNom(),puntAct,p,mtu.getPreu(),mtu.getDurada());
+                    MTDirecte cast = new MTDirecte(mtu.getNom(),ant,p,mtu.getPreu(),mtu.getDurada());
                     TrajecteDirecte td = new TrajecteDirecte(cast,actual);
                     barata.afegeixItemRuta(td);
                     actual=td.obtFinal();
@@ -223,15 +230,14 @@ public abstract class CalculGreedy {
                 visitats.add(p);
                 act=p;
             }
+            ant=p;
             comprovarTemps(); // Mirar si anar a buscar un hotel
         }
-        System.out.println("--------");
         return act;
     }
 
     private static void buscarHotel(Mapa mundi, Ruta barata, PuntInteres p, Map<String, Integer> preferenciesClients) {
         ArrayDeque<PuntInteres> camiHotel = mundi.obtenirHotelProper(p, "diners");
-        System.out.println("A");
         PuntInteres act = null;
         for (PuntInteres p2 : camiHotel) {
             //Anar afegint a ruta el trajecte <<-----------------------------------------------FALTA
@@ -243,7 +249,6 @@ public abstract class CalculGreedy {
                 act = p2;
             }
         }
-        System.out.println("B");
         while(actual.getHour()<4){
             if(actual.getHour()<3){
                 actual=actual.plusHours(1);
@@ -255,10 +260,8 @@ public abstract class CalculGreedy {
         
         Dijkstra d2 = new Dijkstra();
         d2.camiMinim(mundi, act, p, "diners");
-        System.out.println("C");
         ArrayDeque<PuntInteres> camiTornada = d2.retornaPuntsInteres();
         for (PuntInteres pi3 : camiTornada) {
-            System.out.println("E");
             //Anar afegint a ruta el trajecte <<-----------------------------------------------FALTA
             if (pi3.equals(p)) {
                 while (actual.toLocalTime().compareTo(((PuntVisitable) p).obtObertura()) < 0) {
@@ -270,7 +273,6 @@ public abstract class CalculGreedy {
                 puntsIntermig.remove(p);
             }
         }
-        System.out.println("D");
     }
     
     private static Ruta calcularSatisfactoria(Mapa mundi, PuntInteres origen, Map<String,Integer> preferenciesClients){
