@@ -120,10 +120,8 @@ public class sortidaKML {
                 }
             }
             else{
-                System.out.println("MTDIR"); 
-                if(it instanceof TrajecteDirecte){
-                    System.out.println("MTDIR2"); 
-                    lc.add(((TrajecteDirecte)it).obtPuntSortida().obtCoordenades());
+                if(ir instanceof TrajecteDirecte){
+                    lc.add(((TrajecteDirecte)ir).obtPuntSortida().obtCoordenades());
                 }
             }
         }
