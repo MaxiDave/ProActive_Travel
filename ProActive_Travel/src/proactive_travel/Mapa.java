@@ -381,7 +381,7 @@ public class Mapa {
         return null;
     }
     
-    public ArrayDeque<PuntInteres> obtenirHotelProper(PuntInteres pi,String tipusDijk){
+    public Dijkstra obtenirHotelProper(PuntInteres pi,String tipusDijk){
         Dijkstra d = new Dijkstra();
         Dijkstra millor = null;
         Collection<PuntInteres> c = punts.values();
@@ -403,8 +403,8 @@ public class Mapa {
                 }
             }
         }
-        ArrayDeque<PuntInteres> cami = millor.retornaPuntsInteres();
-        return cami;
+        //ArrayDeque<PuntInteres> cami = millor.retornaPuntsInteres();
+        return millor;
     }
 
     Set<PuntInteres> obtenirVeinsUrba(PuntInteres pi) {

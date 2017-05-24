@@ -162,7 +162,7 @@ public abstract class CalculGreedy {
         Boolean fi=false;
         Boolean temps=true;
         PuntInteres puntAct = origen;
-        Ruta rapida = new Ruta("temps",actual);
+        Ruta rapida = new Ruta("curta",actual);
         //Tractament origen
         ArrayDeque<PuntInteres> preparacio = new ArrayDeque<PuntInteres>();
         preparacio.add(origen);
@@ -280,10 +280,20 @@ public abstract class CalculGreedy {
      * @post Busca l'hotel mes proper avança un dia i escriu la ruta d'anada i de tornada
      */
     private static void buscarHotel(Mapa mundi, Ruta barata, PuntInteres p, Map<String, Integer> preferenciesClients) {
-        ArrayDeque<PuntInteres> camiHotel = mundi.obtenirHotelProper(p, "diners");
+        Dijkstra d=mundi.obtenirHotelProper(p, "diners");
+        ArrayDeque<PuntInteres> camiHotel = d.retornaPuntsInteres();
+        Map<PuntInteres,MitjaTransport> mitjansHotel= d.retornaMitjans();
         PuntInteres act = null;
+        PuntInteres ant = p;
         for (PuntInteres p2 : camiHotel) {
             //Anar afegint a ruta el trajecte <<-----------------------------------------------FALTA
+            if (p2 != ant) {
+                MitjaTransport mt = mitjansHotel.get(p2);
+                MTDirecte md = new MTDirecte(mt.getNom(), ant, p2, mt.getPreu(), mt.getDurada());
+                TrajecteDirecte td = new TrajecteDirecte(md, actual);
+                barata.afegeixItemRuta(td);
+                actual=td.obtFinal();
+            }
             if (p2 instanceof Allotjament) {
                 Integer satis = p2.grauSatisfaccio(preferenciesClients);
                 EstadaHotel e = new EstadaHotel(((Allotjament) p2), actual, satis);
@@ -291,6 +301,7 @@ public abstract class CalculGreedy {
                 actual = e.obtFinal();
                 act = p2;
             }
+            ant=p2;
         }
         while(actual.getHour()<4){
             if(actual.getHour()<3){
@@ -304,8 +315,16 @@ public abstract class CalculGreedy {
         Dijkstra d2 = new Dijkstra();
         d2.camiMinim(mundi, act, p, "diners");
         ArrayDeque<PuntInteres> camiTornada = d2.retornaPuntsInteres();
+        Map<PuntInteres,MitjaTransport> mitjansHotel2= d2.retornaMitjans();
         for (PuntInteres pi3 : camiTornada) {
             //Anar afegint a ruta el trajecte <<-----------------------------------------------FALTA
+            if (pi3 != ant) {
+                MitjaTransport mt = mitjansHotel2.get(pi3);
+                MTDirecte md = new MTDirecte(mt.getNom(), ant, pi3, mt.getPreu(), mt.getDurada());
+                TrajecteDirecte td = new TrajecteDirecte(md, actual);
+                barata.afegeixItemRuta(td);
+            }
+            
             if (pi3.equals(p)) {
                 while (actual.toLocalTime().compareTo(((PuntVisitable) p).obtObertura()) < 0) {
                     actual=actual.plusMinutes(1);
