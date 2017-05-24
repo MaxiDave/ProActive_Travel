@@ -1,14 +1,13 @@
 //ProActive_Travel
 
 /**
- * @file: Mapa.java
- * @author: Roger Barnés, u1939667
- * @author: David Martínez, u1939690
- * @version: 1
- * @date: Curs 2016-2017
- * @warning: --
- * @brief: Classe Mapa: Conté informació de tot el relacionat amb dades geogràfiques i transports
- * @copyright: Public License
+ * @file Mapa.java
+ * @author Roger Barnés, u1939667
+ * @author David Martínez, u1939690
+ * @version 1
+ * @date Curs 2016-2017
+ * @brief Classe Mapa: Conté informació de tot el relacionat amb dades geogràfiques i transports
+ * @copyright Public License
  */
 
 package proactive_travel;
@@ -17,7 +16,7 @@ import java.time.*;
 
 /**
  * DESCRIPCIÓ GENERAL
- * @brief: Representa un Mapa, amb les estructures de dades corresponents 
+ * @brief Representa un Mapa, amb les estructures de dades corresponents 
  */
 public class Mapa {
     //ATRIBUTS-----------------------------------------------------------------------------------------------------------------------------------
@@ -34,6 +33,7 @@ public class Mapa {
     /**
      * @pre --
      * @post Crea un mapa buit
+     * @brief Constructor
      */
     public Mapa(){
         llocs= new HashMap<>();
@@ -50,6 +50,7 @@ public class Mapa {
     /**
      * @pre Lloc on està el punt d’interès ha d’existir
      * @post Afegeix un punt d’interès al mapa
+     * @brief Afegeix un punt d’interès al mapa
      */
     public void afegeixPuntInteres(PuntInteres pI) {
         if(punts.containsKey(pI.obtNom())) punts.replace(pI.obtNom(), pI);
@@ -59,6 +60,7 @@ public class Mapa {
     /**
      * @pre --
      * @post Afegeix un lloc al mapa  
+     * @brief Afegeix un lloc al mapa 
      */
     public void afegeixLloc(Lloc ll){
         if(llocs.containsKey(ll.obtNom())) llocs.replace(ll.obtNom(), ll);
@@ -68,6 +70,7 @@ public class Mapa {
     /**
      * @pre --
      * @post Si no existia, afegeix el Transport Directe mT al mapa. Altrament llença una excepció 
+     * @brief Si no existia, afegeix el Transport Directe mT al mapa. Altrament llença una excepció 
      */
     public void afegirTransportDirecte(MTDirecte mT) {
         if(!transDirecte.containsKey(mT.getOrigen())){
@@ -94,6 +97,7 @@ public class Mapa {
     /**
      * @pre primari ha d'existir a llocs i secundari a punts
      * @post Associa el lloc secundari amb nom IDpI al lloc primari IDlloc
+     * @brief Associa el lloc secundari amb nom IDpI al lloc primari IDlloc
      */
     public void associarLloc(Lloc primari, PuntInteres secundari){
         secundari.vincularLloc(primari);
@@ -104,6 +108,7 @@ public class Mapa {
      * @pre lloc existeix a llocs
      * @post Si "trans" no existeix a ll, s'associa a la llista de transports urbans del lloc.
      *        Altrament llença una excepció
+     * @brief Associa el MitjaTransport al Lloc
      */
     public void associarUrba(Lloc ll, MitjaTransport trans) throws Exception{
         ll.afegirTransportUrba(trans);
@@ -113,6 +118,7 @@ public class Mapa {
      * @pre --
      * @post Retorna el Lloc associat amb l' identificador llocID.
      *        Si no existeix llença excepció
+     * @brief Obtenir Lloc a partir del seu Nom
      */
     public Lloc obtenirLloc(String llocID) throws Exception{
         Lloc aux= llocs.get(llocID);
@@ -120,10 +126,20 @@ public class Mapa {
         else return aux;
     }
     
+    /**
+     * @pre --
+     * @post Retorna un Iterador als PuntInteres
+     * @brief Obtenir Iterador a PuntInteres
+     */
     public Iterator<PuntInteres> obtIteradorPunts(){
         return punts.values().iterator();
     }
     
+    /**
+     * @pre --
+     * @post Retorna un Iterador als Llocs
+     * @brief Obtenir Iterador a Lloc
+     */
     public Iterator<Lloc> obtIteradorLlocs(){
         return llocs.values().iterator();
     }
@@ -132,6 +148,7 @@ public class Mapa {
      * @pre --
      * @post Retorna el puntInteres associat amb l' identificador puntID.
      *        Si no existeix llença excepció
+     * @brief Retorna el PuntInteres de nom puntID
      */
     public PuntInteres obtenirPI(String puntID) throws Exception{
         PuntInteres aux= punts.get(puntID);
@@ -141,42 +158,29 @@ public class Mapa {
     
     /**
      * @pre --
-     * @post 
-     */
-    public PuntRuta obtenirPuntRuta(String ID) throws Exception{
-        PuntInteres aux= punts.get(ID);
-        if(aux == null){
-            Lloc ll= llocs.get(ID);
-            if(ll == null) throw new Exception("PuntLlocInexistentException");
-            else{
-                Iterator<Estacio> itEst= ll.obtEstacions();
-                if(itEst.hasNext()) return itEst.next();
-                else throw new Exception("LLocNoTeEstacions");     
-            }
-        }
-        else return aux;
-    }
-    
-    /**
-     * @pre --
      * @post Retorna el nombre de punts d’interès del mapa
+     * @brief Retorna el nombre de punts d’interès del mapa
      */
     public Integer nPuntsInteres(){
         return punts.size();
     }
     
-    /** @pre  Lloc origen i lloc desti han d'existir
-     *  @post Si no existeix l'estació de nom nomEst a origen i/o destí, la/les crea.
+    /** 
+     * @pre  Lloc origen i lloc desti han d'existir
+     * @post Si no existeix l'estació de nom nomEst a origen i/o destí, la/les crea.
      *         Afegeix al lloc origen una connexió de sortida cap al lloc desti amb un temps d'origen tempsOrigen
      *         Afegeix al lloc desti una connexió d'arribada des del lloc origen amb un temps de destí tempsDesti
+     * @brief Afegeix una connexió MTIndirecte
      */
     public void afegirConnexioMTI(String nomEst, Lloc origen, Lloc desti, Integer tempsOrigen, Integer tempsDesti){
         origen.afegirConnexioSortidaMTI(nomEst, desti, tempsOrigen);
         desti.afegirConnexioArribadaMTI(nomEst, origen, tempsDesti);
     }
     
-    /** @pre  Origen i destí han de tenir estació de nom el mateix que el mitjà
-     *  @post Afegeix el mitjà al Lloc origen (Sortida) i al Lloc desti (Arribada)
+    /** 
+     * @pre  Origen i destí han de tenir estació de nom el mateix que el mitjà
+     * @post Afegeix el mitjà al Lloc origen (Sortida) i al Lloc desti (Arribada)
+     * @brief Afegeix un MTIndirecte
      */
     public void afegirMTIndirecte(MTIndirecte mitja, LocalDateTime horaSortida, Lloc origen){
         origen.afegirSortidaMTI(mitja, horaSortida);
@@ -276,8 +280,11 @@ public class Mapa {
         return costMinim;
     }
     
-    
-    //pre: tipus és barata, curta o sat
+    /**
+     * @pre tipus és barata, curta o sat
+     * @post Retorna la llista dels MitjaTransport disponibles desde el PuntRuta "pR" di és del tipus "tipus"
+     * @brief Retorna la llista dels MitjaTransport disponibles desde el PuntRuta "pR" di és del tipus "tipus"
+     */
     public List<MitjaTransport> obtMitjansPunt(PuntRuta pR, String tipus){
         List<MitjaTransport> llista;
         if(pR instanceof PuntInteres){
@@ -295,10 +302,20 @@ public class Mapa {
         return llista;
     }
     
+    /**
+     * @pre --   
+     * @post Retorna la llista dels MTPunts disponibles desde l'Estacio "est" si s'ha vingut del Lloc "origen"
+     * @brief Retorna la llista dels MTPunts disponibles desde l'Estacio "est" si s'ha vingut del Lloc "origen"
+     */
     public List<MTPunts> obtBaixarAPunts(Estacio est, Lloc origen){
         return estacioAPunts.get(est).get(origen);
     }
     
+    /**
+     * @pre --   
+     * @post Afegeix els MTUrbans possibles desde el PuntInteres "pI" a la llista
+     * @brief Afegeix els MTUrbans possibles desde el PuntInteres "pI" a la llista
+     */
     private void afegirMTUrbans(PuntInteres pI, List<MitjaTransport> llista){
         Lloc primari= pI.obtenirLloc();
         if(primari != null){
@@ -314,6 +331,11 @@ public class Mapa {
         }
     }
     
+    /**
+     * @pre --   
+     * @post Afegeix els MTDirectes possibles desde el PuntInteres "pI" a la llista
+     * @brief Afegeix els MTDirectes possibles desde el PuntInteres "pI" a la llista
+     */
     private void afegirMTDirectes(PuntInteres pI, List<MitjaTransport> llista){
         if(transDirecte.containsKey(pI)){
             Map<PuntInteres, Set<MTDirecte>> transports= transDirecte.get(pI);
@@ -324,11 +346,21 @@ public class Mapa {
         }
     }
     
+    /**
+     * @pre --   
+     * @post Afegeix els MTIndirectes possibles desde l'Estacio "est" a la llista
+     * @brief Afegeix els MTIndirectes possibles desde l'Estacio "est" a la llista
+     */
     private void afegirMTIndirectes(Estacio est, List<MitjaTransport> llista){
         Iterator<MTIndirecte> itMI= est.obtMitjans();
         while(itMI.hasNext()) llista.add(itMI.next());
     }
     
+    /**
+     * @pre --   
+     * @post Afegeix els MTEstacions possibles desde el PuntInteres "pI" a la llista
+     * @brief Afegeix els MTEstacions possibles desde el PuntInteres "pI" a la llista
+     */
     private void afegirMTEstacions(PuntInteres pI, List<MitjaTransport> llista){
         Lloc primari= pI.obtenirLloc();
         if(primari != null){
@@ -340,6 +372,11 @@ public class Mapa {
         }
     }
     
+    /**
+     * @pre --   
+     * @post Genera les ED necessàries de Punts per a l'execució del Backtraking
+     * @brief Genera les ED necessàries de Punts per a l'execució del Backtraking
+     */
     private void generarEDPunts(){
         Iterator<PuntInteres> itPunts= obtIteradorPunts();
         while(itPunts.hasNext()){
@@ -359,6 +396,11 @@ public class Mapa {
         }
     }
     
+    /**
+     * @pre --   
+     * @post Genera les ED necessàries per a l'execució del Backtraking per a poder baixar a Punts desde estació
+     * @brief Genera les ED necessàries per a l'execució del Backtraking
+     */
     private void afegirBaixarAPunts(Estacio est){
         Iterator<Lloc> itLlocs= obtIteradorLlocs();
         Map<Lloc, List<MTPunts>> mapMTPunts= new HashMap< >();
@@ -375,6 +417,11 @@ public class Mapa {
         estacioAPunts.put(est, mapMTPunts);
     }
     
+    /**
+     * @pre --   
+     * @post Genera les ED necessàries de Llocs per a l'execució del Backtraking
+     * @brief Genera les ED necessàries de Llocs per a l'execució del Backtraking
+     */
     private void generarEDLlocs(){
         Iterator<Lloc> itLlocs= obtIteradorLlocs();
         while(itLlocs.hasNext()){
@@ -394,6 +441,11 @@ public class Mapa {
         }
     }
     
+    /**
+     * @pre --   
+     * @post Genera les ED necessàries per a l'execució del Backtraking
+     * @brief Genera les ED necessàries per a l'execució del Backtraking
+     */
     public void generarEDBacktraking(){
         generarEDPunts();
         generarEDLlocs();

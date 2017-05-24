@@ -1,15 +1,14 @@
 //ProActive_Travel
 
 /**
- * @file: CalculGreedy.java
- * @author: Roger Barnés, u1939667
- * @author: David Martínez, u1939690
- * @version: 1
- * @date: Curs 2016-2017
- * @warning: --
- * @brief: Mòdul funcional que s'encarrega de dur a terme els càlculs relacionats en trobar
+ * @file CalculGreedy.java
+ * @author Roger Barnés, u1939667
+ * @author David Martínez, u1939690
+ * @version 1
+ * @date Curs 2016-2017
+ * @brief Mòdul funcional que s'encarrega de dur a terme els càlculs relacionats en trobar
  *         una bona solució (Greedy) de Ruta, en termes monetaris, temps i Satisfacció 
- * @copyright: Public License
+ * @copyright Public License
  */
 
 package proactive_travel;
@@ -18,7 +17,7 @@ import java.util.*;
 
 /**
  * DESCRIPCIÓ GENERAL
- * @brief: Classe que retorna els camins mes rapids/barats/satisfactoris a seguir
+ * @brief Classe que retorna els camins mes rapids/barats/satisfactoris a seguir
  */
 public class Dijkstra {
     private Set<PuntInteres> nodesAgafats;                      ///< @brief: Nodes per on dijlstra ha passat
