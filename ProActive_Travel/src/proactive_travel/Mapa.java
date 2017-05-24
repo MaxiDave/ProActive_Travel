@@ -189,6 +189,7 @@ public class Mapa {
     /**
      * @pre --   
      * @post Retorna un Map amb els punts d’interès des d’on es pot anar a partir de pI i el seu MTDirecte (El de mínim temps)
+     * @brief Retorna els mapa dels punts de interes amb el seu transport
      */
     public Map<PuntInteres,MitjaTransport> obtenirDesplsMins(PuntInteres pI,String tipus){
         Map<PuntInteres,MitjaTransport> minim= new HashMap<>();
@@ -199,6 +200,12 @@ public class Mapa {
         }
         return minim;
     }
+    
+    /**
+     * @pre --   
+     * @post Retorna el temps minim per anar de un punt a un altre
+     * @brief Retorna el temps minim entre dos punts
+     */
     public Integer obtenirDespl(PuntInteres origen, PuntInteres desti,Map<PuntInteres,MitjaTransport> MTs,boolean afegir){
         int tempsMinim=Integer.MAX_VALUE;
         MitjaTransport MT= null;
@@ -242,6 +249,7 @@ public class Mapa {
     /**
      * @pre --   
      * @post Retorna un Map amb els punts d’interès des d’on es pot anar a partir de pI i el seu MTDirecte (El de mínim cost)
+     * @brief Retorna el cost minim entre dos punts
      */
     public Double obtenirCostDespl(PuntInteres origen, PuntInteres desti,Map<PuntInteres,MitjaTransport> MTs, boolean afegir){
         double costMinim=Double.MAX_VALUE;
@@ -454,6 +462,7 @@ public class Mapa {
     /**
      * @pre --   
      * @post Retorna un set amb els veins de un PuntInteres concret, considerant nomes MTDirecte
+     * @brief Retorna els veins de un punt
      */
     public Set<PuntInteres> obtenirVeins(PuntInteres pi) {
         Map<PuntInteres, Set<MTDirecte>> veinsTransports = transDirecte.get(pi);
@@ -467,6 +476,7 @@ public class Mapa {
     /**
      * @pre --   
      * @post Retorna el dijkstra a l'hotel mes proper
+     * @brief Retorna el dijkstra a l'hotel mes proper
      */
     public Dijkstra obtenirHotelProper(PuntInteres pi,String tipusDijk){
         Dijkstra d = new Dijkstra();
@@ -496,6 +506,7 @@ public class Mapa {
     /**
      * @pre --   
      * @post Retorna tots els veins de un punt concret, nomes considerant transport urba
+     * @brief Retorna els veins amb transport urba a un punt
      */
     Set<PuntInteres> obtenirVeinsUrba(PuntInteres pi) {
         Lloc pare = pi.obtenirLloc();

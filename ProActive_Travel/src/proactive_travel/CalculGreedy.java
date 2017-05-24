@@ -6,7 +6,7 @@
  * @author David Martínez, u1939690
  * @version 1
  * @date Curs 2016-2017
- * @brief: Mòdul funcional que s'encarrega de dur a terme els càlculs relacionats en trobar
+ * @brief Mòdul funcional que s'encarrega de dur a terme els càlculs relacionats en trobar
  *         una bona solució (Greedy) de Ruta, en termes monetaris, temps i Satisfacció 
  * @copyright: Public License
  */
@@ -33,7 +33,7 @@ public abstract class CalculGreedy {
     /**
      * @pre --
      * @post Inicialitza atributs
-     * @brief: Posa els atributs al seu valor inicial
+     * @brief Posa els atributs al seu valor inicial
      */
     private static void inicialitzarAtributs(Viatge clients){
         puntsIntermig = clients.obtenirInteressos();
@@ -80,7 +80,7 @@ public abstract class CalculGreedy {
     /** 
      * @pre Viatge i Mapa han de ser valids
      * @post Calcula les rutes donades per viatge i les desa en un fitxer .txt i en un fitxer .kml
-     * @brief: Calcula les diferents rutes
+     * @brief Calcula les diferents rutes
      */
     public static List<Ruta> calcularRutaGreedy(Viatge clients,Mapa mundi){
         Ruta r = new Ruta("barata",actual);
@@ -125,7 +125,7 @@ public abstract class CalculGreedy {
     /** 
      * @pre --
      * @post Retorna la ruta mes barata trobada per estrategia voraç
-     * @brief: Calcula la ruta barata
+     * @brief Calcula la ruta barata
      */
     private static Ruta calcularBarat(Mapa mundi, PuntInteres origen, Map<String, Integer> preferenciesClients){
         Boolean fi=false;
@@ -158,7 +158,7 @@ public abstract class CalculGreedy {
     /** 
      * @pre --
      * @post Retorna la ruta mes rapida trobada per estrategia voraç
-     * @brief: Calcula la ruta rapida
+     * @brief Calcula la ruta rapida
      */
     private static Ruta calcularRapid(Mapa mundi, PuntInteres origen, Map<String, Integer> preferenciesClients){
         Boolean fi=false;
@@ -191,7 +191,7 @@ public abstract class CalculGreedy {
     /** 
      * @pre --
      * @post Retorna el PuntInteres mes proper/barat/satisfactori per a poder visitar de la llista dels obligatoris
-     * @brief: Retorna el millor punt de interes respecte els obligatoris
+     * @brief Retorna el millor punt de interes respecte els obligatoris
      */
     private static Dijkstra seleccionarMesViable(Mapa mundi, String tipus, PuntInteres puntAct) {
         Dijkstra d = new Dijkstra();
@@ -222,7 +222,7 @@ public abstract class CalculGreedy {
     /** 
      * @pre --
      * @post Analitza tots els punts per on es passa i va construint la ruta, tambe controla la hora i dia i retorna el Punt de Interes on s'ha quedat
-     * @brief: Construiex la ruta sense passarse de temps
+     * @brief Construiex la ruta sense passarse de temps
      */
     private static PuntInteres analitzarLlocs(ArrayDeque<PuntInteres> cami, Ruta barata, Map<String, Integer> preferenciesClients, Mapa mundi, Map<PuntInteres, MitjaTransport> camiMT, PuntInteres puntAct) {
         PuntInteres act = null;
@@ -279,7 +279,7 @@ public abstract class CalculGreedy {
     /** 
      * @pre --
      * @post Busca l'hotel mes proper avança un dia i escriu la ruta d'anada i de tornada
-     * @brief: Busca l'hotel mes proper
+     * @brief Busca l'hotel mes proper
      */
     private static void buscarHotel(Mapa mundi, Ruta barata, PuntInteres p, Map<String, Integer> preferenciesClients) {
         Dijkstra d=mundi.obtenirHotelProper(p, "diners");
@@ -342,7 +342,7 @@ public abstract class CalculGreedy {
     /** 
      * @pre --
      * @post Retorna la ruta mes satisfactoria trobada per estrategia voraç
-     * @brief: Calcula la ruta satisfactoria
+     * @brief Calcula la ruta satisfactoria
      */
     private static Ruta calcularSatisfactoria(Mapa mundi, PuntInteres origen, Map<String,Integer> preferenciesClients){
         Boolean fi=false;
@@ -375,7 +375,7 @@ public abstract class CalculGreedy {
     /** 
      * @pre --
      * @post Retorna si final de viatge, fals altrement
-     * @brief: Comprova si s'ha acabat el viatge
+     * @brief Comprova si s'ha acabat el viatge
      */
     private static Boolean comprovarTemps(){
         boolean temps;
@@ -391,7 +391,7 @@ public abstract class CalculGreedy {
     /** 
      * @pre --
      * @post Retorna true si s'han acabat els punts intermig
-     * @brief: Comprova si s'han visitat tots els punts
+     * @brief Comprova si s'han visitat tots els punts
      */
     private static Boolean comprovarFi(){
         return puntsIntermig.isEmpty();
