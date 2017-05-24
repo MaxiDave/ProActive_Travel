@@ -1,0 +1,41 @@
+# Marc Sánchez
+allotjament
+Fontana Hotel Bali
+-8.704276,115.17734199999995
+Asia/Makassar
+quatre estrelles
+33
+platja
+sol
+budista
+mar
+kytesurf
+windsurf
+*
+allotjament
+W Bali - Seminyak
+-8.6772567,115.14916560000006
+Asia/Makassar
+cinc estrelles
+350
+platja
+sol
+mar
+kytesurf
+windsurf
+gastronomia
+piscina
+*
+allotjament
+Mas Vivent
+42.3763789,3.0679086
+Europe/madrid
+quatre estrelles
+150
+vi
+vinya
+tranquilitat
+banyeres
+platja
+muntanya
+*

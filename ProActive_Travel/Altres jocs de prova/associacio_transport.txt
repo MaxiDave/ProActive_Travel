@@ -1,0 +1,31 @@
+# Author : Marc Sánchez
+associar transport
+Denpasar
+Wawa
+00:10
+0.10
+*
+associar transport
+Vilamaniscle
+carretó
+00:01
+12.00
+*
+associar transport
+Melbourne
+underground
+00:05
+2.0
+*
+associar transport
+Melbourne
+Cangur
+00:04
+3.0
+*
+associar transport
+Barcelona
+metro
+00:10
+1.90
+*

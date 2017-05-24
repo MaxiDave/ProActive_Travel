@@ -1,0 +1,91 @@
+# Author : Marc Sánchez 
+lloc visitable
+Lamington National Park
+-28.1949198,153.18920809999997
+Australia/Brisbane
+04:00
+32.99
+Muntanya
+Naturalesa
+Religió
+Rius
+Alpinisme
+Kayac
+*
+April 1 - September 30: 09:00-20:00
+October 1 - October 31: 09:00-19:00
+March 1 - March 31: 09:00-19:00
+November 1 - February 29: 09:00-18:00
+December 25: 09:00-14:00
+December 26: 09:00-14:00
+January 1: 09:00-14:00
+January 6: 09:00-14:00
+*
+lloc visitable
+Southwest National Park
+-42.5680599,146.5747502
+Australia/Tasmania
+03:30
+59.90
+Muntanya
+Naturalesa
+Diable de Tasmània
+Platja
+Rius
+*
+April 1 - September 30: 09:00-20:00
+October 1 - October 31: 09:00-19:00
+March 1 - March 31: 09:00-19:00
+November 1 - February 29: 09:00-18:00
+December 25: 09:00-14:00
+December 26: 09:00-14:00
+January 1: 09:00-14:00
+January 6: 09:00-14:00
+*
+lloc visitable
+Jells Park
+-37.8974354,145.1887014
+Australia/Melbourne
+00:30
+0
+Picnic
+Estany
+Barca
+Restaurants
+Sol
+Cometes
+Pollastres
+*
+March 1 - March 31: 09:00-19:00
+*
+lloc visitable
+Castell de Peralada
+42.3072473,3.0103203
+Europe/Madrid
+02:00
+15
+Vi
+Casino
+Museu del vidre
+Jardins
+Concerts
+Església
+Biblioteca
+*
+January 1 - December 31: 11:00-18:00
+*
+lloc visitable
+Sagrada Família
+41.4036299,2.1721671
+Europe/Madrid
+01:00
+22
+Església
+Art
+Arquitectura
+Penjats que van pintant parets
+Gaudí
+Escultura
+*
+January 1 - December 31: 10:00-18:00
+*

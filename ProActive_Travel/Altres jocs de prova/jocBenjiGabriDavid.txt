@@ -1,0 +1,975 @@
+#Benjami Gabriel David
+client
+David
+neu
+platja
+montanya
+museu
+*
+client
+Joel
+sol
+futbol
+*
+lloc
+Barcelona
+41.3818,2.1685
+Europe/Paris
+*
+lloc
+Moscu
+55.7549,37.6740
+Africa/Addis_Ababa
+*
+lloc
+Praga
+50.0776,14.4377
+Europe/Paris
+*
+lloc
+Madrid
+40.4187,-3.7033
+Europe/Paris
+*
+lloc
+Minsk
+53.9045,27.5620
+Africa/Cairo
+*
+lloc
+Varsovia
+52.2312,21.0137
+Europe/Paris
+*
+allotjament
+Hostal Barcelona
+41.3728,2.1662
+Europe/Paris
+hostal
+50
+platja
+sol
+*
+allotjament
+Hotel Palace
+41.3916,2.1716
+Europe/Paris
+luxe
+350
+jacuzzi
+piscina
+wifi
+cava
+sol
+*
+allotjament
+Hotel Barcelona Center
+41.3947,2.1609
+Europe/Paris
+4 estrelles
+140
+jacuzzi
+wifi
+sol
+*
+lloc visitable
+Camp Nou
+41.3808,2.1228
+Europe/Paris
+01:30
+25
+esport
+salut
+futbol
+sol
+*
+January 1 - July 20: 10:00-20:00
+September 1 - December 23: 10:00-18:00
+*
+lloc visitable
+Sagrada Familia
+41.4032,2.1748
+Europe/Paris
+01:30
+5
+religio
+arquitectura
+urbanisme
+*
+January 1 - January 31: 08:00-20:00
+February 15 - December 31: 08:00-21:00
+February 5: 12:00-17:00
+*
+lloc visitable
+Parc Guell
+41.4144,2.1526
+Europe/Paris
+01:30
+8
+religio
+arquitectura
+urbanisme
+sol
+*
+January 1 - February 2: 08:00-18:00
+February 15 - December 15: 12:00-18:00
+*
+lloc visitable
+Les Arenes
+41.3762,2.1493
+Europe/Paris
+02:00
+0
+moda
+compres
+urbanisme
+*
+January 1 - January 6: 10:00-22:00
+January 8 - December 23: 10:00-22:00
+*
+associar transport
+Barcelona
+taxi
+00:25
+20
+*
+associar transport
+Barcelona
+bus
+00:35
+10
+*
+allotjament
+Aygre Hotel
+41.3732,2.1474
+Europe/Paris
+4 estrelles
+90
+jacuzzi
+wifi
+sol
+musica
+*
+allotjament
+Aygre Hotel
+41.3732,2.1474
+Europe/Paris
+4 estrelles
+90
+jacuzzi
+wifi
+sol
+musica
+*
+allotjament
+Hostal Madrid
+40.4160,-3.7052
+Europe/Paris
+hostal
+65
+wifi
+*
+lloc visitable
+Teatro Lara
+40.4220,-3.7044
+Europe/Paris
+02:30
+30	
+art
+teatre
+vanguardia
+musical
+*
+January 10 - September 15: 15:00-23:00
+October 1 - December 15: 16:00-23:00
+*
+lloc visitable
+Museo del Prado
+40.4137,-3.6921
+Europe/Paris
+03:00
+14
+cultura
+art
+clasic
+*
+January 1 - January 5: 09:00-19:00
+January 15 - September 15: 08:30-19:30
+*
+lloc visitable
+Puerta del Sol
+40.4169,-3.7035
+Europe/Paris
+01:00
+0
+urbanisme
+cosmopolita
+*
+January 1 - December 31: 00:00-23:59
+*
+lloc visitable
+Santiago Bernabeu
+40.4530,-3.6883
+Europe/Paris
+02:00
+25
+futbol
+esport
+sol
+cosmopolita
+*
+January 1 - December 15: 09:00-20:00
+*
+associar transport
+Madrid
+taxi
+00:30
+20
+*
+associar transport
+Madrid
+bus
+00:40
+10
+*
+allotjament
+Hostal Ananas
+50.0841,14.4243
+Europe/Paris
+hostal
+49
+wifi
+*
+allotjament
+Hotel Barcelo
+50.0436,14.439
+Europe/Paris
+4 estrelles
+110
+jacuzzi
+massatge
+piscina
+wifi
+*
+lloc visitable
+Teatre Nacional
+50.0810,14.4135
+Europe/Paris
+02:00
+33
+urbanisme
+cosmopolita
+art
+musical
+*
+January 1 - January 6: 12:00-20:00
+January 10 - September 15: 12:00-22:00
+October 1 - December 15: 12:00-22:00
+*
+associar transport
+Praga
+taxi
+00:15
+15
+*
+associar transport
+Praga
+bus
+00:25
+10
+*
+allotjament
+Hotel Minsk
+53.9045,27.5615
+Africa/Cairo
+4 estrelles
+85
+jacuzzi
+piscina
+massatge
+wifi
+*
+allotjament
+Hostal Viva
+53.8839,27.5498
+Africa/Cairo
+hostal
+8
+wifi
+cafe
+*
+lloc visitable
+Esglesia Sant Simon i Helena
+53.8965,27.5475
+Africa/Cairo
+01:30
+10
+urbanisme
+religio
+*
+January 1 - January 6: 08:00-17:00
+January 10 - September 20: 08:00-18:00
+October 15 - December 20: 08:00-14:00
+*
+lloc visitable
+Victory Square
+53.9085,27.5750
+Africa/Cairo
+01:00
+0
+urbanisme
+arquitectura
+religio
+*
+January 1 - December 31: 00:00-23:59
+*
+lloc visitable
+Bielorrussia State Museu
+53.6777,23.8258
+Africa/Cairo
+02:30
+22
+historia
+cultura
+arquitectura
+religio
+*
+January 5 - June 5: 08:00-20:00
+June 6 - December 10: 09:00-21:00
+*
+associar transport
+Minsk
+taxi
+00:20
+10
+*
+allotjament
+Hostal Chocolate
+55.7690,37.6043
+Africa/Addis_Ababa
+hostal
+20
+wifi
+*
+allotjament
+Hotel Marriott
+55.7566,37.6136
+Africa/Addis_Ababa
+luxe
+180
+jacuzzi
+piscina
+massatge
+wifi
+*
+allotjament
+Hotel Marriott
+55.7486,37.5838
+Africa/Addis_Ababa
+4 estrelles
+150
+piscina
+massatge
+wifi
+buffet
+*
+lloc visitable
+Kremlim
+55.7520,37.6174
+Africa/Addis_Ababa
+03:30
+0
+historia
+cultura
+arquitectura
+*
+January 1 - December 31: 00:00-23:59
+*
+lloc visitable
+Placa Vermella
+55.7539,37.6207
+Africa/Addis_Ababa
+01:00
+0
+historia
+cultura
+arquitectura
+*
+January 1 - December 31: 00:00-23:59
+*
+lloc visitable
+Catedral de Crist
+55.7446,37.6054
+Africa/Addis_Ababa
+01:45
+12
+historia
+cultura
+arquitectura
+religio
+*
+January 15 - December 20: 08:30-17:30
+January 2 - January 6: 10:00-14:00
+*
+associar transport
+Moscu
+taxi
+00:30
+5
+*
+associar transport
+Moscu
+bus
+00:45
+5
+*
+lloc visitable
+Koroliov
+55.9316,37.8518
+Africa/Addis_Ababa
+04:00
+0
+rural
+montanya
+historia
+cultura
+sol
+*
+January 1 - December 31: 00:00-23:59
+*
+lloc visitable
+Campo Real
+40.3390,-3.3833
+Europe/Paris
+04:00
+0
+rural
+historia
+cultura
+sol
+*
+January 1 - December 31: 00:00-23:59
+*
+allotjament
+Hotel Font Vella
+41.8804,2.4990
+Europe/Paris
+4 estrelles
+80
+balneari
+piscina
+massatge
+wifi
+buffet
+*
+transport directe
+Camp Nou
+Santiago Bernabeu
+avioneta
+02:00
+150
+*
+transport directe
+Santiago Bernabeu
+Camp Nou
+avioneta
+02:00
+150
+*
+transport directe
+Sagrada Familia
+Hotel Font Vella
+autocar
+02:00
+20
+*
+transport directe
+Hotel Font Vella
+Sagrada Familia
+autocar
+02:00
+20
+*
+transport directe
+Placa Vermella
+Koroliov
+autocar
+01:00
+10
+*
+transport directe
+Koroliov
+Placa Vermella
+autocar
+01:00
+10
+*
+transport indirecte
+Madrid
+Barcelona
+AVE
+00:40
+00:15
+2017-01-05
+06:45
+03:20
+40.50
+11:00
+03:20
+40.50
+19:00
+03:20
+40.50
+21:00
+03:20
+40.50
+2017-01-05
+07:20
+03:20
+40.50
+11:10
+03:20
+40.50
+17:00
+03:20
+40.50
+*
+transport indirecte
+Barcelona
+Madrid
+AVE
+00:15
+00:40
+2017-05-01
+10:00
+03:20
+40.50
+11:30
+03:20
+40.50
+17:00
+03:20
+40.50
+21:00
+03:20
+40.50
+22:30
+03:20
+40.50
+2017-01-06
+06:00
+03:20
+40.50
+12:00
+03:20
+40.50
+16:00
+03:20
+40.50
+*
+transport indirecte
+Madrid
+Barcelona
+Avio
+00:45
+00:45
+2017-01-05
+08:00
+01:10
+80.00
+2017-01-06
+08:30
+01:10
+80.00
+2017-01-07
+08:45
+01:10
+80.00
+2017-01-08
+08:30
+01:50
+50.00
+*
+transport indirecte
+Madrid
+Praga
+Avio
+00:45
+00:35
+2017-01-04
+12:00
+03:10
+111.00
+2017-01-05
+08:00
+03:10
+111.00
+16:00
+03:10
+111.00
+20:00
+03:10
+111.00
+2017-01-06
+11:00
+03:22
+108.0
+2017-01-07
+08:30
+03:10
+111.00
+14:00
+03:10
+111.00
+*
+transport indirecte
+Praga
+Madrid
+Avio
+00:35
+00:45
+2017-01-04
+08:30
+03:10
+111.00
+17:30
+03:10
+111.00
+2017-01-05
+11:00
+03:10
+111.00
+19:00
+03:10
+111.00
+2017-01-07
+15:00
+03:10
+111.00
+2017-01-08
+22:00
+03:10
+111.00
+*
+transport indirecte
+Praga
+Barcelona
+Avio
+00:40
+00:40
+2017-01-05
+10:00
+02:35
+86.00
+2017-01-06
+08:30
+02:35
+86.00
+22:30
+02:35
+86.00
+2017-01-07
+08:30
+02:35
+86.00
+2017-01-09
+15:55
+02:55
+85.00
+*
+transport indirecte
+Barcelona
+Praga
+Avio
+00:40
+00:40
+2017-01-05
+12:00
+02:44
+75.00
+2017-01-06
+10:33
+02:35
+85.00
+20:00
+02:35
+85.00
+2017-01-09
+10:10
+02:55
+85.00
+*
+transport indirecte
+Moscu
+Barcelona
+Avio
+00:45
+00:40
+2017-01-06
+21:30
+06:44
+275.00
+2017-01-08
+15:10
+06:30
+285.00
+2017-01-12
+23:00
+06:44
+275.00
+*
+transport indirecte
+Barcelona
+Moscu
+Avio
+00:40
+00:45
+2017-01-05
+08:45
+06:33
+295.00
+12:00
+05:33
+355.00
+2017-01-06
+19:30
+06:33
+295.00
+2017-01-07
+09:30
+06:30
+285.00
+2017-01-10
+11:00
+06:55
+275.00
+*
+transport indirecte
+Barcelona
+Moscu
+Ferrocarril
+00:35
+00:45
+2017-01-05
+08:00
+13:33
+195.00
+21:00
+12:33
+201.00
+2017-01-06
+11:00
+12:33
+201.00
+2017-01-09
+08:30
+12:33
+201.00
+*
+transport indirecte
+Madrid
+Moscu
+Avio
+00:45
+00:40
+2017-01-05
+08:45
+07:10
+345.00
+20:30
+07:10
+345.00
+2017-01-09
+10:30
+07:10
+335.00
+*
+transport indirecte
+Praga
+Minsk
+Avio
+00:30
+00:30
+2017-01-04
+08:30
+01:40
+65.00
+19:00
+01:40
+65.00
+2017-01-05
+19:00
+01:45
+65.00
+22:00
+01:55
+55.00
+2017-01-06
+09:00
+01:45
+65.00
+16:00
+01:55
+55.00
+2017-01-07
+08:00
+01:55
+55.00
+*
+transport indirecte
+Minsk
+Praga
+Avio
+00:30
+00:30
+2017-01-05
+10:00
+01:55
+62.00
+20:00
+01:55
+55.00
+2017-01-06
+13:30
+01:45
+65.00
+2017-01-08
+06:00
+01:45
+65.00
+*
+transport indirecte
+Praga
+Varsovia
+Avio
+00:35
+00:25
+2017-01-05
+11:00
+01:20
+50.00
+2017-01-06
+17:00
+01:20
+50.00
+2017-01-07
+07:45
+01:20
+50.00
+2017-01-08
+11:13
+01:20
+50.00
+2017-01-10
+10:00
+01:30
+51.00
+*
+transport indirecte
+Varsovia
+Moscu
+Avio
+00:35
+00:45
+2017-01-05
+08:55
+01:55
+60.00
+19:30
+01:55
+61.00
+2017-01-06
+22:33
+01:55
+60.00
+2017-01-07
+19:30
+01:55
+60.00
+2017-01-19
+20:20
+01:55
+60.00
+*
+transport indirecte
+Minsk
+Moscu
+Tren
+00:30
+00:45
+2017-01-05
+08:00
+03:55
+45.00
+12:30
+03:55
+45.00
+20:00
+03:55
+45.00
+2017-01-06
+11:30
+04:05
+46.00
+09:00
+03:55
+45.00
+2017-01-08
+16:00
+03:57
+44.00
+*
+transport indirecte
+Moscu
+Minsk
+Tren
+00:45
+00:30
+2017-01-05
+09:00
+04:11
+42.00
+2017-01-06
+09:30
+04:11
+42.00
+2017-01-07
+09:15
+04:11
+42.00
+2017-01-08
+09:55
+04:11
+42.00
+2017-01-09
+08:00
+04:11
+42.00
+*
+transport indirecte
+Minsk
+Moscu
+Avio
+00:25
+00:45
+2017-01-05
+09:00
+01:35
+66.00
+2017-01-06
+10:00
+01:35
+66.00
+2017-01-07
+20:00
+01:35
+66.00
+2017-01-08
+16:00
+01:55
+60.00
+2017-01-09
+12:30
+01:35
+69.00
+*
