@@ -182,9 +182,6 @@ public abstract class CalculGreedy {
         d.camiMinim(mundi, puntAct, desti, "temps");
         ArrayDeque<PuntInteres> ending = d.retornaPuntsInteres();
         Map<PuntInteres,MitjaTransport> MT2 = d.retornaMitjans();
-        for(PuntInteres p : MT2.keySet()){
-            System.out.println(p.obtNom()); 
-        }
         analitzarLlocs(ending,rapida,preferenciesClients,mundi, MT2, puntAct);
         return rapida;
     }
